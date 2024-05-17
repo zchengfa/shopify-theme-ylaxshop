@@ -1,0 +1,29 @@
+{% style %}
+    .search-box{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .search-input{
+    width: 30vw;
+    height: 2.3rem;
+    border: 2px solid var(--sf-purple-color);
+    border-radius: 1rem;
+    outline: none;
+    text-indent: 2rem;
+    }
+    .search-btn{
+    width: 4rem;
+    height: 2.3rem;
+    position: absolute;
+    right: 0;
+    border-radius: 0 1rem 1rem 0;
+    color: var(--white-color);
+    background-color: var(--sf-purple-color);
+    }
+{% endstyle %}
+<div class='search-box'>
+    <input type='text' class='search-input' placeholder='search shop here' />
+    <button class='search-btn'>search</button>
+</div>

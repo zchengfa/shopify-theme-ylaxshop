@@ -1,0 +1,125 @@
+{% style %}
+.featured-collection-container{
+    background-color:transparent;
+}
+.collection-header{
+    padding:2rem;
+}
+.collection-title{
+    font-family: var(--self_font);
+    font-size: calc(var(--font-scale) * 2rem);
+}
+{% endstyle %}
+<div class='featured-collection-container color-{{ section.settings.color_scheme }}'>
+{% comment %} collection header {% endcomment %}
+{% if section.settings.title %}
+    <div class='collection-header'>
+        <h2 class='collection-title'>{{ section.settings.title }}</h2>
+        <div class='collection-description description-style-{{ section.settings.description_style }}'>{{ section.settings.description }}</div>
+    </div>
+    <div class='collection-product-wrapper'>
+        {% render 'card-product',
+            products:section.settings.collection.products,
+            products_to_show:section.settings.products_to_show,
+            currency_code_enabled:settings.currency_code_enabled,
+            show_wrap:section.settings.show_wrap
+        %}
+          
+    </div>
+{% endif %}    
+
+</div>
+
+
+{% schema %}
+{
+    "name": "t:sections.featured-collection.name",
+    "settings": [
+        {
+            "type": "inline_richtext",
+            "id": "title",
+            "default": "Featured Collection",
+            "label": "t:sections.featured-collection.settings.title.label"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "options": [
+                {
+                    "value": "h2",
+                    "label": "t:sections.all.heading_size.options__1.label"
+                },
+                {
+                    "value": "h1",
+                    "label": "t:sections.all.heading_size.options__2.label"
+                },
+                {
+                    "value": "h0",
+                    "label": "t:sections.all.heading_size.options__3.label"
+                }
+            ],
+            "default":"h1",
+            "label": "t:sections.all.heading_size.label"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "t:sections.featured-collection.settings.description.label"
+        },
+        {
+            "type": "select",
+            "id": "description_style",
+            "options": [
+                {
+                    "value": "body",
+                    "label": "t:sections.featured-collection.settings.description_style.options__1.label"
+                },
+                {
+                    "value": "subtitle",
+                    "label": "t:sections.featured-collection.settings.description_style.options__2.label"
+                },
+                {
+                    "value": "uppercase",
+                    "label": "t:sections.featured-collection.settings.description_style.options__3.label"
+                }
+            ],
+            "default":"body",
+            "label": "t:sections.featured-collection.settings.description_style.label"
+        },
+        {
+            "type": "collection",
+            "id": "collection",
+            "label": "t:sections.featured-collection.settings.collection.label",
+            "info": "t:sections.featured-collection.settings.collection.info"
+        },
+        {
+            "type": "range",
+            "id": "products_to_show",
+            "min": 2,
+            "max": 25,
+            "step": 1,
+            "default": 4,
+            "label": "t:sections.featured-collection.settings.products_to_show.label"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_wrap",
+            "default": true,
+            "label": "t:sections.featured-collection.settings.show_wrap.label",
+            "info": "t:sections.featured-collection.settings.show_wrap.info"
+          },
+          {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "info": "t:sections.all.colors.has_cards_info",
+            "default": "scheme-1"
+          }
+    ],
+    "presets": [
+        {
+           "name": "t:sections.featured-collection.presets.collection.name"
+        }
+    ]
+}
+{% endschema %}

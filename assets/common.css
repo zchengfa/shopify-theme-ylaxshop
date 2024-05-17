@@ -1,0 +1,11 @@
+a{
+    text-decoration:unset
+}
+button{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+body{
+    position: relative;
+}

@@ -1,0 +1,109 @@
+{% style %}
+    .header-container{
+    padding: 2rem;
+    width: 100vw;
+    box-sizing: border-box;
+    }
+    .header-top{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center
+    }
+    .header-menu-box .menu-link:not(:last-child){
+    margin-right: 1rem;
+    }
+    .header-center{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2rem;
+    }
+    .store-name{
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: var(--self_font);
+    }
+    .phone-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    .store-logo{
+        object-fit: scale-down;
+    }
+    @media screen and (max-width: 400px){
+    .header-container{
+    padding: 1rem;
+    background-color: var(--black-color);
+    }
+    }
+{% endstyle %}
+<header class='header-container'>
+    <div class='header-top'>
+        {% assign menu = "Collection US,Follow WeChat,Flower App" | split:',' %}
+        <div class='header-menu-box menu-left'>
+            {% for item in menu %}
+                <a href='#'class='menu-link'>{{ item }}</a>
+            {% endfor %}
+        </div>
+        {% assign menu = "Customer Service,Cart" | split:',' %}
+        <div class='header-menu-box menu-right'>
+            {% for item in menu %}
+                <a href='#'class='menu-link'>{{ item }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class='header-center'>
+        <img class='store-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width='280' height='70'  />
+        <h2 class='store-name'>{{ shop.name }}</h2>
+        {% render 'search' %}
+        <div class='header-center-other-box'>
+            <div class='phone-box'>
+                <img src={{ 'phone.jpg' | asset_img_url:'large' }} alt='phone_img' width='40' height='32'>
+                {% liquid
+                    assign phone = shop.phone
+                %}
+                <span class='phone'>
+          {% if section.settings.show_all_phone %}
+              {{ phone }}
+          {% else %}
+              {{ phone | slice: 0,5 | append : '******'  }}
+          {% endif %}
+        </span>
+            </div>
+        </div>
+    </div>
+    {% if section.settings.header_menu != blank %}
+        <div class='header-bottom'>
+        {% render 'header-menu' %}
+        </div>
+    {% endif %}    
+</header>
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type":"checkbox",
+      "id": "show_all_phone",
+      "label": "t:sections.header.settings.phone.label",
+      "info": "t:sections.header.settings.phone.info",
+      "default": false
+    },
+    {
+        "type": "link_list",
+        "id": "header_menu",
+        "default": "main-menu",
+        "label": "t:sections.header.settings.header_menu.label",
+        "info": "t:sections.header.settings.header_menu.info"
+    },
+    {
+        "type": "color",
+        "id": "color_underline",
+        "label": "t:sections.header.settings.menu_underline.label",
+        "info": "t:sections.header.settings.menu_underline.info",
+        "default": "#fff"
+      }
+  ]
+}
+{% endschema %}

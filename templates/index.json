@@ -1,0 +1,93 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "show_all_phone": false,
+        "header_menu": "header-menu",
+        "color_underline": "#af8ae5"
+      }
+    },
+    "banner": {
+      "type": "banner",
+      "blocks": {
+        "slide_fEg7jU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/23_birthday_pc.jpg",
+            "heading": "Romantic Flower",
+            "heading_size": "h1",
+            "subheading": "Come and experience this romance",
+            "button_label": "Button label",
+            "link": "",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_aE3KQN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/52021_pc_banner.jpg",
+            "heading": "Valentine's Day",
+            "heading_size": "h1",
+            "subheading": "Let love spread in the fragrance of flowers",
+            "button_label": "Button label",
+            "link": "",
+            "color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "slide_fEg7jU",
+        "slide_aE3KQN"
+      ],
+      "settings": {
+        "image_behavior": "none",
+        "banner_controller_type": "dots",
+        "auto_play": true,
+        "speed": 5
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Love Flowers",
+        "heading_size": "h1",
+        "description": "<p>Send someone who makes your heart skip a beat<\/p>",
+        "description_style": "body",
+        "collection": "frontpage",
+        "products_to_show": 7,
+        "show_wrap": false,
+        "color_scheme": ""
+      }
+    },
+    "featured_collection_VmFyYh": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Eternal Flower",
+        "heading_size": "h1",
+        "description": "<p>Promise her a lifetime<\/p>",
+        "description_style": "body",
+        "collection": "eternal-flower",
+        "products_to_show": 8,
+        "show_wrap": true,
+        "color_scheme": "scheme-4"
+      }
+    },
+    "cart": {
+      "type": "cart",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "banner",
+    "featured-collection",
+    "featured_collection_VmFyYh",
+    "cart",
+    "footer"
+  ]
+}

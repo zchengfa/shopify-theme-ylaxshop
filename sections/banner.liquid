@@ -1,0 +1,385 @@
+{% style %}
+.banner-container{
+  width: 100%;
+}
+.banner-con-imgs{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+  .banner-items{
+    position: relative;
+    width: 100%;
+    height: 25rem;
+  }
+  .banner-con-imgs img{
+    width: 100vw;
+    height: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .banner-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    background: var(--white-color);
+    border-radius: 1rem;
+  }
+  .banner-card div:not(first-child){
+    margin-top: 2rem;
+  }
+  .banner__heading {
+    font-family: var(--self_font);
+    font-size: calc(var(--font-scale) * 3rem);
+  }
+  .gradient{
+    background: var(--gradient-background);
+  }
+  .banner__buttons .button{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 3rem;
+    height: 3rem;
+    background: var(--black-color);
+    color: var(--white-color);
+    border-radius: .5rem;
+  }
+  .animate--ambient img{
+    animation: animationAmbient 30s linear infinite;
+  }
+
+  .banner-con-controller{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.banner-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+}
+.banner-btn .icon{
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.btn-previous .icon,.collection-btn-previous .icon{
+  transform: rotate(90deg) scale(.6);
+}
+.btn-next .icon,.collection-btn-next .icon{
+  transform: rotate(-90deg) scale(.6);
+}
+.btn-previous .icon:hover,.collection-btn-previous .icon:hover{
+  transform: rotate(90deg) scale(.8);
+}
+.btn-next .icon:hover,.collection-btn-next .icon:hover{
+  transform: rotate(-90deg) scale(.8);
+}
+.banner-con-counter{
+  font-size: .8rem;
+}
+/* dots and number style */
+.dot-active{
+  background: var(--black-color);
+}
+.number-active{
+  transition: transform .2s ease-in-out;
+  transform: scale(1.1);
+}
+.number-active::after{
+  display: block;
+  content: "";
+  border: 1px solid var(--black-color);
+}
+.banner-con-dots,.banner-con-number{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-dot,.btn-number{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+}
+.dot{
+  width: .6rem;
+  height: .6rem;
+  border: 1px solid var(--black-color);
+  border-radius: 50%;
+}
+.dot:not(span[class= 'dot dot-active']):hover,
+.number-span:not(span[class='number-span number-active']):hover{
+  transform: scale(1.5);
+}
+
+@keyframes animationAmbient{
+  0%{
+    transform: rotate(0) translate(1em) rotate(0) scale(1.2);
+  }
+  100%{
+    transform: rotate(360deg) translate(1em) rotate(-360deg) scale(1.2);
+  }
+}
+{% endstyle %}  
+
+<banner-control>
+  <div class='banner-container banner-{{ section.id }}'>
+    <div class='banner-con-imgs animate--{{ section.settings.image_behavior }}'
+      data-auto_play={{ section.settings.auto_play }}
+      data-speed={{ section.settings.speed }}
+      data-controller-type={{ section.settings.banner_controller_type }}
+    >
+      {% for block in section.blocks %}
+        <div class='banner-item-box-{{ forloop.index }} banner-items' style='z-index: calc({{ section.blocks.size }} - {{ forloop.index }})'>
+          {%- if block.settings.image -%}
+              {%- liquid
+                assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
+                if section.settings.image_behavior == 'ambient'
+                  assign sizes = '120vw'
+                  assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+                else
+                  assign sizes = '100vw'
+                  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                endif
+                assign fetch_priority = 'auto'
+                if section.index == 1
+                  assign fetch_priority = 'high'
+                endif
+              -%}
+              {%- if forloop.first %}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
+                }}
+              {%- else -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+                }}
+              {%- endif -%}
+          {% else %}
+          <img src={{ 'banner_default.jpeg'| asset_img_url:'large' }} width='1600' height='400' />  
+         {%- endif -%}
+         <div class='banner-card color-{{ block.settings.color_scheme }} gradient'>
+          {%- if block.settings.heading != blank -%}
+            <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+              {{ block.settings.heading }}
+            </h2>
+          {%- endif -%}
+          {%- if block.settings.subheading != blank -%}
+            <div class="banner__text rte" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.subheading }}</p>
+            </div>
+          {%- endif -%}
+          {%- if block.settings.button_label != blank -%}
+            <div class="banner__buttons">
+              <a
+                {% if block.settings.link %}
+                  href="{{ block.settings.link }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+                class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
+              >
+                {{- block.settings.button_label | escape -}}
+              </a>
+            </div>
+          {%- endif -%}
+        </div> 
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.blocks.size > 1 %}
+      <div class='banner-controller'>
+        <div class='banner-con-controller'>
+          <button class='banner-btn btn-previous'>
+            {% render 'icon-button-previous-next' %}
+          </button>
+          <div class="banner-controller-type-box">
+            {% if section.settings.banner_controller_type =='dots' %}
+            {% comment %} dots component {% endcomment %}
+              <div class='banner-con-dots'>
+                {% for block in section.blocks %}
+                  <button class='btn-dot' data-index={{ forloop.index }} >
+                    <span class='dot {% if forloop.first %}{{ 'dot-active' }}{% endif %}' data-index={{ forloop.index }} ></span>
+                  </button>
+                {% endfor %}
+              </div>
+            {% elsif section.settings.banner_controller_type =='counter' %}
+            {% comment %} counter component {% endcomment %}
+              <div class='banner-con-counter'>
+                <span class='current-page'>1</span>
+                <span class='charactor'>/</span>
+                <span class='total-page'>{{ section.blocks.size }}</span>
+              </div>
+            {% elsif  section.settings.banner_controller_type =='number' %}  
+            <div class='banner-con-number'>
+              {% for block in section.blocks %}
+                <button class='btn-number' data-index={{ forloop.index }} >
+                  <span class='number-span {% if forloop.first %}{{ 'number-active' }}{% endif %}' data-index={{ forloop.index }} >{{ forloop.index }}</span>
+                </button>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <button class='banner-btn btn-next'>
+            {% render 'icon-button-previous-next' %}
+          </button>
+        </div>  
+      </div>
+    {% endif %}  
+  </div>
+</banner-control>
+
+{% if section.blocks.size > 1 %}
+  <script src={{ 'banner-control.js' | asset_url }} defer='defer'></script>
+{% endif %}
+{% schema %}
+{
+  "name":"t:sections.banner.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_behavior",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.animation.image_behavior.options__1.label"
+        },
+        {
+          "value": "ambient",
+          "label": "t:sections.all.animation.image_behavior.options__2.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.all.animation.image_behavior.label"
+    },
+    {
+      "type": "select",
+      "id":"banner_controller_type",
+      "options": [
+        {
+          "value": "dots",
+          "label": "t:sections.banner.settings.banner_controller_type.options__1.label"
+        },
+        {
+          "value": "counter",
+          "label": "t:sections.banner.settings.banner_controller_type.options__2.label"
+        },
+        {
+          "value": "number",
+          "label": "t:sections.banner.settings.banner_controller_type.options__3.label"
+        }
+      ],
+      "default":"dots",
+      "label": "t:sections.banner.settings.banner_controller_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "default": true,
+      "label": "t:sections.banner.settings.auto_play.label"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min":3,
+      "max": 9,
+      "default":5,
+      "unit":"s",
+      "label": "t:sections.banner.settings.speed.label",
+      "info": "t:sections.banner.settings.speed.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name":"t:sections.banner.blocks.slide.name",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.banner.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Image slide",
+          "label": "t:sections.banner.blocks.slide.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h1",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "subheading",
+          "default": "Tell your brand's story through images",
+          "label": "t:sections.banner.blocks.slide.settings.subheading.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.banner.blocks.slide.settings.button_label.label",
+          "info": "t:sections.banner.blocks.slide.settings.button_label.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.banner.blocks.slide.settings.link.label"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.all.colors.label",
+          "default": "scheme-1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.banner.presets.banner.name",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}  
+
+{% endschema %}

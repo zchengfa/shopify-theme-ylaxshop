@@ -1,0 +1,250 @@
+{
+  "settings_schema": {
+    "logo": {
+      "name": "Logo",
+      "settings": {
+        "logo_image": {
+          "label": "logo图片"
+        },
+        "logo_width": {
+          "label": "logo宽度"
+        },
+        "favicon": {
+          "label": "logo图标",
+          "info": "改变logo图标"
+        }
+      }
+    },
+    "shop_font": {
+      "name": "商店字体",
+      "settings": {
+        "font": {
+          "label": "字体"
+        },
+        "font_scale": {
+          "label": "字体比例"
+        }
+      }
+    },
+    "colors": {
+      "name": "颜色",
+      "settings": {
+        "background": {
+          "label": "背景"
+        },
+        "background_gradient": {
+          "label": "背景渐变",
+          "info": "背景渐变将在所有适用位置替换背景。"
+        },
+        "text": {
+          "label": "文本"
+        },
+        "button_background": {
+          "label": "实心按钮背景"
+        },
+        "button_label": {
+          "label": "实心按钮标签"
+        },
+        "secondary_button_label": {
+          "label": "轮廓按钮"
+        },
+        "shadow": {
+          "label": "阴影"
+        }
+      }
+    },
+    "currency_format":{
+      "name":"货币格式",
+      "settings":{
+        "content":"货币代码",
+        "paragraph":"购物车和结账价格将始终显示货币代码。示例：1.00 USD。",
+        "currency_code_enabled":{
+          "label":"显示货币代码"
+        }
+      }
+
+    }
+  },
+  "sections": {
+    "all": {
+      "heading_size": {
+        "options__1": {
+          "label": "小"
+        },
+        "options__2": {
+          "label": "中"
+        },
+        "options__3": {
+          "label": "大"
+        },
+        "label": "标题大小"
+      },
+      "animation": {
+        "image_behavior": {
+          "options__1": {
+            "label": "无"
+          },
+          "options__2": {
+            "label": "环境移动"
+          },
+          "label": "动画"
+        }
+      },
+      "colors": {
+        "label": "配色方案",
+        "has_cards_info":"若要更改卡配色方案，请更新您的模板设置。"
+      }
+    },
+    "header": {
+      "name": "标头",
+      "settings": {
+        "phone": {
+          "label": "手机号全显",
+          "info": "手机号是否全部显示？"
+        },
+        "header_menu": {
+          "label": "菜单",
+          "info": "此设置可以更改header中的菜单"
+        },
+        "menu_underline":{
+          "label":"下划线颜色",
+          "info": "此设置可更改header菜单项底部的underline颜色"
+        }
+      }
+    },
+    "featured-collection":{
+      "name":"特色产品系列",
+      "settings":{
+        "title":{
+          "label":"标题"
+        },
+        "description":{
+          "label":"描述"
+        },
+        "description_style":{
+          "label":"描述内容以何种形式显示",
+          "options__1":{
+            "label":"正文"
+          },
+          "options__2":{
+            "label":"副标题"
+          },
+          "options__3":{
+            "label":"大写"
+          }
+        },
+        "collection":{
+          "label":"产品系列",
+          "info":"您选择的产品系列"
+        },
+        "products_to_show":{
+          "label":"要显示多少数量的产品"
+        },
+        "show_wrap":{
+          "label":"换行显示",
+          "info":"产品超出容器时，是否呈现多行形式"
+        }
+      },
+      "presets":{
+        "collection":{
+          "name":"特色产品部分"
+        }
+      }
+    },
+    "footer": {
+      "name":"页脚",
+      "blocks":{
+        "link_list":{
+          "name":"菜单",
+          "settings":{
+            "heading":{
+              "label":"标题"
+            },
+            "menu":{
+              "label": "菜单",
+              "info": "仅显示一级菜单"
+            }
+          }
+        },
+        "brand_information":{
+          "name":"品牌信息",
+          "settings":{
+            "paragraph":{
+              "content":"此块将显示您的品牌信息。[编辑品牌信息。](\/editor?context=theme&category=brand%20information)"
+            },
+            "header__1":{
+              "content":"社交媒体图标"
+            },
+            "show_social":{
+              "label": "显示社交媒体图标",
+              "info": "若要显示您的社交媒体账户，请在 [模板设置](\/editor?context=theme&category=social%20media) 中添加其链接。"
+            }
+          }
+        },
+        "text": {
+          "settings": {
+            "heading": {
+              "label": "标题"
+            },
+            "subtext": {
+              "label": "子文本"
+            }
+          },
+          "name": "文本"
+        }
+      }
+    },
+    "banner": {
+      "name": "轮播图",
+      "settings": {
+        "auto_play":{
+          "label": "是否开启自动轮播"
+        },
+        "speed": {
+          "label": "轮播速度",
+          "info": "设置轮播图轮播的速度"
+        },
+        "banner_controller_type":{
+          "options__1":{
+            "label":"点"
+          },
+          "options__2":{
+            "label":"计数器"
+          },
+          "options__3":{
+            "label":"数字"
+          },
+          "label":"轮播图控制器类型"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "幻灯片",
+          "settings": {
+            "image": {
+              "label": "图片"
+            },
+            "heading": {
+              "label": "标题"
+            },
+            "subheading": {
+              "label": "副标题"
+            },
+            "button_label": {
+              "label": "按钮标签",
+              "info": "标签内容为空的话可以隐藏按钮哦！"
+            },
+            "link": {
+              "label": "按钮链接"
+            }
+          }
+        }
+      },
+      "presets":{
+        "banner":{
+          "name":"广告轮播"
+        }
+      }
+    }
+  }
+}
