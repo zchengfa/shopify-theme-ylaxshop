@@ -47,6 +47,44 @@
         "speed": 5
       }
     },
+    "holiday_theme_eWQwhE": {
+      "type": "holiday-theme",
+      "blocks": {
+        "product_UnAhbF": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "eternal-flower-lifetime-flocking-bear-eternal-flower-gift-box-confession-bear"
+          }
+        },
+        "product_hpQXJb": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "eternal-flower-gift-box"
+          }
+        },
+        "product_bn9Etd": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "farewell-to-elders-eternal-happiness"
+          }
+        },
+        "product_BLEjiV": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "eternal-flower-heart-of-eternal-love-eternal-flower-photo-frame-520-customized"
+          }
+        }
+      },
+      "block_order": [
+        "product_UnAhbF",
+        "product_hpQXJb",
+        "product_bn9Etd",
+        "product_BLEjiV"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/holiday.png"
+      }
+    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
@@ -85,6 +123,7 @@
   "order": [
     "header",
     "banner",
+    "holiday_theme_eWQwhE",
     "featured-collection",
     "featured_collection_VmFyYh",
     "cart",

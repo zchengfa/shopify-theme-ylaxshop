@@ -8,13 +8,13 @@ if(!customElements.get('collection-banner-control')){
                 this.nexEl = this.getElementsByClassName('collection-btn-next').item(0);
                 this.itemEls = this.getElementsByClassName('product-item');
                 this.currentEl = this.getElementsByClassName('collection-current-page').item(0);
-                this.totalPage = this.getElementsByClassName('collection-total-page').item(0).attributes['data-pages'].value * 1;
+                this.totalPage = this.getElementsByClassName('collection-total-page')?.item(0)?.attributes['data-pages'].value * 1;
 
-                this.preEl.addEventListener('click',()=>{
+                this.preEl?.addEventListener('click',()=>{
                     this.listeningCoEvent();
                 });
                 
-                this.nexEl.addEventListener('click',()=>{
+                this.nexEl?.addEventListener('click',()=>{
                     this.listeningCoEvent(true);
                 });
                 
@@ -91,7 +91,7 @@ if(!customElements.get('collection-banner-control')){
                     body:JSON.stringify({
                         items:[
                             {
-                                id:product_id,
+                                id:'product_id',
                                  quantity:1
                             }
                         ]

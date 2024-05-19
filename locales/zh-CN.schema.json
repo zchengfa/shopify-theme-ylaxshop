@@ -245,6 +245,27 @@
           "name":"广告轮播"
         }
       }
+    },
+    "holiday_theme":{
+      "name":"节日主题",
+      "settings":{
+        "image":{
+          "label":"节日主题头部图片"
+        }
+      },
+      "blocks":{
+        "holiday_product":{
+          "name":"节日产品",
+          "settings":{
+            "product":{
+              "label":"选择节日产品"
+            }
+          }
+        }
+      },
+      "presets":{
+        "name":"节日主题分区"
+      }
     }
   }
 }

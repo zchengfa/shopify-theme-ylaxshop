@@ -1,0 +1,75 @@
+
+{% style %}
+.global-popover-hidden{
+    visibility: hidden;
+}
+.global-component-popover{
+    position:absolute;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--white-color);
+    cursor: pointer;
+    z-index: 999;
+}
+.popover-column{
+    width: 12rem;
+}
+.popover-row{
+    width: auto;
+}
+.popover-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.container-display-column{
+    flex-direction: column;
+}
+.popover-img{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem;
+}
+.popover-other{
+    padding: 1rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-family: var(--self_font);
+}
+.popover-other p{
+    max-width: 15rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.popover-other p,.popover-other span{
+    margin-top:.5rem;
+}
+{% endstyle %}
+
+
+<div id='{{ shop.name }}-global-component-popover' class='global-popover-hidden global-component-popover'>
+    <div class='popover-container container-display-column'>
+        <div class='popover-img-box'>
+            <img class='popover-img' src='/' width='0' height='0' />
+        </div>
+        <div class='popover-other'>
+            <p class="popover-title">title</p>
+            <span class='popover-description'>description</span>
+            <span class='popover-price'>price</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    let globalPopEl = document.getElementsByClassName('global-component-popover').item(0);
+    globalPopEl.addEventListener('mouseenter',()=>{
+        globalPopEl.classList.remove('global-popover-hidden');
+    });
+
+    globalPopEl.addEventListener('mouseleave',()=>{
+        globalPopEl.classList.add('global-popover-hidden');
+    });
+</script>
