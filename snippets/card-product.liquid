@@ -3,6 +3,7 @@ div{
     box-sizing: border-box;
 }
 .product-box{
+    font-family: var(--self_font);
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -86,16 +87,40 @@ div{
     height:2rem;
     line-height:2rem;
     border-radius:.5rem;
-    background-color: var(--payment-terms-background-color));
     transform: translateX(-50%);
-    border:1px solid var(--white-color);
     text-align:center;
-    color:var(--white-color);
 }
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--payment-terms-background-color);
+}
+
 .add-or-sold{
+    font-family: var(--self_font);
     display:inline-block;
     width:100%;
     height: 100%;
+    font-size: 1.2rem;
+    color: #fff;
+}
+.disabled-add{
+    cursor: not-allowed;
+}
+@media screen and (max-width:  750px){
+    .product-item{
+        margin: 1rem auto;
+        width: 48%;
+    }
+}
+@media screen and (max-width:  450px){
+    .product-item{
+        margin: 1rem auto;
+        width: 96%;
+    }
 }
 {% endstyle %}
 
@@ -116,17 +141,47 @@ div{
                     <span class='now-price'>{{ product.price_max | money }}</span>  
                     <span class='origin-price'>{{ product.compare_at_price | money}}</span>  
                 {% endif %}
-                <div class='add-loading-box'>
-                    <span data-product-id={{ product.id }} class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
-                        {%- if product.selected_or_first_available_variant.available -%}
-                          {{ 'products.product.add_to_cart' | t }}
-                        {%- else -%}
-                          {{ 'products.product.sold_out' | t }}
-                        {%- endif -%}
-                        
-                      </span>
-                      {% render 'loading' %} 
-                </div>   
+               <product-form>
+                    <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
+                        disabled-add
+                    {% endif %}'>
+                        {% assign product_form_id = 'quick-add-' | append: section_id | append: product.id  %}
+                    {% form 'product',
+                            product,
+                            id: product_form_id,
+                            class: 'form',
+                            novalidate: 'novalidate',
+                            data-type: 'add-to-cart-form'
+                        %}
+                        <input
+                            type="hidden"
+                            name="id"
+                            value="{{ product.selected_or_first_available_variant.id }}"
+                            class="product-variant-id"
+                            {% if product.selected_or_first_available_variant.available == false %}
+                                disabled
+                            {% endif %}
+                        >
+                        <button type='submit' name='add' class="add-btn {% if product.selected_or_first_available_variant.available == false %}
+                            disabled-add
+                        {% endif %}" 
+                        {% if product.selected_or_first_available_variant.available == false %}
+                            disabled
+                        {% endif %}
+                        >
+                            <span data-product-id={{ product.id }} class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
+                                {%- if product.selected_or_first_available_variant.available -%}
+                                {{ 'products.product.add_to_cart' | t }}
+                                {%- else -%}
+                                {{ 'products.product.sold_out' | t }}
+                                {%- endif -%}
+                                
+                            </span>
+                        </button>
+                        {% render 'loading' %} 
+                    {% endform %} 
+                    </div>   
+                </product-form>
               </div>
             </div>
             
@@ -155,7 +210,7 @@ div{
           <div class='banner-con-counter'>
             <span class='collection-current-page'>1</span>
             <span class='charactor'>/</span>
-            <span class='collection-total-page' data-pages={{ products_to_show | minus:4 }}>{{ products_to_show | minus:4 }}</span>
+            <span class='collection-total-page' data-show-count={{ products_to_show }} data-pages={{ products_to_show | minus:4 }}>{{ products_to_show | minus:4 }}</span>
           </div>
           <button class='banner-btn collection-btn-next'>
             {% render 'icon-button-previous-next' %}
@@ -165,4 +220,5 @@ div{
 </collection-banner-control>
 
 <script src={{ 'collection-banner-control.js' | asset_url }} defer='defer'></script>
+<script src={{ 'product-form.js' | asset_url }} defer='defer'></script>
 

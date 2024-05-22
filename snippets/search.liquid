@@ -22,8 +22,17 @@
     color: var(--white-color);
     background-color: var(--sf-purple-color);
     }
+    @media screen and (max-width: 750px){
+        .search-box{
+            display:none;
+        }
+        .test{
+            display: block;
+        }
+    }
 {% endstyle %}
 <div class='search-box'>
     <input type='text' class='search-input' placeholder='search shop here' />
     <button class='search-btn'>search</button>
+   
 </div>

@@ -18,7 +18,7 @@ if(!customElements.get('card-popover')){
                 });
 
                 this.addEventListener('mouseleave',()=>{
-                    this.globalPopEl.classList.add('global-popover-hidden');
+                    this.globalPopEl.style.display = 'none';
                 });
             }   
 
@@ -28,8 +28,11 @@ if(!customElements.get('card-popover')){
 
             addContentToGlobalPopover(e){
                 let {pageX,pageY} = e;
+                this.globalPopEl.style.display = 'block';
                 //若鼠标位置与弹框宽度的和大于浏览器窗口，则需要调整鼠标位置，使弹框不会出现在窗口外
+                
                 if(this.globalPopEl.clientWidth + pageX > window.innerWidth){
+                    
                     pageX = window.innerWidth - this.globalPopEl.clientWidth;
                 }
                 if(this.globalPopEl.clientHeight + pageY > window.innerHeight){

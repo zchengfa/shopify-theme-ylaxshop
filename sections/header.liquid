@@ -4,11 +4,7 @@
     width: 100vw;
     box-sizing: border-box;
     }
-    .header-top{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center
-    }
+
     .header-menu-box .menu-link:not(:last-child){
     margin-right: 1rem;
     }
@@ -28,61 +24,117 @@
     justify-content: space-between;
     align-items: center;
     }
-    .store-logo{
-        object-fit: scale-down;
+    .icon-cart{
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        color: var(--color-foreground);
     }
-    @media screen and (max-width: 400px){
-    .header-container{
-    padding: 1rem;
-    background-color: var(--black-color);
+    .header-center-other-box{
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
+    .icon-summary-box{
+        display: none;
+        font-size: 2rem;
+    }
+    .phone-icon{
+        font-size: 1.5rem;
+    }
+    @media screen and (max-width: 750px){
+        .phone,.header-logo{
+            display:none;
+        }
+        .icon-summary-box{
+            display: block;
+        }
+        .header-center{
+            padding: 0;
+            justify-content: space-between;
+        }
+        .header-container{
+            padding: 1rem;
+        }
     }
 {% endstyle %}
 <header class='header-container'>
-    <div class='header-top'>
-        {% assign menu = "Collection US,Follow WeChat,Flower App" | split:',' %}
-        <div class='header-menu-box menu-left'>
-            {% for item in menu %}
-                <a href='#'class='menu-link'>{{ item }}</a>
-            {% endfor %}
+    {% if section.settings.header_top_menu != blank %}
+        <div class='header-top'>
+        {% render 'header-menu',
+                   menu:section.settings.header_top_menu
+        %}
         </div>
-        {% assign menu = "Customer Service,Cart" | split:',' %}
-        <div class='header-menu-box menu-right'>
-            {% for item in menu %}
-                <a href='#'class='menu-link'>{{ item }}</a>
-            {% endfor %}
-        </div>
-    </div>
+    {% endif %}
+      
     <div class='header-center'>
-        <img class='store-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width='280' height='70'  />
+        <div class="icon-summary-box">
+            {% render 'icon-summary' %}
+        </div>
+        {% if settings.logo != blank %}
+            {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
+            {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
+        {% else %}
+            <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
+        {% endif %}    
         <h2 class='store-name'>{{ shop.name }}</h2>
         {% render 'search' %}
         <div class='header-center-other-box'>
             <div class='phone-box'>
-                <img src={{ 'phone.jpg' | asset_img_url:'large' }} alt='phone_img' width='40' height='32'>
+                <div class='phone-icon'>
+                    {% render 'icon-phone' %}
+                </div>
                 {% liquid
                     assign phone = shop.phone
                 %}
                 <span class='phone'>
-          {% if section.settings.show_all_phone %}
-              {{ phone }}
-          {% else %}
-              {{ phone | slice: 0,5 | append : '******'  }}
-          {% endif %}
-        </span>
+                    {% if section.settings.show_all_phone %}
+                        {{ phone }}
+                    {% else %}
+                        {{ phone | slice: 0,5 | append : '******'  }}
+                    {% endif %}
+                </span>
+                
             </div>
+            {% if settings.cart_type == 'page' %}
+                <a href={{ routes.cart_url }} class='icon-cart'>
+                    {% render 'icon-cart' %}
+                </a>
+            {% elsif settings.cart_type == 'drawer' %}
+            <button class='icon-cart icon-cart-btn'>
+                {% render 'icon-cart' %}
+               
+            </button> 
+               
+            {% endif %}    
         </div>
     </div>
     {% if section.settings.header_menu != blank %}
         <div class='header-bottom'>
-        {% render 'header-menu' %}
+        {% render 'header-menu',
+                menu:section.settings.header_menu
+        %}
         </div>
     {% endif %}    
 </header>
+<script defer>
+    let cartBtnEl = document.querySelector('.icon-cart-btn');
+    cartBtnEl?.addEventListener('click',()=>{
+        showCartWithDrawer();
+    });
+</script>
 {% schema %}
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+        "type": "link_list",
+        "id": "header_top_menu",
+        "default": "main-menu",
+        "label": "t:sections.header.settings.header_menu.label",
+        "info": "t:sections.header.settings.header_menu.info"
+    },
     {
       "type":"checkbox",
       "id": "show_all_phone",
@@ -103,7 +155,27 @@
         "label": "t:sections.header.settings.menu_underline.label",
         "info": "t:sections.header.settings.menu_underline.info",
         "default": "#fff"
-      }
+    },
+    {
+        "type": "select",
+        "default":"left",
+        "id": "menu_position",
+        "label": "t:sections.header.settings.menu_position.label",
+        "options": [
+            {
+               "label": "t:sections.header.settings.menu_position.options__1.label",
+               "value": "left"
+            },
+            {
+                "label": "t:sections.header.settings.menu_position.options__2.label",
+                "value": "center"
+            },
+            {
+                "label": "t:sections.header.settings.menu_position.options__3.label",
+                "value": "right"
+            }
+        ]
+    }
   ]
 }
 {% endschema %}

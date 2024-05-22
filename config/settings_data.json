@@ -1,9 +1,13 @@
 {
   "current": {
-    "logo_width": 180,
+    "logo_width": 100,
+    "favicon": "shopify:\/\/shop_images\/favicon.jpg",
     "shop_font": "playball_n4",
     "font_scale": 130,
     "currency_code_enabled": true,
+    "cart_type": "page",
+    "show_vendor": true,
+    "show_cart_note": true,
     "sections": {
       "header": {
         "type": "header",
@@ -138,7 +142,7 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#cd2e1c",
           "background_gradient": "radial-gradient(rgba(255, 197, 164, 1), rgba(255, 255, 255, 1) 79%, rgba(255, 255, 255, 1) 97%)",
           "text": "#e72f2f",
           "button": "#000000",

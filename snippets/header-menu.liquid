@@ -3,12 +3,26 @@
 .header-menu-box{
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
+.left-menu-position{
+    justify-content: flex-start;
+}
+.center-menu-position{
+    justify-content: center;
+}
 
+.right-menu-position{
+    justify-content: flex-end;
+}
+
+.link-box{
+    padding: 1.2rem;
+}
 .link-box a{
-    color: var(--black-color);
+    color: var(--color-foreground);
+    font-family: var(--self_font);
+    font-size: 1.2rem;
 }
 
 .link-box::after{
@@ -34,13 +48,17 @@
     background: {{section.settings.color_underline}};
     transition: all .3s ease-in-out;
 }
-
+@media screen and (max-width: 750px){
+    .header-menu-box{
+        display: none;
+    }
+}
 
 {% endstyle %}
 
 
-<div class='header-menu-box'>
-    {% for link in section.settings.header_menu.links %}
+<div class='header-menu-box {{ section.settings.menu_position }}-menu-position' >
+    {% for link in menu.links %}
         <div class='link-box'>
             {{ link.title | link_to:link.url }}
         </div>

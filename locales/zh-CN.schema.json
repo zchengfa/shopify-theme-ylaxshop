@@ -15,6 +15,14 @@
         }
       }
     },
+    "favicon":{
+      "name":"网站图标",
+      "settings":{
+        "image":{
+          "label":"设置网站图标"
+        }
+      }
+    },
     "shop_font": {
       "name": "商店字体",
       "settings": {
@@ -63,6 +71,36 @@
         }
       }
 
+    },
+    "cart": {
+      "name": "购物车",
+      "settings": {
+        "cart_type": {
+          "label": "购物车类型",
+          "drawer": {
+            "label": "抽屉"
+          },
+          "page": {
+            "label": "页面"
+          },
+          "notification": {
+            "label": "弹出窗口通知"
+          }
+        },
+        "show_vendor": {
+          "label": "显示厂商"
+        },
+        "show_cart_note": {
+          "label": "启用购物车备注"
+        },
+        "cart_drawer": {
+          "header": "购物车抽屉",
+          "collection": {
+            "label": "产品系列",
+            "info": "在购物车抽屉为空时可见。"
+          }
+        }
+      }
     }
   },
   "sections": {
@@ -93,6 +131,10 @@
       "colors": {
         "label": "配色方案",
         "has_cards_info":"若要更改卡配色方案，请更新您的模板设置。"
+      },
+      "padding":{
+        "padding_bottom":"底部填充",
+        "padding_top":"顶部填充"
       }
     },
     "header": {
@@ -109,6 +151,18 @@
         "menu_underline":{
           "label":"下划线颜色",
           "info": "此设置可更改header菜单项底部的underline颜色"
+        },
+        "menu_position":{
+          "label":"菜单的居中方式",
+          "options__1":{
+            "label":"靠左"
+          },
+          "options__2":{
+            "label":"居中"
+          },
+          "options__3":{
+            "label":"靠右"
+          }
         }
       }
     },
@@ -251,6 +305,24 @@
       "settings":{
         "image":{
           "label":"节日主题头部图片"
+        },
+        "show_card_popover":{
+          "label":"是否显示产品弹框",
+          "info":"开启后，可以看到产品简略信息弹框"
+        },
+        "show_type":{
+          "label":"弹框中内容展示效果",
+          "info":"列展示、行展示",
+          "options__1":{
+            "label":"列"
+          },
+          "options__2":{
+            "label":"行"
+          }
+        },
+        "holiday_background":{
+          "label":"节日主题背景颜色",
+          "info":"输入颜色码即可更换颜色，也可设置渐变色(linear-gradient(...))"
         }
       },
       "blocks":{
@@ -265,6 +337,33 @@
       },
       "presets":{
         "name":"节日主题分区"
+      }
+    },
+    "page": {
+      "name": "页面",
+      "settings": {
+        "page": {
+          "label": "页面"
+        }
+      },
+      "presets": {
+        "name": "页面"
+      }
+    },
+    "main_cart":{
+      "header":{
+        "name":"购物车头部"
+      },
+      "footer":{
+        "name":"购物车底部",
+        "blocks":{
+          "buttons":{
+            "name":"结算按钮"
+          },
+          "subtotal":{
+            "name":"价格小计"
+          }
+        }
       }
     }
   }

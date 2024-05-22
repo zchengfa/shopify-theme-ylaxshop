@@ -8,7 +8,8 @@ if(!customElements.get('collection-banner-control')){
                 this.nexEl = this.getElementsByClassName('collection-btn-next').item(0);
                 this.itemEls = this.getElementsByClassName('product-item');
                 this.currentEl = this.getElementsByClassName('collection-current-page').item(0);
-                this.totalPage = this.getElementsByClassName('collection-total-page')?.item(0)?.attributes['data-pages'].value * 1;
+                this.totalEl = this.getElementsByClassName('collection-total-page')?.item(0);
+                this.totalPage = this.totalEl?.attributes['data-pages'].value * 1;
 
                 this.preEl?.addEventListener('click',()=>{
                     this.listeningCoEvent();
@@ -18,11 +19,26 @@ if(!customElements.get('collection-banner-control')){
                     this.listeningCoEvent(true);
                 });
                 
+                this.createResizeObserver(".product-box");
+            }
 
-                this.addToCartEl = this.getElementsByClassName('add-to-cart').item(0);
-                this.addToCartEl?.addEventListener('click',()=>{
-                    this.addCartEvent();
+            // 监听product-box的宽，根据宽变化来变化页数
+            createResizeObserver(selector) {
+                const wrapper = this.querySelector(selector);
+                this.observer = new ResizeObserver((entries) => {
+                entries.forEach((entry) => {
+                    this.totalWidth =  entry.contentRect.width; //被监听元素宽
+                    if(this.totalPage){
+                        let itemWidth = this.itemEls[0].clientWidth;
+                        let page = this.totalWidth/itemWidth;
+                        let totalCount = this.totalEl.attributes['data-show-count'].value * 1;
+                        let count = (totalCount - Math.round(page)) + 1;
+                        this.totalPage = count;
+                        this.getElementsByClassName('collection-total-page').item(0).textContent = count;
+                    }
                 });
+                });
+                this.observer.observe(wrapper);
             }
 
             tranformCoEl(direction,index){
@@ -71,50 +87,6 @@ if(!customElements.get('collection-banner-control')){
                 this.changeCoPageIndex(currentIndex);
             }
 
-            addCartEvent(){
-              
-    
-                // let product_id = this.addToCartEl.attributes['data-product-id'].value;
-                // let loadingEl = this.getElementsByClassName('loading__spinner').item(0);
-                // loadingEl.classList.remove('hidden');
-                // this.addToCartEl.classList.add('hidden');
-
-                document.getElementsByClassName('cart-container')?.item(0).classList.add('cart-show');
-                    let timer = setTimeout(()=>{
-                        document.getElementsByClassName('cart-drawer')?.item(0).classList.add('animate-drawer');
-                        clearTimeout(timer);
-                    }); 
-    
-                //发起添加商品到购物车请求(会报错，需后续处理)
-                fetch(window.Shopify.routes.root + '/cart/add',{
-                    method:'POST',
-                    body:JSON.stringify({
-                        items:[
-                            {
-                                id:'product_id',
-                                 quantity:1
-                            }
-                        ]
-                    })
-                })
-                .then(response => {
-                    response.json();
-
-                    //添加成功后显示购物车元素
-                    document.getElementsByClassName('cart-container')?.item(0).classList.add('cart-show');
-                    let timer = setTimeout(()=>{
-                        document.getElementsByClassName('cart-drawer')?.item(0).classList.add('animate-drawer');
-                        clearTimeout(timer);
-                    }); 
-                })
-                .catch((err)=>{
-                    console.log(err);
-
-                    //失败，移除添加购物车按钮的效果
-                    loadingEl.classList.add('hidden');
-                    this.addToCartEl.classList.remove('hidden');
-                });
-            }
         }
     );
 }

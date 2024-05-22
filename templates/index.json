@@ -82,7 +82,9 @@
         "product_BLEjiV"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/holiday.png"
+        "image": "shopify:\/\/shop_images\/holiday.png",
+        "show_card_popover": false,
+        "show_type": "row"
       }
     },
     "featured-collection": {
@@ -111,10 +113,6 @@
         "color_scheme": "scheme-4"
       }
     },
-    "cart": {
-      "type": "cart",
-      "settings": {}
-    },
     "footer": {
       "type": "footer",
       "settings": {}
@@ -126,7 +124,6 @@
     "holiday_theme_eWQwhE",
     "featured-collection",
     "featured_collection_VmFyYh",
-    "cart",
     "footer"
   ]
 }

@@ -1,7 +1,6 @@
 {% style %}
 .holiday-theme-container{
     padding: 1rem 2rem;
-    min-width: 1200px;
 }
 .holiday-theme-img{
     width: 100%;
@@ -11,10 +10,10 @@
 .holiday-product-box{
     padding: 1rem ;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    background-color: #ff93b9;
-    overflow: hidden;
+    background: {{section.settings.holiday_background}};
 }
 .flex-product-start{
     justify-content: flex-start;
@@ -25,7 +24,7 @@
     border-radius: .5rem;
 }
 .product-item.holiday-product-item{
-    margin: 0;
+    margin: 1rem 0 0;
     width: 22%;
     padding: .5rem;
     display: flex;
@@ -64,6 +63,25 @@
     font-size: .9rem;
     font-family: var(--self_font);
 }
+@media screen and (max-width: 750px){
+    .product-item.holiday-product-item{
+        margin-top: 1rem;
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 650px){
+   .holiday-product-box{
+    justify-content: center;
+   }
+}
+@media screen and (max-width: 500px){
+    .product-item.holiday-product-item{
+        margin-top: 1rem;
+        margin-left: 0;
+        width: 70vw;
+       
+    }
+}
 {% endstyle %}
 
 
@@ -83,7 +101,7 @@
                  data-price='holiday-product-price'
                  data-img="holiday-img"
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
-                 data-display-type='column'>
+                 data-display-type={{ section.settings.show_type }}>
                 <div class="product-item holiday-product-item">
                     <div class='product-img-box holiday-product-img-box'>
                         <img class='product-img holiday-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
@@ -100,7 +118,9 @@
             {% endfor %} 
         </div>
 
+       {% if section.settings.show_card_popover %}
         <script src={{ 'card-popover.js' | asset_url }} defer></script>
+       {% endif %} 
     {% endif %}
 </div>
 
@@ -112,7 +132,38 @@
             "type": "image_picker",
             "id": "image",
             "label": "t:sections.holiday_theme.settings.image.label"
-          }
+        },
+        {
+            "type": "checkbox",
+            "id": "show_card_popover",
+            "default":true,
+            "label": "t:sections.holiday_theme.settings.show_card_popover.label",
+            "info": "t:sections.holiday_theme.settings.show_card_popover.info"
+        },
+        {
+            "type": "select",
+            "id":"show_type",
+            "default":"column",
+            "label": "t:sections.holiday_theme.settings.show_type.label",
+            "info": "t:sections.holiday_theme.settings.show_type.info",
+            "options": [
+                {
+                    "label": "t:sections.holiday_theme.settings.show_type.options__1.label",
+                    "value": "column"
+                },
+                {
+                    "label": "t:sections.holiday_theme.settings.show_type.options__2.label",
+                    "value": "row"
+                }
+            ]
+        },
+        {
+            "type": "color_background",
+            "id": "holiday_background",
+            "default":"#ff93b9",
+            "label": "t:sections.holiday_theme.settings.holiday_background.label",
+            "info": "t:sections.holiday_theme.settings.holiday_background.info"
+        }
     ],
     "blocks": [
         {

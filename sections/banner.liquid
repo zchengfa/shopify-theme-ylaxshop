@@ -133,6 +133,24 @@
     transform: rotate(360deg) translate(1em) rotate(-360deg) scale(1.2);
   }
 }
+@media screen and (max-width: 750px){
+  .banner-item-img{
+    overflow: hidden;
+  }
+  .banner-con-imgs img{
+    height: 16rem;
+  }
+  .banner-card{
+    position: static;
+    transform: none;
+  }
+  .banner__heading{
+    font-size: calc(var(--font-scale)* 2rem);
+  }
+  .banner-items{
+    height: 30rem;
+  }
+}
 {% endstyle %}  
 
 <banner-control>
@@ -144,7 +162,8 @@
     >
       {% for block in section.blocks %}
         <div class='banner-item-box-{{ forloop.index }} banner-items' style='z-index: calc({{ section.blocks.size }} - {{ forloop.index }})'>
-          {%- if block.settings.image -%}
+          <div class='banner-item-img'>
+            {%- if block.settings.image -%}
               {%- liquid
                 assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
                 if section.settings.image_behavior == 'ambient'
@@ -175,6 +194,7 @@
           {% else %}
           <img src={{ 'banner_default.jpeg'| asset_img_url:'large' }} width='1600' height='400' />  
          {%- endif -%}
+          </div>
          <div class='banner-card color-{{ block.settings.color_scheme }} gradient'>
           {%- if block.settings.heading != blank -%}
             <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
