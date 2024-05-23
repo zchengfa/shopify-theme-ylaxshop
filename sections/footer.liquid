@@ -7,12 +7,22 @@
 
 {%- style -%}
   .footer {
+    font-family: var(--self_font);
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
   }
 
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  .footer__content-bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer__content-bottom-wrapper{
+    justify-content: center;
   }
 
   @media screen and (min-width: 750px) {
