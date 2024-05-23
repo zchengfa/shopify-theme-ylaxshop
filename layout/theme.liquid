@@ -1,6 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
-    <meta name='viewport' content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  <link rel="canonical" href="{{ canonical_url }}">
+
     <title>{{ page_title }}</title>
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -8,6 +14,11 @@
     {%- if settings.favicon != blank -%}
         <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
+
+    {%- unless settings.shop_font.system? and settings.shop_font.system? -%}
+      <link  rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
     {{ 'reset.css' | asset_url | stylesheet_tag }}
     {{ 'common.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>

@@ -1,0 +1,205 @@
+{% style %}
+.cart-container{
+    font-family: var(--self_font);
+    position:fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100%;
+    background-color:rgba(0,0,0,.4);
+    z-index:999;
+}
+.hidden{
+    display:none;
+}
+.cart-show{
+    display:block;
+}
+.cart-drawer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 0;
+    height:100vh;
+    transition: width ease-in-out .5s;
+    background: var(--gradient-background);
+}
+.animate-drawer{
+    width: 35vw;
+    height:100vh;
+    transition: width ease-in-out .5s;
+    background: var(--gradient-background);
+}
+.cart-empty-box{
+    flex:1;
+}
+.cart-header,.cart-footer{
+    width: 100%;
+    height: 4rem;
+}
+.cart-content{
+    margin 0 auto;
+    width: calc(100% - 2rem);
+    flex:1 ;
+    border-top: 1px solid rgba(0,0,0,.4);
+    border-bottom: 1px solid rgba(0,0,0,.4);
+    overflow-y: scroll;
+}
+.cart-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 0;
+    
+}
+.cart-item-info{
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.product-option{
+    margin-top: .5rem;
+}
+.cart-item-operation{
+    margin-top: 1rem;
+}
+.cart-item-operation,.minus-plus-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.minus-plus-box{
+    padding: .5rem;
+    border-radius: .5rem;
+    border: 2px solid var(--black-color);
+    background: rgb(var(--color-background));
+}
+.quantity-minus-btn,.quantity-plus-btn{
+    width: 2rem;
+    height: auto;
+    transform:scale(.6);
+}
+.remove-product-cart{
+    margin-left: 1rem;
+    width:1.6rem;
+    height: auto;
+}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+}    
+input[type="number"]{
+    -moz-appearance:textfield;
+}
+.quantity-input{
+    width: 2rem;
+    height: auto;
+    border: none;
+    text-indent: .5rem;
+    outline:none;
+    background: transparent;
+}
+
+@media screen and (max-width: 750px){
+    .animate-drawer{
+        width: 80vw;
+    }
+}
+
+{% endstyle %}
+
+<div class='cart-container hidden'>
+    <div class='cart-drawer'>
+        {% if cart.empty? == true %}
+            <div class='cart-empty-box'>
+                <h2>Your cart is empty </h2>
+                <a href={{ routes.all_products_collection_url }} class='continue-shopping'>
+                    {{ 'general.continue_shopping' | t }}
+                </a>    
+            </div>
+            <div class='cart-drawer-collection'>
+            
+            </div>
+        {% else %}
+            <div class='cart-header'>header</div>
+            <div class='cart-content'>
+                {% for item in cart.items %}
+                    <div class='cart-item'>
+                        <img src={{ item.image | image_url:width:200 }} width=100 height=100 />
+                        <div class='cart-item-info'>
+                            <a href="{{ item.url }}" class="cart-item__name h4 break">
+                                {{- item.product.title | escape -}}
+                              </a>
+    
+                              {%- if item.original_price != item.final_price -%}
+                                <div class="cart-item__discounted-prices">
+                                  <span class="visually-hidden">
+                                    {{ 'products.product.price.regular_price' | t }}
+                                  </span>
+                                  <s class="cart-item__old-price product-option">
+                                    {{- item.original_price | money -}}
+                                  </s>
+                                  <span class="visually-hidden">
+                                    {{ 'products.product.price.sale_price' | t }}
+                                  </span>
+                                  <strong class="cart-item__final-price product-option">
+                                    {{ item.final_price | money }}
+                                  </strong>
+                                </div>
+                              {%- else -%}
+                                <div class="product-option">
+                                  {{ item.original_price | money }}
+                                </div>
+                              {%- endif -%}
+                              <div class='cart-item-operation'>
+                                <div class='minus-plus-box'>
+                                    <button class="quantity-minus-btn">{% render 'icon-minus' %}</button>
+                                    <input
+                                        class="quantity-input"
+                                        type="number"
+                                        data-quantity-variant-id="{{ item.variant.id }}"
+                                        name="updates[]"
+                                        value="{{ item.quantity }}"
+                                        {% # theme-check-disable %}
+                                        data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                        min="0"
+                                        data-min="{{ item.variant.quantity_rule.min }}"
+                                        {% if item.variant.quantity_rule.max != null %}
+                                          max="{{ item.variant.quantity_rule.max }}"
+                                        {% endif %}
+                                        step="{{ item.variant.quantity_rule.increment }}"
+                                        {% # theme-check-enable %}
+                                        aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                        id="Drawer-quantity-{{ item.index | plus: 1 }}"
+                                        data-index="{{ item.index | plus: 1 }}"
+                                      >
+                                   <button class='quantity-plus-btn'> {% render 'icon-plus' %}</button>
+                                </div>
+                                <button class='remove-product-cart'>{% render 'icon-remove' %}</button>
+                              </div>
+                        </div>
+                    </div>    
+                {% endfor %}    
+            </div>
+            <div class='cart-footer'>footer</div>    
+        {% endif %}    
+    </div>
+</div>
+
+<script>
+const el =  document.getElementsByClassName('cart-container').item(0);
+
+el.addEventListener('click',(e)=>{
+    if(e.target === e.currentTarget){
+        document.getElementsByClassName('animate-drawer').item(0).classList.remove('animate-drawer');
+        let timer = setTimeout(()=>{
+            el.classList.remove('cart-show');
+            el.classList.add('hidden');
+            clearTimeout(timer);
+        },500);
+    } 
+});
+
+</script>

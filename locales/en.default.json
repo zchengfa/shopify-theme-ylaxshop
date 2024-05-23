@@ -18,9 +18,44 @@
             "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
             "collapsible_content_title": "Collapsible content",
             "complementary_products": "Complementary products"
+          },
+          "social": {
+            "alt_text": {
+              "share_on_facebook": "Share on Facebook",
+              "share_on_twitter": "Share on X",
+              "share_on_pinterest": "Pin on Pinterest"
+            },
+            "links": {
+              "twitter": "X (Twitter)",
+              "facebook": "Facebook",
+              "pinterest": "Pinterest",
+              "instagram": "Instagram",
+              "tumblr": "Tumblr",
+              "snapchat": "Snapchat",
+              "youtube": "YouTube",
+              "vimeo": "Vimeo",
+              "tiktok": "TikTok"
+            }
           }
     },
+    "newsletter": {
+      "label": "Email",
+      "success": "Thanks for subscribing",
+      "button_label": "Subscribe"
+    },
+    "localization": {
+      "country_label": "Country\/region",
+      "language_label": "Language",
+      "update_language": "Update language",
+      "update_country": "Update country\/region",
+      "search": "Search",
+      "popular_countries_regions": "Popular countries\/regions",
+      "country_results_count": "{{ count }} countries\/regions found"
+    },
     "sections":{
+        "footer": {
+          "payment": "Payment methods"
+        },
         "cart": {
             "title": "Your cart",
             "caption": "Cart items",

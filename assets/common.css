@@ -10,10 +10,29 @@ body{
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 .text-ellipsis{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.intersection-el{
+    visibility: hidden;
+}
+
+.animate-intersection-el{
+    visibility: visible;
+    animation: zoomBox ease-in-out 1s;
+}
+
+@keyframes zoomBox {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 

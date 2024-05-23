@@ -132,10 +132,12 @@
         "label": "配色方案",
         "has_cards_info":"若要更改卡配色方案，请更新您的模板设置。"
       },
-      "padding":{
-        "padding_bottom":"底部填充",
-        "padding_top":"顶部填充"
-      }
+      "padding": {
+        "section_padding_heading": "分区填充",
+        "padding_top": "顶部填充",
+        "padding_bottom": "底部填充"
+      },
+      "spacing": "间距"
     },
     "header": {
       "name": "标头",
@@ -205,35 +207,55 @@
         }
       }
     },
-    "footer": {
-      "name":"页脚",
-      "blocks":{
-        "link_list":{
-          "name":"菜单",
-          "settings":{
-            "heading":{
-              "label":"标题"
-            },
-            "menu":{
-              "label": "菜单",
-              "info": "仅显示一级菜单"
-            }
-          }
+    "newsletter": {
+      "name": "电子邮件注册信息",
+      "settings": {
+        "full_width": {
+          "label": "使分区展示全宽"
         },
-        "brand_information":{
-          "name":"品牌信息",
-          "settings":{
-            "paragraph":{
-              "content":"此块将显示您的品牌信息。[编辑品牌信息。](\/editor?context=theme&category=brand%20information)"
-            },
-            "header__1":{
-              "content":"社交媒体图标"
-            },
-            "show_social":{
-              "label": "显示社交媒体图标",
-              "info": "若要显示您的社交媒体账户，请在 [模板设置](\/editor?context=theme&category=social%20media) 中添加其链接。"
+        "paragraph": {
+          "content": "每次电子邮件订阅均会创建一个客户账户。[详细了解](https:\/\/help.shopify.com\/manual\/customers)"
+        }
+      },
+      "blocks": {
+        "heading": {
+          "settings": {
+            "heading": {
+              "label": "标题"
             }
-          }
+          },
+          "name": "标题"
+        },
+        "paragraph": {
+          "settings": {
+            "paragraph": {
+              "label": "描述"
+            }
+          },
+          "name": "副标题"
+        },
+        "email_form": {
+          "name": "电子邮件形式"
+        }
+      },
+      "presets": {
+        "name": "电子邮件注册信息"
+      }
+    },
+    "footer": {
+      "name": "页脚",
+      "blocks": {
+        "link_list": {
+          "settings": {
+            "heading": {
+              "label": "标题"
+            },
+            "menu": {
+              "label": "菜单",
+              "info": "仅显示一级菜单项。"
+            }
+          },
+          "name": "菜单"
         },
         "text": {
           "settings": {
@@ -245,6 +267,87 @@
             }
           },
           "name": "文本"
+        },
+        "newsletter_enable": {
+          "label": "显示电子邮件注册信息"
+        },
+        "newsletter_heading": {
+          "label": "标题"
+        },
+        "brand_information": {
+          "name": "品牌信息",
+          "settings": {
+            "paragraph": {
+              "content": "此块将显示您的品牌信息。[编辑品牌信息。](\/editor?context=theme&category=brand%20information)"
+            },
+            "header__1": {
+              "content": "社交媒体图标"
+            },
+            "show_social": {
+              "label": "显示社交媒体图标",
+              "info": "若要显示您的社交媒体账户，请在 [模板设置](\/editor?context=theme&category=social%20media) 中添加其链接。"
+            }
+          }
+        }
+      },
+      "settings": {
+        "newsletter_enable": {
+          "label": "显示电子邮件注册信息"
+        },
+        "newsletter_heading": {
+          "label": "标题"
+        },
+        "header__1": {
+          "info": "订阅者已自动添加到您的“已接受营销”客户列表。[详细了解](https:\/\/help.shopify.com\/manual\/customers\/manage-customers)",
+          "content": "电子邮件注册信息"
+        },
+        "header__2": {
+          "content": "社交媒体图标",
+          "info": "若要显示您的社交媒体账户，请在 [模板设置](\/editor?context=theme&category=social%20media) 中添加其链接。"
+        },
+        "show_social": {
+          "label": "显示社交媒体图标"
+        },
+        "header__3": {
+          "content": "国家\/地区选择器"
+        },
+        "header__4": {
+          "info": "若要添加国家\/地区，请转到 [营销设置](\/admin\/settings\/markets)。"
+        },
+        "enable_country_selector": {
+          "label": "启用国家\/地区选择器"
+        },
+        "header__5": {
+          "content": "语言选择器"
+        },
+        "header__6": {
+          "info": "若要添加语言，请转到您的 [语言设置](\/admin\/settings\/languages)。"
+        },
+        "enable_language_selector": {
+          "label": "启用语言选择器"
+        },
+        "header__7": {
+          "content": "付款方式"
+        },
+        "payment_enable": {
+          "label": "显示付款图标"
+        },
+        "margin_top": {
+          "label": "上边距"
+        },
+        "header__8": {
+          "content": "政策链接",
+          "info": "若要添加商店政策，请前往 [政策设置](\/admin\/settings\/legal)。"
+        },
+        "show_policy": {
+          "label": "显示政策链接"
+        },
+        "header__9": {
+          "content": "在 Shop 中关注",
+          "info": "若要使客户能够通过您的店面在 Shop 应用中关注您的商店，则必须启用 Shop Pay。[详细了解](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/follow-on-shop)"
+        },
+        "enable_follow_on_shop": {
+          "label": "启用在 Shop 中关注"
         }
       }
     },

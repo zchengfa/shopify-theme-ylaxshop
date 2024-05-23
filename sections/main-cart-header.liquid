@@ -1,0 +1,40 @@
+{% style %}
+.icon-summary-box{
+    display: none;
+    padding: 1.2rem;
+    font-size: 2rem;
+}
+@media screen and (max-width: 750px){
+    .icon-summary-box{
+        display: block;
+    }
+}
+{% endstyle %}
+<div class='main-cart-header'>
+    <div class="icon-summary-box">
+        {% render 'icon-summary' %}
+    </div>
+    {% render 'header-menu', menu:section.settings.cart_header_manu %}
+</div>
+
+{% schema %}
+{
+    "name":"t:sections.main_cart.header.name",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "cart_header_manu",
+            "default":"main-menu",
+            "label": "t:sections.header.settings.header_menu.label",
+            "info": "t:sections.header.settings.header_menu.info"
+        },
+        {
+            "type": "color",
+            "id": "color_underline",
+            "label": "t:sections.header.settings.menu_underline.label",
+            "info": "t:sections.header.settings.menu_underline.info",
+            "default": "#fff"
+        }
+    ]
+}
+{% endschema %}

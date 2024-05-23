@@ -87,7 +87,7 @@
 
 <div class='holiday-theme-container'>
     <div class='holiday-theme-img-box'>
-        <img class='holiday-theme-img' src={{ section.settings.image | image_url }} width='1000' height="200" />
+        <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
     </div>
     {% if section.blocks.size > 0 %}
         <div class='holiday-product-box {% if section.blocks.size == 1 %} flex-product-start {% endif %}'>
@@ -104,7 +104,7 @@
                  data-display-type={{ section.settings.show_type }}>
                 <div class="product-item holiday-product-item">
                     <div class='product-img-box holiday-product-img-box'>
-                        <img class='product-img holiday-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
+                        <img class='product-img holiday-img' alt={{ product.title }} src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
                     </div>
                     <div class='holiday-product-params'>
                         <div class='holiday-title-desc'>

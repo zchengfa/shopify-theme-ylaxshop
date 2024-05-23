@@ -130,7 +130,7 @@ div{
         {% for product in products limit:products_to_show %}
             <div class='product-item' data-margin="24"> 
               <div class='product-img-box'>
-                <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
+                <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=200 height=200 />
               </div>  
               <div class='product-params'>
                 <p class='product-title'>{{ product.title }}</p>

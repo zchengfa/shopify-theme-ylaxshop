@@ -10,26 +10,28 @@
     font-size: calc(var(--font-scale) * 2rem);
 }
 {% endstyle %}
-<div class='featured-collection-container color-{{ section.settings.color_scheme }}'>
-{% comment %} collection header {% endcomment %}
-{% if section.settings.title %}
-    <div class='collection-header'>
-        <h2 class='collection-title'>{{ section.settings.title }}</h2>
-        <div class='collection-description description-style-{{ section.settings.description_style }}'>{{ section.settings.description }}</div>
-    </div>
-    <div class='collection-product-wrapper'>
-        {% render 'card-product',
-            products:section.settings.collection.products,
-            products_to_show:section.settings.products_to_show,
-            currency_code_enabled:settings.currency_code_enabled,
-            show_wrap:section.settings.show_wrap,
-            section_id: section.id
-        %}
-          
-    </div>
-{% endif %}    
-
-</div>
+<intersection-box class="intersection-el">
+    <div class='featured-collection-container color-{{ section.settings.color_scheme }}'>
+        {% comment %} collection header {% endcomment %}
+        {% if section.settings.title %}
+            <div class='collection-header'>
+                <h2 class='collection-title'>{{ section.settings.title }}</h2>
+                <div class='collection-description description-style-{{ section.settings.description_style }}'>{{ section.settings.description }}</div>
+            </div>
+            <div class='collection-product-wrapper'>
+                {% render 'card-product',
+                    products:section.settings.collection.products,
+                    products_to_show:section.settings.products_to_show,
+                    currency_code_enabled:settings.currency_code_enabled,
+                    show_wrap:section.settings.show_wrap,
+                    section_id: section.id
+                %}
+                  
+            </div>
+        {% endif %}    
+        
+        </div>
+</intersection-box>
 
 
 {% schema %}
