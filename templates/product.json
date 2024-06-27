@@ -1,0 +1,37 @@
+{
+    "sections":{
+       "main": {
+        "type": "main-product",
+        "blocks": {
+            
+        },
+        "block_order": [
+        "title",
+        "price",
+        "rating",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+     }
+    },
+    "order":[
+        "main"
+    ]
+}

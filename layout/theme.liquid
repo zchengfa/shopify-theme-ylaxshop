@@ -85,8 +85,10 @@
     {% endstyle %}
 </head>
 <body>
-{% sections 'header' %}
-{{ content_for_layout }}
+{% sections 'header-group' %}
+<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+  {{ content_for_layout }}
+</main>
 {% sections 'footer' %}
 {% render 'component-popover' %}
 

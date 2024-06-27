@@ -128,7 +128,7 @@ div{
 <div class='product-box  {% if products_to_show <= 3 %}flex-start{% endif %} {% if show_wrap %}show-wrap {% else %}hidden-overflow{% endif %}'>
     {% if products.size >= 1 %}
         {% for product in products limit:products_to_show %}
-            <div class='product-item' data-margin="24"> 
+            <a href={{ product.url }} class='product-item' data-margin="24"> 
               <div class='product-img-box'>
                 <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=200 height=200 />
               </div>  
@@ -183,8 +183,7 @@ div{
                     </div>   
                 </product-form>
               </div>
-            </div>
-            
+            </a> 
         {% endfor %}
     {% else %}    
         <div class='product-item' data-margin='24'>

@@ -1,13 +1,5 @@
 {
   "sections": {
-    "header": {
-      "type": "header",
-      "settings": {
-        "show_all_phone": false,
-        "header_menu": "header-menu",
-        "color_underline": "#af8ae5"
-      }
-    },
     "banner": {
       "type": "banner",
       "blocks": {
@@ -119,7 +111,6 @@
     }
   },
   "order": [
-    "header",
     "banner",
     "holiday_theme_eWQwhE",
     "featured-collection",

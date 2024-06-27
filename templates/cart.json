@@ -1,12 +1,5 @@
 {
   "sections": {
-    "main-cart-header": {
-      "type": "main-cart-header",
-      "settings": {
-        "cart_header_manu": "main-menu",
-        "color_underline": "#fff"
-      }
-    },
     "main-cart-items": {
       "type": "main-cart-items",
       "settings": {}
@@ -35,7 +28,6 @@
     }
   },
   "order": [
-    "main-cart-header",
     "main-cart-items",
     "main-cart-footer"
   ]
