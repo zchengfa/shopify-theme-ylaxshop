@@ -120,8 +120,10 @@
     },
     "products":{
         "product":{
+            "on_sale":"sale",
             "sold_out":"sold out",
             "add_to_cart":"add to cart",
+            "buy_button":"buy it now",
             "price": {
                 "from_price_html": "From {{ price }}",
                 "regular_price": "Regular price",

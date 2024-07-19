@@ -1,0 +1,64 @@
+{% style %}
+.product-detail-desc-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.product-detail-desc-img{
+    max-width: 40vw;
+    width: auto;
+    height: auto;
+    margin-bottom: 1rem;
+}
+.product-detail-text-box{
+    font-family: var(--self_font);
+    padding: {{ card_padding | append: 'rem' }};
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    background: {{ card_bg }};
+    box-shadow: 2px 2px 4px 4px {{ card_shadow_color }};
+    border-radius: 1rem;
+}
+.detail-text-item{
+    margin-bottom: {{ card_text_margin_bottom | append: 'rem' }}
+}
+.detail-text-item:nth-child(1),.product-detail-img-title{
+    font-weight: bolder;
+    font-size: calc(var(--font-scale) * 1.5rem);
+}
+.product-detail-img-title{
+    margin: 1rem 0;
+    font-family: var(--self_font);
+}
+{% endstyle %}
+
+<div class="product-detail-desc-content">
+    {% assign product_metaobjects = shop.metaobjects[metaobjects_type][SKU] %}
+    {% assign fields = metaobjects_fields | split: ',' %}
+    {% for field in fields %}
+        {% assign items = field | split: '-' %}
+        {%  case items[1] %}
+            {% when 'image' %} 
+                {% assign images = product_metaobjects[items[0]].value %}
+                {% if images %}
+                    <p class="product-detail-img-title">{{ image_title }}</p>
+                {% endif %}    
+                {% for image in images %}
+                    <img class="product-detail-desc-img" alt="flower-detail-desc-img" src={{ image | image_url }} width=0 height=0 />       
+                {% endfor %}
+            {% when 'text' %} 
+                {% assign text_data = product_metaobjects[items[0]].value %}
+                {% if text_data %}
+                    <div class="product-detail-text-box">
+                        {% for text in text_data %}
+                            <span class="detail-text-item">{{ text }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}    
+        {% endcase %}    
+    {% endfor %}
+  </div>
