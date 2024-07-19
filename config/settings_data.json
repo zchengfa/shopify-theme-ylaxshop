@@ -144,11 +144,11 @@
         "settings": {
           "background": "#cd2e1c",
           "background_gradient": "radial-gradient(rgba(255, 197, 164, 1), rgba(255, 255, 255, 1) 79%, rgba(255, 255, 255, 1) 97%)",
-          "text": "#e72f2f",
+          "text": "#000000",
           "button": "#000000",
           "button_label": "#ffffff",
           "secondary_button_label": "#121212",
-          "shadow": "#121212"
+          "shadow": "#23aa69"
         }
       },
       "scheme-2": {
@@ -177,10 +177,10 @@
         "settings": {
           "background": "#ccc1ff",
           "background_gradient": "radial-gradient(rgba(121, 128, 252, 1), rgba(215, 204, 250, 1) 100%, rgba(247, 197, 204, 1) 100%)",
-          "text": "#dd1d1d",
+          "text": "#121212",
           "button": "#ffffff",
           "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
+          "secondary_button_label": "#0ca891",
           "shadow": "#dd1d1d"
         }
       },

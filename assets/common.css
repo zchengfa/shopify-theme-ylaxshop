@@ -26,7 +26,9 @@ body{
     visibility: visible;
     animation: zoomBox ease-in-out 1s;
 }
-
+.line-through{
+    text-decoration: line-through;
+}
 @keyframes zoomBox {
     0%{
         opacity: 0;

@@ -73,7 +73,6 @@ div{
 }
 .origin-price{
     font-size: .8rem;
-    text-decoration: line-through;
 }
 .product-params .add-loading-box{ 
     display:flex;
@@ -136,10 +135,10 @@ div{
                 <p class='product-title'>{{ product.title }}</p>
                 {% if currency_code_enabled %}
                     <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
-                    <span class='origin-price'>{{ product.compare_at_price | money_with_currency }}</span>
+                    <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
                 {% else %}
                     <span class='now-price'>{{ product.price_max | money }}</span>  
-                    <span class='origin-price'>{{ product.compare_at_price | money}}</span>  
+                    <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>  
                 {% endif %}
                <product-form>
                     <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
