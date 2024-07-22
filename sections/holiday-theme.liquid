@@ -102,7 +102,7 @@
                  data-img="holiday-img"
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
                  data-display-type={{ section.settings.show_type }}>
-                <div class="product-item holiday-product-item">
+                <a href={{ product.url }} class="product-item holiday-product-item">
                     <div class='product-img-box holiday-product-img-box'>
                         <img class='product-img holiday-img' alt={{ product.title }} src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
                     </div>
@@ -113,7 +113,7 @@
                         </div>
                         <span class="holiday-product-price">{{ product.price | money_with_currency }}</span>
                     </div> 
-                </div>
+                </a>
                </card-popover>
             {% endfor %} 
         </div>

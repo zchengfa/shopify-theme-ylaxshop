@@ -4,9 +4,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1;
 }
 .product-detail-desc-img{
-    max-width: 40vw;
+    max-width: 50vw;
     width: auto;
     height: auto;
     margin-bottom: 1rem;
@@ -33,6 +34,11 @@
 .product-detail-img-title{
     margin: 1rem 0;
     font-family: var(--self_font);
+}
+@media screen and (max-width: 450px){
+    .product-detail-desc-img{
+        max-width: 80vw;
+    }
 }
 {% endstyle %}
 

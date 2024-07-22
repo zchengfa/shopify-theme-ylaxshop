@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 }
-.product-img{
+.main-product-img{
   width: 35vw;
   height: 35vw;
   border-radius: 2rem;
@@ -109,6 +109,41 @@ input[type="number"]{
   flex: 1;
   line-height: initial;
 }
+.main-product-info-other{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto;
+  width: {{ section.settings.main_product_other_width | append: 'vw' }};
+}
+.product-info-other-normal{
+  display: block;
+}
+@media screen and (max-width:  450px){
+    .main-product-content{
+       flex-direction: column;
+    }
+    .content-item{
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    .main-product-img{
+      width: 100%;
+      height: auto;
+    }
+    .product-title{
+      font-size: calc(var(--font-scale) * 1.5rem);
+    }
+    .product-form__submit{
+      width: 100%;
+    }
+    .main-product-info-other{
+      display: block;
+    }
+    .product-options-item{
+      display: block;
+    }
+}
 {% endstyle %}
 <section 
     id="MainProduct-{{ section.id }}"
@@ -116,7 +151,7 @@ input[type="number"]{
     data-section="{{ section.id }}">
   <div class="main-product-content">
     <div class="main-product-img-box content-item">
-      <img class="product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
+      <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
     </div>
     <div class="main-product-info content-item">
       {%- assign product_form_id = 'product-form-' | append: section.id -%}
@@ -205,25 +240,35 @@ input[type="number"]{
      {% endfor %}
     </div>
   </div>
-  <div class="main-product-info-other">
-    {% for block in section.blocks %}
-      {% case block.type %}
-        {% when "product_detail_desc" %} 
-          {% assign product_sku = product.variants[0].sku %} 
-              {% render 'product-detail-desc',
-                SKU:  product_sku ,
-                metaobjects_type: block.settings.metaobjects_type,
-                metaobjects_fields: block.settings.metaobjects_fields,
-                card_bg: block.settings.card_bg,
-                card_text_margin_bottom: block.settings.card_text_margin_bottom,
-                card_shadow_color: block.settings.card_shadow_color,
-                card_padding: block.settings.card_padding,
-                image_title: block.settings.image_title
-              %}
-      {% endcase %}  
-    {% endfor %}
-  </div>
+  <main-product-info-other>
+    <div class="main-product-info-other">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when "product_detail_desc" %} 
+              {% if shop.metaobjects[block.settings.metaobjects_type][product.variants[0].sku] %}
+                {% assign product_sku = product.variants[0].sku %} 
+                {% render 'product-detail-desc',
+                    SKU:  product_sku ,
+                    metaobjects_type: block.settings.metaobjects_type,
+                    metaobjects_fields: block.settings.metaobjects_fields,
+                    card_bg: block.settings.card_bg,
+                    card_text_margin_bottom: block.settings.card_text_margin_bottom,
+                    card_shadow_color: block.settings.card_shadow_color,
+                    card_padding: block.settings.card_padding,
+                    image_title: block.settings.image_title
+                %}
+              {% endif %}  
+          {% when "recommend_products" %}   
+            {% render 'recommend-products' ,
+              recommend_title: block.settings.recommend_title,
+              complementary_title: block.settings.complementary_title %}
+           
+        {% endcase %}  
+      {% endfor %}
+    </div>
+  </main-product-info-other>
 </section>
+
 
 {% schema %}
 {
@@ -466,6 +511,24 @@ input[type="number"]{
           {
             "type": "paragraph",
             "content": "t:sections.main-product.blocks.rating.settings.paragraph.content"
+          }
+        ]
+      },
+      {
+        "type":"recommend_products",
+        "name":"t:sections.recommend_products.name",
+        "settings": [
+          {
+            "type": "text",
+            "id": "recommend_title",
+            "label": "t:sections.recommend_products.settings.header.recommend_title",
+            "default":"recommend products"
+          },
+          {
+            "type": "text",
+            "id": "complementary_title",
+            "label": "t:sections.recommend_products.settings.header.complementary_title",
+            "default":"complementary products"
           }
         ]
       },
@@ -980,6 +1043,16 @@ input[type="number"]{
         "unit": "px",
         "label": "t:sections.all.padding.padding_bottom",
         "default": 36
+      },
+      {
+        "type": "range",
+        "id": "main_product_other_width",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "vw",
+        "label": "t:sections.main-product.settings.main_product_other_width.label",
+        "default": 80
       }
     ]
   }

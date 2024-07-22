@@ -8,19 +8,19 @@
     .search-input{
     width: 30vw;
     height: 2.3rem;
-    border: 2px solid var(--sf-purple-color);
+    border: 2px solid {{ section.settings.color_underline }};
     border-radius: 1rem;
     outline: none;
     text-indent: 2rem;
     }
     .search-btn{
     width: 4rem;
-    height: 2.3rem;
+    height: 100%;
     position: absolute;
     right: 0;
     border-radius: 0 1rem 1rem 0;
     color: var(--white-color);
-    background-color: var(--sf-purple-color);
+    background: {{ section.settings.color_underline }};
     }
     @media screen and (max-width: 750px){
         .search-box{
@@ -32,7 +32,7 @@
     }
 {% endstyle %}
 <div class='search-box'>
-    <input type='text' class='search-input' placeholder='search shop here' />
-    <button class='search-btn'>search</button>
+    <input type='text' class='search-input' placeholder={{ 'search.content.placeholder' | t }} />
+    <button class='search-btn'>{{ 'search.content.search_button' | t }}</button>
    
 </div>

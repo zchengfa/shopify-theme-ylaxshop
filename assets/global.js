@@ -96,3 +96,64 @@ if(!customElements.get('intersection-box')){
     }
   );
 }
+
+
+
+if(!customElements.get('recommend-products')){
+  customElements.define('recommend-products',
+    class RecommendProducts extends HTMLElement {
+      constructor(){
+        super();
+
+        this.productRecommendationsSection = this.getElementsByClassName('product-recommendations').item(0);
+        
+      
+      }
+     
+      connectedCallback(){
+        const url = this.productRecommendationsSection.dataset.url;
+      
+          fetch(url)
+            .then(response => response.text())
+            .then(text => {
+              const html = document.createElement('div');
+              html.innerHTML = text;
+              const recommendations = html.querySelector('.product-recommendations');
+      
+              if (recommendations && recommendations.innerHTML.trim().length) {
+                this.productRecommendationsSection.innerHTML = recommendations.innerHTML;
+              }
+            })
+            .catch(e => {
+              console.error(e);
+            });
+      }
+    }
+  )
+
+}
+
+
+if(!customElements.get('main-product-info-other')){
+  customElements.define('main-product-info-other',
+    class MainProductInfoOther extends HTMLElement {
+      constructor(){
+        super();
+        this.productDetailDescContent = this.getElementsByClassName('product-detail-desc-content').item(0);
+        this.recommendations = this.getElementsByClassName('recommendations-ul').item(0);
+        this.mainDesOther = this.getElementsByClassName('main-product-info-other').item(0);
+        
+
+        if(!this.productDetailDescContent){
+          
+          this.mainDesOther.classList = 'main-product-info-other product-info-other-normal';
+          if(this.recommendations){
+            this.recommendations.classList = 'recommendations-ul recommendations-ul-flex-row';
+          }
+          
+        }
+      }
+    }
+   
+  )
+}

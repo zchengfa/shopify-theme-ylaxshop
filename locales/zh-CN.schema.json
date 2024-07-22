@@ -596,6 +596,9 @@
           "options__2": {
             "label": "填充"
           }
+        },
+        "main_product_other_width":{
+          "label":"产品详情其他区域宽度"
         }
       }
     },
@@ -609,6 +612,39 @@
       },
       "presets": {
         "name": "自定义 Liquid"
+      }
+    },
+    "recommend_products":{
+      "name":"推荐产品",
+      "settings":{
+        "header":{
+          "recommend_title":"产品推荐标题",
+          "complementary_title":"互补产品标题"
+        }
+      }
+    },
+    "FAQ":{
+      "name":"常见问题",
+      "blocks":{
+        "question":{
+          "name":"问题",
+          "settings":{
+            "FAQ_q":{
+              "label":"问题"
+            },
+            "FAQ_a":{
+              "label":"回答"
+            }
+          }
+        }
+      },
+      "settings":{
+        "padding":{
+          "label":"常见问题板块padding"
+        },
+        "FAQ_item_width":{
+          "label":"常见问题板块中子版块的宽度"
+        }
       }
     },
     "footer": {

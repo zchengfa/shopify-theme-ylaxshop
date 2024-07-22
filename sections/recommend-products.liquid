@@ -1,0 +1,25 @@
+{% render 'recommend-products' ,
+    recommend_title: section.settings.recommend_title,
+    complementary_title: section.settings.complementary_title
+%}
+{% schema %}
+{
+    "name": "t:sections.recommend_products.name",
+    "settings": [
+        {
+            "type": "text",
+            "id": "recommend_title",
+            "label": "t:sections.recommend_products.settings.header.recommend_title",
+            "default":"recommend products"
+          },
+          {
+            "type": "text",
+            "id": "complementary_title",
+            "label": "t:sections.recommend_products.settings.header.complementary_title",
+            "default":"complementary products"
+          }
+    ]
+
+}
+
+{% endschema %}

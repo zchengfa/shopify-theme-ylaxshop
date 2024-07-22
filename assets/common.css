@@ -1,5 +1,6 @@
 a{
-    text-decoration:unset
+    text-decoration:none;
+    color: inherit;
 }
 button{
     border: none;

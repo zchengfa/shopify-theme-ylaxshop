@@ -1,0 +1,83 @@
+{% style %}
+.product-recommendations{
+  font-family: var(--self_font);
+  width: auto;
+}
+.product-link{
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.product{
+  margin-bottom: 1rem;
+  background: #f3f5f7;
+  border-radius: .5rem;
+}
+.product__img{
+  border-radius: .5rem;
+}
+.recommendations-title{
+  margin: 1rem 0;
+  font-weight: bolder;
+  font-size: calc(var(--font-scale) * 1.5rem);
+}
+.product__info{
+  display: -webkit-box;
+  margin-top: .5rem;
+  max-width: 10rem;
+  text-align: center;
+  -webkit-box-orient: vertical; /* 设置盒子的垂直排列 */
+  -webkit-line-clamp: 2; /* 限制在3行 */
+  overflow: hidden; /* 隐藏溢出的内容 */
+  text-overflow: ellipsis; /* 使用省略号表示文本溢出 */
+}
+.recommendations-ul-flex-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+{% endstyle %}
+
+
+<recommend-products>
+  <div
+    class="product-recommendations"
+
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=5&intent=related"
+  >
+    {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+      {% if recommendations.intent == 'related' %}
+        <h2 class="recommendations-title">{{ recommend_title }}</h2>
+      {% elsif recommendations.intent == 'complementary' %}
+        <h2 class="recommendations-title">{{ complementary_title }}</h2>
+      {% endif %}
+  
+      <ul class="recommendations-ul">
+        {%- for product in recommendations.products -%}
+          <li class="product">
+            <a href="{{ product.url }}" class="product-link">
+              <img
+                class="product__img"
+                src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
+                alt="{{ product.featured_image.alt }}"
+                width=160
+                height=160
+              />
+  
+              <p class="product__title product__info">{{ product.title }}</p>
+              <p class="product__price product__info">{{ product.price | money_with_currency}}</p>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
+</recommend-products>
+  
+
+  

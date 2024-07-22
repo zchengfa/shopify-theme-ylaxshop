@@ -1,0 +1,87 @@
+{% style %}
+.FAQ-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: {{ section.settings.padding | append:'rem' }};
+    background: #f3f5f7;
+    font-family: var(--self_font);
+}
+.FAQ-item{
+    margin-bottom: 1rem;
+    padding-right: 1rem;
+    width: {{ section.settings.FAQ_item_width | append:'%' }};
+}
+.FAQ-question{
+    margin-bottom: .5rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+{% endstyle %}
+
+{% if section.blocks.size > 0 %}
+    <div class="FAQ-content">
+        {% for block in section.blocks %}
+            <div class="FAQ-item">
+                <h5 class="FAQ-question">{{ block.settings.question }}</h5>
+                <span class="FAQ-answer">{{ block.settings.answer }}</span>
+            </div>
+        {% endfor %}    
+    </div>
+{% endif %}    
+
+
+{% schema %}
+{
+    "name":"t:sections.FAQ.name",
+    "blocks": [
+        {
+            "type": "text",
+            "name":"t:sections.FAQ.blocks.question.name",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "question",
+                    "label": "t:sections.FAQ.blocks.question.settings.FAQ_q.label",
+                    "default": "question"
+                },
+                {
+                    "type": "text",
+                    "id": "answer",
+                    "label": "t:sections.FAQ.blocks.question.settings.FAQ_a.label",
+                    "default": "answer"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "padding",
+            "default": 1,
+            "step": 1,
+            "min": 1,
+            "max": 10,
+            "label": "t:sections.FAQ.settings.padding.label",
+            "unit": "rem"
+        },
+        {
+            "type": "range",
+            "id": "FAQ_item_width",
+            "default": 60,
+            "step": 10,
+            "min": 10,
+            "max": 100,
+            "label": "t:sections.FAQ.settings.FAQ_item_width.label",
+            "unit": "%"
+        }
+    ]
+
+}
+
+{% endschema %}
+
+
+
+
