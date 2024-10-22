@@ -51,6 +51,11 @@
             "show_gift_card_recipient": true
           }
         },
+        "ylax_shop_app_payment_CVDxHh": {
+          "type": "shopify://apps/ylax-shop-app/blocks/payment/d94d3713-9430-4665-8b70-4eb0110fa32d",
+          "settings": {
+          }
+        },
         "recommend_products_FLTkDY": {
           "type": "recommend_products",
           "settings": {
@@ -79,6 +84,7 @@
         "options_panel_9nr7TQ",
         "quantity_selector_BiE8bP",
         "buy_buttons",
+        "ylax_shop_app_payment_CVDxHh",
         "recommend_products_FLTkDY",
         "product_detail_desc_Kt7rCm"
       ],
