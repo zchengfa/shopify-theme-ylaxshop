@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -5,7 +14,8 @@
       "blocks": {
         "title_bXib6e": {
           "type": "title",
-          "settings": {}
+          "settings": {
+          }
         },
         "text_rnpJfw": {
           "type": "text",
@@ -16,25 +26,34 @@
         },
         "description_znVpEC": {
           "type": "description",
-          "settings": {}
+          "settings": {
+          }
         },
         "price_8JkA7x": {
           "type": "price",
-          "settings": {}
+          "settings": {
+          }
         },
         "options_panel_9nr7TQ": {
           "type": "options_panel",
-          "settings": {}
+          "settings": {
+          }
         },
         "quantity_selector_BiE8bP": {
           "type": "quantity_selector",
-          "settings": {}
+          "settings": {
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
+          }
+        },
+        "ylax_shop_app_payment_CVDxHh": {
+          "type": "shopify://apps/ylax-shop-app/blocks/payment/d94d3713-9430-4665-8b70-4eb0110fa32d",
+          "settings": {
           }
         },
         "recommend_products_FLTkDY": {
@@ -65,6 +84,7 @@
         "options_panel_9nr7TQ",
         "quantity_selector_BiE8bP",
         "buy_buttons",
+        "ylax_shop_app_payment_CVDxHh",
         "recommend_products_FLTkDY",
         "product_detail_desc_Kt7rCm"
       ],
