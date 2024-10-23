@@ -10,7 +10,7 @@
             "heading": "Romantic Flower",
             "heading_size": "h1",
             "subheading": "Come and experience this romance",
-            "button_label": "Button label",
+            "button_label": "Shop now",
             "link": "",
             "color_scheme": "scheme-1"
           }
@@ -22,7 +22,7 @@
             "heading": "Valentine's Day",
             "heading_size": "h1",
             "subheading": "Let love spread in the fragrance of flowers",
-            "button_label": "Button label",
+            "button_label": "Shop now",
             "link": "",
             "color_scheme": "scheme-1"
           }
@@ -102,9 +102,13 @@
         "description_style": "body",
         "collection": "eternal-flower",
         "products_to_show": 8,
-        "show_wrap": true,
-        "color_scheme": "scheme-4"
+        "show_wrap": false,
+        "color_scheme": "scheme-1"
       }
+    },
+    "1727237088913f083b": {
+      "type": "apps",
+      "settings": {}
     },
     "featured_collection_BHXhbj": {
       "type": "featured-collection",
@@ -142,6 +146,7 @@
     "holiday_theme_eWQwhE",
     "featured-collection",
     "featured_collection_VmFyYh",
+    "1727237088913f083b",
     "featured_collection_BHXhbj",
     "footer"
   ]

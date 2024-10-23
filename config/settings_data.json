@@ -5,7 +5,7 @@
     "shop_font": "playball_n4",
     "font_scale": 130,
     "currency_code_enabled": true,
-    "cart_type": "page",
+    "cart_type": "drawer",
     "show_vendor": true,
     "show_cart_note": true,
     "sections": {
@@ -115,6 +115,10 @@
           "show_wrap": false,
           "color_scheme": "scheme-4"
         }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
       }
     },
     "content_for_index": [],

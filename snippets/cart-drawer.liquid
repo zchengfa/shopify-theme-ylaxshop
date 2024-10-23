@@ -9,34 +9,62 @@
     background-color:rgba(0,0,0,.4);
     z-index:999;
 }
-.hidden{
-    display:none;
-}
 .cart-show{
     display:block;
 }
 .cart-drawer{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 0;
+    width: 35vw;
     height:100vh;
-    transition: width ease-in-out .5s;
+    transition: transform ease-in-out .5s;
+    transform: translateX(-100%);
     background: var(--gradient-background);
 }
 .animate-drawer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 35vw;
     height:100vh;
-    transition: width ease-in-out .5s;
+    transition: transform ease-in-out .5s;
+    transform: translateX(0%);
     background: var(--gradient-background);
 }
 .cart-empty-box{
     flex:1;
 }
 .cart-header,.cart-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 4rem;
+}
+.cart-footer{
+    padding: 1rem 0;
+    height: auto;
+}
+.total-price{
+    margin-left: .5rem;
+    color: var(--jdgm-primary-color);
+}
+.settle-button{
+    margin: 1rem auto;
+    width: 70%;
+    padding: .5rem 1rem;
+    color: var(--white-color);
+    background: rgb(var(--color-foreground));
+    border-radius: .5rem;
+}
+.cart-title{
+    font-weight: bolder;
+    font-size: 1.6rem;
 }
 .cart-content{
     margin 0 auto;
@@ -46,7 +74,7 @@
     border-bottom: 1px solid rgba(0,0,0,.4);
     overflow-y: scroll;
 }
-.cart-item{
+.cart-drawer-item{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -93,7 +121,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
 input[type="number"]{
     -moz-appearance:textfield;
 }
-.quantity-input{
+.quantity__input{
     width: 2rem;
     height: auto;
     border: none;
@@ -101,33 +129,54 @@ input[type="number"]{
     outline:none;
     background: transparent;
 }
-
+.cart-empty-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.cart-empty-title{
+    font-size: 1.6rem;
+}
+.continue-shopping{
+    display: block;
+    padding: .5rem 0;
+    margin-top: 1rem;
+    border-radius: .5rem;
+    background: rgb(var(--color-background));
+    cursor: pointer;
+}
 @media screen and (max-width: 750px){
-    .animate-drawer{
+    .animate-drawer,.cart-drawer{
         width: 80vw;
     }
 }
 
 {% endstyle %}
 
-<div class='cart-container hidden'>
+<div class='cart-container hidden' data-id={{ section.id }} id="cart-drawer">
     <div class='cart-drawer'>
         {% if cart.empty? == true %}
             <div class='cart-empty-box'>
-                <h2>Your cart is empty </h2>
+                <h2 class="cart-empty-title">Your cart is empty </h2>
                 <a href={{ routes.all_products_collection_url }} class='continue-shopping'>
                     {{ 'general.continue_shopping' | t }}
                 </a>    
             </div>
-            <div class='cart-drawer-collection'>
+            {% comment %} <div class='cart-drawer-collection'>
             
-            </div>
+            </div> {% endcomment %}
         {% else %}
-            <div class='cart-header'>header</div>
-            <div class='cart-content'>
+            <div class='cart-header'>
+                <span class="cart-title">Your cart</span>
+            </div>
+            <div class='cart-content scroll-bar-none'>
                 {% for item in cart.items %}
-                    <div class='cart-item'>
-                        <img src={{ item.image | image_url:width:200 }} width=100 height=100 />
+                    <div class='cart-drawer-item'>
+                        <a href={{ item.url }}>
+                            <img src={{ item.image | image_url:width:200 }} width=100 height=100 />
+                        </a>
                         <div class='cart-item-info'>
                             <a href="{{ item.url }}" class="cart-item__name h4 break">
                                 {{- item.product.title | escape -}}
@@ -153,37 +202,49 @@ input[type="number"]{
                                   {{ item.original_price | money }}
                                 </div>
                               {%- endif -%}
-                              <div class='cart-item-operation'>
-                                <div class='minus-plus-box'>
-                                    <button class="quantity-minus-btn">{% render 'icon-minus' %}</button>
-                                    <input
-                                        class="quantity-input"
-                                        type="number"
-                                        data-quantity-variant-id="{{ item.variant.id }}"
-                                        name="updates[]"
-                                        value="{{ item.quantity }}"
-                                        {% # theme-check-disable %}
-                                        data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
-                                        min="0"
-                                        data-min="{{ item.variant.quantity_rule.min }}"
-                                        {% if item.variant.quantity_rule.max != null %}
-                                          max="{{ item.variant.quantity_rule.max }}"
-                                        {% endif %}
-                                        step="{{ item.variant.quantity_rule.increment }}"
-                                        {% # theme-check-enable %}
-                                        aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                                        id="Drawer-quantity-{{ item.index | plus: 1 }}"
-                                        data-index="{{ item.index | plus: 1 }}"
-                                      >
-                                   <button class='quantity-plus-btn'> {% render 'icon-plus' %}</button>
-                                </div>
-                                <button class='remove-product-cart'>{% render 'icon-remove' %}</button>
-                              </div>
+                              {% for discount in cart.discount_applications %}
+                                DiscountName:{{ discount.title }}
+                                Savings:{{discount.total_allocated_amount | money }}
+                              {%endfor %}  
+                              <quantity-input>
+                                <div class='cart-item-operation'>
+                                    <div class='minus-plus-box'>
+                                        <button name="minus" class="quantity-minus-btn">{% render 'icon-minus' %}</button>
+                                        <input
+                                            class="quantity__input"
+                                            type="number"
+                                            data-quantity-variant-id="{{ item.variant.id }}"
+                                            name="updates[]"
+                                            value="{{ item.quantity }}"
+                                            {% # theme-check-disable %}
+                                            data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                            min="1"
+                                            data-min="{{ item.variant.quantity_rule.min }}"
+                                            {% if item.variant.quantity_rule.max != null %}
+                                              max="{{ item.variant.quantity_rule.max }}"
+                                            {% endif %}
+                                            step="{{ item.variant.quantity_rule.increment }}"
+                                            {% # theme-check-enable %}
+                                            aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                            id="Drawer-quantity-{{ item.index | plus: 1 }}"
+                                            data-index="{{ item.index | plus: 1 }}"
+                                          >
+                                       <button name="plus" class='quantity-plus-btn'> {% render 'icon-plus' %}</button>
+                                    </div>
+                                    <button class='remove-product-cart'>{% render 'icon-remove' %}</button>
+                                  </div>
+                              </quantity-input>
                         </div>
                     </div>    
                 {% endfor %}    
             </div>
-            <div class='cart-footer'>footer</div>    
+            <div class='cart-footer'>
+                <div class="price-total-box">
+                    <label>Sum total：</label>
+                    <span class="total-price">{{ cart.total_price | money_with_currency }}</span>
+                </div>
+                <button class="settle-button" type="submit">Immediate settlement</button>
+            </div>    
         {% endif %}    
     </div>
 </div>

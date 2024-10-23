@@ -157,3 +157,108 @@ if(!customElements.get('main-product-info-other')){
    
   )
 }
+
+class QuantityInput extends HTMLElement {
+  constructor() {
+    super();
+    this.input = this.querySelector('input');
+    this.min = this.input.getAttribute('min') || 1;
+    this.addBtn = this.querySelector('button[name="plus"]');
+    this.minusBtn = this.querySelector('button[name="minus"]');
+    this.addBtn.addEventListener('click', this.addBtnClick);
+    this.minusBtn.addEventListener('click', this.minusBtnClick);
+    this.variantId = this.input.getAttribute('data-quantity-variant-id');
+    this.loadingEl = document.getElementById(this.dataset['loadingParent'])?.querySelector('.loading__spinner')
+  };
+
+  addBtnClick = () => {
+    this.input.value = this.input.value*1 + 1
+    this.updateQuantity(this.input.value)
+  }
+
+  minusBtnClick = () => {
+    if (this.input.value > this.min) {
+      this.input.value -= 1
+      this.updateQuantity(this.input.value)
+    }
+  }
+  /**
+   * @description 修改购物车中对应产品的数量，并触发页面部分更新
+   * @param {string | number} value 对应产品操作后的数量
+   */
+  updateQuantity = (value) => {
+    this.loadingEl?.classList.remove('hidden')
+    /**
+     * @description 定义请求参数
+     * @property id:对应产品的id
+     * @property quantity:对应产品操作后的数量
+     * @property {Array} sections:需要更新的页面部分
+     * @property {string} sections_url:需要更新的页面部分对应的url
+     */
+    let body = {
+      id:this.variantId,
+      quantity:value,
+      sections: this.updateToRender().map(section => section.section),
+      sections_url: window.location.pathname,
+    }
+    fetch(`${routes.cart_change_url}`,{
+      method:"POST",
+      //headers中的Accept表示获取服务器推送的数据类型
+      headers: { 'Content-Type': 'application/json', Accept: `application/json` },
+      body: JSON.stringify(body)
+    }).then((response)=>{
+      return response.text();
+    }).then((data)=>{
+      //数据转换
+      let parseData = JSON.parse(data);
+      //更新选定section的页面数据
+      this.updateToRender().map((section)=> this.replaceWitnNewHtml(parseData.sections[section.section],section.selector,section.id));
+    })
+  }
+
+  /**
+   * @description 定义需要更新的section、选择器目标等
+   * @returns {Array} 需要更新的页面部分
+   */
+  updateToRender(){
+    return [
+      {
+        id:"cart-drawer",
+        section: document.getElementById('cart-drawer')?.dataset?.id,
+        selector: '.cart-footer'
+      },
+      {
+        id:"main-cart-items",
+        section: document.getElementById('main-cart-items')?.dataset?.id,
+        selector: '.js-contents'
+      },
+      {
+        id:"main-cart-footer",
+        section: document.getElementById('main-cart-footer')?.dataset?.id,
+        selector: '.js-contents'
+      }
+    ]
+  }
+
+  /**
+   * @description 用新数据替换旧数据以达到页面部分更新效果
+   * @param {string} html 新数据
+   * @param {string} selector 要替换的目标
+   * @param {string} id 在哪个元素内
+   */
+  replaceWitnNewHtml(html, selector,id){
+    
+    if(html){
+      
+       let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
+       
+       let replaceEl = document.getElementById(id).querySelector(selector);
+      
+       replaceEl.innerHTML = parseHtml.innerHTML;
+    }
+
+  }
+
+}
+
+customElements.define('quantity-input', QuantityInput);

@@ -88,7 +88,7 @@ input[type="number"]{
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
-<cart-items style="font-family:var(--self_font);padding: 2rem;background-color:transparent;" class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
+<cart-items id="main-cart-items" data-id={{ section.id }} style="font-family:var(--self_font);padding: 2rem;background-color:transparent;" class="color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
@@ -303,7 +303,7 @@ input[type="number"]{
                                 {% render 'icon-info' %}
                               </button>
                             {%- endif -%}
-                            <quantity-input class="quantity cart-quantity">
+                            <quantity-input class="quantity cart-quantity" data-loading-parent="CartItem-{{ item.index | plus: 1 }}">
                               <button class="quantity__button" name="minus" type="button">
                                 <span class="visually-hidden">
                                   {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
@@ -318,7 +318,7 @@ input[type="number"]{
                                 value="{{ item.quantity }}"
                                 {% # theme-check-disable %}
                                 data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
-                                min="0"
+                                min="1"
                                 data-min="{{ item.variant.quantity_rule.min }}"
                                 {% if item.variant.quantity_rule.max != null %}
                                   max="{{ item.variant.quantity_rule.max }}"
@@ -450,7 +450,7 @@ input[type="number"]{
                       </quantity-popover>
                     </td>
 
-                    <td class="cart-item__totals right small-hide">
+                    {% comment %} <td class="cart-item__totals right small-hide">
                       {%- render 'loading' -%}
                       <div class="cart-item__price-wrapper">
                         {%- if item.original_line_price != item.final_line_price -%}
@@ -491,7 +491,7 @@ input[type="number"]{
                           </div>
                         {%- endif -%}
                       </div>
-                    </td>
+                    </td> {% endcomment %}
                   </tr>
                 {%- endfor -%}
               </tbody>

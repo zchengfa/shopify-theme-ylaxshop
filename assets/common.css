@@ -30,6 +30,21 @@ body{
 .line-through{
     text-decoration: line-through;
 }
+.gradient{
+    background: var(--gradient-background);
+    background-attachment: fixed;
+  }
+  .hidden{
+    display:none;
+}
+.scroll-bar-none {
+    overflow: auto; /* 保持可滚动 */
+    scrollbar-width: none; /* 对于 Firefox 隐藏滚动条 */
+  }
+   
+  .scroll-bar-none::-webkit-scrollbar {
+    display: none; /* 对于 Chrome, Safari 和 Opera 隐藏滚动条 */
+  }
 @keyframes zoomBox {
     0%{
         opacity: 0;

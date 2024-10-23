@@ -4,7 +4,11 @@
     width: 100vw;
     box-sizing: border-box;
     }
-
+    .sticky{
+        position: sticky;
+        top: 0;
+        z-index: 99;
+    }
     .header-menu-box .menu-link:not(:last-child){
     margin-right: 1rem;
     }
@@ -43,6 +47,12 @@
     .phone-icon{
         font-size: 1.5rem;
     }
+    .icon-close{
+        transform: scale(.6);
+    }
+    .menu-drawer{
+        display: none;
+    }
     @media screen and (max-width: 750px){
         .phone,.header-logo{
             display:none;
@@ -57,73 +67,164 @@
         .header-container{
             padding: 1rem;
         }
+        .summary-box-item{
+            width: 2rem;
+            height: 2rem;
+        }
+        .menu-drawer{
+            position: fixed;
+            display: block;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+            transition: left ease-in-out .5s;
+            background: var(--gradient-background);
+            background-attachment: fixed;
+        }
+        .menu-drawer-show{
+            position: fixed;
+            display: block;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+            transition: left ease-in-out .5s;
+            background: var(--gradient-background);
+            background-attachment: fixed;
+        }
+        .menu-drawer-item{
+            padding: 1rem;
+            width: 100%;
+        }
+        .menu-drawer-item:hover{
+            background-color: var(--white-color);
+        }
     }
 {% endstyle %}
-<header class='header-container'>
-    {% if section.settings.header_top_menu != blank %}
-        <div class='header-top'>
-        {% render 'header-menu',
-                   menu:section.settings.header_top_menu
-        %}
-        </div>
-    {% endif %}
-      
-    <div class='header-center'>
-        <div class="icon-summary-box">
-            {% render 'icon-summary' %}
-        </div>
-        {% if settings.logo != blank %}
-            {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
-            {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
-        {% else %}
-            <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
-        {% endif %}    
-        <h2 class='store-name'>{{ shop.name }}</h2>
-        {% render 'search' %}
-        <div class='header-center-other-box'>
-            <div class='phone-box'>
-                <div class='phone-icon'>
-                    {% render 'icon-phone' %}
-                </div>
-                {% liquid
-                    assign phone = shop.phone
-                %}
-                <span class='phone'>
-                    {% if section.settings.show_all_phone %}
-                        {{ phone }}
-                    {% else %}
-                        {{ phone | slice: 0,5 | append : '******'  }}
-                    {% endif %}
-                </span>
-                
+<sticky-header>
+    <header class='header-container'>
+        {% if section.settings.header_top_menu != blank %}
+            <div class='header-top'>
+            {% render 'header-menu',
+                       menu:section.settings.header_top_menu
+            %}
             </div>
-            {% if settings.cart_type == 'page' %}
-                <a href={{ routes.cart_url }} class='icon-cart'>
-                    {% render 'icon-cart' %}
-                </a>
-            {% elsif settings.cart_type == 'drawer' %}
-            <button class='icon-cart icon-cart-btn'>
-                {% render 'icon-cart' %}
-               
-            </button> 
-               
+        {% endif %}
+          
+        <div class='header-center'>
+            <div class="icon-summary-box">
+                <div class="icon-summary-box-show summary-box-item">{% render 'icon-summary' %}</div>
+                <div class="icon-close-box-show summary-box-item hidden">{% render 'icon-close' %}</div>
+            </div>
+            {% if settings.logo != blank %}
+                {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
+                {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
+            {% else %}
+                <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
             {% endif %}    
+            <h2 class='store-name'>{{ shop.name }}</h2>
+            {% render 'search' %}
+            <div class='header-center-other-box'>
+                <div class='phone-box'>
+                    <div class='phone-icon'>
+                        {% render 'icon-phone' %}
+                    </div>
+                    {% liquid
+                        assign phone = shop.phone
+                    %}
+                    <span class='phone'>
+                        {% if section.settings.show_all_phone %}
+                            {{ phone }}
+                        {% else %}
+                            {{ phone | slice: 0,5 | append : '******'  }}
+                        {% endif %}
+                    </span>
+                    
+                </div>
+                {% if settings.cart_type == 'page' %}
+                    <a href={{ routes.cart_url }} class='icon-cart'>
+                        {% render 'icon-cart' %}
+                    </a>
+                {% elsif settings.cart_type == 'drawer' %}
+                <button class='icon-cart icon-cart-btn'>
+                    {% render 'icon-cart' %}
+                   
+                </button> 
+                   
+                {% endif %}    
+            </div>
         </div>
+        {% if section.settings.header_menu != blank %}
+            <div class='header-bottom'>
+            {% render 'header-menu',
+                    menu:section.settings.header_menu
+            %}
+            </div>
+        {% endif %}    
+    </header>
+    <div class="menu-drawer">
+        <ul style="width:100%;height:100%;">
+            {% for link in section.settings.header_top_menu.links %}
+                <li class="menu-drawer-item">{{ link.title | link_to:link.url }}</li>
+            {% endfor %}    
+        </ul>
     </div>
-    {% if section.settings.header_menu != blank %}
-        <div class='header-bottom'>
-        {% render 'header-menu',
-                menu:section.settings.header_menu
-        %}
-        </div>
-    {% endif %}    
-</header>
+</sticky-header>
 <script defer>
     let cartBtnEl = document.querySelector('.icon-cart-btn');
     cartBtnEl?.addEventListener('click',()=>{
         showCartWithDrawer();
     });
 </script>
+{% javascript %}
+    if(!customElements.get('sticky-header')){
+        customElements.define('sticky-header',
+            class StickyHeader extends HTMLElement {
+                constructor(){
+                    super()
+                    this.closeBtnShow = false;
+                    this.summaryBtn = this.getElementsByClassName('icon-summary-box-show').item(0);
+                    this.closeBtn = this.getElementsByClassName('icon-close-box-show').item(0);
+                    this.menuDrawer = this.getElementsByClassName('menu-drawer').item(0);
+                    this.summaryBtn.addEventListener('click',()=>{
+                        this.summaryCloseBtnHandle();
+                    });
+
+                    this.closeBtn.addEventListener('click',()=>{
+                        this.summaryCloseBtnHandle();
+                    });
+                }
+
+                connectedCallback(){
+                    window.addEventListener('resize',()=>{
+                        const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
+                        if(el.clientWidth < 750){
+                            el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
+                        }
+                        else{
+                            el.classList = 'shopify-section shopify-section-group-header-group'
+                        }
+                    });
+                }
+
+                summaryCloseBtnHandle(){
+                    if(this.closeBtnShow){
+                        this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';
+                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item';
+                        this.menuDrawer.classList = 'menu-drawer '
+                    }
+                    else{
+                        this.closeBtn.classList = 'icon-close-box-show summary-box-item';
+                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item hidden';
+                        this.menuDrawer.classList = 'menu-drawer menu-drawer-show'
+                    }
+                    this.closeBtnShow = !this.closeBtnShow;
+                }
+            }
+        )
+    }
+{% endjavascript %}
 {% schema %}
 {
   "name": "t:sections.header.name",

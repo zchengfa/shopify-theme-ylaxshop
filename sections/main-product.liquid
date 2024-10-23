@@ -147,7 +147,7 @@ input[type="number"]{
 {% endstyle %}
 <section 
     id="MainProduct-{{ section.id }}"
-    class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} main-product"
+    class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} main-product"
     data-section="{{ section.id }}">
   <div class="main-product-content">
     <div class="main-product-img-box content-item">
@@ -157,6 +157,8 @@ input[type="number"]{
       {%- assign product_form_id = 'product-form-' | append: section.id -%}
      {% for block in section.blocks %}
         {% case block.type %}
+          {% when '@app' %}
+            {% render block %}
           {% when 'text' %}
           <div class="product-info-item">
             <p class="product-title">{{ product.title }}</p>
@@ -171,7 +173,7 @@ input[type="number"]{
               <div class="product-options-item">
                 <label class="product-options-label">{{ option.name | append:'：' }}</label>
                 <span class="product-options-value">{{ option.values }}</span>
-              </div>
+              </div>    
             {% endfor %}  
             
             </div>
