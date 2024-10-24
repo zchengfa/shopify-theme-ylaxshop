@@ -9,6 +9,7 @@
   .footer {
     font-family: var(--self_font);
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+    background-color: transparent !important;
   }
 
   .section-{{ section.id }}-padding {
@@ -37,7 +38,7 @@
   }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<footer class="footer color-{{ section.settings.color_scheme }}  section-{{ section.id }}-padding">
   {%- liquid
     assign has_social_icons = true
     if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
