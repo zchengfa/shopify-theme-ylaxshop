@@ -185,8 +185,10 @@ class QuantityInput extends HTMLElement {
     this.min = this.input.getAttribute('min') || 1;
     this.addBtn = this.querySelector('button[name="plus"]');
     this.minusBtn = this.querySelector('button[name="minus"]');
+    this.removeBtn = this.querySelector('button[name="remove"]');
     this.addBtn.addEventListener('click', this.addBtnClick);
     this.minusBtn.addEventListener('click', this.minusBtnClick);
+    this.removeBtn?.addEventListener('click', this.removeBtnClick);
     this.variantId = this.input.getAttribute('data-quantity-variant-id');
     this.loadingEl = document.getElementById(this.dataset['loadingParent'])?.querySelector('.loading__spinner')
   };
@@ -201,6 +203,9 @@ class QuantityInput extends HTMLElement {
       this.input.value -= 1
       this.updateQuantity(this.input.value)
     }
+  }
+  removeBtnClick = () => {
+    this.updateQuantity(0);
   }
   /**
    * @description 修改购物车中对应产品的数量，并触发页面部分更新
@@ -245,7 +250,7 @@ class QuantityInput extends HTMLElement {
       {
         id:"cart-drawer",
         section: document.getElementById('cart-drawer')?.dataset?.id,
-        selector: '.cart-footer'
+        selector: '.cart-drawer'
       },
       {
         id:"main-cart-items",
