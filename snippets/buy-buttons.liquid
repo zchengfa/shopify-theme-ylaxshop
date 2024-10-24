@@ -1,5 +1,8 @@
 {% style %}
 .product-form__submit{
+    display:flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
     width: 70%;
     height: 2.6rem;
@@ -21,17 +24,18 @@
     }
 }
 {% endstyle %}
-<product-form>
+<product-form listener="button" variant-id="{{ product.selected_or_first_available_variant.id }}">
     <button
         id="ProductSubmitButton-{{ section_id }}"
-        type="submit"
+        data-input-id="{{ input_id }}"
+        data-section-id="{{ section_id }}"
         name="add"
         class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
         {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
           disabled
         {% endif %}
       >
-        <span>
+        <span class="add-btn">
           {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
             {{ 'products.product.sold_out' | t | capitalize}}
           {%- else -%}

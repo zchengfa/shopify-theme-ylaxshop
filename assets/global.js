@@ -195,13 +195,17 @@ class QuantityInput extends HTMLElement {
 
   addBtnClick = () => {
     this.input.value = this.input.value*1 + 1
-    this.updateQuantity(this.input.value)
+    if(this.dataset['fetchAllowed'] !== 'false'){
+      this.updateQuantity(this.input.value)
+    }
   }
 
   minusBtnClick = () => {
     if (this.input.value > this.min) {
       this.input.value -= 1
-      this.updateQuantity(this.input.value)
+      if(this.dataset['fetchAllowed'] !== 'false'){
+        this.updateQuantity(this.input.value)
+      }
     }
   }
   removeBtnClick = () => {

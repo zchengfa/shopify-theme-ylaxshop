@@ -119,6 +119,14 @@ input[type="number"]{
 .product-info-other-normal{
   display: block;
 }
+.quantity__rules-cart{
+  position:relative;
+}
+.quantity__rules-cart .loading__spinner{
+  top: 0;
+  left: .5rem;
+  transform: scale(.6);
+}
 @media screen and (max-width:  450px){
     .main-product-content{
        flex-direction: column;
@@ -153,7 +161,7 @@ input[type="number"]{
     <div class="main-product-img-box content-item">
       <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
     </div>
-    <div class="main-product-info content-item">
+    <div class="main-product-info content-item" id="main-product-info">
       {%- assign product_form_id = 'product-form-' | append: section.id -%}
      {% for block in section.blocks %}
         {% case block.type %}
@@ -179,8 +187,8 @@ input[type="number"]{
             </div>
           {% when 'price' %}
           <div class="product-info-item">
-            <span class="product-price">{{ product.compare_at_price | money_with_currency }}</span> 
-            <span class="product-price  line-through">{{ product.price_max | money_with_currency }}</span> 
+            <span class="product-price">{{ product.price | money_with_currency }}</span> 
+            <span class="product-price  line-through">{{ product.compare_at_price | money_with_currency }}</span> 
             {%- if product.selected_or_first_available_variant.available -%}
               <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
                 {{ 'products.product.on_sale' | t }}
@@ -196,17 +204,18 @@ input[type="number"]{
               | item_count_for_variant: product.selected_or_first_available_variant.id
             -%}
             <label class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
-              {{ 'products.product.quantity.label' | t }}
+              <span>{{ 'products.product.quantity.label' | t }}</span>
+              
               <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}">
                 {%- render 'loading' -%}
-                <span
+                <span class="quantity-cart-span"
                   >(
                   {{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}}
                   )</span
                 >
               </span>
             </label>
-            <quantity-input class="quantity product-info-item" data-url="{{ product.url }}" data-section="{{ section.id }}">
+            <quantity-input data-fetch-allowed="{{ false }}" class="quantity product-info-item" data-url="{{ product.url }}" data-section="{{ section.id }}">
               <button class="quantity__button" name="minus" type="button">
                 {% render 'icon-minus' %}
               </button>
@@ -231,13 +240,16 @@ input[type="number"]{
               </button>
             </quantity-input>
             {% when 'buy_buttons' %}
+              {% assign input_id =  section.id | prepend: 'Quantity-' %}
               {%- render 'buy-buttons',
                 block: block,
                 product: product,
                 product_form_id: product_form_id,
                 section_id: section.id,
-                show_pickup_availability: true
+                show_pickup_availability: true,
+                input_id : input_id
               -%}
+              <script src={{ 'product-form.js' | asset_url }} defer></script>
         {% endcase %}  
      {% endfor %}
     </div>

@@ -4,32 +4,33 @@ if (!customElements.get('product-form')) {
       class ProductForm extends HTMLElement {
         constructor() {
           super();
-  
-          this.form = this.querySelector('form');
-          this.variantId = this.form.querySelector('input[name="id"]').value;
+          this.isBtnListenter = this.attributes['listener']?.value === 'button'
+          this.listener = this.isBtnListenter ? this.querySelector('button[name="add"]') : this.querySelector('form');
+          this.variantId = this.isBtnListenter ? this.attributes['variant-id'].value : this.listener.querySelector('input[name="id"]').value;
           this.addBtnEl = this.getElementsByClassName('add-btn').item(0);
-          this.form.addEventListener('submit', (e)=>{
+          this.listener.addEventListener(this.isBtnListenter ? 'click' : 'submit', (e)=>{
             this.onSubmitHandler(e);
           });
+
+          this.label = document.getElementsByClassName('quantity__label')?.item(0)
+        
         }
   
         onSubmitHandler(evt) {
             evt.preventDefault();
+            if(this.label){
+              this.label.querySelector('.loading__spinner').classList.remove('hidden')
+              this.label.querySelector('.quantity-cart-span').classList.add('hidden');
+            }
 
             let loadingEl = this.getElementsByClassName('loading__spinner').item(0);
             loadingEl.classList.remove('hidden');
             this.addBtnEl.classList.add('hidden');
             
-            // const config = fetchConfig('javascript');
-            // config.headers['X-Requested-With'] = 'XMLHttpRequest';
-            // delete config.headers['Content-Type'];
-    
-            //const formData = new FormData(this.form);
-            // config.body = formData;
             let body = {
               id:this.variantId,
-              quantity:1,
-              sections: ["cart-drawer"],
+              quantity: this.isBtnListenter ? document.getElementById(this.listener.dataset['inputId']).value : 1,
+              sections: this.label ? ["cart-drawer",`${this.listener.dataset['sectionId']}`] : ["cart-drawer"],
               sections_url: window.location.pathname
             }
     
@@ -45,6 +46,7 @@ if (!customElements.get('product-form')) {
                 .then((response) => {
                   let parseData = JSON.parse(response);
                   replaceWitnNewHtml(parseData.sections["cart-drawer"],'.cart-drawer', 'cart-drawer');
+                  this.label ? replaceWitnNewHtml(parseData.sections[`${this.listener.dataset['sectionId']}`],".quantity__label", "main-product-info") : null
                   showCartWithDrawer();
                 })
                 

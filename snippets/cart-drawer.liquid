@@ -38,15 +38,19 @@
 .cart-empty-box{
     flex:1;
 }
+.cart-header{
+    padding: 0 1rem;
+}
 .cart-header,.cart-footer{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 4rem;
 }
 .cart-footer{
+    flex-direction: column;
+    justify-content: center;
     padding: 1rem 0;
     height: auto;
 }
@@ -147,9 +151,17 @@ input[type="number"]{
     background: rgb(var(--color-background));
     cursor: pointer;
 }
+.cart-close-btn{
+    width: 3rem;
+}
 @media screen and (max-width: 750px){
     .animate-drawer,.cart-drawer{
         width: 80vw;
+    }
+}
+@media screen and (max-width: 450px){
+    .animate-drawer,.cart-drawer{
+        width: 100vw;
     }
 }
 
@@ -170,6 +182,9 @@ input[type="number"]{
         {% else %}
             <div class='cart-header'>
                 <span class="cart-title">Your cart</span>
+            <button class="cart-close-btn">
+                {% render 'icon-close' %}
+            </button>
             </div>
             <div class='cart-content scroll-bar-none'>
                 {% for item in cart.items %}
@@ -251,16 +266,25 @@ input[type="number"]{
 
 <script>
 const el =  document.getElementsByClassName('cart-container').item(0);
+const closeEl =  document.getElementsByClassName('cart-close-btn').item(0);
 
 el.addEventListener('click',(e)=>{
     if(e.target === e.currentTarget){
-        document.getElementsByClassName('animate-drawer').item(0).classList.remove('animate-drawer');
+        animateCart(el);
+    } 
+});
+
+closeEl.addEventListener('click',()=>{
+    animateCart(closeEl);
+})
+
+function animateCart(target){
+    document.getElementsByClassName('animate-drawer').item(0).classList.remove('animate-drawer');
         let timer = setTimeout(()=>{
             el.classList.remove('cart-show');
             el.classList.add('hidden');
             clearTimeout(timer);
         },500);
-    } 
-});
+}
 
 </script>
