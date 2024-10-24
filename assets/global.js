@@ -42,6 +42,26 @@ function throttle (func,delay) {
 }
 
 
+  /**
+   * @description 用新数据替换旧数据以达到页面部分更新效果
+   * @param {string} html 新数据
+   * @param {string} selector 要替换的目标
+   * @param {string} id 在哪个元素内
+   */
+  function replaceWitnNewHtml(html, selector,id){
+    
+    if(html){
+      
+       let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
+       
+       let replaceEl = document.getElementById(id).querySelector(selector);
+      
+       replaceEl.innerHTML = parseHtml.innerHTML;
+    }
+
+  }
+
+
 //发布、
 let subscribers = {};
 
@@ -212,7 +232,7 @@ class QuantityInput extends HTMLElement {
       //数据转换
       let parseData = JSON.parse(data);
       //更新选定section的页面数据
-      this.updateToRender().map((section)=> this.replaceWitnNewHtml(parseData.sections[section.section],section.selector,section.id));
+      this.updateToRender().map((section)=> replaceWitnNewHtml(parseData.sections[section.section],section.selector,section.id));
     })
   }
 
@@ -239,26 +259,6 @@ class QuantityInput extends HTMLElement {
       }
     ]
   }
-
-  /**
-   * @description 用新数据替换旧数据以达到页面部分更新效果
-   * @param {string} html 新数据
-   * @param {string} selector 要替换的目标
-   * @param {string} id 在哪个元素内
-   */
-  replaceWitnNewHtml(html, selector,id){
-    
-    if(html){
-      
-       let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
-       
-       let replaceEl = document.getElementById(id).querySelector(selector);
-      
-       replaceEl.innerHTML = parseHtml.innerHTML;
-    }
-
-  }
-
 }
 
 customElements.define('quantity-input', QuantityInput);
