@@ -6,6 +6,7 @@ if (!customElements.get('product-form')) {
           super();
   
           this.form = this.querySelector('form');
+          this.variantId = this.form.querySelector('input[name="id"]').value;
           this.addBtnEl = this.getElementsByClassName('add-btn').item(0);
           this.form.addEventListener('submit', (e)=>{
             this.onSubmitHandler(e);
@@ -18,32 +19,35 @@ if (!customElements.get('product-form')) {
             let loadingEl = this.getElementsByClassName('loading__spinner').item(0);
             loadingEl.classList.remove('hidden');
             this.addBtnEl.classList.add('hidden');
-
-            const config = fetchConfig('javascript');
-            config.headers['X-Requested-With'] = 'XMLHttpRequest';
-            delete config.headers['Content-Type'];
-    
-            const formData = new FormData(this.form);
             
-            config.body = formData;
+            // const config = fetchConfig('javascript');
+            // config.headers['X-Requested-With'] = 'XMLHttpRequest';
+            // delete config.headers['Content-Type'];
     
-            fetch(`${routes.cart_add_url}`, config)
-                .then((response) => response.json())
+            //const formData = new FormData(this.form);
+            // config.body = formData;
+            let body = {
+              id:this.variantId,
+              quantity:1,
+              sections: ["cart-drawer"],
+              sections_url: window.location.pathname
+            }
+    
+            fetch(`${routes.cart_add_url}`, {
+              method:"POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+              },
+              body:JSON.stringify(body)
+            })
+                .then((response) => response.text())
                 .then((response) => {
-                  
-                   showCartWithDrawer();
-                   if (response.status) {
-                    publish(PUB_SUB_EVENTS.cartError, {
-                      source: 'product-form',
-                      productVariantId: formData.get('id'),
-                      errors: response.errors || response.description,
-                      message: response.message,
-                    });
-                   
-                    return;
-                  }
-                 
+                  let parseData = JSON.parse(response);
+                  replaceWitnNewHtml(parseData.sections["cart-drawer"],'.cart-drawer', 'cart-drawer');
+                  showCartWithDrawer();
                 })
+                
                 .catch((e) => {
                     console.error(e);
                     
