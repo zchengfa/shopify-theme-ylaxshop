@@ -244,34 +244,34 @@
     "main-product": {
       "name": "产品信息",
       "blocks": {
-        "options_panel":{
-          "name":"产品属性面板"
+        "options_panel": {
+          "name": "产品属性面板"
         },
-        "product_detail_desc":{
-          "name":"产品详细描述内容",
-          "settings":{
-            "metaobjects_type":{
-              "label":"产品元对象类型",
-              "info":"商店后台中设置的元对象类型"
+        "product_detail_desc": {
+          "name": "产品详细描述内容",
+          "settings": {
+            "metaobjects_type": {
+              "label": "产品元对象类型",
+              "info": "商店后台中设置的元对象类型"
             },
-            "metaobjects_fields":{
-              "label":"产品元对象字段",
-              "info":"产品元对象设置的字段，若有多个字段，请使用英文逗号隔开且字段后需使用-跟上字段类型（图片：image，文本：text）"
+            "metaobjects_fields": {
+              "label": "产品元对象字段",
+              "info": "产品元对象设置的字段，若有多个字段，请使用英文逗号隔开且字段后需使用-跟上字段类型（图片：image，文本：text）"
             },
-            "card_bg":{
-              "label":"文本卡片背景颜色",
-              "info":"用于修改文本卡片背景颜色"
+            "card_bg": {
+              "label": "文本卡片背景颜色",
+              "info": "用于修改文本卡片背景颜色"
             },
-            "card_text_margin_bottm":{
-              "label":"文本margin-bottom"
+            "card_text_margin_bottm": {
+              "label": "文本margin-bottom"
             },
-            "card_shadow_color":{
-              "label":"文本卡片shadow颜色"
+            "card_shadow_color": {
+              "label": "文本卡片shadow颜色"
             },
-            "card_padding":{
+            "card_padding": {
               "label": "文本卡片padding"
             },
-            "image_title":{
+            "image_title": {
               "label": "图片展示标题"
             }
           }
@@ -350,7 +350,6 @@
           },
           "name": "共享"
         },
-       
         "title": {
           "name": "标题"
         },
@@ -579,11 +578,34 @@
             "label": "打开灯箱"
           },
           "options__2": {
-            "label": "点击和悬停"
+            "label": "放大镜"
           },
           "options__3": {
             "label": "无缩放"
           }
+        },
+        "show_in_magnifier":{
+          "label": "是否在放大镜中显示放大后的图片",
+          "info":"当图片缩放为放大镜时，开启此选项后，放大后的图片会在放大镜中显示，否则放大后的图片会显示在页面上"
+        },
+        "magnifier_mask_color":{
+          "label": "放大镜mask的颜色",
+          "info":"设置放大镜中出现的遮罩层颜色"
+        },
+        "magnifier_or_mask_size":{
+          "label": "放大镜或遮罩层的大小",
+          "info":"设置放大镜或遮罩层的大小"
+        },
+        "magnifier_times":{
+          "label": "图片放大倍数",
+        },
+        "magnifier_position":{
+          "label": "放大镜位置",
+          "info":"设置放大镜的位置"
+        },
+        "magnifier_offset":{
+          "label": "放大镜偏移量",
+          "info":"设置放大镜的偏移量"
         },
         "constrain_to_viewport": {
           "label": "将媒体文件限制为屏幕高度"
@@ -597,8 +619,8 @@
             "label": "填充"
           }
         },
-        "main_product_other_width":{
-          "label":"产品详情其他区域宽度"
+        "main_product_other_width": {
+          "label": "产品详情其他区域宽度"
         }
       }
     },
@@ -614,36 +636,36 @@
         "name": "自定义 Liquid"
       }
     },
-    "recommend_products":{
-      "name":"推荐产品",
-      "settings":{
-        "header":{
-          "recommend_title":"产品推荐标题",
-          "complementary_title":"互补产品标题"
+    "recommend_products": {
+      "name": "推荐产品",
+      "settings": {
+        "header": {
+          "recommend_title": "产品推荐标题",
+          "complementary_title": "互补产品标题"
         }
       }
     },
-    "FAQ":{
-      "name":"常见问题",
-      "blocks":{
-        "question":{
-          "name":"问题",
-          "settings":{
-            "FAQ_q":{
-              "label":"问题"
+    "FAQ": {
+      "name": "常见问题",
+      "blocks": {
+        "question": {
+          "name": "问题",
+          "settings": {
+            "FAQ_q": {
+              "label": "问题"
             },
-            "FAQ_a":{
-              "label":"回答"
+            "FAQ_a": {
+              "label": "回答"
             }
           }
         }
       },
-      "settings":{
-        "padding":{
-          "label":"常见问题板块padding"
+      "settings": {
+        "padding": {
+          "label": "常见问题板块padding"
         },
-        "FAQ_item_width":{
-          "label":"常见问题板块中子版块的宽度"
+        "FAQ_item_width": {
+          "label": "常见问题板块中子版块的宽度"
         }
       }
     },

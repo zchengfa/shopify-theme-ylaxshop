@@ -15,16 +15,23 @@
   height: 35vw;
   border-radius: 2rem;
 }
+.main-product-img-box{
+  margin-right: 2rem;
+}
+.main-product-img-box.content-item{
+  width: 30vw;
+  height: 30vw;
+}
 .content-item{
-  width: 40vw;
-  min-height: 35vw;
+  width: 45vw;
+  min-height: 30vw;
 }
 .product-info-item{
   margin-bottom: 1rem;
 }
 .product-title{
   font-family: var(--self_font);
-  font-size: calc(var(--font-scale) * 2.5rem);
+  font-size: calc(var(--font-scale) * 2rem);
 }
 .product-price{
   font-family: var(--self_font);
@@ -131,6 +138,13 @@ input[type="number"]{
     .main-product-content{
        flex-direction: column;
     }
+    .main-product-img-box{
+      margin-right: 0;
+    }
+    .main-product-img-box.content-item{
+      width: 100%;
+      height: auto;
+    }
     .content-item{
       margin-bottom: 1rem;
       width: 100%;
@@ -159,7 +173,23 @@ input[type="number"]{
     data-section="{{ section.id }}">
   <div class="main-product-content">
     <div class="main-product-img-box content-item">
+      {% comment %} magnifier {% endcomment %}
+       {% assign image_zoom_type = section.settings.image_zoom %}
+       {% if image_zoom_type == 'none' %}
       <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
+      {% elsif image_zoom_type == 'hover' %}
+        <magnifier-image data-show-in-magnifier={{ section.settings.show_in_magnifier }} data-magnifier-times={{ section.settings.magnifier_times }}>
+          {% render 'magnifier-image',
+            product,
+            show_in_magnifier:section.settings.show_in_magnifier,
+            magnifier_mask_color:section.settings.magnifier_mask_color,
+            magnifier_or_mask_size:section.settings.magnifier_or_mask_size
+          %}
+        </magnifier-image>
+        <script src="{{ 'magnifier.js' | asset_url}}" defer></script>
+      {% elsif image_zoom_type == 'lightbox' %}  
+
+      {% endif %}
     </div>
     <div class="main-product-info content-item" id="main-product-info">
       {%- assign product_form_id = 'product-form-' | append: section.id -%}
@@ -1001,6 +1031,41 @@ input[type="number"]{
         "default": "lightbox",
         "label": "t:sections.main-product.settings.image_zoom.label",
         "info": "t:sections.main-product.settings.image_zoom.info"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_in_magnifier",
+        "default": false,
+        "label": "t:sections.main-product.settings.show_in_magnifier.label",
+        "info": "t:sections.main-product.settings.show_in_magnifier.info"
+      },
+      {
+        "type": "color",
+        "id": "magnifier_mask_color",
+        "label": "t:sections.main-product.settings.magnifier_mask_color.label",
+        "info": "t:sections.main-product.settings.magnifier_mask_color.info",
+        "default": "#4db5e5"
+      },
+      {
+        "type": "range",
+        "id": "magnifier_or_mask_size",
+        "min": 25,
+        "max": 40,
+        "step": 1,
+        "unit": "%",
+        "label": "t:sections.main-product.settings.magnifier_or_mask_size.label",
+        "info": "t:sections.main-product.settings.magnifier_or_mask_size.info",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "magnifier_times",
+        "min": 1.5,
+        "max": 5,
+        "step": 0.5,
+        "unit": "*",
+        "label": "t:sections.main-product.settings.magnifier_times.label",
+        "default": 2
       },
       {
         "type": "select",
