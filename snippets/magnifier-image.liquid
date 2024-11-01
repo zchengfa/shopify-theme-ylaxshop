@@ -1,0 +1,58 @@
+{% style %}
+  /* begin magnifier */
+.magnifier-img-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.original-img-box{
+    position: relative;
+    width:  100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .original-img-box img{
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }  
+  .magnifier-img-box{
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 110%;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+    background-repeat: no-repeat;
+    background-image: url({{ product.images.first | image_url }});
+    overflow: hidden;
+    z-index:10;
+  }
+#MagnifierMask{
+  display: none;
+  position: absolute;
+  width: {{magnifier_or_mask_size | append: '%'}};
+  height: {{magnifier_or_mask_size | append: '%'}};
+}
+.show-magnifier-mask{
+  background-repeat: no-repeat;
+  background-image: url({{ product.images.first | image_url }});
+  border-radius: 50%;
+}
+.show-magnifier-mask-hide{
+  background-color: {{ magnifier_mask_color }};
+  opacity: .3;
+}
+/* end magnifier */
+{% endstyle %}
+<div class="magnifier-img-container">
+    <div class="original-img-box">
+      <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
+      <div id="MagnifierMask" class="{% if show_in_magnifier %}show-magnifier-mask{% else %}show-magnifier-mask-hide{% endif %}"></div>
+    </div>
+    <div class="magnifier-img-box"></div>
+</div>
