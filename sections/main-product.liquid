@@ -233,7 +233,7 @@ input[type="number"]{
             {%- assign cart_qty = cart
               | item_count_for_variant: product.selected_or_first_available_variant.id
             -%}
-            <label class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
+            <label id="quantity-label" data-id={{ section.id }} class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
               <span>{{ 'products.product.quantity.label' | t }}</span>
               
               <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}">

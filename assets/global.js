@@ -291,6 +291,11 @@ class QuantityInput extends HTMLElement {
         id:"main-cart-footer",
         section: document.getElementById('main-cart-footer')?.dataset?.id,
         selector: '.js-contents'
+      },
+      {
+        id:"quantity-label",
+        section: document.getElementById('quantity-label')?.dataset?.id,
+        selector: '.quantity__rules-cart'
       }
     ]
   }
