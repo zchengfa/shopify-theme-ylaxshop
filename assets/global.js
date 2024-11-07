@@ -215,7 +215,7 @@ class QuantityInput extends HTMLElement {
     this.minusBtn.addEventListener('click', this.minusBtnClick);
     this.removeBtn?.addEventListener('click', this.removeBtnClick);
     this.variantId = this.input.getAttribute('data-quantity-variant-id');
-    this.loadingEl = document.getElementById(this.dataset['loadingParent'])?.querySelector('.loading__spinner')
+    this.loadingEl = document.getElementById(this.dataset['loadingParent'])?.querySelector('.loading__spinner');
   };
 
   addBtnClick = () => {
@@ -240,6 +240,10 @@ class QuantityInput extends HTMLElement {
    * @param {string | number} value 对应产品操作后的数量
    */
   updateQuantity = (value) => {
+    //阻止表单提交跳转
+    document.getElementById('CartDrawer-Form').addEventListener('submit', function (e) {
+      e.preventDefault();
+    })
     this.loadingEl?.classList.remove('hidden')
     /**
      * @description 定义请求参数

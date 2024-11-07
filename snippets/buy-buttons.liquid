@@ -3,20 +3,25 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
-    width: 70%;
-    height: 2.6rem;
-    border-radius: .5rem;
-    border: 2px solid var(--black-color);
     background:rgb( var(--color-background));
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-transform: capitalize;
 }
-.product-buy-btn{
+.shopify-payment-button__button{
     color: var(--white-color);
     background-color: var(--black-color);
-   
+    border-radius: .5rem;
+}
+.shopify-payment-button,.product-form__submit{
+  margin-bottom: 1rem;
+  width: 70%;
+  height: 2.6rem;
+  border-radius: .5rem;
+  border: 2px solid var(--black-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.shopify-payment-button__button--unbranded{
+  padding: 0;
 }
 @media screen and (max-width:  450px){
     .product-form__submit{
@@ -24,25 +29,42 @@
     }
 }
 {% endstyle %}
-<product-form listener="button" variant-id="{{ product.selected_or_first_available_variant.id }}">
-    <button
-        id="ProductSubmitButton-{{ section_id }}"
-        data-input-id="{{ input_id }}"
-        data-section-id="{{ section_id }}"
-        name="add"
-        class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-        {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
-          disabled
-        {% endif %}
-      >
-        <span class="add-btn">
-          {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-            {{ 'products.product.sold_out' | t | capitalize}}
-          {%- else -%}
-            {{ 'products.product.add_to_cart' | t | capitalize}}
-          {%- endif -%}
-        </span>
-        {%- render 'loading' -%}
-      </button>
-      <button class="product-form__submit product-buy-btn">{{ 'products.product.buy_button' | t }}</button>
+{% assign show_dynamic_checkout = true %}
+<product-form listener="button" variant-id="{{ product.selected_or_first_available_variant.id }}"> 
+      {% form 'product',
+        product,
+        id: product_form_id,
+        class: 'form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form' %}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+            disabled
+          {% endif %}
+          class="product-variant-id"
+        >
+        <button
+          id="ProductSubmitButton-{{ section_id }}"
+          data-input-id="{{ input_id }}"
+          data-section-id="{{ section_id }}"
+          name="add"
+          class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+          {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+            disabled
+          {% endif %}
+        >
+          <span class="add-btn">
+            {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+              {{ 'products.product.sold_out' | t | capitalize}}
+            {%- else -%}
+              {{ 'products.product.add_to_cart' | t | capitalize}}
+            {%- endif -%}
+          </span>
+          {%- render 'loading' -%}
+        </button>
+        {{ form | payment_button }}
+      {% endform %}
   </product-form>
