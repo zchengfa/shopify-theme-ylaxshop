@@ -48,6 +48,8 @@ if (!customElements.get('product-form')) {
                   replaceWitnNewHtml(parseData.sections["cart-drawer"],'.cart-drawer', 'cart-drawer');
                   this.label ? replaceWitnNewHtml(parseData.sections[`${this.listener.dataset['sectionId']}`],".quantity__label", "main-product-info") : null
                   showCartWithDrawer();
+                  //重新监听按钮点击事件
+                  hideCartWithDrawer();
                 })
                 
                 .catch((e) => {

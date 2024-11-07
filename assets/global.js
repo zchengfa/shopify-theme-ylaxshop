@@ -16,6 +16,31 @@ function showCartWithDrawer(){
   }); 
 }
 
+function hideCartWithDrawer(){
+  const el =  document.getElementsByClassName('cart-container').item(0);
+  const closeEl =  document.getElementsByClassName('cart-close-btn').item(0);
+
+  el?.addEventListener('click',(e)=>{
+      if(e.target === e.currentTarget){
+          animateCart();
+      } 
+  });
+
+  closeEl?.addEventListener('click',()=>{
+      animateCart();
+  })
+
+  function animateCart(){
+      document.getElementsByClassName('cart-drawer')?.item(0).classList.remove('animate-drawer');
+          let timer = setTimeout(()=>{
+              el.classList.remove('cart-show');
+              el.classList.add('hidden');
+              clearTimeout(timer);
+          },500);
+  }
+
+}
+
 function debounce(func,delay){
   let timer = null;
   return function (...args){
@@ -199,7 +224,6 @@ class QuantityInput extends HTMLElement {
       this.updateQuantity(this.input.value)
     }
   }
-
   minusBtnClick = () => {
     if (this.input.value > this.min) {
       this.input.value -= 1
@@ -242,6 +266,8 @@ class QuantityInput extends HTMLElement {
       let parseData = JSON.parse(data);
       //更新选定section的页面数据
       this.updateToRender().map((section)=> replaceWitnNewHtml(parseData.sections[section.section],section.selector,section.id));
+      //重新监听事件
+      hideCartWithDrawer();
     })
   }
 

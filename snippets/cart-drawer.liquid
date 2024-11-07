@@ -67,6 +67,7 @@
     border-radius: .5rem;
 }
 .cart-title{
+    margin-left: .5rem;
     font-weight: bolder;
     font-size: 1.6rem;
 }
@@ -152,6 +153,7 @@ input[type="number"]{
     cursor: pointer;
 }
 .cart-close-btn{
+    margin-right: .5rem;
     width: 3rem;
 }
 @media screen and (max-width: 750px){
@@ -265,26 +267,7 @@ input[type="number"]{
 </div>
 
 <script>
-const el =  document.getElementsByClassName('cart-container').item(0);
-const closeEl =  document.getElementsByClassName('cart-close-btn').item(0);
-
-el.addEventListener('click',(e)=>{
-    if(e.target === e.currentTarget){
-        animateCart(el);
-    } 
-});
-
-closeEl.addEventListener('click',()=>{
-    animateCart(closeEl);
-})
-
-function animateCart(target){
-    document.getElementsByClassName('animate-drawer').item(0).classList.remove('animate-drawer');
-        let timer = setTimeout(()=>{
-            el.classList.remove('cart-show');
-            el.classList.add('hidden');
-            clearTimeout(timer);
-        },500);
-}
-
+   window.addEventListener('DOMContentLoaded', function() {
+    hideCartWithDrawer();
+   })
 </script>
