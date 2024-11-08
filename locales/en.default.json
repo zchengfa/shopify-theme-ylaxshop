@@ -1,179 +1,179 @@
 {
-    "general":{
-        "continue_shopping": "Continue shopping",
-        "accessibility": {
-            "skip_to_text": "Skip to content",
-            "skip_to_product_info": "Skip to product information",
-            "close": "Close",
-            "unit_price_separator": "per",
-            "vendor": "Vendor:",
-            "error": "Error",
-            "refresh_page": "Choosing a selection results in a full page refresh.",
-            "link_messages": {
-              "new_window": "Opens in a new window.",
-              "external": "Opens external website."
-            },
-            "loading": "Loading...",
-            "total_reviews": "total reviews",
-            "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
-            "collapsible_content_title": "Collapsible content",
-            "complementary_products": "Complementary products"
-          },
-          "social": {
-            "alt_text": {
-              "share_on_facebook": "Share on Facebook",
-              "share_on_twitter": "Share on X",
-              "share_on_pinterest": "Pin on Pinterest"
-            },
-            "links": {
-              "twitter": "X (Twitter)",
-              "facebook": "Facebook",
-              "pinterest": "Pinterest",
-              "instagram": "Instagram",
-              "tumblr": "Tumblr",
-              "snapchat": "Snapchat",
-              "youtube": "YouTube",
-              "vimeo": "Vimeo",
-              "tiktok": "TikTok"
-            }
-          }
-    },
-    "newsletter": {
-      "label": "Email",
-      "success": "Thanks for subscribing",
-      "button_label": "Subscribe"
-    },
-    "localization": {
-      "country_label": "Country\/region",
-      "language_label": "Language",
-      "update_language": "Update language",
-      "update_country": "Update country\/region",
-      "search": "Search",
-      "popular_countries_regions": "Popular countries\/regions",
-      "country_results_count": "{{ count }} countries\/regions found"
-    },
-    "sections":{
-        "footer": {
-          "payment": "Payment methods"
-        },
-        "cart": {
-            "title": "Your cart",
-            "caption": "Cart items",
-            "remove_title": "Remove {{ title }}",
-            "estimated_total": "Estimated total",
-            "new_estimated_total": "New estimated total",
-            "note": "Order special instructions",
-            "checkout": "Check out",
-            "empty": "Your cart is empty",
-            "cart_error": "There was an error while updating your cart. Please try again.",
-            "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
-            "taxes_and_shipping_policy_at_checkout_html": "Taxes, Discounts and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
-            "taxes_included_but_shipping_at_checkout": "Tax included and shipping and discounts calculated at checkout",
-            "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> and discounts calculated at checkout.",
-            "taxes_and_shipping_at_checkout": "Taxes, discounts and shipping calculated at checkout",
-            "headings": {
-              "product": "Product",
-              "price": "Price",
-              "total": "Total",
-              "quantity": "Quantity",
-              "image": "Product image"
-            },
-            "update": "Update",
-            "login": {
-              "title": "Have an account?",
-              "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
-            }
-        },
-        "quick_order_list": {
-            "product_total": "Product subtotal",
-            "view_cart": "View cart",
-            "each": "{{ money }}\/ea",
-            "product": "Product",
-            "variant": "Variant",
-            "variant_total": "Variant total",
-            "items_added": {
-              "one": "{{ quantity }} item added",
-              "other": "{{ quantity }} items added"
-            },
-            "items_removed": {
-              "one": "{{ quantity }} item removed",
-              "other": "{{ quantity }} items removed"
-            },
-            "product_variants": "Product variants",
-            "total_items": "Total items",
-            "remove_all_single_item_confirmation": "Remove 1 item from your cart?",
-            "remove_all_items_confirmation": "Remove all {{ quantity }} items from your cart?",
-            "remove_all": "Remove all",
-            "cancel": "Cancel",
-            "min_error": "This item has a minimum of {{ min }}",
-            "max_error": "This item has a maximum of {{ max }}",
-            "step_error": "You can only add this item in increments of {{ step }}"
-        }
-        
-        
-    },
-    "customer":{
-        "order":{
-            "discount":"discount"
-        }
-    
-    },
-    "search":{
-      "content":{
-        "placeholder":"search",
-        "search_button":"search"
-      }
-    },
-    "products":{
-        "product":{
-            "on_sale":"sale",
-            "sold_out":"sold out",
-            "add_to_cart":"add to cart",
-            "buy_button":"buy it now",
-            "price": {
-                "from_price_html": "From {{ price }}",
-                "regular_price": "Regular price",
-                "sale_price": "Sale price",
-                "unit_price": "Unit price"
-            },
-            "quantity": {
-                "label": "Quantity",
-                "input_label": "Quantity for {{ product }}",
-                "increase": "Increase quantity for {{ product }}",
-                "decrease": "Decrease quantity for {{ product }}",
-                "minimum_of": "Minimum of {{ quantity }}",
-                "maximum_of": "Maximum of {{ quantity }}",
-                "multiples_of": "Increments of {{ quantity }}",
-                "min_of": "Min {{ quantity }}",
-                "max_of": "Max {{ quantity }}",
-                "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
-                "note": "View quantity rules"
-            },
-            "volume_pricing": {
-                "title": "Volume Pricing",
-                "note": "Volume pricing available",
-                "minimum": "{{ quantity }}+",
-                "price_at_each": "at {{ price }}\/ea",
-                "price_range": "{{ minimum }} - {{ maximum }}"
-            }
-        }
-    },
+  "general": {
+    "continue_shopping": "Continue shopping",
     "accessibility": {
-        "skip_to_text": "Skip to content",
-        "skip_to_product_info": "Skip to product information",
-        "close": "Close",
-        "unit_price_separator": "per",
-        "vendor": "Vendor:",
-        "error": "Error",
-        "refresh_page": "Choosing a selection results in a full page refresh.",
-        "link_messages": {
-          "new_window": "Opens in a new window.",
-          "external": "Opens external website."
-        },
-        "loading": "Loading...",
-        "total_reviews": "total reviews",
-        "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
-        "collapsible_content_title": "Collapsible content",
-        "complementary_products": "Complementary products"
+      "skip_to_text": "Skip to content",
+      "skip_to_product_info": "Skip to product information",
+      "close": "Close",
+      "unit_price_separator": "per",
+      "vendor": "Vendor:",
+      "error": "Error",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "link_messages": {
+        "new_window": "Opens in a new window.",
+        "external": "Opens external website."
+      },
+      "loading": "Loading...",
+      "total_reviews": "total reviews",
+      "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
+      "collapsible_content_title": "Collapsible content",
+      "complementary_products": "Complementary products"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Share on Facebook",
+        "share_on_twitter": "Share on X",
+        "share_on_pinterest": "Pin on Pinterest"
+      },
+      "links": {
+        "twitter": "X (Twitter)",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "tumblr": "Tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "Vimeo",
+        "tiktok": "TikTok"
       }
+    }
+  },
+  "newsletter": {
+    "label": "Email",
+    "success": "Thanks for subscribing",
+    "button_label": "Subscribe"
+  },
+  "localization": {
+    "country_label": "Country\/region",
+    "language_label": "Language",
+    "update_language": "Update language",
+    "update_country": "Update country\/region",
+    "search": "Search",
+    "popular_countries_regions": "Popular countries\/regions",
+    "country_results_count": "{{ count }} countries\/regions found"
+  },
+  "sections": {
+    "footer": {
+      "payment": "Payment methods"
+    },
+    "cart": {
+      "title": "Your cart",
+      "caption": "Cart items",
+      "remove_title": "Remove {{ title }}",
+      "estimated_total": "Estimated total",
+      "new_estimated_total": "New estimated total",
+      "note": "Order special instructions",
+      "sum_total":"sum total",
+      "checkout": "Check out",
+      "empty": "Your cart is empty",
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes, Discounts and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
+      "taxes_included_but_shipping_at_checkout": "Tax included and shipping and discounts calculated at checkout",
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> and discounts calculated at checkout.",
+      "taxes_and_shipping_at_checkout": "Taxes, discounts and shipping calculated at checkout",
+      "headings": {
+        "product": "Product",
+        "price": "Price",
+        "total": "Total",
+        "quantity": "Quantity",
+        "image": "Product image"
+      },
+      "update": "Update",
+      "login": {
+        "title": "Have an account?",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
+      }
+    },
+    "quick_order_list": {
+      "product_total": "Product subtotal",
+      "view_cart": "View cart",
+      "each": "{{ money }}\/ea",
+      "product": "Product",
+      "variant": "Variant",
+      "variant_total": "Variant total",
+      "items_added": {
+        "one": "{{ quantity }} item added",
+        "other": "{{ quantity }} items added"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} item removed",
+        "other": "{{ quantity }} items removed"
+      },
+      "product_variants": "Product variants",
+      "total_items": "Total items",
+      "remove_all_single_item_confirmation": "Remove 1 item from your cart?",
+      "remove_all_items_confirmation": "Remove all {{ quantity }} items from your cart?",
+      "remove_all": "Remove all",
+      "cancel": "Cancel",
+      "min_error": "This item has a minimum of {{ min }}",
+      "max_error": "This item has a maximum of {{ max }}",
+      "step_error": "You can only add this item in increments of {{ step }}"
+    }
+  },
+  "customer": {
+    "order": {
+      "discount": "discount"
+    }
+  },
+  "search": {
+    "content": {
+      "placeholder": "search",
+      "search_button": "search"
+    }
+  },
+  "products": {
+    "product": {
+      "on_sale": "sale",
+      "sold_out": "sold out",
+      "add_to_cart": "add to cart",
+      "buy_button": "buy it now ",
+      "discount":"discount：",
+      "savings":"savings：-",
+      "price": {
+        "from_price_html": "From {{ price }}",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "unit_price": "Unit price"
+      },
+      "quantity": {
+        "label": "Quantity",
+        "input_label": "Quantity for {{ product }}",
+        "increase": "Increase quantity for {{ product }}",
+        "decrease": "Decrease quantity for {{ product }}",
+        "minimum_of": "Minimum of {{ quantity }}",
+        "maximum_of": "Maximum of {{ quantity }}",
+        "multiples_of": "Increments of {{ quantity }}",
+        "min_of": "Min {{ quantity }}",
+        "max_of": "Max {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
+        "note": "View quantity rules"
+      },
+      "volume_pricing": {
+        "title": "Volume Pricing",
+        "note": "Volume pricing available",
+        "minimum": "{{ quantity }}+",
+        "price_at_each": "at {{ price }}\/ea",
+        "price_range": "{{ minimum }} - {{ maximum }}"
+      }
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "skip_to_product_info": "Skip to product information",
+    "close": "Close",
+    "unit_price_separator": "per",
+    "vendor": "Vendor:",
+    "error": "Error",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window.",
+      "external": "Opens external website."
+    },
+    "loading": "Loading...",
+    "total_reviews": "total reviews",
+    "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
+    "collapsible_content_title": "Collapsible content",
+    "complementary_products": "Complementary products"
+  }
 }

@@ -1,0 +1,175 @@
+{
+  "sections": {
+    "footer": {
+      "payment": "Способы оплаты"
+    },
+    "cart": {
+      "title": "Ваша корзина",
+      "caption": "Товары в корзине",
+      "remove_title": "Удалить {{ title }}",
+      "estimated_total": "Предполагаемая общая сумма",
+      "new_estimated_total": "Новая оценка общего количества",
+      "note": "Заказать специальные инструкции",
+      "checkout": "Проверить",
+      "empty": "Ваша корзина пуста",
+      "cart_error": "Произошла ошибка при обновлении вашей корзины. Попробуйте еще раз.",
+      "cart_quantity_error_html": "Вы можете добавить в корзину только {{ quantity }} этого товара.",
+      "taxes_and_shipping_policy_at_checkout_html": "Налоги, скидки и <a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">стоимость доставки<\/a> рассчитываются при оформлении заказа",
+      "taxes_included_but_shipping_at_checkout": "Включая налоги, доставку и скидки, рассчитанные при оформлении заказа.",
+      "taxes_included_and_shipping_policy_html": "Включая налог. <a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">Доставка<\/a> и скидки рассчитываются при оформлении заказа.",
+      "taxes_and_shipping_at_checkout": "Налоги, скидки и стоимость доставки рассчитываются при оформлении заказа.",
+      "headings": {
+        "product": "Продукт",
+        "price": "Цена",
+        "total": "Общий",
+        "quantity": "Количество",
+        "image": "Изображение продукта"
+      },
+      "update": "Обновлять",
+      "login": {
+        "title": "Есть аккаунт?",
+        "paragraph_html": "<a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\" class=\"link underlined-link\">Авторизуйтесь,<\/a> чтобы оформить заказ быстрее."
+      }
+    },
+    "quick_order_list": {
+      "product_total": "Промежуточный итог продукта",
+      "view_cart": "Просмотреть корзину",
+      "each": "{{ money }} \/ еа",
+      "product": "Продукт",
+      "variant": "Вариант",
+      "variant_total": "Вариант всего",
+      "items_added": {
+        "one": "{{ quantity }} добавлен товар",
+        "other": "{{ quantity }} добавлено товаров"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} позиция удалена",
+        "other": "{{ quantity }} элементов удалено"
+      },
+      "product_variants": "Варианты продукта",
+      "total_items": "Всего предметов",
+      "remove_all_single_item_confirmation": "Удалить 1 товар из корзины?",
+      "remove_all_items_confirmation": "Удалить все {{ quantity }} товаров из корзины?",
+      "remove_all": "Удалить все",
+      "cancel": "Отмена",
+      "min_error": "Этот элемент имеет минимум {{ min }}",
+      "max_error": "Этот элемент имеет максимум {{ max }}",
+      "step_error": "Вы можете добавлять этот элемент только с шагом {{ step }}"
+    }
+  },
+  "general": {
+    "continue_shopping": "Продолжить покупки",
+    "accessibility": {
+      "skip_to_text": "Перейти к содержанию",
+      "skip_to_product_info": "Перейти к информации о продукте",
+      "close": "Закрывать",
+      "unit_price_separator": "за",
+      "vendor": "Продавец:",
+      "error": "Ошибка",
+      "refresh_page": "Выбор варианта приводит к полному обновлению страницы.",
+      "link_messages": {
+        "new_window": "Открывается в новом окне.",
+        "external": "Открывает внешний веб-сайт."
+      },
+      "loading": "Загрузка...",
+      "total_reviews": "всего отзывов",
+      "star_reviews_info": "{{ rating_value }} из {{ rating_max }} звезд",
+      "collapsible_content_title": "Сворачиваемое содержимое",
+      "complementary_products": "Дополнительные продукты"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Поделиться на Facebook",
+        "share_on_twitter": "Поделиться на X",
+        "share_on_pinterest": "Закрепить на Pinterest"
+      },
+      "links": {
+        "twitter": "X (Твиттер)",
+        "facebook": "Фейсбук",
+        "pinterest": "Пинтерест",
+        "instagram": "Инстаграм",
+        "tumblr": "Тамблер",
+        "snapchat": "Снэпчат",
+        "youtube": "Ютуб",
+        "vimeo": "Вимео",
+        "tiktok": "ТикТок"
+      }
+    }
+  },
+  "newsletter": {
+    "label": "Электронная почта",
+    "success": "Спасибо за подписку",
+    "button_label": "Подписаться"
+  },
+  "localization": {
+    "country_label": "Страна\/регион",
+    "language_label": "Язык",
+    "update_language": "Обновить язык",
+    "update_country": "Обновить страну\/регион",
+    "search": "Поиск",
+    "popular_countries_regions": "Популярные страны\/регионы",
+    "country_results_count": "Найдено {{ count }} стран\/регионов"
+  },
+  "customer": {
+    "order": {
+      "discount": "скидка"
+    }
+  },
+  "search": {
+    "content": {
+      "placeholder": "поиск",
+      "search_button": "поиск"
+    }
+  },
+  "products": {
+    "product": {
+      "on_sale": "распродажа",
+      "sold_out": "распроданный",
+      "add_to_cart": "добавить в корзину",
+      "buy_button": "купить сейчас",
+      "price": {
+        "from_price_html": "От {{ price }}",
+        "regular_price": "Обычная цена",
+        "sale_price": "Цена продажи",
+        "unit_price": "Цена за единицу товара"
+      },
+      "quantity": {
+        "label": "Количество",
+        "input_label": "Количество для {{ product }}",
+        "increase": "Увеличить количество для {{ product }}",
+        "decrease": "Уменьшить количество для {{ product }}",
+        "minimum_of": "Минимум {{ quantity }}",
+        "maximum_of": "Максимум {{ quantity }}",
+        "multiples_of": "Приращения {{ quantity }}",
+        "min_of": "Мин {{ quantity }}",
+        "max_of": "Макс {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> в корзине",
+        "note": "Посмотреть правила количества"
+      },
+      "volume_pricing": {
+        "title": "Объемное ценообразование",
+        "note": "Доступны оптовые цены",
+        "minimum": "{{ quantity }} +",
+        "price_at_each": "по цене {{ price }} \/шт."
+      }
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Перейти к содержанию",
+    "skip_to_product_info": "Перейти к информации о продукте",
+    "close": "Закрывать",
+    "unit_price_separator": "за",
+    "vendor": "Продавец:",
+    "error": "Ошибка",
+    "refresh_page": "Выбор варианта приводит к полному обновлению страницы.",
+    "link_messages": {
+      "new_window": "Открывается в новом окне.",
+      "external": "Открывает внешний веб-сайт."
+    },
+    "loading": "Загрузка...",
+    "total_reviews": "всего отзывов",
+    "star_reviews_info": "{{ rating_value }} из {{ rating_max }} звезд",
+    "collapsible_content_title": "Сворачиваемое содержимое",
+    "complementary_products": "Дополнительные продукты"
+  }
+}

@@ -68,7 +68,10 @@
 .cart-title{
     margin-left: .5rem;
     font-weight: bolder;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
+}
+.cart-item__discounted-prices{
+    margin-top: .3rem;
 }
 .cart-content{
     margin 0 auto;
@@ -155,6 +158,31 @@ input[type="number"]{
     margin-right: .5rem;
     width: 3rem;
 }
+.discount-box{
+    margin-bottom: .5rem;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .8rem;
+}
+
+.discount-item:first-child{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: rgb(var(--color-secondary-button));
+}
+.discount-item-icon{
+    margin-right: .2rem;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+}
+.discount-item:last-child{
+    color: gray;
+}
 @media screen and (max-width: 750px){
     .animate-drawer,.cart-drawer{
         width: 80vw;
@@ -172,7 +200,7 @@ input[type="number"]{
     <div class='cart-drawer'>
         {% if cart.empty? == true %}
             <div class='cart-empty-box'>
-                <h2 class="cart-empty-title">Your cart is empty </h2>
+                <h2 class="cart-empty-title">{{ 'sections.cart.empty' | t }} </h2>
                 <a href={{ routes.all_products_collection_url }} class='continue-shopping'>
                     {{ 'general.continue_shopping' | t }}
                 </a>    
@@ -182,7 +210,7 @@ input[type="number"]{
             </div> {% endcomment %}
         {% else %}
             <div class='cart-header'>
-                <span class="cart-title">Your cart</span>
+                <span class="cart-title">{{ 'sections.cart.title' | t }}</span>
             <button class="cart-close-btn">
                 {% render 'icon-close' %}
             </button>
@@ -224,10 +252,6 @@ input[type="number"]{
                                       {{ item.original_price | money }}
                                     </div>
                                   {%- endif -%}
-                                  {% for discount in cart.discount_applications %}
-                                    DiscountName:{{ discount.title }}
-                                    Savings:{{discount.total_allocated_amount | money }}
-                                  {%endfor %}  
                                   <quantity-input>
                                     <div class='cart-item-operation'>
                                         <div class='minus-plus-box'>
@@ -263,8 +287,15 @@ input[type="number"]{
                 
             </div>
             <div class='cart-footer'>
+                {% for discount in cart.discount_applications %}
+                    <div class="discount-box">
+                        
+                        <div class="discount-title discount-item"><span class="discount-item-icon">{% render 'icon-discount' %}</span>{{ 'products.product.discount' | t }}{{ discount.title }} </div>
+                        <span class="discount-savings discount-item">{{ 'products.product.savings' | t }}{{discount.total_allocated_amount | money_with_currency }}</span>
+                    </div>
+                  {%endfor %}  
                 <div class="price-total-box">
-                    <label>Sum total：</label>
+                    <label>{{ 'sections.cart.sum_total' | t }}</label>
                     <span class="total-price">{{ cart.total_price | money_with_currency }}</span>
                 </div>
                 <div class="cart__ctas" {{ block.shopify_attributes }}>

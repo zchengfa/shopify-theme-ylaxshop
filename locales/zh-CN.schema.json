@@ -584,28 +584,28 @@
             "label": "无缩放"
           }
         },
-        "show_in_magnifier":{
+        "show_in_magnifier": {
           "label": "是否在放大镜中显示放大后的图片",
-          "info":"当图片缩放为放大镜时，开启此选项后，放大后的图片会在放大镜中显示，否则放大后的图片会显示在页面上"
+          "info": "当图片缩放为放大镜时，开启此选项后，放大后的图片会在放大镜中显示，否则放大后的图片会显示在页面上"
         },
-        "magnifier_mask_color":{
+        "magnifier_mask_color": {
           "label": "放大镜mask的颜色",
-          "info":"设置放大镜中出现的遮罩层颜色"
+          "info": "设置放大镜中出现的遮罩层颜色"
         },
-        "magnifier_or_mask_size":{
+        "magnifier_or_mask_size": {
           "label": "放大镜或遮罩层的大小",
-          "info":"设置放大镜或遮罩层的大小"
+          "info": "设置放大镜或遮罩层的大小"
         },
-        "magnifier_times":{
-          "label": "图片放大倍数",
+        "magnifier_times": {
+          "label": "图片放大倍数"
         },
-        "magnifier_position":{
+        "magnifier_position": {
           "label": "放大镜位置",
-          "info":"设置放大镜的位置"
+          "info": "设置放大镜的位置"
         },
-        "magnifier_offset":{
+        "magnifier_offset": {
           "label": "放大镜偏移量",
-          "info":"设置放大镜的偏移量"
+          "info": "设置放大镜的偏移量"
         },
         "constrain_to_viewport": {
           "label": "将媒体文件限制为屏幕高度"

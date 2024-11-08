@@ -1,0 +1,179 @@
+{
+  "search": {
+    "content": {
+      "search_button": "搜索",
+      "placeholder": "输入您想查看的商品"
+    }
+  },
+  "products": {
+    "product": {
+      "name": "商品名称",
+      "price": {
+        "from_price_html": "从{{ price }}",
+        "regular_price": "正常价格",
+        "sale_price": "售价",
+        "unit_price": "单价"
+      },
+      "discount":"折扣：",
+      "savings":"节省：-",
+      "description": "商品描述",
+      "image": "商品图片",
+      "category": "商品类别",
+      "brand": "商品品牌",
+      "stock": "商品库存",
+      "rating": "商品评分",
+      "reviews": "商品评论",
+      "add_to_cart": "加入购物车",
+      "volume_pricing": {
+        "minimum": "{{ quantity }} +",
+        "price_at_each": "每件{{ price }}",
+        "title": "批量定价",
+        "note": "提供批量定价"
+      },
+      "on_sale": "销售",
+      "sold_out": "售罄",
+      "buy_button": "现在购买 ",
+      "quantity": {
+        "label": "数量",
+        "input_label": "{{ product }}的数量",
+        "increase": "增加{{ product }}的数量",
+        "decrease": "减少{{ product }}的数量",
+        "minimum_of": "最低{{ quantity }}",
+        "maximum_of": "最大数量为{{ quantity }}",
+        "multiples_of": "{{ quantity }}的增量",
+        "min_of": "最小{{ quantity }}",
+        "max_of": "最大{{ quantity }}",
+        "in_cart_html": "购物车中有<span class=\"quantity-cart\">{{ quantity }}<\/span>",
+        "note": "查看数量规则"
+      }
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "跳至内容",
+    "skip_to_product_info": "跳至产品信息",
+    "close": "关闭",
+    "unit_price_separator": "每",
+    "vendor": "小贩：",
+    "error": "错误",
+    "refresh_page": "选择一个选项将导致整个页面刷新。",
+    "link_messages": {
+      "new_window": "在新窗口中打开。",
+      "external": "打开外部网站。"
+    },
+    "loading": "加载中...",
+    "total_reviews": "总评论数",
+    "star_reviews_info": "{{ rating_value }}颗星，总分{{ rating_max }}颗星",
+    "collapsible_content_title": "可折叠内容",
+    "complementary_products": "互补产品"
+  },
+  "sections": {
+    "footer": {
+      "payment": "付款方式"
+    },
+    "cart": {
+      "title": "您的购物车",
+      "caption": "购物车商品",
+      "remove_title": "删除{{ title }}",
+      "estimated_total": "预计总额",
+      "new_estimated_total": "新的估计总数",
+      "sum_total":"总计：",
+      "note": "订购特殊说明",
+      "checkout": "结账",
+      "empty": "您的购物车是空的",
+      "cart_error": "更新购物车时出错。请重试。",
+      "cart_quantity_error_html": "您只能将{{ quantity }}个此商品添加到您的购物车。",
+      "taxes_and_shipping_policy_at_checkout_html": "税费、折扣和<a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">运费<\/a>在结账时计算",
+      "taxes_included_but_shipping_at_checkout": "含税，运费和折扣在结账时计算",
+      "taxes_included_and_shipping_policy_html": "含税。 <a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">运费<\/a>和折扣在结账时计算。",
+      "taxes_and_shipping_at_checkout": "税费、折扣和运费在结账时计算",
+      "headings": {
+        "product": "产品",
+        "price": "价格",
+        "total": "全部的",
+        "quantity": "数量",
+        "image": "产品图像"
+      },
+      "update": "更新",
+      "login": {
+        "title": "有帳戶嗎？",
+        "paragraph_html": "<a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\" class=\"link underlined-link\">登录<\/a>以便更快地结账。"
+      }
+    },
+    "quick_order_list": {
+      "product_total": "产品小计",
+      "view_cart": "查看购物车",
+      "each": "{{ money }} \/个",
+      "product": "产品",
+      "variant": "变体",
+      "variant_total": "变体总计",
+      "items_added": {
+        "one": "{{ quantity }}件商品已添加",
+        "other": "已添加{{ quantity }}件商品"
+      },
+      "items_removed": {
+        "one": "{{ quantity }}件商品已移除",
+        "other": "已移除{{ quantity }}件商品"
+      },
+      "product_variants": "产品变体",
+      "total_items": "总项目数",
+      "remove_all_single_item_confirmation": "从您的购物车中删除 1 件商品？",
+      "remove_all_items_confirmation": "从您的购物车中删除所有{{ quantity }}商品？",
+      "remove_all": "全部删除",
+      "cancel": "取消",
+      "min_error": "此商品最低为{{ min }}",
+      "max_error": "此商品最多有{{ max }}",
+      "step_error": "您只能以{{ step }}的增量添加此项目"
+    }
+  },
+  "general": {
+    "continue_shopping": "继续购物",
+    "accessibility": {
+      "skip_to_text": "跳至内容",
+      "skip_to_product_info": "跳至产品信息",
+      "close": "关闭",
+      "unit_price_separator": "每",
+      "vendor": "小贩：",
+      "error": "错误",
+      "refresh_page": "选择一个选项将导致整个页面刷新。",
+      "link_messages": {
+        "new_window": "在新窗口中打开。",
+        "external": "打开外部网站。"
+      },
+      "loading": "加载中...",
+      "total_reviews": "总评论数",
+      "star_reviews_info": "{{ rating_value }}颗星，总分{{ rating_max }}颗星",
+      "collapsible_content_title": "可折叠内容",
+      "complementary_products": "互补产品"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "在 Facebook 上分享",
+        "share_on_twitter": "分享至 X",
+        "share_on_pinterest": "固定在 Pinterest 上"
+      },
+      "links": {
+        "twitter": "X（推特）",
+        "tiktok": "抖音"
+      }
+    }
+  },
+  "newsletter": {
+    "label": "电子邮件",
+    "success": "感谢订阅",
+    "button_label": "订阅"
+  },
+  "localization": {
+    "country_label": "国家\/地区",
+    "language_label": "语言",
+    "update_language": "更新语言",
+    "update_country": "更新国家\/地区",
+    "search": "搜索",
+    "popular_countries_regions": "热门国家\/地区",
+    "country_results_count": "找到{{ count }}个国家\/地区"
+  },
+  "customer": {
+    "order": {
+      "discount": "折扣"
+    }
+  }
+}
