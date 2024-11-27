@@ -75,8 +75,8 @@
       ],
       "settings": {
         "image": "shopify:\/\/shop_images\/holiday.png",
-        "show_card_popover": false,
-        "show_type": "row",
+        "show_card_popover": true,
+        "show_type": "column",
         "holiday_background": "#ff93b9"
       }
     },

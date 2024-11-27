@@ -18,7 +18,13 @@ body{
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
+/* 多行文本溢出 */
+.text-ellipsis-multiline{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .intersection-el{
     visibility: hidden;
 }
@@ -45,6 +51,15 @@ body{
   .scroll-bar-none::-webkit-scrollbar {
     display: none; /* 对于 Chrome, Safari 和 Opera 隐藏滚动条 */
   }
+
+  .transition-img:hover{
+    transition: transform .5s ease-in-out;
+    transform: scale(1.2);
+}
+.transition-img{
+    transition: transform .5s ease-in-out;
+    transform: scale(1.0);
+}
 @keyframes zoomBox {
     0%{
         opacity: 0;
@@ -53,4 +68,3 @@ body{
         opacity: 1;
     }
 }
-

@@ -63,7 +63,7 @@
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",
       "note": "Order special instructions",
-      "sum_total":"sum total",
+      "sum_total": "sum total",
       "checkout": "Check out",
       "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
@@ -128,8 +128,8 @@
       "sold_out": "sold out",
       "add_to_cart": "add to cart",
       "buy_button": "buy it now ",
-      "discount":"discount：",
-      "savings":"savings：-",
+      "discount": "discount：",
+      "savings": "savings：-",
       "price": {
         "from_price_html": "From {{ price }}",
         "regular_price": "Regular price",
@@ -155,7 +155,15 @@
         "minimum": "{{ quantity }}+",
         "price_at_each": "at {{ price }}\/ea",
         "price_range": "{{ minimum }} - {{ maximum }}"
-      }
+      },
+      "name": "Product Name",
+      "description": "Product Description",
+      "image": "Product images",
+      "category": "Product categories",
+      "brand": "Product Brand",
+      "stock": "Product Inventory",
+      "rating": "Product Rating",
+      "reviews": "Product Reviews"
     }
   },
   "accessibility": {

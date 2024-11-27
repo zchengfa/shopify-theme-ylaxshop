@@ -1731,6 +1731,8 @@ details[open] > .share-button__fallback {
 .customer .field input:-webkit-autofill {
   padding: 2.2rem 1.5rem 0.8rem 2rem;
   margin: var(--inputs-border-width);
+  border: 3px solid #000;
+  border-radius: .5rem;
 }
 
 .field__input::-webkit-search-cancel-button,
