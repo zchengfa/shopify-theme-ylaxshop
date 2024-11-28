@@ -64,8 +64,8 @@
     }
     .icon-cart{
         display: inline-block;
-        width: 2rem;
-        height: 2rem;
+        width: 44px;
+        height: 44px;
         cursor: pointer;
         color: var(--color-foreground);
     }
@@ -86,6 +86,9 @@
     }
     .menu-drawer{
         display: none;
+    }
+    .icon-cart-btn{
+        position: relative;
     }
     @media screen and (max-width: 750px){
         .phone,.header-logo{
@@ -170,7 +173,7 @@
             {% endif %}    
             <h2 class='store-name'>{{ shop.name }}</h2>
             {% render 'search' %}
-            <div class='header-center-other-box'>
+            <div class='header-center-other-box' id="HeaderCenterOther" data-id="{{ section.id }}">
                 <div class='phone-box'>
                     <div class='phone-icon'>
                         {% render 'icon-phone' %}
@@ -187,17 +190,34 @@
                     </span>
                     
                 </div>
-                {% if settings.cart_type == 'page' %}
-                    <a href={{ routes.cart_url }} class='icon-cart'>
+                <div class="cart-display-type">
+                    {% if settings.cart_type == 'page' %}
+                        <a href={{ routes.cart_url }} class='icon-cart'>
+                            {% render 'icon-cart' %}
+                            {%- if cart != empty -%}
+                                <div class="cart-count-bubble">
+                                  {%- if cart.item_count < 100 -%}
+                                    <span aria-hidden="true">{{ cart.item_count }}</span>
+                                  {%- endif -%}
+                                  <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                                </div>
+                              {%- endif -%} 
+                        </a>
+                    {% elsif settings.cart_type == 'drawer' %}
+                    <button class='icon-cart icon-cart-btn'>
                         {% render 'icon-cart' %}
-                    </a>
-                {% elsif settings.cart_type == 'drawer' %}
-                <button class='icon-cart icon-cart-btn'>
-                    {% render 'icon-cart' %}
-                   
-                </button> 
-                   
-                {% endif %}    
+                        {%- if cart != empty -%}
+                            <div class="cart-count-bubble">
+                              {%- if cart.item_count < 100 -%}
+                                <span aria-hidden="true">{{ cart.item_count }}</span>
+                              {%- endif -%}
+                              <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                            </div>
+                          {%- endif -%} 
+                    </button> 
+                       
+                    {% endif %} 
+                </div>
             </div>
         </div>
         {% if section.settings.header_menu != blank %}

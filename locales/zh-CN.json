@@ -48,6 +48,39 @@
       }
     }
   },
+  "templates": {
+    "search": {
+      "no_results": "未找到“{{ terms }}”的结果。请检查拼写或使用其他词或短语。",
+      "results_with_count": {
+        "one": "{{ count }} 条结果",
+        "other": "{{ count }} 条结果"
+      },
+      "title": "搜索结果",
+      "page": "页面",
+      "products": "产品",
+      "search_for": "搜索“{{ terms }}”",
+      "results_with_count_and_term": {
+        "one": "找到“{{ terms }}”的 {{ count }} 条结果",
+        "other": "找到“{{ terms }}”的 {{ count }} 条结果"
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} 个页面",
+        "other": "{{ count }} 个页面"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} 件产品",
+        "other": "{{ count }} 件产品"
+      },
+      "suggestions": "建议",
+      "pages": "页面",
+      "results_suggestions_with_count": {
+        "one": "{{ count }} 个建议",
+        "other": "{{ count }} 个建议"
+      }
+    },
+    "cart": {
+      "cart": "购物车"
+    },
   "accessibility": {
     "skip_to_text": "跳至内容",
     "skip_to_product_info": "跳至产品信息",
@@ -177,3 +210,4 @@
     }
   }
 }
+

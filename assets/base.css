@@ -2061,9 +2061,11 @@ product-info .loading__spinner:not(.hidden) ~ *,
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+  top: 35%;
   bottom: 0.8rem;
-  left: 2.2rem;
+  left: 50%;
   line-height: calc(1 + 0.1 / var(--font-body-scale));
+  transform: scale(.7);
 }
 
 /* utility-bar */

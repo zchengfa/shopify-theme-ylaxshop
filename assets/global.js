@@ -280,26 +280,37 @@ class QuantityInput extends HTMLElement {
    * @returns {Array} 需要更新的页面部分
    */
   updateToRender(){
+    //需要部分渲染集合
     return [
+      //侧边购物车
       {
         id:"cart-drawer",
         section: document.getElementById('cart-drawer')?.dataset?.id,
         selector: '.cart-drawer'
       },
+      //页面购物车子项
       {
         id:"main-cart-items",
         section: document.getElementById('main-cart-items')?.dataset?.id,
         selector: '.js-contents'
       },
+      //页面购物车底部
       {
         id:"main-cart-footer",
         section: document.getElementById('main-cart-footer')?.dataset?.id,
         selector: '.js-contents'
       },
+      //商品详情页提示商品在购物车中的数量
       {
         id:"quantity-label",
         section: document.getElementById('quantity-label')?.dataset?.id,
         selector: '.quantity__rules-cart'
+      },
+      //页面顶部购物车商品总数量
+      {
+        id:"HeaderCenterOther",
+        section: document.getElementById('HeaderCenterOther')?.dataset?.id,
+        selector: '.cart-display-type'
       }
     ]
   }
