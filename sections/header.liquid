@@ -1,8 +1,42 @@
 {% style %}
+#HeaderLanguageForm{
+    padding: 0;
+}
+#HeaderLanguageForm .disclosure__button{
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: transparent;
+}
+#HeaderLanguageForm .disclosure__button .icon-caret{
+    height: .4rem;
+}
+#HeaderLanguageForm .disclosure__list-wrapper{
+    top: 3rem;
+    bottom: 0;
+    right:0;
+    height: fit-content;
+    border-radius: .5rem;
+}
+#HeaderLanguageForm .disclosure__list-wrapper .disclosure__list{
+    min-width: unset;
+}
+.disclosure__list-wrapper .disclosure__item .disclosure__link{
+    padding: .8rem 1.3rem;
+    font-size: 1rem;
+}
+.disclosure__list-wrapper .disclosure__item .language-text{
+    font-family: var(--self_font);
+    width: fit-content;
+}
     .header-container{
     padding: 2rem;
     width: 100vw;
     box-sizing: border-box;
+    }
+    .header-top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .sticky{
         position: sticky;
@@ -103,13 +137,23 @@
         }
     }
 {% endstyle %}
-<sticky-header>
+<sticky-header class="header-wrapper">
     <header class='header-container'>
         {% if section.settings.header_top_menu != blank %}
             <div class='header-top'>
             {% render 'header-menu',
                        menu:section.settings.header_top_menu
             %}
+            {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+                <localization-form class="small-hide medium-hide" data-prevent-hide>
+                  {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+                    <div>
+                      <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                      {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
+                    </div>
+                  {%- endform -%}
+                </localization-form>
+              {%- endif -%}
             </div>
         {% endif %}
           
@@ -277,7 +321,14 @@
                 "value": "right"
             }
         ]
-    }
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_language_selector",
+        "default": true,
+        "label": "t:sections.header.settings.enable_language_selector.label",
+        "info": "t:sections.header.settings.enable_language_selector.info"
+      },
   ]
 }
 {% endschema %}

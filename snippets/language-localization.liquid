@@ -4,11 +4,6 @@
   Accepts:
     - localPosition: pass in the position in which the form is coming up to create specific IDs
 {%- endcomment -%}
-{% style %}
-  .language-span{
-    margin-left: 1.5rem;
-  }
-{% endstyle %}
 <div class="disclosure">
   <button
     type="button"
@@ -41,7 +36,7 @@
             >
               {%- render 'icon-checkmark' -%}
             </span>
-            <span>
+            <span class="language-text">
               {{ language.endonym_name | capitalize }}
             </span>
           </a>

@@ -164,6 +164,10 @@
           "options__3": {
             "label": "靠右"
           }
+        },
+        "enable_language_selector":{
+          "label":"语言选择器",
+          "info": "是否启用语言选择器？"
         }
       }
     },

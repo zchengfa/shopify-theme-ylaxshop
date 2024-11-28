@@ -2320,7 +2320,6 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .header-wrapper {
   display: block;
   position: relative;
-  background-color: rgb(var(--color-background));
 }
 
 .header-wrapper--border-bottom {
