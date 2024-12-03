@@ -47,11 +47,68 @@
   background-color: {{ magnifier_mask_color }};
   opacity: .3;
 }
+.original-img-box .main-product-img{
+  width: 30vw;
+  height: 30vw;
+}
+.main-video-box{
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.main-video-box video{
+  width: 100%;
+  height: 100%;
+}
+.play-media-btn,.close-media-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 1rem;
+  width: 2rem;
+  height: 2rem;
+  right: 1rem;
+  color: #fff;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  z-index: 99;
+}
+.play-media-btn .icon-play{
+  width: 1rem;
+  height: 1rem;
+}
+.close-media-btn{
+  display: none;
+  top: 1rem;
+  border: none;
+  z-index: 101;
+}
+.close-media-btn .icon-close{
+  width: 1rem;
+  height: 1rem;
+  transform: scale(1);
+}
 /* end magnifier */
 {% endstyle %}
 <div class="magnifier-img-container">
     <div class="original-img-box">
-      <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
+      {% for images in product.images %}
+        <img class="main-product-img" {% unless forloop.index == 1 %}style="display:none" {% endunless %} src={{ images | image_url }} alt="product_img" width=0 height=0 />
+      {% endfor %}
+      {% for media in product.media %}
+        {% if media.media_type == 'video' %}
+          <div class="main-video-box">
+            {{ media | video_tag: image_size: '500x' , autoplay: true, loop: true, muted: true, controls: true }}
+          </div>
+          <button class="close-media-btn">{% render 'icon-close' %}</button>
+          <button class="play-media-btn">{% render 'icon-play' %}</button>
+        {% endif %}
+      {% endfor %}  
+      {% comment %} <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 /> {% endcomment %}
       <div id="MagnifierMask" class="{% if show_in_magnifier %}show-magnifier-mask{% else %}show-magnifier-mask-hide{% endif %}"></div>
     </div>
     <div class="magnifier-img-box"></div>

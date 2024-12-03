@@ -78,3 +78,9 @@
 .newsletter-form__button .icon {
   width: 1.5rem;
 }
+
+@media screen and (max-width: 750px) {
+  .newsletter-form__field-wrapper{
+    width: 70%;
+  }
+}
