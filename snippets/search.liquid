@@ -1,26 +1,84 @@
 {% style %}
     .search-box{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .search__form{
+      position: relative;
     }
     .search-input{
-    width: 30vw;
-    height: 2.3rem;
-    border: 2px solid {{ section.settings.color_underline }};
-    border-radius: 1rem;
-    outline: none;
-    text-indent: 2rem;
+      width: 30vw;
+      height: 3rem;
+      border: 3px solid var(--black-color);
+      border-radius: 1rem;
+      outline: none;
+      text-indent: 2rem;
+      background: {{ section.settings.color_underline }};
+      font-size: 1.2rem;
     }
     .search-btn{
-    width: 4rem;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    border-radius: 0 1rem 1rem 0;
-    color: var(--white-color);
-    background: {{ section.settings.color_underline }};
+      width: 5rem;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      border-radius: 0 1rem 1rem 0;
+      border: 3px solid var(--black-color);
+      color: var(--white-color);
+      border-left: none;
+      background: {{ section.settings.color_underline }};
+      font-size: 1.2rem;
+    }
+    .predictive-search-results{
+      font-family: var(--self_font);
+      position: absolute;
+      width: fit-content;
+      padding: 1rem;
+      min-width: 30vw;
+      max-width: 70vw;
+      left: 50%;
+      transform: translateX(-50%);
+      background:{{ section.settings.color_underline }};
+      z-index: 999;
+    }
+    #predictive-search-products{
+      text-transform: uppercase;
+    }
+    .predictive-search-results ul{
+      padding: 1rem 0;
+      max-height: 20rem;
+    }
+    .predictive-search-results ul li{
+      padding: .5rem 0;
+    }
+    .predictive-search-results ul li:hover{
+      background: rgba(0,0,0,.1);
+    }
+    .predictive-search-results ul a{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-decoration: underline;
+    }
+    .predictive-search-results a .predictive-search-product-text{
+      margin-left: 1rem;
+      text-wrap: nowrap;
+      letter-spacing: 1px;
+    }
+    .predictive-search-results a .predictive-search__result--highlight{
+      color: var(--white-color);
+    }
+    .predictive-search-results a img{
+      border-radius: .5rem;
+    }
+    .predictive-search-results button{
+      width: 100%;
+      height: 2rem;
+      color: var(--white-color);
+    }
+    #predictive-search-products{
+      padding: .5rem 0;
     }
     @media screen and (max-width: 750px){
         .search-box{
@@ -32,7 +90,33 @@
     }
 {% endstyle %}
 <div class='search-box'>
-    <input type='text' class='search-input' placeholder={{ 'search.content.placeholder' | t }} />
-    <button class='search-btn'>{{ 'search.content.search_button' | t }}</button>
+    {% comment %} <input type='text' class='search-input' placeholder={{ 'search.content.placeholder' | t }} />
+    <button class='search-btn'>{{ 'search.content.search_button' | t }}</button> {% endcomment %}
+    {%- if settings.predictive_search_enabled -%}
+        <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+      {%- else -%}
+        <search-form class="search-modal__form">
+      {%- endif -%}
+    <form action="{{ routes.search_url }}" method="get" class="search__form search-modal__form" role="search">
+        <div class="search-field">
+          <input
+            class=" search-input"
+            id="{{ input_id }}"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'search.content.placeholder' | t }}"
+            
+          >
+          <button class='search-btn'>{{ 'search.content.search_button' | t }}</button>
+        </div>
+        <div id="predictive-search-results-box" class="predictive-search-results"></div>
+    </form>
+    {%- if settings.predictive_search_enabled -%}
+    </predictive-search>
+  {%- else -%}
+    </search-form>
+  {%- endif -%}
    
 </div>
+

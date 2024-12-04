@@ -172,7 +172,7 @@
                 <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
             {% endif %}    
             <h2 class='store-name'>{{ shop.name }}</h2>
-            {% render 'search' %}
+            {% render 'search', input_id: 'Search-In-Modal' %}
             <div class='header-center-other-box' id="HeaderCenterOther" data-id="{{ section.id }}">
                 <div class='phone-box'>
                     <div class='phone-icon'>

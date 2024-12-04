@@ -113,12 +113,20 @@ div{
     .product-item{
         margin: 1rem auto;
         width: 48%;
+        min-width: 200px;
     }
 }
 @media screen and (max-width:  450px){
     .product-item{
         margin: 1rem auto;
         width: 96%;
+        min-width: 96vw;
+    }
+    .product-img{
+        border-radius: 1rem;
+    }
+    .product-params{
+        width: 94%;
     }
 }
 {% endstyle %}

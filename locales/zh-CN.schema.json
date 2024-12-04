@@ -100,6 +100,25 @@
           }
         }
       }
+    },
+    "search_input": {
+      "name": "搜索行为",
+      "settings": {
+        "header": {
+          "content": "搜索建议"
+        },
+        "predictive_search_enabled": {
+          "label": "启用搜索建议"
+        },
+        "predictive_search_show_vendor": {
+          "label": "显示产品厂商",
+          "info": "在启用搜索建议时可见。"
+        },
+        "predictive_search_show_price": {
+          "label": "显示产品价格",
+          "info": "在启用搜索建议时可见。"
+        }
+      }
     }
   },
   "sections": {
@@ -165,8 +184,8 @@
             "label": "靠右"
           }
         },
-        "enable_language_selector":{
-          "label":"语言选择器",
+        "enable_language_selector": {
+          "label": "语言选择器",
           "info": "是否启用语言选择器？"
         }
       }
