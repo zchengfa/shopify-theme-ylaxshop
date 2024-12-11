@@ -6,6 +6,16 @@
     }
   },
   "products": {
+    "sort":{
+      "price":"价格区间",
+      "sort_by":"排序依据",
+      "search_result_count":"条结果",
+      "max_price" : "当前搜索的商品集合中最高价为 {{ price }}",
+      "reset": "重置",
+      "price_range_from": "价格区间从",
+      "price_range_to": "价格区间至",
+      "filter": "筛选",
+    },
     "product": {
       "name": "商品名称",
       "price": {

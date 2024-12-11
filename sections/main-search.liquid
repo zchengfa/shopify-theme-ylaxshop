@@ -1,0 +1,226 @@
+{% style %}
+  .filter-form{
+    font-family: var(--self_font);
+    padding: 0 3rem;
+  }
+  .filter-form,.filter-form .filter-form__sort,.filter-form__sort .sort-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .filter-form .filter-form__sort{
+    position: relative;
+    
+  }
+  .filter-form__sort .sort-box .icon-caret{
+    margin-left: 1rem;
+    width: 1rem;
+    height: 1rem;
+    transform: scale(.6) rotateX(0deg);
+  }
+  .filter-form__sort .sort-box .icon-caret.rotate-icon-caret{
+    transform: scale(.6) rotateX(180deg);
+  }
+  .search-result-count,#SortBy{
+    margin-left: 2rem;
+  }
+  #SortBy{
+      padding: .3rem;
+      border: none;
+      background-color: transparent;
+  }
+  .search-result{
+    padding: 2rem;
+    font-family: var(--self_font);
+  }
+  .search-result .result-ul{
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill,24%);
+    grid-gap: 10px;
+  }
+  
+  .search-result .result-ul .result-item .result-title{
+    padding: 1rem;
+  }
+  .search-result .result-ul .result-item{
+    margin-bottom: 1rem;
+    
+    border-radius: 1rem;
+    overflow: hidden;
+    color: rgb(var(--color-background));
+    
+  }
+  .product-img-box{
+    overflow: hidden;
+  }
+  .product-img-box .product-img:hover{
+    transition: transform .5s ease-in-out;
+    transform: scale(1.1);
+  }
+  .product-img-box .product-img{
+    transition: transform .5s ease-in-out;
+    transform: scale(1);
+    width: 100%;
+    height: auto;
+  }
+  .product-params{
+    padding: 1rem;
+    height: 6rem;
+    letter-spacing: 1px;
+  }
+  .product-title{
+    margin: .5rem 0;
+    font-weight: bolder;
+    font-size: 1.2rem;
+  }
+  .product-title:hover{
+    text-decoration: underline;
+   
+  }
+  .origin-price{
+    margin-left: .5rem;
+    font-size: .8rem;
+  }
+  .price-sort-box__dropdown{
+    position: absolute;
+    top: 150%;
+    display: none;
+    border-radius: .5rem;
+    border: 2px solid var(--black-color);
+    background-color: rgb(var(--color-background));
+    z-index: 9;
+  }
+  .sort__dropdown_item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 1rem;
+  }
+  .sort__dropdown_bottom{
+   border-top: 1px solid rgba(var(--color-foreground),.2);
+ }
+ .sort-max-price{
+  white-space: nowrap;
+ }
+ .reset-filter-link{
+    margin-left: 1rem;
+    white-space: nowrap;
+    text-decoration: underline;
+ }
+ .price-range-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 125px;
+  height: 50px;
+  margin-right: 1rem;
+ }
+ .price-range-item input{
+  width: 6rem;
+  height: 2.6rem;
+  border-radius: 0.5rem;
+  text-indent: .5rem;
+  border: 1px solid var(--black-color);
+ }
+ .price-range-input:hover{
+  border: 2px solid var(--black-color);
+ }
+ .price-range-input:focus-visible{
+  outline: none;
+  box-shadow: none;
+ }
+ .sort-filter-btn{
+    width: max-content;
+    font-family: var(--self_font);
+    padding: .3rem .7rem;
+    background-color: var(--jdgm-star-color);
+    color: var(--white-color);
+    border-radius: 0.5rem;
+    border: 1px solid var(--black-color);
+ }
+{% endstyle %}
+
+{% if search.performed and search.results.size > 0 %} 
+    <filter-form  id="FilterFormSort-{{ section.id }}">
+        <form class="filter-form" data-terms={{ search.terms }} data-search-result-id={{ section.id }}>
+            <div class="filter-form__sort">
+                <div class="sort-box price-sort-box">
+                    <span class="sort-box__label">{{ "products.sort.price" | t }}</span>
+                    {% render 'icon-caret' %}
+                </div>
+                <div class="price-sort-box__dropdown">
+                  {% comment %} 结果中商品的最高价格 {% endcomment %}
+                   {%  assign max_price = search.filters.last.range_max %}
+                  {% assign max_price_amount = max_price | money | strip_html | escape %}
+                  <div class="sort__dropdown_item sort__dropdown_top">
+                    <span class="sort-max-price">{{ "products.sort.max_price" | t: price: max_price_amount }}</span>
+                    <a class="reset-filter-link" href="{{ search.filters.last.url_to_remove }}">{{ "products.sort.reset" | t }}</a>
+                  </div>
+                  <div class="sort__dropdown_item sort__dropdown_bottom">
+                    <div class="price-range-item">
+                      <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                      <input type="text"
+                        class="price-range-input"
+                        data-min="0"
+                        name={{ search.filters.last.min_value.param_name }}
+                        inputmode="decimal"
+                        data-max="{{ max_price | money_without_currency }}"
+                        placeholder={{ "products.sort.price_range_from" | t }} />
+                    </div>
+                    <div class="price-range-item">
+                      <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                      <input type="text"
+                        class="price-range-input"
+                        data-min="0"
+                        name={{ search.filters.last.max_value.param_name }}
+                        inputmode="decimal"
+                        data-max="{{ max_price | money_without_currency }}"
+                        placeholder={{ "products.sort.price_range_to" | t }} />
+                    </div>
+                    <button class="sort-filter-btn">{{ "products.sort.filter" | t }}</button>
+                  </div>
+                </div>
+            </div>
+            <div class="filter-form__sort">
+                <div class="sort-box">
+                    <label for="SortBy">{{ "products.sort.sort_by" | t }}</label>
+                    <select id="SortBy" name="sort_by" aria-label="sort by" data-filter-group="sort_by">
+                        {% for option in search.sort_options %}
+                            <option value="{{ option.value }}" {% if option.value == search.sort_by %}selected{% endif %}>{{ option.name | escape }}</option>
+                        {% endfor %}    
+                    </select>
+                </div>
+                <div class="search-result-count">
+                    <span class="search-result-count__text">{{ search.results_count }} {{ "products.sort.search_result_count" | t }}</span>
+                </div>
+            </div>
+        </form>
+    </filter-form>
+    <div class="search-result" id="SearchResult" data-id={{ section.id }}>
+        <ul class="result-ul">
+            {% for result in search.results %}
+                {% if result.object_type == 'product' %}
+                    {% assign product = result %}
+                  <li class="result-item gradient">
+                    <a href={{ product.url }} class='product-item'> 
+                        <div class='product-img-box'>
+                            <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=330 height=300 />
+                        </div>  
+                        <div class='product-params'>
+                            <p class='product-title'>{{ product.title }}</p>
+                            <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
+                            <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
+                        </div>   
+                      </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+        </ul>
+    </div>
+    <script defer src={{ 'filter-form.js' | asset_url }}></script> 
+{% endif %}    

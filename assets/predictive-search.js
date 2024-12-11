@@ -7,7 +7,15 @@
     
         this.input = this.querySelector('input[type="search"]');
         this.predictiveSearchResults = this.querySelector('#predictive-search-results-box');
+        this.form = this.querySelector('form');
+        this.form.addEventListener('submit', (event)=>{
+          //当无输入内容时，阻止搜索表单的提交
+          if(!this.input.value.trim().length){
+            event.preventDefault();
+          }
+        });
         
+        //防抖处理输入事件
         this.input.addEventListener('input', this.debounce((event) => {
           this.onChange(event);
         }, 300).bind(this));
@@ -55,11 +63,11 @@
           });
       }
       //首字母大写
-      capitalizeFirstLetter(string) {
-        return string.toLowerCase().replace(/\b[a-z]/g, function(match) {
-          return match.toUpperCase();
-        });
-      }
+      // capitalizeFirstLetter(string) {
+      //   return string.toLowerCase().replace(/\b[a-z]/g, function(match) {
+      //     return match.toUpperCase();
+      //   });
+      // }
     
       open() {
         this.predictiveSearchResults.style.display = 'block';

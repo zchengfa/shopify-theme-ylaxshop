@@ -131,6 +131,16 @@
     }
   },
   "products": {
+    "sort":{
+      "price":"Price",
+      "sort_by":"Sort By",
+      "search_result_count":"Search Result Count",
+      "max_price": "The highest price is {{price}}",
+      "reset": "Reset",
+      "price_range_from": "From",
+      "price_range_to": "To",
+      "filter": "Filter",
+    },
     "product": {
       "on_sale": "sale",
       "sold_out": "sold out",
