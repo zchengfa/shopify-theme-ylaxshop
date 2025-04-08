@@ -1,0 +1,13 @@
+{
+  "parent": "search.json",
+  "context": {
+    "market": "cn"
+  },
+  "sections": {
+    "footer": {
+      "settings": {
+        "newsletter_heading": "Subscribe to our emails "
+      }
+    }
+  }
+}

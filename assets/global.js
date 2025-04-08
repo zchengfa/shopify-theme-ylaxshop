@@ -317,3 +317,107 @@ class QuantityInput extends HTMLElement {
 }
 
 customElements.define('quantity-input', QuantityInput);
+
+
+class Typewriter extends HTMLElement {
+  constructor() {
+    super();
+    
+    this.poetCollection = this.querySelectorAll('.poet-item');
+    this.poetCollection.forEach((poet,index) => {
+      this.querySelectorAll('.typewriter-span')[index].style.borderLeft = 'none';
+    })
+    this.index = 0;
+    this.isAnimate = this.getAttribute('animation')
+  }
+  addTypewriterAnimation() {
+    let stringArr = this.poetCollection[this.index].textContent.replace(/\s+/g, "");
+    this.querySelectorAll('.typewriter-span')[this.index].style.borderLeft = '2px solid #000';
+    let typewriterEl = this.querySelectorAll('.typewriter-span')[this.index];
+    typewriterEl.style.animation = `typewriter ${stringArr.length * .2}s steps(${stringArr.length}, end) forwards,flashing .3s ease-out forwards infinite`;
+    typewriterEl.addEventListener('animationend', () => {
+      typewriterEl.style.display = 'none';
+      this.index++;
+      if (this.index < this.poetCollection.length) {
+        this.addTypewriterAnimation();
+      }
+    })
+  }
+  connectedCallback(){
+   if(this.isAnimate === 'true'){
+    const intersectionObserverHandler = (entries,observer)=>{
+      if(entries[0].isIntersecting){
+        this.addTypewriterAnimation();
+
+        //停止观察，达到只执行一次的效果
+        observer.unobserve(this);
+      }
+    }
+
+
+    new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:'0px 0px -50px 0px'}).observe(this);
+   }
+  }
+  
+}
+
+customElements.define('type-writer', Typewriter);
+
+class ModalDialog extends HTMLElement {
+  constructor() {
+    super();
+    this.querySelector('[id^="ModalClose-"]').addEventListener('click', this.hide.bind(this, false));
+    this.addEventListener('keyup', (event) => {
+      if (event.code.toUpperCase() === 'ESCAPE') this.hide();
+    });
+    if (this.classList.contains('media-modal')) {
+      this.addEventListener('pointerup', (event) => {
+        if (event.pointerType === 'mouse' && !event.target.closest('deferred-media, product-model')) this.hide();
+      });
+    } else {
+      this.addEventListener('click', (event) => {
+        if (event.target === this) this.hide();
+      });
+    }
+  }
+
+  connectedCallback() {
+    if (this.moved) return;
+    this.moved = true;
+    document.body.appendChild(this);
+  }
+
+  show(opener) {
+    this.openedBy = opener;
+    const popup = this.querySelector('.template-popup');
+    document.body.classList.add('overflow-hidden');
+    this.setAttribute('open', '');
+    if (popup) popup.loadContent();
+    trapFocus(this, this.querySelector('[role="dialog"]'));
+    window.pauseAllMedia();
+  }
+
+  hide() {
+    document.body.classList.remove('overflow-hidden');
+    document.body.dispatchEvent(new CustomEvent('modalClosed'));
+    this.removeAttribute('open');
+    removeTrapFocus(this.openedBy);
+    window.pauseAllMedia();
+  }
+}
+customElements.define('modal-dialog', ModalDialog);
+
+class ModalOpener extends HTMLElement {
+  constructor() {
+    super();
+
+    const button = this.querySelector('button');
+
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const modal = document.querySelector(this.getAttribute('data-modal'));
+      if (modal) modal.show(button);
+    });
+  }
+}
+customElements.define('modal-opener', ModalOpener);

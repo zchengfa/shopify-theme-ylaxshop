@@ -20,7 +20,7 @@
 }
 .main-product-img-box.content-item{
   width: 30vw;
-  height: 30vw;
+  height: auto;
 }
 .content-item{
   width: 45vw;
@@ -31,7 +31,7 @@
 }
 .product-title{
   font-family: var(--self_font);
-  font-size: calc(var(--font-scale) * 2rem);
+  font-size: calc(var(--font-scale) * 1.6rem);
 }
 .product-price{
   font-family: var(--self_font);
@@ -102,7 +102,7 @@ input[type="number"]{
 .product-options-item{
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 1rem;
   font-family: var(--self_font);
 }
@@ -168,6 +168,9 @@ input[type="number"]{
       width: 100%;
       height: auto;
     }
+    .main-product-info.content-item{
+      margin-top: 1rem;
+    }
     .content-item{
       margin-bottom: 1rem;
       width: 100%;
@@ -182,11 +185,41 @@ input[type="number"]{
     .product-form__submit{
       width: 100%;
     }
-    .main-product-info-other{
-      display: block;
-    }
+    
     .product-options-item{
       display: block;
+    }
+    
+}
+@media screen and (max-width:  750px){
+  .main-product-content{
+    flex-direction: column;
+    align-items: center;
+  }
+  .main-product-img-box.content-item,
+  .main-product-info.content-item{
+    width: 80%;
+  }
+  .main-product-img-box.content-item{
+    margin-right: 0;
+    height: auto;
+  }
+  .main-product-info.content-item{
+    margin-top: 1rem;
+  }
+  .main-product-info-other{
+      flex-direction: column-reverse;
+      align-items: center;
+
+    }
+    .recommendations-ul{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .recommendations-ul .product{
+      width: 49%;
     }
 }
 {% endstyle %}
@@ -252,14 +285,13 @@ input[type="number"]{
             {{ product.description }}
           </div>
           {% when 'options_panel' %}
-            <div class='product-options-box product-info-item'>
+            <div class='product-options-box product-info-item'> 
             {% for option in product.options_with_values %}
               <div class="product-options-item">
                 <label class="product-options-label">{{ option.name | append:'：' }}</label>
                 <span class="product-options-value">{{ option.values }}</span>
               </div>    
             {% endfor %}  
-            
             </div>
           {% when 'price' %}
           <div class="product-info-item">
@@ -335,19 +367,22 @@ input[type="number"]{
       {% for block in section.blocks %}
         {% case block.type %}
           {% when "product_detail_desc" %} 
-              {% if shop.metaobjects[block.settings.metaobjects_type][product.variants[0].sku] %}
-                {% assign product_sku = product.variants[0].sku %} 
+            {% assign product_sku = block.settings.metaobjects_cate_handle-prefix | append:product.variants[0].sku | replace:'-','' %}
+              {% if shop.metaobjects[block.settings.metaobjects_type][product.variants[0].sku] != empty %}
                 {% render 'product-detail-desc',
                     SKU:  product_sku ,
+                    custom_metafields_namespace: block.settings.metafields_namespace,
+                    custom_metafields_key: block.settings.metafields_key,
                     metaobjects_type: block.settings.metaobjects_type,
                     metaobjects_fields: block.settings.metaobjects_fields,
                     card_bg: block.settings.card_bg,
                     card_text_margin_bottom: block.settings.card_text_margin_bottom,
                     card_shadow_color: block.settings.card_shadow_color,
                     card_padding: block.settings.card_padding,
-                    image_title: block.settings.image_title
+                    image_title: block.settings.image_title,
+                    typewiter_animation: block.settings.typewriter_animation,
                 %}
-              {% endif %}  
+              {% endif %} 
           {% when "recommend_products" %}   
             {% render 'recommend-products' ,
               recommend_title: block.settings.recommend_title,
@@ -628,6 +663,20 @@ input[type="number"]{
         "settings": [
           {
             "type": "text",
+            "id": "metafields_namespace",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_namespace.label",
+            "default": "custom",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_namespace.info"
+          },
+          {
+            "type": "text",
+            "id": "metafields_key",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_key.label",
+            "default": "key",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_key.info"
+          },
+          {
+            "type": "text",
             "id": "metaobjects_type",
             "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_type.label",
             "default": "metaobjects type",
@@ -638,13 +687,27 @@ input[type="number"]{
             "id": "metaobjects_fields",
             "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_fields.label",
             "info": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_fields.info",
-            "default": "images-image,detail_text-text"
+            "default": "images,detail_text"
+          },
+          {
+            "type": "text",
+            "id":"metaobjects_cate_handle-prefix",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_cate_handle-prefix.label",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_cate_handle-prefix.info",
+            "default": "d"
           },
           {
             "type": "text",
             "id": "image_title",
             "label": "t:sections.main-product.blocks.product_detail_desc.settings.image_title.label",
             "default": "Product image display"
+          },
+          {
+            "type": "checkbox",
+            "default": true,
+            "id": "typewriter_animation",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.typewriter_animation.label",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.typewriter_animation.info"
           },
           {
             "type": "color_background",

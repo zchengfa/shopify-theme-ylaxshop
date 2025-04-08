@@ -13,8 +13,10 @@ if(!customElements.get('card-popover')){
                 this.descriptionEl.setAttribute('title',this.descriptionEl.textContent);
 
                 this.addEventListener('mouseenter',(e)=>{
-                    this.setPopoverContent();
-                    this.addContentToGlobalPopover(e);
+                    if(document.body.clientWidth > 750){
+                        this.setPopoverContent();
+                        this.addContentToGlobalPopover(e);
+                    }
                 });
 
                 this.addEventListener('mouseleave',()=>{

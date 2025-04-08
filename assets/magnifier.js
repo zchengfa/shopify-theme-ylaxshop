@@ -95,12 +95,16 @@ class MagnifierImage extends HTMLElement {
     
     mouseoverEvent = ({mask,magnifierBox,originalBox})=>{
       window.requestAnimationFrame(()=>{
-        mask.style.display = 'block';
-        magnifierBox.style.display = 'block';
-        magnifierBox.style.backgroundSize = `${originalBox.clientWidth*this.magnifierTimes}px`;
-        if(this.showInMagnifier === 'true'){
-          mask.style.backgroundSize = `${originalBox.clientWidth*this.magnifierTimes}px`;
-        }    
+        //判断视口是否大于750
+        if(document.body.clientWidth > 750){
+          mask.style.display = 'block';
+          magnifierBox.style.display = 'block';
+          magnifierBox.style.backgroundSize = `${originalBox.clientWidth*this.magnifierTimes}px`;
+          if(this.showInMagnifier === 'true'){
+            mask.style.backgroundSize = `${originalBox.clientWidth*this.magnifierTimes}px`;
+          }    
+        }
+        
       });
         
     }
@@ -111,23 +115,27 @@ class MagnifierImage extends HTMLElement {
     
     mousemoveEvent = (e,{mask,magnifierBox,originalBox})=>{
       window.requestAnimationFrame(()=>{
-        let x = e.pageX - originalBox.offsetLeft , y = e.pageY - originalBox.offsetTop;
-        let thresholdX = originalBox.clientWidth - mask.clientWidth , thresholdY = originalBox.clientHeight - mask.clientHeight;
-        x -= mask.offsetWidth / 2 ;
-        y -= mask.offsetHeight / 2;
-      
-        x = x < 0 ? 0 : x;
-        x = x > thresholdX ? thresholdX : x;
-        y = y < 0 ? 0 : y;
-        y = y > thresholdY ? thresholdY : y;
-        mask.style.left = x + 'px';
-        mask.style.top = y + 'px';
-
-        if(this.showInMagnifier === 'true'){
-          mask.style.backgroundPosition = `${(x/thresholdX)*100}% ${(y/thresholdY)*100}%`;
+        //判断视口是否大于750
+        if(document.body.clientWidth > 750){
+          let x = e.pageX - originalBox.offsetLeft , y = e.pageY - originalBox.offsetTop;
+          let thresholdX = originalBox.clientWidth - mask.clientWidth , thresholdY = originalBox.clientHeight - mask.clientHeight;
+          x -= mask.offsetWidth / 2 ;
+          y -= mask.offsetHeight / 2;
+        
+          x = x < 0 ? 0 : x;
+          x = x > thresholdX ? thresholdX : x;
+          y = y < 0 ? 0 : y;
+          y = y > thresholdY ? thresholdY : y;
+          mask.style.left = x + 'px';
+          mask.style.top = y + 'px';
+  
+          if(this.showInMagnifier === 'true'){
+            mask.style.backgroundPosition = `${(x/thresholdX)*100}% ${(y/thresholdY)*100}%`;
+          }
+  
+          magnifierBox.style.backgroundPosition = `${(x/thresholdX)*100}% ${(y/thresholdY)*100}%`;
         }
-
-        magnifierBox.style.backgroundPosition = `${(x/thresholdX)*100}% ${(y/thresholdY)*100}%`;
+        
         }) 
     }
     

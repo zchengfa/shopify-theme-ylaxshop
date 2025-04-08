@@ -6,8 +6,9 @@
     padding:2rem;
 }
 .collection-title{
+    margin-bottom:1rem;
     font-family: var(--self_font);
-    font-size: calc(var(--font-scale) * 2rem);
+    font-size: calc(var(--font-scale) * 1.3rem);
 }
 {% endstyle %}
 <intersection-box class="intersection-el">
@@ -19,7 +20,7 @@
                 <div class='collection-description description-style-{{ section.settings.description_style }}'>{{ section.settings.description }}</div>
             </div>
             <div class='collection-product-wrapper'>
-                {% render 'card-product',
+                {% render 'card-product-collection',
                     products:section.settings.collection.products,
                     products_to_show:section.settings.products_to_show,
                     currency_code_enabled:settings.currency_code_enabled,

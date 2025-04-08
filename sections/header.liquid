@@ -90,11 +90,31 @@
     .icon-cart-btn{
         position: relative;
     }
+    .search-icon-box{
+        display: none;
+        width: 1.5rem;
+    }
+    @media screen and (max-width: 500px){
+        .phone-icon{
+            display: none;
+        }
+    }
     @media screen and (max-width: 750px){
+        .store-name{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
         .phone,.header-logo{
             display:none;
         }
-        .icon-summary-box{
+        .phone-search{
+            display: flex;
+        }
+        .search-icon-box{
+            margin-left: 1rem;
+        }
+        .icon-summary-box,.search-icon-box{
             display: block;
         }
         .header-center{
@@ -118,7 +138,6 @@
             z-index: 99;
             transition: left ease-in-out .5s;
             background: var(--gradient-background);
-            background-attachment: fixed;
         }
         .menu-drawer-show{
             position: fixed;
@@ -129,7 +148,6 @@
             z-index: 99;
             transition: left ease-in-out .5s;
             background: var(--gradient-background);
-            background-attachment: fixed;
         }
         .menu-drawer-item{
             padding: 1rem;
@@ -174,21 +192,25 @@
             <h2 class='store-name'>{{ shop.name }}</h2>
             {% render 'search', input_id: 'Search-In-Modal' %}
             <div class='header-center-other-box' id="HeaderCenterOther" data-id="{{ section.id }}">
-                <div class='phone-box'>
-                    <div class='phone-icon'>
-                        {% render 'icon-phone' %}
+                <div class="phone-search">
+                    <div class='phone-box'>
+                        <div class='phone-icon'>
+                            {% render 'icon-phone' %}
+                        </div>
+                        {% liquid
+                            assign phone = shop.phone
+                        %}
+                        <span class='phone'>
+                            {% if section.settings.show_all_phone %}
+                                {{ phone }}
+                            {% else %}
+                                {{ phone | slice: 0,5 | append : '******'  }}
+                            {% endif %}
+                        </span>   
                     </div>
-                    {% liquid
-                        assign phone = shop.phone
-                    %}
-                    <span class='phone'>
-                        {% if section.settings.show_all_phone %}
-                            {{ phone }}
-                        {% else %}
-                            {{ phone | slice: 0,5 | append : '******'  }}
-                        {% endif %}
-                    </span>
-                    
+                    <div class="search-icon-box">
+                        {% render 'icon-search' %}
+                    </div>
                 </div>
                 <div class="cart-display-type">
                     {% if settings.cart_type == 'page' %}
@@ -241,6 +263,24 @@
     cartBtnEl?.addEventListener('click',()=>{
         showCartWithDrawer();
     });
+
+    //搜索图标点击事件
+    let searchCloseEl = document.querySelector('.search-icon-box');
+    searchCloseEl?.addEventListener('click',()=>{
+        let searchBox = document.querySelector('.search-box');
+        searchBox.classList.add('search-box-show');
+    })
+
+    //搜索框中关闭按钮点击事件
+    let searchCloseChildren = document.querySelector('.search-close');
+    searchCloseChildren?.addEventListener('click',()=>{
+        //隐藏搜索框
+        let searchBox = document.querySelector('.search-box');
+        searchBox.classList.remove('search-box-show');
+        //关闭预搜索结果元素
+        let searchResultEl = document.querySelector('#predictive-search-results-box');
+        searchResultEl.style.display = 'none';
+    })
 </script>
 {% javascript %}
     if(!customElements.get('sticky-header')){
@@ -263,16 +303,27 @@
 
                 connectedCallback(){
                     window.addEventListener('resize',()=>{
-                        const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
+                        this.stickyStatus();
+                    });
+                    window.addEventListener('scroll',(e)=>{
+                        this.stickyStatus();
+                    })
+                }
+                stickyStatus(){
+                   window.requestAnimationFrame(()=>{
+                    const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
                         if(el.clientWidth < 750){
                             el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
+                            if(!el.classList.contains('sticky')){
+                                el.classList.add('sticky');
+                                el.classList.add('gradient');
+                            }
                         }
                         else{
                             el.classList = 'shopify-section shopify-section-group-header-group'
-                        }
-                    });
+                        } 
+                   })
                 }
-
                 summaryCloseBtnHandle(){
                     if(this.closeBtnShow){
                         this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';

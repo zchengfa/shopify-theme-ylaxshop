@@ -2,7 +2,7 @@
   "current": {
     "logo_width": 100,
     "favicon": "shopify:\/\/shop_images\/favicon.jpg",
-    "shop_font": "playball_n4",
+    "shop_font": "lora_i4",
     "font_scale": 130,
     "currency_code_enabled": true,
     "cart_type": "drawer",
@@ -123,23 +123,18 @@
     },
     "content_for_index": [],
     "blocks": {
-      "14060646107696862457": {
-        "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
-        "settings": {}
-      },
-      "6615124273980966592": {
-        "type": "shopify:\/\/apps\/chatty-livechat-helpdesk\/blocks\/app-embed\/1c0e135d-e8e1-4fe2-86be-1c36def46675",
+      "pagefly-page-builder": {
+        "type": "shopify:\/\/apps\/pagefly-page-builder\/blocks\/app-embed\/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": false,
         "settings": {}
       },
       "15683396631634586217": {
         "type": "shopify:\/\/apps\/inbox\/blocks\/chat\/841fc607-4181-4ad1-842d-e24d7f8bad6b",
-        "disabled": true,
+        "disabled": false,
         "settings": {
-          "button_color": "#dd1d1d",
-          "secondary_color": "#ffffff",
-          "ternary_color": "#51c930",
+          "button_color": "#ec1a1a",
+          "secondary_color": "#FFFFFF",
+          "ternary_color": "#1595e9",
           "button_icon": "chat_bubble",
           "button_text": "chat_with_us",
           "button_horizontal_position": "bottom_right",

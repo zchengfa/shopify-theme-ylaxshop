@@ -61,6 +61,8 @@
                     assign background_color_contrast = background_color | color_darken: 25
                 endif
             %}
+            
+            --badge-corner-radius: {{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
 
             --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
             --color-background-contrast: {{ background_color_contrast.red }},{{ background_color_contrast.green }},{{ background_color_contrast.blue }};
@@ -78,6 +80,22 @@
             --white-color: #fff;
             --black-color: #000;
             --sf-purple-color: #d416cad4;
+            
+            --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
+            --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+            --product-card-text-alignment: {{ settings.card_text_alignment }};
+            --product-card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
+            --product-card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
+            --product-card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
+            --product-card-shadow-visible: {% if settings.card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+            --product-card-shadow-horizontal-offset: {{ settings.card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+            --product-card-shadow-vertical-offset: {{ settings.card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+            --product-card-shadow-blur-radius: {{ settings.card_shadow_blur | divided_by: 10.0 }}rem;
+
+            --grid-desktop-vertical-spacing: {{ settings.spacing_grid_vertical }}px;
+            --grid-desktop-horizontal-spacing: {{ settings.spacing_grid_horizontal }}px;
+            --grid-mobile-vertical-spacing: {{ settings.spacing_grid_vertical | divided_by: 2 }}px;
+            --grid-mobile-horizontal-spacing: {{ settings.spacing_grid_horizontal | divided_by: 2 }}px;
           }
 
           {{ scheme_classes | prepend: 'body' }} {

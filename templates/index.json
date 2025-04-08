@@ -6,7 +6,7 @@
         "slide_fEg7jU": {
           "type": "slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/23_birthday_pc.jpg",
+            "image": "shopify:\/\/shop_images\/p_2cff7c64-0c5e-11f0-97ab-00163e2c7c57_wm.png",
             "heading": "Romantic Flower",
             "heading_size": "h1",
             "subheading": "Come and experience this romance",
@@ -18,7 +18,7 @@
         "slide_aE3KQN": {
           "type": "slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/52021_pc_banner.jpg",
+            "image": "shopify:\/\/shop_images\/p_8ea0ab1e-0c5e-11f0-b057-00163e2c7c57_wm.png",
             "heading": "Valentine's Day",
             "heading_size": "h1",
             "subheading": "Let love spread in the fragrance of flowers",
@@ -39,47 +39,6 @@
         "speed": 5
       }
     },
-    "holiday_theme_eWQwhE": {
-      "type": "holiday-theme",
-      "blocks": {
-        "product_UnAhbF": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "eternal-flower-lifetime-flocking-bear-eternal-flower-gift-box-confession-bear"
-          }
-        },
-        "product_hpQXJb": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "eternal-flower-gift-box"
-          }
-        },
-        "product_bn9Etd": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "farewell-to-elders-eternal-happiness"
-          }
-        },
-        "product_BLEjiV": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "eternal-flower-heart-of-eternal-love-eternal-flower-photo-frame-520-customized"
-          }
-        }
-      },
-      "block_order": [
-        "product_UnAhbF",
-        "product_hpQXJb",
-        "product_bn9Etd",
-        "product_BLEjiV"
-      ],
-      "settings": {
-        "image": "shopify:\/\/shop_images\/holiday.png",
-        "show_card_popover": true,
-        "show_type": "row",
-        "holiday_background": "#ff93b9"
-      }
-    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
@@ -87,7 +46,7 @@
         "heading_size": "h1",
         "description": "<p>Send someone who makes your heart skip a beat<\/p>",
         "description_style": "body",
-        "collection": "frontpage",
+        "collection": "爱情鲜花",
         "products_to_show": 7,
         "show_wrap": false,
         "color_scheme": ""
@@ -100,7 +59,7 @@
         "heading_size": "h1",
         "description": "<p>Promise her a lifetime<\/p>",
         "description_style": "body",
-        "collection": "eternal-flower",
+        "collection": "永生花",
         "products_to_show": 8,
         "show_wrap": false,
         "color_scheme": "scheme-1"
@@ -117,7 +76,7 @@
         "heading_size": "h1",
         "description": "",
         "description_style": "body",
-        "collection": "elderly-flowers",
+        "collection": "长辈鲜花",
         "products_to_show": 4,
         "show_wrap": true,
         "color_scheme": ""
@@ -143,7 +102,6 @@
   },
   "order": [
     "banner",
-    "holiday_theme_eWQwhE",
     "featured-collection",
     "featured_collection_VmFyYh",
     "1727237088913f083b",

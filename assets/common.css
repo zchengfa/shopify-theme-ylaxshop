@@ -65,6 +65,9 @@ body{
     font-family: var(--self_font);
     font-size: 1rem;
   }
+  div{
+    box-sizing: border-box;
+}
 @keyframes zoomBox {
     0%{
         opacity: 0;

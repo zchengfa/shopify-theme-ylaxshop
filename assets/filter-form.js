@@ -11,6 +11,7 @@ if(!customElements.get('filter-form')){
                 });
                 this.MainSearchId = this.form.dataset['searchResultId'];
                 this.sortBy = this.querySelector('#SortBy').querySelector('option[selected]');
+                //价格区间筛选逻辑
                 this.priceBtn = this.querySelector('.price-sort-box');
                 this.iconCaret = this.priceBtn.querySelector('.icon-caret');
                 this.priceSortBox = this.querySelector('.price-sort-box__dropdown');
@@ -30,6 +31,16 @@ if(!customElements.get('filter-form')){
                 //选择框change事件
                 this.select = this.querySelector('#SortBy');
                 this.select.addEventListener('change',this.selectChange.bind(this));
+
+                //移动端筛选逻辑
+                this.mobileFilterBox = this.querySelector('.filter-icon-box');
+                this.mobileFilterBox.addEventListener('click',this.showMobileFilterContainer.bind(this));
+                this.mobileFilterContainer = this.querySelector('.mobile-filter-container');
+                this.mobileFilterClose = this.querySelector('.mobile-filter-close');
+                this.mobileFilterClose.addEventListener('click',this.showMobileFilterContainer.bind(this));
+            }
+            showMobileFilterContainer(){
+                this.mobileFilterContainer.classList.toggle('mobile-filter-container--show');
             }
             selectChange(){
                 const options = this.select.querySelectorAll('option');

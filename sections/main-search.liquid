@@ -68,7 +68,7 @@
   }
   .product-params{
     padding: 1rem;
-    height: 6rem;
+    height: 8rem;
     letter-spacing: 1px;
   }
   .product-title{
@@ -143,6 +143,106 @@
     border-radius: 0.5rem;
     border: 1px solid var(--black-color);
  }
+ .filter-icon-box{
+  display: none;
+  width: 1.5rem;
+ }
+  /* 移动端筛选样式 */
+  .mobile-filter-container{
+    display: none;
+  }
+ @media screen and (max-width: 768px){
+   .search-result .result-ul{
+      grid-template-columns: repeat(auto-fill,30%);
+   }
+ }
+ @media screen and (max-width: 768px){
+  .filter-form{
+    padding: 1rem 2rem;
+  }
+ }
+ @media screen and (max-width: 500px){
+  .filter-form,.search-result{
+    padding: 1rem;
+  }
+  .filter-form__sort .sort-box{
+    display: none;
+  }
+   .search-result .result-ul{
+      grid-template-columns: repeat(auto-fill,48%);
+   }
+   .filter-icon-box{
+    display: block;
+   }
+   .product-params{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+   }
+   .origin-price{
+    margin-left: 0;
+   }
+   .product-title{
+    display: -webkit-box;
+    width: 10rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+   }
+   /* 移动端筛选样式 */
+ .mobile-filter-container{
+  position: fixed;
+  display: block;
+  left: 100%;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: left .5s ease-in-out;
+  background: var(--gradient-background);
+  z-index: 101;
+ }
+ .mobile-filter-container--show{
+  left: 0;
+  transition: left .5s ease-in-out;
+  z-index: 101;
+ }
+ .mobile-fiter-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+ }
+ .mobile-fiter-result__title{
+  flex: 1;
+  text-align: center;
+  text-indent: 2rem;
+  font-size: 1.2rem;
+ }
+ .mobile-filter-close{
+  width: 2rem;
+ }
+ .mobile-filter-close .icon-close{
+  transform: scale(1);
+ }
+ .mobile-filter-content{
+  padding: 1rem;
+ }
+ .mobile-filter-content .sort-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+ }
+ .mobile-filter-content .icon-arrow{
+  width: 1rem;
+ }
+ }
+ 
 {% endstyle %}
 
 {% if search.performed and search.results.size > 0 %} 
@@ -185,6 +285,9 @@
                     <button class="sort-filter-btn">{{ "products.sort.filter" | t }}</button>
                   </div>
                 </div>
+                <div class="filter-icon-box">
+                  {% render 'icon-filter' %}
+                </div>
             </div>
             <div class="filter-form__sort">
                 <div class="sort-box">
@@ -198,6 +301,27 @@
                 <div class="search-result-count">
                     <span class="search-result-count__text">{{ search.results_count }} {{ "products.sort.search_result_count" | t }}</span>
                 </div>
+            </div>
+            {% comment %} 移动端筛选组件 {% endcomment %}
+            <div class="mobile-filter-container">
+              <div class="mobile-fiter-top">
+                <p class="mobile-fiter-result__title">{{ search.results_count }} {{ "products.sort.search_result_count" | t }}</p>
+                <button class="mobile-filter-close">{% render 'icon-close' %}</button>
+              </div>
+              <div class="mobile-filter-content">
+                <div class="sort-box price-sort-box">
+                  <span class="sort-box__label">{{ "products.sort.price" | t }}</span>
+                  {% render 'icon-arrow' %}
+                </div>
+                <div class="sort-box">
+                  <label for="SortBy">{{ "products.sort.sort_by" | t }}</label>
+                  <select id="SortBy" name="sort_by" aria-label="sort by" data-filter-group="sort_by">
+                      {% for option in search.sort_options %}
+                          <option value="{{ option.value }}" {% if option.value == search.sort_by %}selected{% endif %}>{{ option.name | escape }}</option>
+                      {% endfor %}    
+                  </select>
+                </div>
+              </div>
             </div>
         </form>
     </filter-form>

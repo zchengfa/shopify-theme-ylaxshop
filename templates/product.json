@@ -37,12 +37,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "ylax_shop_app_payment_CVDxHh": {
-          "type": "shopify:\/\/apps\/ylax-shop-app\/blocks\/payment\/d94d3713-9430-4665-8b70-4eb0110fa32d",
-          "settings": {
-            "bg_color": "#ffffff"
-          }
-        },
         "recommend_products_FLTkDY": {
           "type": "recommend_products",
           "settings": {
@@ -53,8 +47,11 @@
         "product_detail_desc_Kt7rCm": {
           "type": "product_detail_desc",
           "settings": {
+            "metafields_namespace": "custom",
+            "metafields_key": "images_and_designer_flower_language",
             "metaobjects_type": "product_detail_data",
-            "metaobjects_fields": "images-image,detail_text-text",
+            "metaobjects_fields": "pro_images,designer_flower_language",
+            "metaobjects_cate_handle-prefix": "d",
             "image_title": "Product image display",
             "card_bg": "#fff",
             "card_text_margin_bottom": 0.5,
@@ -71,7 +68,6 @@
         "options_panel_9nr7TQ",
         "quantity_selector_BiE8bP",
         "buy_buttons",
-        "ylax_shop_app_payment_CVDxHh",
         "recommend_products_FLTkDY",
         "product_detail_desc_Kt7rCm"
       ],

@@ -2322,6 +2322,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .header-wrapper {
   display: block;
   position: relative;
+  z-index: 110;
 }
 
 .header-wrapper--border-bottom {

@@ -1,0 +1,52 @@
+{
+  "parent": "product.json",
+  "context": {
+    "market": "cn"
+  },
+  "sections": {
+    "main": {
+      "settings": {},
+      "blocks": {
+        "product_detail_desc_Kt7rCm": {
+          "settings": {
+            "metaobjects_cate_handle-prefix": "d",
+            "image_title": "Product image display "
+          }
+        },
+        "recommend_products_FLTkDY": {
+          "settings": {
+            "recommend_title": "you may also like "
+          }
+        }
+      }
+    },
+    "FAQ": {
+      "blocks": {
+        "text_HRzYrN": {
+          "settings": {
+            "question": "How fast can I expect the flowers (or cake) I ordered to be delivered? ",
+            "answer": "After you place your order and make payment, the flowers will be delivered to the recipient within 1-3 hours at the earliest. (Note: This is the fastest possible delivery time, and we will ensure delivery within the time period you have selected for your order.) The cake can usually be delivered by ordering half a day in advance. "
+          }
+        },
+        "text_ptXVbQ": {
+          "settings": {
+            "question": "Do I need to choose a specific time slot for delivery? OK? ",
+            "answer": "When submitting an order, you can choose from three time slots: morning (8:30-12:00), afternoon (12:00-18:00), and evening (18:00-21:00); If you have special requirements for delivery time, you can choose scheduled service. Special reminder: If the order time is less than 3 hours away from the selected time slot and the selected time slot cannot be met, we will try our best to deliver it within 3 hours after your payment. "
+          }
+        },
+        "text_Kg6BGx": {
+          "settings": {
+            "question": "How can I make the payment? How can I make payments abroad? ",
+            "answer": "We support WeChat, Alipay, Tenpay, PayPal and other payment methods. After the order is generated, you can choose the above online payment method, which is very fast and convenient. If you are abroad, we recommend using PayPal for payment: supports PayPal balance payment, VISA card, Master card, AE card and other credit cards. "
+          }
+        },
+        "text_VtFatk": {
+          "settings": {
+            "question": "Regarding after-sales service: ",
+            "answer": "We have been committed to continuously improving our service level and pursuing zero customer complaints. We provide our customers with comprehensive after-sales service. If there are any incorrect orders, mismatched flower materials, incorrect greeting cards, or any other situation that you are not satisfied with, please feel free to contact us as soon as possible, and we will respond and handle it as soon as possible. 200% refund commitment, which means that if the order is missed and not delivered, the full amount of the order will be refunded to you, and the original order goods will be delivered again for free. "
+          }
+        }
+      }
+    }
+  }
+}

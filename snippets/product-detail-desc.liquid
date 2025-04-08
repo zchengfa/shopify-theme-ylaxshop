@@ -1,70 +1,115 @@
 {% style %}
 .product-detail-desc-content{
+    font-family: var(--self_font);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
 }
+.product-detail-desc-title{
+  margin: 1rem 0;
+  font-weight: bold;
+  font-size: calc(var(--font-scale) * 1.5rem);
+}
+.product-detail-desc-images-box{
+  padding: 3rem;
+  width:80%;
+  background-color: {{ card_bg }};
+  border-radius: 1rem;
+}
 .product-detail-desc-img{
-    max-width: 50vw;
-    width: auto;
-    height: auto;
-    margin-bottom: 1rem;
+  position:relative;
+  left: 50%;
+  width: 80%;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  transform: translateX(-50%);
 }
-.product-detail-text-box{
-    font-family: var(--self_font);
-    padding: {{ card_padding | append: 'rem' }};
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
-    background: {{ card_bg }};
-    box-shadow: 2px 2px 4px 4px {{ card_shadow_color }};
-    border-radius: 1rem;
+.poet-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: {{card_padding | append: 'rem'}};;
+  padding: {{card_padding | append: 'rem'}};
+  border-radius: 1rem;
+  background-color: {{ card_bg }};
+  mix-blend-mode: difference;
 }
-.detail-text-item{
-    margin-bottom: {{ card_text_margin_bottom | append: 'rem' }}
+.poet-item{
+  position: relative;
+  margin-bottom: {{ card_text_margin_bottom | append: 'rem' }};
+  overflow: hidden;
 }
-.detail-text-item:nth-child(1),.product-detail-img-title{
-    font-weight: bolder;
-    font-size: calc(var(--font-scale) * 1.5rem);
+.typewriter-item,.typewriter-span{
+  display: inline-block;
 }
-.product-detail-img-title{
-    margin: 1rem 0;
-    font-family: var(--self_font);
+.typewriter-span{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: {{ card_bg }};
 }
-@media screen and (max-width: 450px){
-    .product-detail-desc-img{
-        max-width: 80vw;
-    }
+@keyframes typewriter {
+  0% {
+    left: 0;
+  }
+  50% {
+    border-left: 2px solid transparent;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@media (max-width: 750px) {
+  .product-detail-desc-images-box{
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+  }
+  .product-detail-desc-img{
+    width: 100%;
+  }
 }
 {% endstyle %}
-
-<div class="product-detail-desc-content">
-    {% assign product_metaobjects = shop.metaobjects[metaobjects_type][SKU] %}
-    {% assign fields = metaobjects_fields | split: ',' %}
-    {% for field in fields %}
-        {% assign items = field | split: '-' %}
-        {%  case items[1] %}
-            {% when 'image' %} 
-                {% assign images = product_metaobjects[items[0]].value %}
-                {% if images %}
-                    <p class="product-detail-img-title">{{ image_title }}</p>
-                {% endif %}    
-                {% for image in images %}
-                    <img class="product-detail-desc-img" alt="flower-detail-desc-img" src={{ image | image_url }} width=0 height=0 />       
-                {% endfor %}
-            {% when 'text' %} 
-                {% assign text_data = product_metaobjects[items[0]].value %}
-                {% if text_data %}
-                    <div class="product-detail-text-box">
-                        {% for text in text_data %}
-                            <span class="detail-text-item">{{ text }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}    
-        {% endcase %}    
+    {% comment %}
+      通过商店后台设置的自定义元字段命名空间与键来获取产品引用的元对象
+      例：product.metafields.namespace.key.value
+    {% endcomment %}
+    {% assign product_metaobjects = product.metafields[custom_metafields_namespace][custom_metafields_key].value %}
+{% if product_metaobjects != blank %}
+  <div class="product-detail-desc-content">
+    {% comment %} 
+      获取模板后台设置的元对象字段名
+      1.例：metaobjects_fields = "field1,field2,field3"
+      2.使用过滤转换成数组
+      3.遍历数组，查看字段对应的数据是何类型，根据类型进行不同的渲染
+    {% endcomment %}
+    {% assign metaobjects_fields_array = metaobjects_fields | split:',' %}
+    {% for field in metaobjects_fields_array %}
+        {% if product_metaobjects[field].type == 'list.file_reference' %}
+            <p class="product-detail-desc-title">{{ image_title }}</p>
+            <div class="product-detail-desc-images-box">
+              {% for item in product_metaobjects[field].value %}
+                <img class="product-detail-desc-img" src="{{ item | image_url }}" alt="pro_detail_img" width="auto" height="auto" />
+              {% endfor %}
+            </div> 
+        {% elsif product_metaobjects[field].type == 'multi_line_text_field' or product_metaobjects[field].type == 'single_line_text_field'  %}
+          {% if product_metaobjects[field] != blank %}
+            {% assign multi_line_poet_arr = product_metaobjects[field] | split:',' %}
+            <type-writer class="poet-container" animation={{ typewiter_animation }}>
+              {% for item in multi_line_poet_arr %}
+                <div class="poet-item">
+                  <span class="typewriter-item">{{ item }}</span>
+                  <span class="typewriter-span"> </span>
+                </div>
+              {% endfor %}
+            </type-writer>
+          {% endif %}
+        {% endif %}
     {% endfor %}
-  </div>
+</div>
+{% endif %}

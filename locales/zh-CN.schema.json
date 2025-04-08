@@ -101,6 +101,55 @@
         }
       }
     },
+    "badges": {
+      "name": "徽章",
+      "settings": {
+        "position": {
+          "options__1": {
+            "label": "左下方"
+          },
+          "options__2": {
+            "label": "右下方"
+          },
+          "options__3": {
+            "label": "左上方"
+          },
+          "options__4": {
+            "label": "右上方"
+          },
+          "label": "在卡上的位置"
+        },
+        "sale_badge_color_scheme": {
+          "label": "促销徽章配色方案"
+        },
+        "sold_out_badge_color_scheme": {
+          "label": "售罄徽章配色方案"
+        }
+      }
+    },
+    "layout": {
+      "name": "布局",
+      "settings": {
+        "page_width": {
+          "label": "页面宽度"
+        },
+        "spacing_sections": {
+          "label": "模板分区之间的间距"
+        },
+        "header__grid": {
+          "content": "网格"
+        },
+        "paragraph__grid": {
+          "content": "影响具有多列或行的区域。"
+        },
+        "spacing_grid_horizontal": {
+          "label": "水平间距"
+        },
+        "spacing_grid_vertical": {
+          "label": "垂直间距"
+        }
+      }
+    },
     "search_input": {
       "name": "搜索行为",
       "settings": {
@@ -119,6 +168,63 @@
           "info": "在启用搜索建议时可见。"
         }
       }
+    },
+    "cards": {
+      "name": "产品卡",
+      "settings": {
+        "style": {
+          "options__1": {
+            "label": "标准"
+          },
+          "options__2": {
+            "label": "卡"
+          },
+          "label": "样式"
+        }
+      }
+    },
+    "global": {
+      "settings": {
+        "header__border": {
+          "content": "边框"
+        },
+        "header__shadow": {
+          "content": "阴影"
+        },
+        "blur": {
+          "label": "模糊"
+        },
+        "corner_radius": {
+          "label": "圆角半径"
+        },
+        "horizontal_offset": {
+          "label": "水平偏移"
+        },
+        "vertical_offset": {
+          "label": "垂直偏移"
+        },
+        "thickness": {
+          "label": "厚度"
+        },
+        "opacity": {
+          "label": "不透明度"
+        },
+        "image_padding": {
+          "label": "图片填充"
+        },
+        "text_alignment": {
+          "options__1": {
+            "label": "左"
+          },
+          "options__2": {
+            "label": "居中"
+          },
+          "options__3": {
+            "label": "右"
+          },
+          "label": "文本对齐方式"
+        }
+      }
     }
   },
   "sections": {
@@ -134,6 +240,34 @@
           "label": "大"
         },
         "label": "标题大小"
+      },
+      "image_shape": {
+        "options__1": {
+          "label": "默认"
+        },
+        "options__2": {
+          "label": "弧形"
+        },
+        "options__3": {
+          "label": "Blob"
+        },
+        "options__4": {
+          "label": "向左 V 形"
+        },
+        "options__5": {
+          "label": "向右 V 形"
+        },
+        "options__6": {
+          "label": "菱形"
+        },
+        "options__7": {
+          "label": "平行四边形"
+        },
+        "options__8": {
+          "label": "圆形"
+        },
+        "label": "图片形状",
+        "info": "当“图片形状”为非“默认”选项时，标准样式的卡没有边框。"
       },
       "animation": {
         "image_behavior": {
@@ -273,13 +407,29 @@
         "product_detail_desc": {
           "name": "产品详细描述内容",
           "settings": {
+            "metafields_namespace": {
+              "label": "产品自定义元字段命名空间",
+              "info": "商店后台中设置的元字段命名空间"
+            },
+            "metafields_key": {
+              "label": "产品自定义元字段键",
+              "info": "商店后台中设置的元字段键"
+            },
             "metaobjects_type": {
-              "label": "产品元对象类型",
+              "label": "产品自定义元字段引用的元对象类型",
               "info": "商店后台中设置的元对象类型"
             },
             "metaobjects_fields": {
-              "label": "产品元对象字段",
+              "label": "产品自定义元字段引用的元对象字段",
               "info": "产品元对象设置的字段，若有多个字段，请使用英文逗号隔开且字段后需使用-跟上字段类型（图片：image，文本：text）"
+            },
+            "metaobjects_cate_handle-prefix": {
+              "label": "产品自定义元字段引用的元对象类目句柄前缀",
+              "info": "产品元对象类目句柄前缀，本项目使用前缀+产品SKU用作元对象句柄，例子：d4223-460-360"
+            },
+            "typewriter_animation": {
+              "label": "是否开启打字机动画",
+              "info": "是否开启打字机动画，开启后会有打字机效果"
             },
             "card_bg": {
               "label": "文本卡片背景颜色",
@@ -915,6 +1065,90 @@
           },
           "subtotal": {
             "name": "价格小计"
+          }
+        }
+      }
+    },
+    "main-collection-product-grid": {
+      "name": "产品网格",
+      "settings": {
+        "products_per_page": {
+          "label": "每页产品数"
+        },
+        "image_ratio": {
+          "label": "图片比",
+          "options__1": {
+            "label": "适应图片"
+          },
+          "options__2": {
+            "label": "纵向"
+          },
+          "options__3": {
+            "label": "方形"
+          }
+        },
+        "show_secondary_image": {
+          "label": "在悬停时显示第二张图片"
+        },
+        "show_vendor": {
+          "label": "显示厂商"
+        },
+        "header__1": {
+          "content": "筛选和排序"
+        },
+        "enable_tags": {
+          "label": "启用筛选",
+          "info": "使用 Search & Discovery 应用自定义筛选条件。[详细了解](https:\/\/help.shopify.com\/manual\/online-store\/search-and-discovery\/filters)"
+        },
+        "enable_filtering": {
+          "label": "启用筛选",
+          "info": "使用 Search & Discovery 应用自定义筛选条件。[详细了解](https:\/\/help.shopify.com\/manual\/online-store\/search-and-discovery\/filters)"
+        },
+        "enable_sorting": {
+          "label": "启用排序"
+        },
+        "header__3": {
+          "content": "产品卡"
+        },
+        "show_rating": {
+          "label": "显示产品评分",
+          "info": "若要显示评分，请添加产品评分应用。[详细了解](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#product-grid-section-settings)"
+        },
+        "columns_desktop": {
+          "label": "桌面上的列数"
+        },
+        "header_mobile": {
+          "content": "移动设备布局"
+        },
+        "columns_mobile": {
+          "label": "移动设备上的列数",
+          "options__1": {
+            "label": "1 列"
+          },
+          "options__2": {
+            "label": "2 列"
+          }
+        },
+        "filter_type": {
+          "label": "台式设备筛选布局",
+          "options__1": {
+            "label": "水平"
+          },
+          "options__2": {
+            "label": "垂直"
+          },
+          "options__3": {
+            "label": "抽屉"
+          },
+          "info": "默认的移动设备布局是抽屉式布局。"
+        },
+        "quick_add": {
+          "label": "快速添加",
+          "info": "“批量”功能针对购买数量较大的商品进行优化。",
+          "options": {
+            "option_1": "无",
+            "option_2": "标准",
+            "option_3": "批量"
           }
         }
       }

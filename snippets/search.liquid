@@ -37,6 +37,7 @@
       padding: 1rem;
       min-width: 30vw;
       max-width: 70vw;
+      top: 100%;
       left: 50%;
       transform: translateX(-50%);
       background:{{ section.settings.color_underline }};
@@ -80,12 +81,42 @@
     #predictive-search-products{
       padding: .5rem 0;
     }
+    .search-close{
+      display: none;
+      width: 2rem;
+    }
+    .search-field{
+      position: relative;
+    }
+    
     @media screen and (max-width: 750px){
         .search-box{
-            display:none;
-        }
-        .test{
             display: block;
+            position: fixed;
+            left: 0;
+            top: -10%;
+            padding: 1rem;
+            width: 100%;
+            transition: top .5s ease-in-out;
+            background: var(--gradient-background);
+            z-index: 100;
+        }
+        .search-box-show{
+            top: 0;
+            transition: top .5s ease-in-out;
+        }
+        .search__form{
+          display: flex;
+        }
+        .search-field{
+          flex: 1;
+        }
+        .search-field .search-input{
+          width: 100%;
+        }
+        .search-close{
+          margin-left: 1rem;
+          display: flex;
         }
     }
 {% endstyle %}
@@ -109,6 +140,9 @@
             
           >
           <button class='search-btn'>{{ 'search.content.search_button' | t }}</button>
+        </div>
+        <div class="search-close">
+          {% render 'icon-close' %}
         </div>
         <div id="predictive-search-results-box" class="predictive-search-results"></div>
     </form>

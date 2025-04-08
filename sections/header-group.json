@@ -8,8 +8,9 @@
         "header_top_menu": "main-menu",
         "show_all_phone": false,
         "header_menu": "header-menu",
-        "color_underline": "#cd2e1c",
-        "menu_position": "left"
+        "color_underline": "#cd5446",
+        "menu_position": "left",
+        "enable_language_selector": true
       }
     }
   },
