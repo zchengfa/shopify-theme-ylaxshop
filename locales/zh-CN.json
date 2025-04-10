@@ -99,6 +99,14 @@
         "max_of": "最大{{ quantity }}",
         "in_cart_html": "购物车中有<span class=\"quantity-cart\">{{ quantity }}<\/span>",
         "note": "查看数量规则"
+      },
+      "tags":{
+        "new": "新品",
+        "best_selling":"热卖",
+        "plus": "升级",
+        "popular": "爆款",
+        "hot": "火热",
+        "classic_style": "经典款",
       }
     }
   },

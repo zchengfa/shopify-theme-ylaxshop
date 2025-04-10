@@ -295,6 +295,14 @@
         "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
         "note": "View quantity rules"
       },
+      "tags":{
+        "new": "New",
+        "best_selling":"BestSelling",
+        "plus": "Plus",
+        "popular": "Popular",
+        "hot": "Hot",
+        "classic_style": "Classic style",
+      },
       "volume_pricing": {
         "title": "Volume Pricing",
         "note": "Volume pricing available",

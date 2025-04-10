@@ -48,7 +48,6 @@
     position:relative;
     padding: .5rem;
     width: 100%;
-    height: 10rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -57,12 +56,16 @@
 .product-params p,.product-params span.now-price ,.product-params span.origin-price{
     width: 100%;
     margin-top: .5rem;
+    color: var(--payment-terms-background-color);
+}
+.product-params span.origin-price{
+    color: var(--black-color);
 }
 .product-title{
     width: 100%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* 定义显示的行数 */
+    -webkit-line-clamp: 1; /* 定义显示的行数 */
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: var(--self_font);
@@ -71,14 +74,17 @@
 .origin-price{
     font-size: .8rem;
 }
-.product-params .add-loading-box{ 
+.product-form{
+    padding: 1rem 0;
+    width: 100%;
+}
+.add-loading-box{ 
     display:flex;
     justify-content:center;
     align-items:center;
-    position:absolute;
+    position:relative;
     margin-top:unset;
     left:50%;
-    bottom: 1rem;
     width:80%;
     height:2rem;
     line-height:2rem;
@@ -94,7 +100,31 @@
     width: 100%;
     height: 100%;
 }
-
+.product-vendor-tags-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: .5rem 0;
+}
+.product-vendor,.product-tag{
+    margin-right: .2rem;
+    padding: .2rem;
+}
+.product-tag{
+    color: var(--black-color);
+    border-radius: .2rem;
+    background: var(--gradient-background);
+    mix-blend-mode: exclusion;
+    transform-origin: 0 50%;
+    transform: scale(.75);
+}
+.gradient-text {
+    background: -webkit-linear-gradient(left, #399EFF, #FFCE3A); /* 渐变背景 */
+    -webkit-background-clip: text; /* 将背景裁剪为文字 */
+    color: transparent; /* 文字颜色设置为透明，以显示背景渐变 */
+}
 .add-or-sold{
     font-family: var(--self_font);
     display:inline-block;
@@ -114,6 +144,9 @@
     }
 }
 @media screen and (max-width:  450px){
+    .product-box{
+        padding: 0;
+    }
     .product-item{
         margin: 1rem auto;
         width: 96%;
@@ -138,6 +171,32 @@
               </div>  
               <div class='product-params'>
                 <p class='product-title'>{{ product.title }}</p>
+               <div class="product-vendor-tags-box">
+                {% if product.vendor != empty %}
+                    <span class="product-vendor gradient-text">{{  product.vendor }}</span>
+                      
+                {% endif %} 
+                {% if product.tags.size > 0 %}
+                    {% for tag in product.tags %}
+                        {% case tag %}
+                            {% when 'New' %}
+                                <span class="product-tag">{{ 'products.product.tags.new' | t }}</span>
+                            {% when 'BestSelling' %}
+                                <span class="product-tag">{{ 'products.product.tags.best_selling' | t }}</span>
+                            {% when 'Plus' %}
+                                <span class="product-tag">{{ 'products.product.tags.plus' | t }}</span>
+                            {% when 'Popular' %}
+                                <span class="product-tag">{{ 'products.product.tags.popular' | t }}</span>  
+                            {% when 'Hot' %}
+                                <span class="product-tag">{{ 'products.product.tags.hot' | t }}</span>
+                            {% when 'Classic style' %}
+                                <span class="product-tag">{{ 'products.product.tags.classic_style' | t }}</span>  
+                            {% else %}
+                                <span class="product-tag">{{ tag }}</span>
+                        {% endcase %}
+                    {% endfor %}
+                {% endif %}     
+               </div>
                 {% if currency_code_enabled %}
                     <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
                     <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
@@ -145,48 +204,49 @@
                     <span class='now-price'>{{ product.price_max | money }}</span>  
                     <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>  
                 {% endif %}
-               <product-form>
-                    <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
-                        disabled-add
-                    {% endif %}'>
-                        {% assign product_form_id = 'quick-add-' | append: section_id | append: product.id  %}
-                    {% form 'product',
-                            product,
-                            id: product_form_id,
-                            class: 'form',
-                            novalidate: 'novalidate',
-                            data-type: 'add-to-cart-form'
-                        %}
-                        <input
-                            type="hidden"
-                            name="id"
-                            value="{{ product.selected_or_first_available_variant.id }}"
-                            class="product-variant-id"
-                            {% if product.selected_or_first_available_variant.available == false %}
-                                disabled
-                            {% endif %}
-                        >
-                        <button type='submit' name='add' class="add-btn {% if product.selected_or_first_available_variant.available == false %}
-                            disabled-add
-                        {% endif %}" 
+               
+              </div>
+              <product-form class="product-form">
+                <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
+                    disabled-add
+                {% endif %}'>
+                    {% assign product_form_id = 'quick-add-' | append: section_id | append: product.id  %}
+                {% form 'product',
+                        product,
+                        id: product_form_id,
+                        class: 'form',
+                        novalidate: 'novalidate',
+                        data-type: 'add-to-cart-form'
+                    %}
+                    <input
+                        type="hidden"
+                        name="id"
+                        value="{{ product.selected_or_first_available_variant.id }}"
+                        class="product-variant-id"
                         {% if product.selected_or_first_available_variant.available == false %}
                             disabled
                         {% endif %}
-                        >
-                            <span data-product-id={{ product.id }} class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
-                                {%- if product.selected_or_first_available_variant.available -%}
-                                {{ 'products.product.add_to_cart' | t }}
-                                {%- else -%}
-                                {{ 'products.product.sold_out' | t }}
-                                {%- endif -%}
-                                
-                            </span>
-                        </button>
-                        {% render 'loading' %} 
-                    {% endform %} 
-                    </div>   
-                </product-form>
-              </div>
+                    >
+                    <button type='submit' name='add' class="add-btn {% if product.selected_or_first_available_variant.available == false %}
+                        disabled-add
+                    {% endif %}" 
+                    {% if product.selected_or_first_available_variant.available == false %}
+                        disabled
+                    {% endif %}
+                    >
+                        <span data-product-id={{ product.id }} class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
+                            {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                            {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
+                            
+                        </span>
+                    </button>
+                    {% render 'loading' %} 
+                {% endform %} 
+                </div>   
+            </product-form>
             </a> 
         {% endfor %}
     {% else %}    
