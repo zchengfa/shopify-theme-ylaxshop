@@ -68,6 +68,13 @@ body{
   div{
     box-sizing: border-box;
 }
+
+.gradient-text {
+    background: -webkit-linear-gradient(left, #399EFF, #FFCE3A); /* 渐变背景 */
+    background-clip: text;
+    -webkit-background-clip: text; /* 将背景裁剪为文字 */
+    color: transparent; /* 文字颜色设置为透明，以显示背景渐变 */
+}
 @keyframes zoomBox {
     0%{
         opacity: 0;

@@ -65,7 +65,9 @@
     line-height: 1.2rem;
     -webkit-line-clamp: 2;
 }
-
+.holiday-product-vendor {
+    font-size: .8rem;
+}
 {% endstyle %}
 
 
@@ -86,7 +88,9 @@
                  data-description='holiday-product-desc'
                  data-price='holiday-product-price'
                  data-img="holiday-img"
+                 data-vendor='holiday-product-vendor'
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
+                 data-url={{ product.url }}
                  data-display-type={{ section.settings.show_type }}>
                 <a href={{ product.url }} class="holiday-product-item ">
                     <div class='holiday-product-img-box'>
@@ -97,6 +101,9 @@
                             <p class="holiday-product-title text-ellipsis" >{{ product.title }}</p>
                             <div class='holiday-product-desc text-ellipsis-multiline'>{{ product.description }}</div>
                         </div>
+                        {% if product.vendor != empty %}
+                            <span class="holiday-product-vendor gradient-text">{{  product.vendor }}</span>                             
+                        {% endif %} 
                         <span class="holiday-product-price">{{ product.price | money_with_currency }}</span>
                     </div> 
                 </a>

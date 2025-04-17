@@ -62,13 +62,19 @@ if(!customElements.get('card-popover')){
             }
 
             setPopoverContent(){
-                const {img,title,description,price} = this.dataset;
-                let data = this.getCardPopoverContent([img,title,description,price]);
+                const {img,title,description,price,vendor,url} = this.dataset;
+                //设置产品详情链接
+                this.globalPopEl.getElementsByClassName('global-popover-link').item(0).setAttribute('href',url);
+                //设置其它内容
+                let data = this.getCardPopoverContent([img,title,description,price,vendor]);
 
                 this.globalPopEl.getElementsByClassName('popover-img').item(0).setAttribute('src',data[0]);
                 this.globalPopEl.getElementsByClassName('popover-title').item(0).textContent = data[1];
                 this.globalPopEl.getElementsByClassName('popover-description').item(0).textContent = data[2];
                 this.globalPopEl.getElementsByClassName('popover-price').item(0).textContent = data[3];
+                this.globalPopEl.getElementsByClassName('popover-vendor').item(0).textContent = data[4];
+
+                //根据模板设置的排列类型来改变布局
                 if(this.display_type === 'row'){
                     this.globalPopEl.getElementsByClassName('popover-container').item(0).classList.remove('container-display-column');
                     this.globalPopEl.classList.add('popover-row');

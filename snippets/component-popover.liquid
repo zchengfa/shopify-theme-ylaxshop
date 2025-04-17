@@ -48,10 +48,14 @@
     max-width: 15rem;
     margin-top:.5rem;
 }
+.popover-price{
+    color: var(--payment-terms-background-color);
+}
 {% endstyle %}
 
 
 <div id='{{ shop.name }}-global-component-popover' class='global-popover-hidden global-component-popover'>
+   <a href="/" class='global-popover-link'>
     <div class='popover-container container-display-column'>
         <div class='popover-img-box'>
             <img class='popover-img' src='/' width='0' height='0' />
@@ -59,9 +63,11 @@
         <div class='popover-other'>
             <p class="popover-title">title</p>
             <span class='popover-description'>description</span>
+            <span class="popover-vendor gradient-text">vendor</span>
             <span class='popover-price'>price</span>
         </div>
     </div>
+   </a>
 </div>
 
 <script>
