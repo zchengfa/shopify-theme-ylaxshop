@@ -3,13 +3,13 @@
     /* width: 96%;
     margin: 0 auto; */
     padding: 1rem ;
-    background: {{section.settings.holiday_background}};
 }
 .holiday-product-box{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    background: {{section.settings.holiday_background}};
 }
 .holiday-product-item{
     display: flex;
@@ -77,6 +77,16 @@
             <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
         </div>
     {% endif %}
+    {% if section.settings.add_countdown_component == true %}
+        <count-down class="count-down-box" data-activity_end_time={{ section.settings.countdown_end_date }}>
+            <div class="count-down-item"></div>
+            {% comment %} 卡片翻动效果 {% endcomment %}
+            {% render 'card-flipping-effect',
+                card_bg_color: section.settings.card_bg_color,
+                multi_text_color: section.settings.multi_text_color
+            %} 
+        </count-down>
+    {% endif %}
     {% if section.blocks.size > 0 %}
         <div class='holiday-product-box holiday-theme-container-item {% if section.blocks.size == 1 %} flex-product-start {% endif %}'>
             {% for block in section.blocks %}
@@ -125,6 +135,32 @@
             "type": "image_picker",
             "id": "image",
             "label": "t:sections.holiday_theme.settings.image.label"
+        },
+        {
+            "type": "checkbox",
+            "id": "add_countdown_component",
+            "default":true,
+            "label": "t:sections.holiday_theme.settings.add_countdown_component.label",
+            "info": "t:sections.holiday_theme.settings.add_countdown_component.info"
+        },
+        {
+            "type": "text",
+            "id": "countdown_end_date",
+            "default": "2025-12-31+00:00:00",
+            "label": "t:sections.holiday_theme.settings.countdown_end_date.label",
+            "info": "t:sections.holiday_theme.settings.countdown_end_date.info"
+        },
+        {
+            "type": "color_background",
+            "id": "card_bg_color",
+            "label": "t:sections.count_down.settings.card_bg_color.label",
+            "default": "rgb(78 165 44 / 50%)"
+        },
+        {
+            "type": "color_background",
+            "id": "multi_text_color",
+            "label": "t:sections.count_down.settings.multi_text_color.label",
+            "default": "linear-gradient(45deg, #ff00a9, #fffb00, #00ff7f, #0088ff)"
         },
         {
             "type": "checkbox",

@@ -1,9 +1,9 @@
-<count-down class="count-down-box">
+<count-down class="count-down-box" data-activity_end_time={{ section.settings.countdown_end_date }}>
     <div class="count-down-item"></div>
     {% comment %} 卡片翻动效果 {% endcomment %}
     {% render 'card-flipping-effect',
         card_bg_color: section.settings.card_bg_color,
-        multi_text_color: section.settings.multi_text_color,
+        multi_text_color: section.settings.multi_text_color
     %} 
 </count-down>
 
@@ -22,7 +22,14 @@
             "id": "multi_text_color",
             "label": "t:sections.count_down.settings.multi_text_color.label",
             "default": "linear-gradient(45deg, #ff00a9, #fffb00, #00ff7f, #0088ff)"
-        }
+        },
+        {
+            "type": "text",
+            "id": "countdown_end_date",
+            "default": "2025-12-31+00:00:00",
+            "label": "t:sections.holiday_theme.settings.countdown_end_date.label",
+            "info": "t:sections.holiday_theme.settings.countdown_end_date.info"
+        },
             
     ],
     "presets": [

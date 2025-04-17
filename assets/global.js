@@ -438,7 +438,7 @@ class Countdown extends HTMLElement {
 
     //开始翻转动画
     this.beginCountdown();
-    this.activity_end_time = '2025-05-18 00:20:00';
+    this.activity_end_time = this.dataset['activity_end_time'].replace('+',' ');
     
   }
   connectedCallback() {
@@ -467,7 +467,7 @@ class Countdown extends HTMLElement {
     if (!reg.test(time) || time.substring(5,7)*1 > 12 || time.substring(8,10)*1 > 31) {
       this.message = '时间格式不合规';
       //结束计时器
-      clearInterval(this.timer); 
+      clearInterval(this.timer);
     }
     else{
 

@@ -1020,6 +1020,14 @@
         "image": {
           "label": "节日主题头部图片"
         },
+        "add_countdown_component": {
+          "label": "是否添加倒计时组件",
+          "info": "开启后，可以在页面中看到倒计时组件"
+        },
+        "countdown_end_date":{
+          "label": "设置活动的倒计时结束时间",
+          "info": "设置活动的倒计时结束时间，格式为：2025-12-31+00:00:00"
+        },
         "show_card_popover": {
           "label": "是否显示产品弹框",
           "info": "开启后，可以看到产品简略信息弹框"
