@@ -13,15 +13,29 @@ if(!customElements.get('card-popover')){
                 this.descriptionEl.setAttribute('title',this.descriptionEl.textContent);
 
                 this.addEventListener('mouseenter',(e)=>{
+                    
                     if(document.body.clientWidth > 750){
                         this.setPopoverContent();
                         this.addContentToGlobalPopover(e);
                     }
                 });
 
-                this.addEventListener('mouseleave',()=>{
-                    this.globalPopEl.style.display = 'none';
+                this.addEventListener('mouseleave',(e)=>{
+                    //添加一层判断，防止在鼠标快速移动时，离开当前元素，但进入全局弹框元素，倒是全局弹框反复消失隐藏
+                    //判断是否离开的是当前元素
+                    if (!this.globalPopEl.contains(e.relatedTarget)) {
+                        this.globalPopEl.style.display = 'none';
+                      }
+                    
                 });
+
+                //给全局弹框绑定离开事件，离开时隐藏弹框
+                this.globalPopEl.addEventListener('mouseleave',(e)=>{
+                    //判断是否离开的是当前元素
+                    if (!this.globalPopEl.contains(e.relatedTarget)) {
+                        this.globalPopEl.style.display = 'none';
+                      }
+                })
             }   
 
             getElementValue(classname,property){

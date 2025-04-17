@@ -1,108 +1,80 @@
 {% style %}
-.holiday-theme-container,.holiday-theme-img{
-    width: 100%;
-}
-.holiday-theme-container-item{
-    margin: 0 auto;
-    width: 96%;
+.holiday-theme-container{
+    /* width: 96%;
+    margin: 0 auto; */
+    padding: 1rem ;
+    background: {{section.settings.holiday_background}};
 }
 .holiday-product-box{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 1rem;
-    background: {{section.settings.holiday_background}};
-}
-.custom-card-popover{
-    width: 22%;
 }
 .holiday-product-item{
-    padding: 1rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    border-radius: .5rem;
+    
 }
 .holiday-product-img-box{
     width: 100px;
     height: 100px;
-    border-radius: .5rem;
     overflow: hidden;
+    border-radius: .5rem;
 }
 .holiday-img{
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
+}
+.custom-card-popover{
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: var(--white-color);
+    border-radius: .5rem;
+    width: 22%;
+    min-width: 300px;
+    /* margin-right: 1rem; */
 }
 .holiday-product-params{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    margin-left: .5rem;
-    flex: 1;
+    padding: 0 1rem;
     height: 100px;
+    max-width: 200px;
 }
-.holiday-product-title,& .holiday-product-desc p{
-    width: 120px;
-    font-family: var(--self_font);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.holiday-product-name{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
 }
-
+.holiday-product-price{
+    font-size: 1rem;
+}
 .holiday-product-title{
     margin-bottom: .5rem;
-    font-weight: bold;
-    color: {{section.settings.holiday_background}};
-}
-.holiday-product-desc span{
-    display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    max-width: 180px;
+    color: var(--payment-terms-background-color);
 }
 .holiday-product-desc{
+    max-width: 180px;
     font-size: .9rem;
     font-family: var(--self_font);
     line-height: 1.2rem;
-}
-.holiday-product-price{
-    font-weight: bold;
-    font-size: .9rem;
-    font-family: var(--self_font);
-}
-@media screen and (max-width: 1000px){
-   .custom-card-popover{
-        width: 30%;
-        margin-bottom: 1rem;
-   }
-}
-@media screen and (max-width: 750px){
-    .custom-card-popover{
-        width:45%;
-        margin-right: 1rem;
-    }
+    -webkit-line-clamp: 2;
 }
 
-@media screen and (max-width: 500px){
-    .custom-card-popover{
-        margin: 1rem auto;
-        width: 90%;
-       
-    }
-    .holiday-theme-img-box{
-        display: none;
-    }
-}
 {% endstyle %}
 
 
 <div class='holiday-theme-container'>
-    <div class='holiday-theme-img-box holiday-theme-container-item'>
-        <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
-    </div>
+    {% if section.settings.image  %}
+        <div class='holiday-theme-img-box holiday-theme-container-item'>
+            <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
+        </div>
+    {% endif %}
     {% if section.blocks.size > 0 %}
         <div class='holiday-product-box holiday-theme-container-item {% if section.blocks.size == 1 %} flex-product-start {% endif %}'>
             {% for block in section.blocks %}
@@ -116,14 +88,14 @@
                  data-img="holiday-img"
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
                  data-display-type={{ section.settings.show_type }}>
-                <a href={{ product.url }} class="holiday-product-item gradient">
+                <a href={{ product.url }} class="holiday-product-item ">
                     <div class='holiday-product-img-box'>
                         <img class='holiday-img transition-img' alt={{ product.title }} src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
                     </div>
                     <div class='holiday-product-params'>
                         <div class='holiday-title-desc'>
                             <p class="holiday-product-title text-ellipsis" >{{ product.title }}</p>
-                            <div class='holiday-product-desc'>{{ product.description }}</div>
+                            <div class='holiday-product-desc text-ellipsis-multiline'>{{ product.description }}</div>
                         </div>
                         <span class="holiday-product-price">{{ product.price | money_with_currency }}</span>
                     </div> 
