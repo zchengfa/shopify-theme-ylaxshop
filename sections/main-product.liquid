@@ -226,6 +226,7 @@ input[type="number"]{
     }
 }
 {% endstyle %}
+   
 <section 
     id="MainProduct-{{ section.id }}"
     class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} main-product"
@@ -285,7 +286,7 @@ input[type="number"]{
           </div>
           {% when 'description' %}
           <div class="product-info-item">
-            {{ product.description }}
+            {{ product.description }}              
           </div>
           {% when 'options_panel' %}
             <div class='product-options-box product-info-item'> 

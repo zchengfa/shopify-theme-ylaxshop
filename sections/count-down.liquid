@@ -1,0 +1,35 @@
+<count-down class="count-down-box">
+    <div class="count-down-item"></div>
+    {% comment %} 卡片翻动效果 {% endcomment %}
+    {% render 'card-flipping-effect',
+        card_bg_color: section.settings.card_bg_color,
+        multi_text_color: section.settings.multi_text_color,
+    %} 
+</count-down>
+
+{% schema %}
+{
+    "name": "t:sections.count_down.name",
+    "settings": [
+        {
+            "type": "color_background",
+            "id": "card_bg_color",
+            "label": "t:sections.count_down.settings.card_bg_color.label",
+            "default": "rgb(78 165 44 / 50%)"
+        },
+        {
+            "type": "color_background",
+            "id": "multi_text_color",
+            "label": "t:sections.count_down.settings.multi_text_color.label",
+            "default": "linear-gradient(45deg, #ff00a9, #fffb00, #00ff7f, #0088ff)"
+        }
+            
+    ],
+    "presets": [
+        {
+            "name": "t:sections.count_down.name",
+            "category": "t:sections.count_down.name"
+        }
+    ]
+}
+{% endschema %}

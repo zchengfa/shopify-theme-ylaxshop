@@ -291,6 +291,17 @@
       },
       "spacing": "间距"
     },
+    "count_down": {
+      "name":"活动倒计时",
+      "settings": {
+        "card_bg_color":{
+          "label": "每个卡片盒的背景颜色",
+        },
+        "multi_text_color":{
+          "label": "彩色文字",
+        }
+      }
+    },
     "header": {
       "name": "标头",
       "settings": {

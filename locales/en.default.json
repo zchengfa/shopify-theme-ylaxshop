@@ -1,4 +1,12 @@
 {
+  "activity":{
+    "day":"day",
+    "hour":"hour",
+    "minute":"minute",
+    "second":"second",
+    "title":"activity",
+    "countdown":"countdown"
+  },
   "general": {
     "continue_shopping": "Continue shopping",
     "accessibility": {

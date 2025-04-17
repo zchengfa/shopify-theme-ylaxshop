@@ -22,7 +22,7 @@
     {{ 'reset.css' | asset_url | stylesheet_tag }}
     {{ 'common.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-
+    
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
@@ -132,9 +132,10 @@
       predictive_search_url: '{{ routes.predictive_search_url }}',
     };
 
-  </script>
+</script>
   {%- if settings.predictive_search_enabled -%}
     <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+  
 </body>
 </html>

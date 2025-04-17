@@ -421,3 +421,160 @@ class ModalOpener extends HTMLElement {
   }
 }
 customElements.define('modal-opener', ModalOpener);
+
+class Countdown extends HTMLElement {
+  constructor() {
+    super();
+    this._init();
+    this.timer = null;
+    this.beforeTime = {};
+    this.timeBoxes = this.getElementsByClassName('card-flipping-item-box');
+    //定义message变量，用于信息提示
+    this.message = '';
+  }
+
+  _init() {
+    this.countdown = this.getElementsByClassName('count-down-item').item(0);
+
+    //开始翻转动画
+    this.beginCountdown();
+    this.activity_end_time = '2025-05-18 00:20:00';
+    
+  }
+  connectedCallback() {
+    //设置时间
+    for (let i=0; i<this.timeBoxes.length ; i++){
+      let timeName = this.timeBoxes[i].dataset.timeName;
+      let card_items = this.timeBoxes[i].querySelectorAll('.card-item');
+      for (let j = 0; j < card_items.length; j++) {
+        card_items[j].textContent = this.getLeftTime(this.activity_end_time)[timeName];
+      }
+    }  
+    this.beforeTime = this.getLeftTime(this.activity_end_time);
+  }
+  beginCountdown() {
+    this.timer = setInterval(() => {
+      this.countdown_time(this.activity_end_time);
+    },1000)
+  }
+  
+  countdown_time(time) {
+    
+    //提取时间并校验时间是否合规
+    let reg = new RegExp(/^\d{4}-\d{2}-\d{2}\s([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/);
+
+    //时间不合规,直接返回
+    if (!reg.test(time) || time.substring(5,7)*1 > 12 || time.substring(8,10)*1 > 31) {
+      this.message = '时间格式不合规';
+      //结束计时器
+      clearInterval(this.timer); 
+    }
+    else{
+
+      this.cardFlipping(this.getLeftTime(time));
+ 
+    }
+
+    this.countdown.textContent = this.message  ;
+  } 
+
+  //获取剩余时间
+  getLeftTime(time) {
+    
+     let remaingTime = {};
+     //获取当前时间毫秒数
+     let now = new Date().getTime();
+      
+     //转换年月日时分秒为毫秒数
+     let end = new Date(time).getTime();
+
+     //计算时间差值毫秒数
+     let leftTime = end - now;
+     
+     //如果时间差小于0，则显示已过期
+     if (leftTime < 0) {
+       message = '活动已结束';
+       //结束动画
+       clearInterval(this.timer);
+     }
+     else {
+       //分别定义日时分秒的毫秒数
+       let d = 24 * 60 * 60 * 1000;
+       let h = 60 * 60 * 1000;
+       let m = 60 * 1000;
+       let s = 1000;
+
+       //计算日时分秒并取余，用余数计算下一位
+       let day = Math.floor(leftTime / d);
+       let hour = Math.floor(leftTime % d / h);
+       let minute = Math.floor(leftTime % d % h / m);
+       let second = Math.floor(leftTime % d % h % m / s);
+
+       //如果日时分秒小于10，则在前面补0
+       day = day.toString().padStart(2, '0');
+       hour = hour.toString().padStart(2, '0');
+       minute = minute.toString().padStart(2, '0');
+       second = second.toString().padStart(2, '0');
+
+       remaingTime = {
+         day,
+         hour,
+         minute,
+         second
+       }
+     } 
+     
+     return remaingTime;
+  }
+  
+  cardFlipping(dataTime){
+     //设置时间
+     for (let i=0; i<this.timeBoxes.length ; i++){
+      let timeName = this.timeBoxes[i].dataset.timeName;
+
+      //与每项的旧值进行比较，若不一样的说明需要翻动该项的卡片
+      if(dataTime[timeName] !== this.beforeTime[timeName]){
+        let card_items = this.timeBoxes[i].querySelectorAll('.card-item');
+        for (let j = 0; j < card_items.length; j++) {
+         
+          if(j === 1){
+            card_items[j].classList.add('flip_card_2');
+            card_items[j].textContent = dataTime[timeName];
+            card_items[j].addEventListener('animationend',function handler(){
+              card_items[j].classList.remove('flip_card_2');
+
+              //动画结束后移除事件监听
+              card_items[j].removeEventListener('animationend',handler);
+            })
+          }
+          else if(j === 2){
+            card_items[j].classList.add('flip_card_3');
+            card_items[j].addEventListener('animationend',function handler(){
+              card_items[j+1].textContent = dataTime[timeName];
+
+              card_items[j].classList.remove('flip_card_3');
+              card_items[j].textContent = dataTime[timeName];
+              
+              //动画结束后移除事件监听
+              card_items[j].removeEventListener('animationend',handler);
+            })
+          }
+          else if(j === 0){
+            card_items[j].textContent = dataTime[timeName];
+          }
+         
+        }
+      }
+      
+     }
+
+     //存储旧值
+     this.beforeTime = dataTime;
+    
+  }
+}
+
+if(!customElements.get('count-down')){
+  customElements.define('count-down', Countdown);
+}
+

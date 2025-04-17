@@ -1,4 +1,12 @@
 {
+  "activity":{
+    "day":"天",
+    "hour":"小时",
+    "minute":"分钟",
+    "second":"秒",
+    "title":"活动",
+    "countdown":"倒计时"
+  },
   "search": {
     "content": {
       "search_button": "搜索",
