@@ -2,8 +2,10 @@
 .flipping-container{
     margin: 0 auto;
     padding: 1rem;
-    width: fit-content;
+    width: -webkit-fill-available;
     text-align: center;
+    background: {{ container_bg_color }};
+    
 }
 .activity-title{
     padding: 1rem;
@@ -111,9 +113,11 @@
   0% { background-position: 300% 0; }
   100% { background-position: -300% 0; }
 }
+
 {% endstyle %}
 
 <div class="flipping-container">
+    
     {% if localization.language.iso_code == 'en' %}
         <div class="activity-title">
             <span>{{ "activity.title" | t }}</span>

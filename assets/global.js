@@ -6,14 +6,14 @@ function fetchConfig(type = 'json') {
   }
 
 function showCartWithDrawer(){
-  
+
   document.getElementsByClassName('cart-container')?.item(0).classList.remove('hidden');
    document.getElementsByClassName('cart-container')?.item(0).classList.add('cart-show');
   let timer = setTimeout(()=>{
-   
+
       document.getElementsByClassName('cart-drawer')?.item(0).classList.add('animate-drawer');
       clearTimeout(timer);
-  }); 
+  });
 }
 
 function hideCartWithDrawer(){
@@ -23,7 +23,7 @@ function hideCartWithDrawer(){
   el?.addEventListener('click',(e)=>{
       if(e.target === e.currentTarget){
           animateCart();
-      } 
+      }
   });
 
   closeEl?.addEventListener('click',()=>{
@@ -74,13 +74,13 @@ function throttle (func,delay) {
    * @param {string} id 在哪个元素内
    */
   function replaceWitnNewHtml(html, selector,id){
-    
+
     if(html){
-      
+
        let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
-       
+
        let replaceEl = document.getElementById(id).querySelector(selector);
-      
+
        replaceEl.innerHTML = parseHtml.innerHTML;
     }
 
@@ -151,20 +151,20 @@ if(!customElements.get('recommend-products')){
         super();
 
         this.productRecommendationsSection = this.getElementsByClassName('product-recommendations').item(0);
-        
-      
+
+
       }
-     
+
       connectedCallback(){
         const url = this.productRecommendationsSection.dataset.url;
-      
+
           fetch(url)
             .then(response => response.text())
             .then(text => {
               const html = document.createElement('div');
               html.innerHTML = text;
               const recommendations = html.querySelector('.product-recommendations');
-      
+
               if (recommendations && recommendations.innerHTML.trim().length) {
                 this.productRecommendationsSection.innerHTML = recommendations.innerHTML;
               }
@@ -187,19 +187,19 @@ if(!customElements.get('main-product-info-other')){
         this.productDetailDescContent = this.getElementsByClassName('product-detail-desc-content').item(0);
         this.recommendations = this.getElementsByClassName('recommendations-ul').item(0);
         this.mainDesOther = this.getElementsByClassName('main-product-info-other').item(0);
-        
+
 
         if(!this.productDetailDescContent){
-          
+
           this.mainDesOther.classList = 'main-product-info-other product-info-other-normal';
           if(this.recommendations){
             this.recommendations.classList = 'recommendations-ul recommendations-ul-flex-row';
           }
-          
+
         }
       }
     }
-   
+
   )
 }
 
@@ -322,7 +322,7 @@ customElements.define('quantity-input', QuantityInput);
 class Typewriter extends HTMLElement {
   constructor() {
     super();
-    
+
     this.poetCollection = this.querySelectorAll('.poet-item');
     this.poetCollection.forEach((poet,index) => {
       this.querySelectorAll('.typewriter-span')[index].style.borderLeft = 'none';
@@ -358,7 +358,7 @@ class Typewriter extends HTMLElement {
     new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:'0px 0px -50px 0px'}).observe(this);
    }
   }
-  
+
 }
 
 customElements.define('type-writer', Typewriter);
@@ -439,7 +439,7 @@ class Countdown extends HTMLElement {
     //开始翻转动画
     this.beginCountdown();
     this.activity_end_time = this.dataset['activity_end_time'].replace('+',' ');
-    
+
   }
   connectedCallback() {
     //设置时间
@@ -449,7 +449,7 @@ class Countdown extends HTMLElement {
       for (let j = 0; j < card_items.length; j++) {
         card_items[j].textContent = this.getLeftTime(this.activity_end_time)[timeName];
       }
-    }  
+    }
     this.beforeTime = this.getLeftTime(this.activity_end_time);
   }
   beginCountdown() {
@@ -457,9 +457,9 @@ class Countdown extends HTMLElement {
       this.countdown_time(this.activity_end_time);
     },1000)
   }
-  
+
   countdown_time(time) {
-    
+
     //提取时间并校验时间是否合规
     let reg = new RegExp(/^\d{4}-\d{2}-\d{2}\s([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/);
 
@@ -472,28 +472,28 @@ class Countdown extends HTMLElement {
     else{
 
       this.cardFlipping(this.getLeftTime(time));
- 
+
     }
 
-    this.countdown.textContent = this.message  ;
-  } 
+    //this.countdown.textContent = this.message  ;
+  }
 
   //获取剩余时间
   getLeftTime(time) {
-    
+
      let remaingTime = {};
      //获取当前时间毫秒数
      let now = new Date().getTime();
-      
+
      //转换年月日时分秒为毫秒数
      let end = new Date(time).getTime();
 
      //计算时间差值毫秒数
      let leftTime = end - now;
-     
+
      //如果时间差小于0，则显示已过期
      if (leftTime < 0) {
-       message = '活动已结束';
+       //message = '活动已结束';
        //结束动画
        clearInterval(this.timer);
      }
@@ -522,11 +522,11 @@ class Countdown extends HTMLElement {
          minute,
          second
        }
-     } 
-     
+     }
+
      return remaingTime;
   }
-  
+
   cardFlipping(dataTime){
      //设置时间
      for (let i=0; i<this.timeBoxes.length ; i++){
@@ -536,7 +536,7 @@ class Countdown extends HTMLElement {
       if(dataTime[timeName] !== this.beforeTime[timeName]){
         let card_items = this.timeBoxes[i].querySelectorAll('.card-item');
         for (let j = 0; j < card_items.length; j++) {
-         
+
           if(j === 1){
             card_items[j].classList.add('flip_card_2');
             card_items[j].textContent = dataTime[timeName];
@@ -554,7 +554,7 @@ class Countdown extends HTMLElement {
 
               card_items[j].classList.remove('flip_card_3');
               card_items[j].textContent = dataTime[timeName];
-              
+
               //动画结束后移除事件监听
               card_items[j].removeEventListener('animationend',handler);
             })
@@ -562,15 +562,15 @@ class Countdown extends HTMLElement {
           else if(j === 0){
             card_items[j].textContent = dataTime[timeName];
           }
-         
+
         }
       }
-      
+
      }
 
      //存储旧值
      this.beforeTime = dataTime;
-    
+
   }
 }
 

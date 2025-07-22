@@ -1,21 +1,29 @@
 {% style %}
 .holiday-theme-container{
-    /* width: 96%;
-    margin: 0 auto; */
+    width: 92%;
+    margin: 0 auto;
     padding: 1rem ;
 }
+
 .holiday-product-box{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     background: {{section.settings.holiday_background}};
 }
 .holiday-product-item{
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    padding: 1rem;
+    width: 80%;
+    border-radius: 1rem;
+    background-color: var(--white-color);
+}
+.holiday-theme-img{
+    width: 100%;
 }
 .holiday-product-img-box{
     width: 100px;
@@ -28,13 +36,17 @@
     height: 100px;
 }
 .custom-card-popover{
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: var(--white-color);
     border-radius: .5rem;
-    width: 22%;
-    min-width: 300px;
-    /* margin-right: 1rem; */
+    margin: 1rem auto;
+}
+.count-down-box{
+    box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.5);
+    overflow: hidden;
+    border-bottom-right-radius: 3rem;
+}
+.custom-card-popover ,.count-down-box{
+    width: 25%;
+    min-width: 270px;
 }
 .holiday-product-params{
     display: flex;
@@ -55,11 +67,11 @@
 }
 .holiday-product-title{
     margin-bottom: .5rem;
-    max-width: 180px;
+    max-width: 130px;
     color: var(--payment-terms-background-color);
 }
 .holiday-product-desc{
-    max-width: 180px;
+    max-width: 130px;
     font-size: .9rem;
     font-family: var(--self_font);
     line-height: 1.2rem;
@@ -68,6 +80,13 @@
 .holiday-product-vendor {
     font-size: .8rem;
 }
+@media (max-width: 450px) {
+    .holiday-theme-img{
+        display: none;
+    }
+}
+
+
 {% endstyle %}
 
 
@@ -77,18 +96,19 @@
             <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
         </div>
     {% endif %}
-    {% if section.settings.add_countdown_component == true %}
-        <count-down class="count-down-box" data-activity_end_time={{ section.settings.countdown_end_date }}>
-            <div class="count-down-item"></div>
-            {% comment %} 卡片翻动效果 {% endcomment %}
-            {% render 'card-flipping-effect',
-                card_bg_color: section.settings.card_bg_color,
-                multi_text_color: section.settings.multi_text_color
-            %} 
-        </count-down>
-    {% endif %}
     {% if section.blocks.size > 0 %}
         <div class='holiday-product-box holiday-theme-container-item {% if section.blocks.size == 1 %} flex-product-start {% endif %}'>
+            {% if section.settings.add_countdown_component == true %}
+                <count-down class="count-down-box" data-activity_end_time={{ section.settings.countdown_end_date }}>
+                    {% comment %} <div class="count-down-item"></div> {% endcomment %}
+                    {% comment %} 卡片翻动效果 {% endcomment %}
+                    {% render 'card-flipping-effect',
+                        card_bg_color: section.settings.card_bg_color,
+                        multi_text_color: section.settings.multi_text_color,
+                        container_bg_color: {{section.settings.holiday_background}};
+                    %} 
+                </count-down>
+            {% endif %}
             {% for block in section.blocks %}
                 {% liquid
                     assign product = block.settings.holiday_product
@@ -101,7 +121,9 @@
                  data-vendor='holiday-product-vendor'
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
                  data-url={{ product.url }}
-                 data-display-type={{ section.settings.show_type }}>
+                 data-display-type={{ section.settings.show_type }}
+                 data-card-popover-delay={{ section.settings.card_popover_delay }}
+                >
                 <a href={{ product.url }} class="holiday-product-item ">
                     <div class='holiday-product-img-box'>
                         <img class='holiday-img transition-img' alt={{ product.title }} src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
@@ -120,7 +142,6 @@
                </card-popover>
             {% endfor %} 
         </div>
-
        {% if section.settings.show_card_popover %}
         <script src={{ 'card-popover.js' | asset_url }} defer></script>
        {% endif %} 
@@ -170,6 +191,17 @@
             "info": "t:sections.holiday_theme.settings.show_card_popover.info"
         },
         {
+            "type": "range",
+            "id": "card_popover_delay",
+            "min": 0,
+            "max": 5000,
+            "step": 100,
+            "default": 800,
+            "unit": "ms",
+            "label": "t:sections.holiday_theme.settings.card_popover_delay.label",
+            "info": "t:sections.holiday_theme.settings.card_popover_delay.info"
+        },
+        {
             "type": "select",
             "id":"show_type",
             "default":"column",
@@ -207,7 +239,7 @@
             ]
         }
     ],
-    "max_blocks": 4,
+    "max_blocks": 7,
     "presets": [
         {
           "name": "t:sections.holiday_theme.presets.name"

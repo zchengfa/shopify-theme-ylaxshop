@@ -5,38 +5,50 @@ if(!customElements.get('card-popover')){
                 super();
                 //如何展示（row | column）
                 this.display_type = this.attributes['data-display-type'].value;
+                //延迟显示时间
+                this.card_popover_delay = this.attributes['data-card-popover-delay'].value;
                  //全局弹框元素
                 this.globalPopEl = document.getElementById(this.dataset.componentPopoverId);
                 this.titleEl = this.getElementsByClassName('holiday-product-title').item(0);
                 this.titleEl.setAttribute('title',this.titleEl.textContent);
                 this.descriptionEl = this.getElementsByClassName('holiday-product-desc').item(0);
                 this.descriptionEl.setAttribute('title',this.descriptionEl.textContent);
+                this.timer = null;
 
                 this.addEventListener('mouseenter',(e)=>{
                     
                     if(document.body.clientWidth > 750){
-                        this.setPopoverContent();
-                        this.addContentToGlobalPopover(e);
+                        //鼠标移入时不会马上显示弹框，隔一段时间再显示
+                        this.timer = setTimeout(()=>{
+                            this.setPopoverContent();
+                            this.addContentToGlobalPopover(e);
+                        },this.card_popover_delay);
                     }
                 });
 
                 this.addEventListener('mouseleave',(e)=>{
-                    //添加一层判断，防止在鼠标快速移动时，离开当前元素，但进入全局弹框元素，倒是全局弹框反复消失隐藏
-                    //判断是否离开的是当前元素
-                    if (!this.globalPopEl.contains(e.relatedTarget)) {
-                        this.globalPopEl.style.display = 'none';
-                      }
-                    
+                    //添加一层判断，防止在鼠标快速移动时，离开当前元素，但进入全局弹框元素，导致全局弹框反复消失隐藏
+                    this.hideGlobalPopover(e);
                 });
 
                 //给全局弹框绑定离开事件，离开时隐藏弹框
                 this.globalPopEl.addEventListener('mouseleave',(e)=>{
-                    //判断是否离开的是当前元素
+                    this.hideGlobalPopover(e);
+                })
+            } 
+            
+            hideGlobalPopover(e){
+                //判断是否离开的是当前元素
                     if (!this.globalPopEl.contains(e.relatedTarget)) {
                         this.globalPopEl.style.display = 'none';
-                      }
-                })
-            }   
+                        
+                    }
+                    //离开时清除定时器，若离开时间与移入的间隔时间小于显示延迟时间时，可达成快入快出不显示弹框的效果
+                    if(this.timer){
+                        clearTimeout(this.timer);
+                        this.timer = null;
+                    }
+            }
 
             getElementValue(classname,property){
                 return (this.getElementsByClassName(classname).item(0))[property];
