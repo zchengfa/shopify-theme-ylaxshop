@@ -1,11 +1,11 @@
 {
-  "activity":{
-    "day":"天",
-    "hour":"小时",
-    "minute":"分钟",
-    "second":"秒",
-    "title":"活动",
-    "countdown":"倒计时"
+  "activity": {
+    "day": "天",
+    "hour": "小时",
+    "minute": "分钟",
+    "second": "秒",
+    "title": "活动",
+    "countdown": "倒计时"
   },
   "search": {
     "content": {
@@ -108,13 +108,13 @@
         "in_cart_html": "购物车中有<span class=\"quantity-cart\">{{ quantity }}<\/span>",
         "note": "查看数量规则"
       },
-      "tags":{
+      "tags": {
         "new": "新品",
-        "best_selling":"热卖",
+        "best_selling": "热卖",
         "plus": "升级",
         "popular": "爆款",
         "hot": "火热",
-        "classic_style": "经典款",
+        "classic_style": "经典款"
       }
     }
   },

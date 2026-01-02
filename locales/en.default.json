@@ -1,11 +1,11 @@
 {
-  "activity":{
-    "day":"day",
-    "hour":"hour",
-    "minute":"minute",
-    "second":"second",
-    "title":"activity",
-    "countdown":"countdown"
+  "activity": {
+    "day": "day",
+    "hour": "hour",
+    "minute": "minute",
+    "second": "second",
+    "title": "activity",
+    "countdown": "countdown"
   },
   "general": {
     "continue_shopping": "Continue shopping",
@@ -303,13 +303,13 @@
         "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
         "note": "View quantity rules"
       },
-      "tags":{
+      "tags": {
         "new": "New",
-        "best_selling":"BestSelling",
+        "best_selling": "BestSelling",
         "plus": "Plus",
         "popular": "Popular",
         "hot": "Hot",
-        "classic_style": "Classic style",
+        "classic_style": "Classic style"
       },
       "volume_pricing": {
         "title": "Volume Pricing",

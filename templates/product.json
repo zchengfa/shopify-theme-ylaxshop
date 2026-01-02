@@ -53,6 +53,7 @@
             "metaobjects_fields": "pro_images,designer_flower_language",
             "metaobjects_cate_handle-prefix": "d",
             "image_title": "Product image display",
+            "typewriter_animation": true,
             "card_bg": "#fff",
             "card_text_margin_bottom": 0.5,
             "card_padding": 2,
@@ -134,10 +135,24 @@
         "padding": 2,
         "FAQ_item_width": 60
       }
+    },
+    "17470379928bd70ac5": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_dmnP9W": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_dmnP9W"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "FAQ"
+    "FAQ",
+    "17470379928bd70ac5"
   ]
 }
