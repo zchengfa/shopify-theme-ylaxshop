@@ -292,13 +292,59 @@
       "spacing": "间距"
     },
     "count_down": {
-      "name": "活动倒计时",
+      "name": "倒计时模块",
       "settings": {
-        "card_bg_color": {
-          "label": "每个卡片盒的背景颜色"
+        "header_countdown": "倒计时设置",
+        "header_background": "背景设置",
+        "header_text": "文字设置",
+        "header_card_colors": "卡片颜色设置",
+        "header_card_style": "卡片样式设置",
+        "header_animation": "动画设置",
+        "countdown_end_date": {
+          "label": "倒计时结束时间",
+          "info": "倒计时结束时间"
+        },
+        "container_bg_color": {
+          "label": "容器背景色"
+        },
+        "container_border_color": {
+          "label": "容器边框色"
+        },
+        "title_text": {
+          "label": "标题文字"
         },
         "multi_text_color": {
-          "label": "彩色文字"
+          "label": "多行文字颜色"
+        },
+        "card_day_gradient": {
+          "label": "天数卡片渐变"
+        },
+        "card_hour_gradient": {
+          "label": "小时卡片渐变"
+        },
+        "card_minute_gradient": {
+          "label": "分钟卡片渐变"
+        },
+        "card_second_gradient": {
+          "label": "秒数卡片渐变"
+        },
+        "card_size": {
+          "label": "卡片大小"
+        },
+        "card_radius": {
+          "label": "卡片圆角"
+        },
+        "time_label_color": {
+          "label": "时间标签颜色"
+        },
+        "time_label_size": {
+          "label": "时间标签大小"
+        },
+        "flip_duration": {
+          "label": "翻转动画时长"
+        },
+        "gradient_duration": {
+          "label": "渐变动画时长"
         }
       }
     },

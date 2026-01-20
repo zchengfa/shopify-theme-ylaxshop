@@ -39,70 +39,73 @@
         "speed": 5
       }
     },
-    "holiday_theme_wxBcPj": {
+    "holiday_theme_UCfffm": {
       "type": "holiday-theme",
       "blocks": {
-        "product_hMLQTz": {
+        "product_pXaQdV": {
           "type": "product",
           "settings": {
-            "holiday_product": "love-you"
+            "holiday_product": "一生一世"
           }
         },
-        "product_NW7rk9": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "我如此爱你-迪奥dior-888元气橘红哑光口红款"
-          }
-        },
-        "product_w6VAbX": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "一鹿路有你永生花小夜灯"
-          }
-        },
-        "product_Rtn9NW": {
+        "product_VVDft4": {
           "type": "product",
           "settings": {
             "holiday_product": "四重奏蛋糕约2磅"
           }
         },
-        "product_Ax6aWq": {
+        "product_MBeew4": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "星辰大海-11枝"
+          }
+        },
+        "product_pbgC36": {
+          "type": "product",
+          "settings": {
+            "holiday_product": "love-you"
+          }
+        },
+        "product_irGzgN": {
           "type": "product",
           "settings": {
             "holiday_product": "感恩密码"
           }
         },
-        "product_gQMr4Q": {
+        "product_NEDAye": {
           "type": "product",
           "settings": {
-            "holiday_product": "花镜-芝士慕斯蛋糕-12块-无贺卡-巧克力牌-蜡烛-生日帽"
+            "holiday_product": "你是唯一"
           }
         },
-        "product_8JqMMY": {
+        "product_HqU8T9": {
           "type": "product",
           "settings": {
-            "holiday_product": "百事合意-粉玫瑰香水百合plus"
+            "holiday_product": "一鹿路有你永生花小夜灯"
           }
         }
       },
       "block_order": [
-        "product_hMLQTz",
-        "product_NW7rk9",
-        "product_w6VAbX",
-        "product_Rtn9NW",
-        "product_Ax6aWq",
-        "product_gQMr4Q",
-        "product_8JqMMY"
+        "product_pXaQdV",
+        "product_VVDft4",
+        "product_MBeew4",
+        "product_pbgC36",
+        "product_irGzgN",
+        "product_NEDAye",
+        "product_HqU8T9"
       ],
+      "custom_css": [],
+      "name": "t:sections.holiday_theme.presets.name",
       "settings": {
         "image": "shopify:\/\/shop_images\/25_mothersday_fu_banner_pc.png",
         "add_countdown_component": true,
-        "countdown_end_date": "2025-12-31+02:00:00",
+        "countdown_end_date": "2026-12-31+00:00:00",
         "card_bg_color": "rgb(78 165 44 \/ 50%)",
         "multi_text_color": "linear-gradient(45deg, rgba(255, 0, 169, 1), rgba(255, 251, 0, 1) 33.33%, rgba(0, 255, 127, 1) 66.67%, rgba(0, 136, 255, 1) 100%)",
         "show_card_popover": true,
-        "show_type": "row",
-        "holiday_background": "#FFB9A5"
+        "card_popover_delay": 800,
+        "show_type": "column",
+        "holiday_background": "#FFC5A4"
       }
     },
     "featured-collection": {
@@ -168,7 +171,7 @@
   },
   "order": [
     "banner",
-    "holiday_theme_wxBcPj",
+    "holiday_theme_UCfffm",
     "featured-collection",
     "featured_collection_VmFyYh",
     "1727237088913f083b",

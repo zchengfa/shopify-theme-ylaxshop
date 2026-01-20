@@ -54,7 +54,7 @@
     }
     .store-name{
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: var(--self_font);
     }
     .phone-box{
@@ -95,15 +95,15 @@
         width: 1.5rem;
     }
     @media screen and (max-width: 500px){
-        .phone-icon{
+        .phone-box{
             display: none;
         }
+
     }
     @media screen and (max-width: 750px){
         .store-name{
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            left: 1rem;
         }
         .phone,.header-logo{
             display:none;
@@ -132,6 +132,7 @@
         .menu-drawer{
             position: fixed;
             display: block;
+            top: 78px;
             left: -100%;
             width: 100%;
             height: 100%;
@@ -143,11 +144,16 @@
             position: fixed;
             display: block;
             left: 0;
+            top: 78px;
             width: 100%;
             height: 100%;
             z-index: 99;
             transition: left ease-in-out .5s;
             background: var(--gradient-background);
+        }
+        .menu-drawer-show ul{
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
         .menu-drawer-item{
             padding: 1rem;
@@ -177,7 +183,7 @@
               {%- endif -%}
             </div>
         {% endif %}
-          
+
         <div class='header-center'>
             <div class="icon-summary-box">
                 <div class="icon-summary-box-show summary-box-item">{% render 'icon-summary' %}</div>
@@ -188,8 +194,8 @@
                 {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
             {% else %}
                 <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
-            {% endif %}    
-            <h2 class='store-name'>{{ shop.name }}</h2>
+            {% endif %}
+            <h4 class='store-name'>{{ shop.name }}</h4>
             {% render 'search', input_id: 'Search-In-Modal' %}
             <div class='header-center-other-box' id="HeaderCenterOther" data-id="{{ section.id }}">
                 <div class="phone-search">
@@ -206,7 +212,7 @@
                             {% else %}
                                 {{ phone | slice: 0,5 | append : '******'  }}
                             {% endif %}
-                        </span>   
+                        </span>
                     </div>
                     <div class="search-icon-box">
                         {% render 'icon-search' %}
@@ -223,7 +229,7 @@
                                   {%- endif -%}
                                   <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                                 </div>
-                              {%- endif -%} 
+                              {%- endif -%}
                         </a>
                     {% elsif settings.cart_type == 'drawer' %}
                     <button class='icon-cart icon-cart-btn'>
@@ -235,10 +241,10 @@
                               {%- endif -%}
                               <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                             </div>
-                          {%- endif -%} 
-                    </button> 
-                       
-                    {% endif %} 
+                          {%- endif -%}
+                    </button>
+
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -248,13 +254,13 @@
                     menu:section.settings.header_menu
             %}
             </div>
-        {% endif %}    
+        {% endif %}
     </header>
     <div class="menu-drawer">
         <ul style="width:100%;height:100%;">
             {% for link in section.settings.header_top_menu.links %}
                 <li class="menu-drawer-item">{{ link.title | link_to:link.url }}</li>
-            {% endfor %}    
+            {% endfor %}
         </ul>
     </div>
 </sticky-header>
@@ -321,21 +327,25 @@
                         }
                         else{
                             el.classList = 'shopify-section shopify-section-group-header-group'
-                        } 
+                        }
                    })
                 }
                 summaryCloseBtnHandle(){
+                    const bodyEl = document.querySelector('body');
+                    this.closeBtnShow = !this.closeBtnShow;
                     if(this.closeBtnShow){
-                        this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';
-                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item';
-                        this.menuDrawer.classList = 'menu-drawer '
-                    }
-                    else{
+                        bodyEl.style.overflow = 'hidden';
                         this.closeBtn.classList = 'icon-close-box-show summary-box-item';
                         this.summaryBtn.classList = 'icon-summary-box-show summary-box-item hidden';
                         this.menuDrawer.classList = 'menu-drawer menu-drawer-show'
                     }
-                    this.closeBtnShow = !this.closeBtnShow;
+                    else{
+                        bodyEl.style.overflow = 'scroll';
+                        this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';
+                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item';
+                        this.menuDrawer.classList = 'menu-drawer '
+                    }
+
                 }
             }
         )

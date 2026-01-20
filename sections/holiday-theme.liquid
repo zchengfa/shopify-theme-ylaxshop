@@ -67,11 +67,11 @@
 }
 .holiday-product-title{
     margin-bottom: .5rem;
-    max-width: 130px;
+    max-width: 100px;
     color: var(--payment-terms-background-color);
 }
 .holiday-product-desc{
-    max-width: 130px;
+    max-width: 100px;
     font-size: .9rem;
     font-family: var(--self_font);
     line-height: 1.2rem;
@@ -106,7 +106,7 @@
                         card_bg_color: section.settings.card_bg_color,
                         multi_text_color: section.settings.multi_text_color,
                         container_bg_color: {{section.settings.holiday_background}};
-                    %} 
+                    %}
                 </count-down>
             {% endif %}
             {% for block in section.blocks %}
@@ -134,17 +134,17 @@
                             <div class='holiday-product-desc text-ellipsis-multiline'>{{ product.description }}</div>
                         </div>
                         {% if product.vendor != empty %}
-                            <span class="holiday-product-vendor gradient-text">{{  product.vendor }}</span>                             
-                        {% endif %} 
+                            <span class="holiday-product-vendor gradient-text">{{  product.vendor }}</span>
+                        {% endif %}
                         <span class="holiday-product-price">{{ product.price | money_with_currency }}</span>
-                    </div> 
+                    </div>
                 </a>
                </card-popover>
-            {% endfor %} 
+            {% endfor %}
         </div>
        {% if section.settings.show_card_popover %}
         <script src={{ 'card-popover.js' | asset_url }} defer></script>
-       {% endif %} 
+       {% endif %}
     {% endif %}
 </div>
 
@@ -167,16 +167,11 @@
         {
             "type": "text",
             "id": "countdown_end_date",
-            "default": "2025-12-31+00:00:00",
+            "default": "2026-12-31+00:00:00",
             "label": "t:sections.holiday_theme.settings.countdown_end_date.label",
             "info": "t:sections.holiday_theme.settings.countdown_end_date.info"
         },
-        {
-            "type": "color_background",
-            "id": "card_bg_color",
-            "label": "t:sections.count_down.settings.card_bg_color.label",
-            "default": "rgb(78 165 44 / 50%)"
-        },
+
         {
             "type": "color_background",
             "id": "multi_text_color",
