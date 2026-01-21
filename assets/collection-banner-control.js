@@ -14,11 +14,11 @@ if(!customElements.get('collection-banner-control')){
                 this.preEl?.addEventListener('click',()=>{
                     this.listeningCoEvent();
                 });
-                
+
                 this.nexEl?.addEventListener('click',()=>{
                     this.listeningCoEvent(true);
                 });
-                
+
                 this.createResizeObserver(".product-box");
             }
 
@@ -41,41 +41,41 @@ if(!customElements.get('collection-banner-control')){
                 this.observer.observe(wrapper);
             }
 
-            tranformCoEl(direction,index){
+            transformCoEl(direction,index){
                 let charactor = direction && index !== 1 ? '-' : '' ;
                 let marginW = this.itemEls.item(0).attributes['data-margin'].value;
                 let num = (this.currentEl.textContent * 1);
                 if(!direction){
                     charactor = '-';
                     if(index === this.totalPage){
-                        num = this.totalPage -1; 
+                        num = this.totalPage -1;
                     }
                     else{
                         num = index -1;
                     }
-                   
+
                 }
                 else{
                     if(index === this.totalPage){
-                        num = this.totalPage -1; 
+                        num = this.totalPage -1;
                     }
                 }
                 let w = charactor + ((this.itemEls[0].clientWidth * num )+ (marginW * 1)) + 'px';
-                   
+
                 for(let i=0;i<this.itemEls.length;i++){
                     if(index === 1){
                         w = 0;
                     }
                     this.itemEls.item(i).style.transition = "transform .3s";
                     this.itemEls.item(i).style.transform = `translateX(${w})`;
-                  
+
                 }
             }
-            
+
             changeCoPageIndex(currentIndex){
                 this.currentEl.textContent = currentIndex;
             }
-            
+
             listeningCoEvent = (direction = false)=> {
                 let currentIndex = this.currentEl.textContent * 1;
                 direction ? (()=>{
@@ -83,7 +83,7 @@ if(!customElements.get('collection-banner-control')){
                 })() : (()=>{
                     currentIndex > 1 ? currentIndex -- : currentIndex = this.totalPage;
                 })();
-                this.tranformCoEl(direction,currentIndex);
+                this.transformCoEl(direction,currentIndex);
                 this.changeCoPageIndex(currentIndex);
             }
 
