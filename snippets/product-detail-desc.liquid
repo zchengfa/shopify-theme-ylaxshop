@@ -42,6 +42,13 @@
   margin-bottom: {{ card_text_margin_bottom | append: 'rem' }};
   overflow: hidden;
 }
+.poet-item::after{
+    display: inline;
+    content: '|';
+    animation: blink 1s step-end infinite;
+    font-weight: bold;
+    color: #333;
+    }
 .typewriter-item,.typewriter-span{
   display: inline-block;
 }
@@ -53,16 +60,13 @@
   height: 100%;
   background-color: {{ card_bg }};
 }
-@keyframes typewriter {
-  0% {
-    left: 0;
-  }
-  50% {
-    border-left: 2px solid transparent;
-  }
-  100% {
-    left: 100%;
-  }
+@keyframes blink {
+  from,to{
+    opacity:1;
+    }
+  50%{
+    opacity: 0;
+    }
 }
 @media (max-width: 750px) {
   .product-detail-desc-images-box{
@@ -82,7 +86,7 @@
     {% assign product_metaobjects = product.metafields[custom_metafields_namespace][custom_metafields_key].value %}
 {% if product_metaobjects != blank %}
   <div class="product-detail-desc-content">
-    {% comment %} 
+    {% comment %}
       获取模板后台设置的元对象字段名
       1.例：metaobjects_fields = "field1,field2,field3"
       2.使用过滤转换成数组
@@ -96,18 +100,23 @@
               {% for item in product_metaobjects[field].value %}
                 <img class="product-detail-desc-img" src="{{ item | image_url }}" alt="pro_detail_img" width="auto" height="auto" />
               {% endfor %}
-            </div> 
+            </div>
         {% elsif product_metaobjects[field].type == 'multi_line_text_field' or product_metaobjects[field].type == 'single_line_text_field'  %}
           {% if product_metaobjects[field] != blank %}
-            {% assign multi_line_poet_arr = product_metaobjects[field] | split:',' %}
-            <type-writer class="poet-container" animation={{ typewiter_animation }}>
-              {% for item in multi_line_poet_arr %}
-                <div class="poet-item">
-                  <span class="typewriter-item">{{ item }}</span>
-                  <span class="typewriter-span"> </span>
-                </div>
-              {% endfor %}
-            </type-writer>
+            {% comment %}{% assign multi_line_poet_arr = product_metaobjects[field] | split:',' %}{% endcomment %}
+            {% comment %}<type-writer class="poet-container" animation={{ typewiter_animation }}>{% endcomment %}
+              {% comment %}{% for item in multi_line_poet_arr %}{% endcomment %}
+                {% comment %}<div class="poet-item">{% endcomment %}
+                  {% comment %}<span class="typewriter-item">{{ item }}</span>{% endcomment %}
+                  {% comment %}<span class="typewriter-span"> </span>{% endcomment %}
+                {% comment %}</div>{% endcomment %}
+              {% comment %}{% endfor %}{% endcomment %}
+            {% comment %}</type-writer>{% endcomment %}
+              <type-writer  animation={{ typewiter_animation }}>
+                  <div class="poet-container" data-poet="{{ product_metaobjects[field] }}">
+                      <span class="poet-item"></span>
+                  </div>
+              </type-writer>
           {% endif %}
         {% endif %}
     {% endfor %}

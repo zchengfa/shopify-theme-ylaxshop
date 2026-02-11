@@ -274,7 +274,6 @@ class QuantityInput extends HTMLElement {
       hideCartWithDrawer();
     })
   }
-
   /**
    * @description 定义需要更新的section、选择器目标等
    * @returns {Array} 需要更新的页面部分
@@ -323,45 +322,100 @@ class Typewriter extends HTMLElement {
   constructor() {
     super();
 
-    this.poetCollection = this.querySelectorAll('.poet-item');
-    this.poetCollection.forEach((poet,index) => {
-      this.querySelectorAll('.typewriter-span')[index].style.borderLeft = 'none';
-    })
-    this.index = 0;
-    this.isAnimate = this.getAttribute('animation')
+    this.poetItem = this.querySelector('.poet-item');
+    this.currentIndex = 0;
+    this.isAnimate = this.getAttribute('animation');
+    this.poet = this.querySelector('.poet-container').dataset['poet'];
+    this.typingTimer = null;
+    this.cursorTimer = null;
+    this.isTyping = false;
+    this.hasCompleted = false;
+    this.observer = null;
   }
-  addTypewriterAnimation() {
-    let stringArr = this.poetCollection[this.index].textContent.replace(/\s+/g, "");
-    this.querySelectorAll('.typewriter-span')[this.index].style.borderLeft = '2px solid #000';
-    let typewriterEl = this.querySelectorAll('.typewriter-span')[this.index];
-    typewriterEl.style.animation = `typewriter ${stringArr.length * .2}s steps(${stringArr.length}, end) forwards,flashing .3s ease-out forwards infinite`;
-    typewriterEl.addEventListener('animationend', () => {
-      typewriterEl.style.display = 'none';
-      this.index++;
-      if (this.index < this.poetCollection.length) {
-        this.addTypewriterAnimation();
-      }
-    })
-  }
-  connectedCallback(){
-   if(this.isAnimate === 'true'){
-    const intersectionObserverHandler = (entries,observer)=>{
-      if(entries[0].isIntersecting){
-        this.addTypewriterAnimation();
 
-        //停止观察，达到只执行一次的效果
-        observer.unobserve(this);
-      }
+  beginWriter = () => {
+    if (this.currentIndex < this.poet.length) {
+      this.poetItem.textContent += this.poet.charAt(this.currentIndex);
+      this.currentIndex++;
+    } else {
+      this.stopTyping();
+      this.hasCompleted = true;
+      this.startCursor();
     }
-
-
-    new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:'0px 0px -50px 0px'}).observe(this);
-   }
   }
 
+  startTyping = () => {
+    if (this.hasCompleted || this.isTyping) return;
+
+    this.isTyping = true;
+    this.poetItem.style.display = 'inline-block';
+    this.poetItem.style.borderRight = '2px solid #000';
+
+    this.beginWriter();
+    this.typingTimer = setInterval(this.beginWriter, 100);
+  }
+
+  stopTyping = () => {
+    if (this.typingTimer) {
+      clearInterval(this.typingTimer);
+      this.typingTimer = null;
+    }
+    this.isTyping = false;
+  }
+
+  startCursor = () => {
+    if (this.cursorTimer) return;
+
+    let cursorVisible = true;
+    this.cursorTimer = setInterval(() => {
+      cursorVisible = !cursorVisible;
+      this.poetItem.style.borderRight = cursorVisible ? '2px solid #000' : '2px solid transparent';
+    }, 500);
+  }
+
+  stopCursor = () => {
+    if (this.cursorTimer) {
+      clearInterval(this.cursorTimer);
+      this.cursorTimer = null;
+    }
+    this.poetItem.style.borderRight = 'none';
+  }
+
+  connectedCallback() {
+    if (this.isAnimate === 'true') {
+      const intersectionObserverHandler = (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          // 进入视口，继续打字
+          this.startTyping();
+        } else {
+          // 离开视口，暂停打字
+          this.stopTyping();
+          this.stopCursor();
+        }
+      };
+
+      this.observer = new IntersectionObserver(
+        intersectionObserverHandler.bind(this),
+        { rootMargin: '0px 0px -50px 0px' }
+      );
+
+      this.observer.observe(this);
+    }
+  }
+
+  disconnectedCallback() {
+    this.stopTyping();
+    this.stopCursor();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
 }
 
-customElements.define('type-writer', Typewriter);
+if(!customElements.get('type-writer')){
+  customElements.define('type-writer', Typewriter);
+}
 
 class ModalDialog extends HTMLElement {
   constructor() {
