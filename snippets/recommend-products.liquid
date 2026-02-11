@@ -1,43 +1,167 @@
 {% style %}
-.product-recommendations{
+.product-recommendations {
   font-family: var(--self_font);
-  width: auto;
+  width: 100%;
+  padding: 1rem 0;
 }
-.product-link{
-  padding: 1rem;
+
+.recommendations-title {
+  margin: 1.5rem 0 1.5rem;
+  font-weight: 700;
+  font-size: calc(var(--font-scale) * 1.6rem);
+  text-align: center;
+  color: var(--color-text);
+  position: relative;
+}
+.recommendations-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-primary, #000);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.recommendations-ul {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.product {
+  min-width: 150px;
+  max-width: 240px;
+}
+
+.product {
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.product-link {
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
 }
-.product{
-  margin-bottom: 1rem;
-  background: #f3f5f7;
-  border-radius: .5rem;
-}
-.product__img{
-  border-radius: .5rem;
-}
-.recommendations-title{
-  margin: 1rem 0;
-  font-weight: bolder;
-  font-size: calc(var(--font-scale) * 1.4rem);
-}
-.product__info{
-  display: -webkit-box;
-  margin-top: .5rem;
-  max-width: 10rem;
-  text-align: center;
-  -webkit-box-orient: vertical; /* 设置盒子的垂直排列 */
-  -webkit-line-clamp: 2; /* 限制在3行 */
-  overflow: hidden; /* 隐藏溢出的内容 */
-  text-overflow: ellipsis; /* 使用省略号表示文本溢出 */
-}
-.recommendations-ul-flex-row{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+.product__img {
+  border-radius: 0.5rem;
   width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  background: #f5f5f5;
+  display: block;
+}
+
+.product:hover .product__img {
+  transform: scale(1.05);
+}
+
+.product__info {
+  display: -webkit-box;
+  margin-top: 0.75rem;
+  width: 100%;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.product__title {
+  font-weight: 600;
+  font-size: calc(var(--font-scale) * 0.95rem);
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+  min-height: 2.8em;
+}
+
+.product__price {
+  font-weight: 700;
+  font-size: calc(var(--font-scale) * 1.05rem);
+  color: var(--color-primary, #000);
+  -webkit-line-clamp: 1;
+}
+
+/* 平板设备样式 */
+@media screen and (min-width: 576px) {
+  .recommendations-ul {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.25rem;
+  }
+  .poet-container{
+    margin: 0 auto;
+    width: 80%;
+  }
+  .product-link {
+    padding: 1rem;
+  }
+}
+
+  @media screen and (max-width: 500px) {
+  .recommendations-ul {
+  grid-template-columns: repeat(2, 1fr);
+  }
+  }
+/* 桌面设备样式 */
+@media screen and (min-width: 992px) {
+  .recommendations-ul {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+
+  .recommendations-title {
+    font-size: calc(var(--font-scale) * 1.8rem);
+    margin: 2rem 0 2rem;
+  }
+
+  .product-link {
+    padding: 1.25rem;
+  }
+
+  .product__title {
+    font-size: calc(var(--font-scale) * 1rem);
+    line-height: 1.3;
+    min-height: 2.6em;
+  }
+
+  .product__price {
+    font-size: calc(var(--font-scale) * 1.1rem);
+  }
+
+  .product__info {
+    line-height: 1.3;
+  }
+}
+
+/* 大屏幕优化 */
+@media screen and (min-width: 1400px) {
+  .product-recommendations {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }
 
 {% endstyle %}
@@ -55,7 +179,7 @@
       {% elsif recommendations.intent == 'complementary' %}
         <h2 class="recommendations-title">{{ complementary_title }}</h2>
       {% endif %}
-  
+
       <ul class="recommendations-ul">
         {%- for product in recommendations.products -%}
           <li class="product">
@@ -67,7 +191,7 @@
                 width=160
                 height=160
               />
-  
+
               <p class="product__title product__info">{{ product.title }}</p>
               <p class="product__price product__info">{{ product.price | money_with_currency}}</p>
             </a>
@@ -78,6 +202,5 @@
   </div>
 
 </recommend-products>
-  
 
-  
+

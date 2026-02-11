@@ -40,6 +40,7 @@
 .poet-item{
   position: relative;
   margin-bottom: {{ card_text_margin_bottom | append: 'rem' }};
+  line-height: 1.5;
   overflow: hidden;
 }
 .poet-item::after{
@@ -74,6 +75,9 @@
     padding: 0;
     background-color: transparent;
   }
+    .poet-container{
+     width: 80dvw;
+    }
   .product-detail-desc-img{
     width: 100%;
   }
@@ -103,15 +107,6 @@
             </div>
         {% elsif product_metaobjects[field].type == 'multi_line_text_field' or product_metaobjects[field].type == 'single_line_text_field'  %}
           {% if product_metaobjects[field] != blank %}
-            {% comment %}{% assign multi_line_poet_arr = product_metaobjects[field] | split:',' %}{% endcomment %}
-            {% comment %}<type-writer class="poet-container" animation={{ typewiter_animation }}>{% endcomment %}
-              {% comment %}{% for item in multi_line_poet_arr %}{% endcomment %}
-                {% comment %}<div class="poet-item">{% endcomment %}
-                  {% comment %}<span class="typewriter-item">{{ item }}</span>{% endcomment %}
-                  {% comment %}<span class="typewriter-span"> </span>{% endcomment %}
-                {% comment %}</div>{% endcomment %}
-              {% comment %}{% endfor %}{% endcomment %}
-            {% comment %}</type-writer>{% endcomment %}
               <type-writer  animation={{ typewiter_animation }}>
                   <div class="poet-container" data-poet="{{ product_metaobjects[field] }}">
                       <span class="poet-item"></span>
