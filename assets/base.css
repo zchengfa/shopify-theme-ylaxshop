@@ -2322,9 +2322,20 @@ product-info .loading__spinner:not(.hidden) ~ *,
 .header-wrapper {
   display: block;
   position: relative;
-  z-index: 15;
+  z-index: 20;
 }
-
+@media screen and (max-width: 500px) {
+  .header-wrapper {
+    display: block;
+    position: relative;
+    z-index: 100;
+  }
+}
+.search-input:focus-visible{
+  outline:none;
+  box-shadow: none;
+  outline-offset: unset;
+}
 .header-wrapper--border-bottom {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }

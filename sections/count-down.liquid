@@ -1,42 +1,146 @@
 <count-down class="count-down-box" data-activity_end_time={{ section.settings.countdown_end_date }}>
     <div class="count-down-item"></div>
     {% comment %} 卡片翻动效果 {% endcomment %}
-    {% render 'card-flipping-effect',
-        card_bg_color: section.settings.card_bg_color,
-        multi_text_color: section.settings.multi_text_color
-    %} 
+    {% render 'card-flipping-effect' %}
 </count-down>
 
 {% schema %}
 {
-    "name": "t:sections.count_down.name",
-    "settings": [
-        {
-            "type": "color_background",
-            "id": "card_bg_color",
-            "label": "t:sections.count_down.settings.card_bg_color.label",
-            "default": "rgb(78 165 44 / 50%)"
-        },
-        {
-            "type": "color_background",
-            "id": "multi_text_color",
-            "label": "t:sections.count_down.settings.multi_text_color.label",
-            "default": "linear-gradient(45deg, #ff00a9, #fffb00, #00ff7f, #0088ff)"
-        },
-        {
-            "type": "text",
-            "id": "countdown_end_date",
-            "default": "2025-12-31+00:00:00",
-            "label": "t:sections.holiday_theme.settings.countdown_end_date.label",
-            "info": "t:sections.holiday_theme.settings.countdown_end_date.info"
-        },
-            
-    ],
-    "presets": [
-        {
-            "name": "t:sections.count_down.name",
-            "category": "t:sections.count_down.name"
-        }
-    ]
+  "name": "t:sections.count_down.name",
+  "class": "section-countdown",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_countdown"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end_date",
+      "default": "2025-12-31+00:00:00",
+      "label": "t:sections.holiday_theme.settings.countdown_end_date.label",
+      "info": "t:sections.holiday_theme.settings.countdown_end_date.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_background"
+    },
+    {
+      "type": "color_background",
+      "id": "container_bg_color",
+      "label": "t:sections.count_down.settings.container_bg_color.label",
+      "default": "linear-gradient(135deg, rgba(255,240,245,0.9) 0%, rgba(255,250,252,0.95) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "container_border_color",
+      "label": "t:sections.count_down.settings.container_border_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_text"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "t:sections.count_down.settings.title_text.label",
+      "default": "ACTIVITY COUNTDOWN"
+    },
+    {
+      "type": "color_background",
+      "id": "multi_text_color",
+      "label": "t:sections.count_down.settings.multi_text_color.label",
+      "default": "linear-gradient(90deg, #e91e63 0%, #d81b60 25%, #c2185b 50%, #ad1457 75%, #880e4f 100%)"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_card_colors"
+    },
+    {
+      "type": "color_background",
+      "id": "card_day_gradient",
+      "label": "t:sections.count_down.settings.card_day_gradient.label",
+      "default": "linear-gradient(135deg, #e91e63, #f06292)"
+    },
+    {
+      "type": "color_background",
+      "id": "card_hour_gradient",
+      "label": "t:sections.count_down.settings.card_hour_gradient.label",
+      "default": "linear-gradient(135deg, #ab47bc, #ce93d8)"
+    },
+    {
+      "type": "color_background",
+      "id": "card_minute_gradient",
+      "label": "t:sections.count_down.settings.card_minute_gradient.label",
+      "default": "linear-gradient(135deg, #5c6bc0, #9fa8da)"
+    },
+    {
+      "type": "color_background",
+      "id": "card_second_gradient",
+      "label": "t:sections.count_down.settings.card_second_gradient.label",
+      "default": "linear-gradient(135deg, #26a69a, #80cbc4)"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_card_style"
+    },
+    {
+      "type": "range",
+      "id": "card_size",
+      "min": 40,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.count_down.settings.card_size.label",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.count_down.settings.card_radius.label",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "time_label_color",
+      "label": "t:sections.count_down.settings.time_label_color.label",
+      "default": "#ad1457"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.count_down.settings.header_animation"
+    },
+    {
+      "type": "range",
+      "id": "flip_duration",
+      "min": 0.1,
+      "max": 1.5,
+      "step": 0.1,
+      "unit": "s",
+      "label": "t:sections.count_down.settings.flip_duration.label",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "gradient_duration",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "label": "t:sections.count_down.settings.gradient_duration.label",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.count_down.name",
+      "category": "t:sections.count_down.name"
+    }
+  ]
 }
 {% endschema %}

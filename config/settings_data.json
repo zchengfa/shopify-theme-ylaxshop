@@ -123,11 +123,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "13768625480086291342": {
-        "type": "shopify:\/\/apps\/forms\/blocks\/forms\/8744a304-fcb1-4347-b211-bb6b4759a76a",
-        "disabled": false,
-        "settings": {}
-      },
       "4015264832934714879": {
         "type": "shopify:\/\/apps\/trustoo-email-popups\/blocks\/app\/a5670cf8-5705-4b01-ad9e-447033feae26",
         "disabled": true,
@@ -138,9 +133,19 @@
         "disabled": true,
         "settings": {}
       },
+      "pagefly-page-builder": {
+        "type": "shopify:\/\/apps\/pagefly-page-builder\/blocks\/app-embed\/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": true,
+        "settings": {}
+      },
+      "13768625480086291342": {
+        "type": "shopify:\/\/apps\/forms\/blocks\/forms\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+        "disabled": true,
+        "settings": {}
+      },
       "15683396631634586217": {
         "type": "shopify:\/\/apps\/inbox\/blocks\/chat\/841fc607-4181-4ad1-842d-e24d7f8bad6b",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "button_color": "#ec1a1a",
           "secondary_color": "#ffffff",
@@ -152,20 +157,18 @@
           "greeting_message": ""
         }
       },
-      "pagefly-page-builder": {
-        "type": "shopify:\/\/apps\/pagefly-page-builder\/blocks\/app-embed\/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": true,
-        "settings": {}
-      },
-      "1222049347758099699": {
-        "type": "shopify:\/\/apps\/zora\/blocks\/Zora\/019a95f3-46b3-7ae4-b728-5f340c2716f5",
+      "15996486070635644561": {
+        "type": "shopify:\/\/apps\/zora\/blocks\/Zora\/019abe95-89b0-7171-ade5-85165eb9229f",
         "disabled": false,
-        "settings": {}
-      },
-      "16428961674842292511": {
-        "type": "shopify:\/\/apps\/zora\/blocks\/star_rating\/019a95f3-46b3-7ae4-b728-5f340c2716f5",
-        "disabled": true,
-        "settings": {}
+        "settings": {
+          "zora_bg_color": "#f8a399",
+          "zora_success_color": "#6fde6b",
+          "zora_info_color": "#eaeef1",
+          "zora_error_color": "#e64048",
+          "zora_warning_color": "#e9cb67",
+          "zora_size_position_x": 1,
+          "zora_size_position_y": 10
+        }
       }
     },
     "color_schemes": {

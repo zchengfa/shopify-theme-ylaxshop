@@ -274,7 +274,6 @@ class QuantityInput extends HTMLElement {
       hideCartWithDrawer();
     })
   }
-
   /**
    * @description 定义需要更新的section、选择器目标等
    * @returns {Array} 需要更新的页面部分
@@ -323,45 +322,100 @@ class Typewriter extends HTMLElement {
   constructor() {
     super();
 
-    this.poetCollection = this.querySelectorAll('.poet-item');
-    this.poetCollection.forEach((poet,index) => {
-      this.querySelectorAll('.typewriter-span')[index].style.borderLeft = 'none';
-    })
-    this.index = 0;
-    this.isAnimate = this.getAttribute('animation')
+    this.poetItem = this.querySelector('.poet-item');
+    this.currentIndex = 0;
+    this.isAnimate = this.getAttribute('animation');
+    this.poet = this.querySelector('.poet-container').dataset['poet'];
+    this.typingTimer = null;
+    this.cursorTimer = null;
+    this.isTyping = false;
+    this.hasCompleted = false;
+    this.observer = null;
   }
-  addTypewriterAnimation() {
-    let stringArr = this.poetCollection[this.index].textContent.replace(/\s+/g, "");
-    this.querySelectorAll('.typewriter-span')[this.index].style.borderLeft = '2px solid #000';
-    let typewriterEl = this.querySelectorAll('.typewriter-span')[this.index];
-    typewriterEl.style.animation = `typewriter ${stringArr.length * .2}s steps(${stringArr.length}, end) forwards,flashing .3s ease-out forwards infinite`;
-    typewriterEl.addEventListener('animationend', () => {
-      typewriterEl.style.display = 'none';
-      this.index++;
-      if (this.index < this.poetCollection.length) {
-        this.addTypewriterAnimation();
-      }
-    })
-  }
-  connectedCallback(){
-   if(this.isAnimate === 'true'){
-    const intersectionObserverHandler = (entries,observer)=>{
-      if(entries[0].isIntersecting){
-        this.addTypewriterAnimation();
 
-        //停止观察，达到只执行一次的效果
-        observer.unobserve(this);
-      }
+  beginWriter = () => {
+    if (this.currentIndex < this.poet.length) {
+      this.poetItem.textContent += this.poet.charAt(this.currentIndex);
+      this.currentIndex++;
+    } else {
+      this.stopTyping();
+      this.hasCompleted = true;
+      this.startCursor();
     }
-
-
-    new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:'0px 0px -50px 0px'}).observe(this);
-   }
   }
 
+  startTyping = () => {
+    if (this.hasCompleted || this.isTyping) return;
+
+    this.isTyping = true;
+    this.poetItem.style.display = 'inline-block';
+    this.poetItem.style.borderRight = '2px solid #000';
+
+    this.beginWriter();
+    this.typingTimer = setInterval(this.beginWriter, 100);
+  }
+
+  stopTyping = () => {
+    if (this.typingTimer) {
+      clearInterval(this.typingTimer);
+      this.typingTimer = null;
+    }
+    this.isTyping = false;
+  }
+
+  startCursor = () => {
+    if (this.cursorTimer) return;
+
+    let cursorVisible = true;
+    this.cursorTimer = setInterval(() => {
+      cursorVisible = !cursorVisible;
+      this.poetItem.style.borderRight = cursorVisible ? '2px solid #000' : '2px solid transparent';
+    }, 500);
+  }
+
+  stopCursor = () => {
+    if (this.cursorTimer) {
+      clearInterval(this.cursorTimer);
+      this.cursorTimer = null;
+    }
+    this.poetItem.style.borderRight = 'none';
+  }
+
+  connectedCallback() {
+    if (this.isAnimate === 'true') {
+      const intersectionObserverHandler = (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          // 进入视口，继续打字
+          this.startTyping();
+        } else {
+          // 离开视口，暂停打字
+          this.stopTyping();
+          this.stopCursor();
+        }
+      };
+
+      this.observer = new IntersectionObserver(
+        intersectionObserverHandler.bind(this),
+        { rootMargin: '0px 0px -50px 0px' }
+      );
+
+      this.observer.observe(this);
+    }
+  }
+
+  disconnectedCallback() {
+    this.stopTyping();
+    this.stopCursor();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
 }
 
-customElements.define('type-writer', Typewriter);
+if(!customElements.get('type-writer')){
+  customElements.define('type-writer', Typewriter);
+}
 
 class ModalDialog extends HTMLElement {
   constructor() {
@@ -425,156 +479,170 @@ customElements.define('modal-opener', ModalOpener);
 class Countdown extends HTMLElement {
   constructor() {
     super();
-    this._init();
     this.timer = null;
-    this.beforeTime = {};
-    this.timeBoxes = this.getElementsByClassName('card-flipping-item-box');
-    //定义message变量，用于信息提示
-    this.message = '';
+    this.beforeTime = { day: '00', hour: '00', minute: '00', second: '00' };
+    this.timeUnits = ['day', 'hour', 'minute', 'second'];
+    this.timeBoxes = {};
   }
 
-  _init() {
-    this.countdown = this.getElementsByClassName('count-down-item').item(0);
-
-    //开始翻转动画
-    this.beginCountdown();
-    this.activity_end_time = this.dataset['activity_end_time'].replace('+',' ');
-
-  }
   connectedCallback() {
-    //设置时间
-    for (let i=0; i<this.timeBoxes.length ; i++){
-      let timeName = this.timeBoxes[i].dataset.timeName;
-      let card_items = this.timeBoxes[i].querySelectorAll('.card-item');
-      for (let j = 0; j < card_items.length; j++) {
-        card_items[j].textContent = this.getLeftTime(this.activity_end_time)[timeName];
+    this.init();
+  }
+
+  disconnectedCallback() {
+    this.stopCountdown();
+  }
+
+  init() {
+    // 获取结束时间
+    this.activity_end_time = this.dataset.activity_end_time || '';
+    if (this.activity_end_time.includes('+')) {
+      this.activity_end_time = this.activity_end_time.replace('+', ' ');
+    }
+
+    // 缓存DOM元素
+    this.cacheDOM();
+
+    // 验证时间
+    if (!this.validateTimeFormat()) {
+      console.warn('倒计时时间格式无效或已过期');
+      return;
+    }
+
+    // 初始显示
+    this.updateDisplay();
+
+    // 开始倒计时
+    this.startCountdown();
+  }
+
+  cacheDOM() {
+    this.timeUnits.forEach(unit => {
+      const container = this.querySelector(`[data-time-name="${unit}"]`);
+      if (container) {
+        this.timeBoxes[unit] = {
+          container: container,
+          cards: container.querySelectorAll('.card-item'),
+          // 添加当前值和目标值的缓存
+          currentValue: '00',
+          nextValue: '00'
+        };
       }
-    }
-    this.beforeTime = this.getLeftTime(this.activity_end_time);
-  }
-  beginCountdown() {
-    this.timer = setInterval(() => {
-      this.countdown_time(this.activity_end_time);
-    },1000)
+    });
   }
 
-  countdown_time(time) {
+  validateTimeFormat() {
+    if (!this.activity_end_time) return false;
 
-    //提取时间并校验时间是否合规
-    let reg = new RegExp(/^\d{4}-\d{2}-\d{2}\s([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/);
+    const endTime = new Date(this.activity_end_time).getTime();
+    const now = Date.now();
 
-    //时间不合规,直接返回
-    if (!reg.test(time) || time.substring(5,7)*1 > 12 || time.substring(8,10)*1 > 31) {
-      this.message = '时间格式不合规';
-      //结束计时器
-      clearInterval(this.timer);
-    }
-    else{
+    // 检查是否有效时间且在未来
+    return !isNaN(endTime) && endTime > now;
+  }
 
-      this.cardFlipping(this.getLeftTime(time));
+  getRemainingTime() {
+    const now = Date.now();
+    const end = new Date(this.activity_end_time).getTime();
+    const diff = Math.max(0, end - now);
 
+    if (diff <= 0) {
+      this.stopCountdown();
+      return { day: '00', hour: '00', minute: '00', second: '00' };
     }
 
-    //this.countdown.textContent = this.message  ;
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return {
+      day: days.toString().padStart(2, '0'),
+      hour: hours.toString().padStart(2, '0'),
+      minute: minutes.toString().padStart(2, '0'),
+      second: seconds.toString().padStart(2, '0')
+    };
   }
 
-  //获取剩余时间
-  getLeftTime(time) {
+  updateDisplay() {
+    const currentTime = this.getRemainingTime();
 
-     let remaingTime = {};
-     //获取当前时间毫秒数
-     let now = new Date().getTime();
+    this.timeUnits.forEach(unit => {
+      const box = this.timeBoxes[unit];
+      if (box && box.cards) {
+        const newValue = currentTime[unit];
 
-     //转换年月日时分秒为毫秒数
-     let end = new Date(time).getTime();
-
-     //计算时间差值毫秒数
-     let leftTime = end - now;
-
-     //如果时间差小于0，则显示已过期
-     if (leftTime < 0) {
-       //message = '活动已结束';
-       //结束动画
-       clearInterval(this.timer);
-     }
-     else {
-       //分别定义日时分秒的毫秒数
-       let d = 24 * 60 * 60 * 1000;
-       let h = 60 * 60 * 1000;
-       let m = 60 * 1000;
-       let s = 1000;
-
-       //计算日时分秒并取余，用余数计算下一位
-       let day = Math.floor(leftTime / d);
-       let hour = Math.floor(leftTime % d / h);
-       let minute = Math.floor(leftTime % d % h / m);
-       let second = Math.floor(leftTime % d % h % m / s);
-
-       //如果日时分秒小于10，则在前面补0
-       day = day.toString().padStart(2, '0');
-       hour = hour.toString().padStart(2, '0');
-       minute = minute.toString().padStart(2, '0');
-       second = second.toString().padStart(2, '0');
-
-       remaingTime = {
-         day,
-         hour,
-         minute,
-         second
-       }
-     }
-
-     return remaingTime;
-  }
-
-  cardFlipping(dataTime){
-     //设置时间
-     for (let i=0; i<this.timeBoxes.length ; i++){
-      let timeName = this.timeBoxes[i].dataset.timeName;
-
-      //与每项的旧值进行比较，若不一样的说明需要翻动该项的卡片
-      if(dataTime[timeName] !== this.beforeTime[timeName]){
-        let card_items = this.timeBoxes[i].querySelectorAll('.card-item');
-        for (let j = 0; j < card_items.length; j++) {
-
-          if(j === 1){
-            card_items[j].classList.add('flip_card_2');
-            card_items[j].textContent = dataTime[timeName];
-            card_items[j].addEventListener('animationend',function handler(){
-              card_items[j].classList.remove('flip_card_2');
-
-              //动画结束后移除事件监听
-              card_items[j].removeEventListener('animationend',handler);
-            })
-          }
-          else if(j === 2){
-            card_items[j].classList.add('flip_card_3');
-            card_items[j].addEventListener('animationend',function handler(){
-              card_items[j+1].textContent = dataTime[timeName];
-
-              card_items[j].classList.remove('flip_card_3');
-              card_items[j].textContent = dataTime[timeName];
-
-              //动画结束后移除事件监听
-              card_items[j].removeEventListener('animationend',handler);
-            })
-          }
-          else if(j === 0){
-            card_items[j].textContent = dataTime[timeName];
-          }
-
+        // 如果值发生变化，触发翻牌动画
+        if (box.currentValue !== newValue) {
+          this.triggerFlipAnimation(box, unit, newValue);
+          box.currentValue = newValue;
         }
       }
+    });
 
-     }
+    this.beforeTime = currentTime;
+  }
 
-     //存储旧值
-     this.beforeTime = dataTime;
+  triggerFlipAnimation(box, unit, newValue) {
+    const cards = box.cards;
+    if (!cards || cards.length < 4) return;
 
+    // 更新上半部分卡片（立即显示新值）
+    cards[0].textContent = newValue;
+
+    // 触发下半部分的翻牌动画
+    cards[1].classList.add('flip_card_2');
+    cards[1].textContent = newValue;
+
+    cards[2].classList.add('flip_card_3');
+
+    // 动画结束后更新下半部分卡片
+    const onAnimationEnd = () => {
+      cards[1].classList.remove('flip_card_2');
+      cards[2].classList.remove('flip_card_3');
+      cards[2].textContent = newValue;
+      cards[3].textContent = newValue;
+
+      // 清理事件监听
+      cards[1].removeEventListener('animationend', onAnimationEnd);
+      cards[2].removeEventListener('animationend', onAnimationEnd);
+    };
+
+    cards[1].addEventListener('animationend', onAnimationEnd, { once: true });
+    cards[2].addEventListener('animationend', onAnimationEnd, { once: true });
+  }
+
+  startCountdown() {
+    // 先立即更新一次
+    this.updateDisplay();
+
+    // 使用setInterval保持精确的1秒间隔
+    this.timer = setInterval(() => {
+      this.updateDisplay();
+
+      // 检查是否结束
+      const remaining = this.getRemainingTime();
+      if (remaining.day === '00' && remaining.hour === '00' &&
+          remaining.minute === '00' && remaining.second === '00') {
+        this.stopCountdown();
+        this.dispatchEvent(new CustomEvent('countdown-end', {
+          bubbles: true,
+          detail: { message: '活动已结束' }
+        }));
+      }
+    }, 1000);
+  }
+
+  stopCountdown() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
   }
 }
 
-if(!customElements.get('count-down')){
+// 注册组件
+if (!customElements.get('count-down')) {
   customElements.define('count-down', Countdown);
 }
-

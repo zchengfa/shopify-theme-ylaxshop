@@ -75,7 +75,7 @@
     background: rgb(var(--color-background));
 }
 .quantity__button{
- 
+
     width: 2rem;
     height: 2.6rem;
     transform:scale(.6);
@@ -86,7 +86,7 @@
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
     -webkit-appearance:none;
-}    
+}
 input[type="number"]{
     -moz-appearance:textfield;
 }
@@ -98,6 +98,9 @@ input[type="number"]{
     outline:none;
     background: transparent;
 }
+  .product-info-item .title-desc{
+    line-height: 1.5;
+  }
 
 .product-options-item{
   display: flex;
@@ -188,11 +191,11 @@ input[type="number"]{
     .product-form__submit{
       width: 100%;
     }
-    
+
     .product-options-item{
       display: block;
     }
-    
+
 }
 @media screen and (max-width:  750px){
   .main-product-content{
@@ -221,13 +224,11 @@ input[type="number"]{
       align-items: center;
       flex-wrap: wrap;
     }
-    .recommendations-ul .product{
-      width: 49%;
-    }
+
 }
 {% endstyle %}
-   
-<section 
+
+<section
     id="MainProduct-{{ section.id }}"
     class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} main-product"
     data-section="{{ section.id }}">
@@ -249,7 +250,7 @@ input[type="number"]{
               %}
             </magnifier-image>
             <script src="{{ 'magnifier.js' | asset_url}}" defer></script>
-          {% elsif image_zoom_type == 'lightbox' %}  
+          {% elsif image_zoom_type == 'lightbox' %}
 
           {% endif %} {% endcomment %}
             <magnifier-image data-zoom-type = {{ image_zoom_type }} data-show-in-magnifier={{ section.settings.show_in_magnifier }} data-magnifier-times={{ section.settings.magnifier_times }}>
@@ -266,8 +267,8 @@ input[type="number"]{
               {% for media in product.media %}
                 {% if media.media_type == 'image' %}
                   <div class="media-item">{{ media | media_tag }}</div>
-                {% endif %}  
-              {% endfor %}  
+                {% endif %}
+              {% endfor %}
             </div>
           {% endif %}
         </media-display>
@@ -286,21 +287,21 @@ input[type="number"]{
           </div>
           {% when 'description' %}
           <div class="product-info-item">
-            {{ product.description }}              
+            {{ product.description }}
           </div>
           {% when 'options_panel' %}
-            <div class='product-options-box product-info-item'> 
+            <div class='product-options-box product-info-item'>
             {% for option in product.options_with_values %}
               <div class="product-options-item">
                 <label class="product-options-label">{{ option.name | append:'：' }}</label>
                 <span class="product-options-value">{{ option.values }}</span>
-              </div>    
-            {% endfor %}  
+              </div>
+            {% endfor %}
             </div>
           {% when 'price' %}
           <div class="product-info-item">
-            <span class="product-price">{{ product.price | money_with_currency }}</span> 
-            <span class="product-price  line-through">{{ product.compare_at_price | money_with_currency }}</span> 
+            <span class="product-price">{{ product.price | money_with_currency }}</span>
+            <span class="product-price  line-through">{{ product.compare_at_price | money_with_currency }}</span>
             {%- if product.selected_or_first_available_variant.available -%}
               <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
                 {{ 'products.product.on_sale' | t }}
@@ -317,7 +318,7 @@ input[type="number"]{
             -%}
             <label id="quantity-label" data-id={{ section.id }} class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
               <span>{{ 'products.product.quantity.label' | t }}</span>
-              
+
               <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}">
                 {%- render 'loading' -%}
                 <span class="quantity-cart-span"
@@ -362,7 +363,7 @@ input[type="number"]{
                 input_id : input_id
               -%}
               <script src={{ 'product-form.js' | asset_url }} defer></script>
-        {% endcase %}  
+        {% endcase %}
      {% endfor %}
     </div>
   </div>
@@ -370,7 +371,7 @@ input[type="number"]{
     <div class="main-product-info-other">
       {% for block in section.blocks %}
         {% case block.type %}
-          {% when "product_detail_desc" %} 
+          {% when "product_detail_desc" %}
             {% assign product_sku = block.settings.metaobjects_cate_handle-prefix | append:product.variants[0].sku | replace:'-','' %}
               {% if shop.metaobjects[block.settings.metaobjects_type][product.variants[0].sku] != empty %}
                 {% render 'product-detail-desc',
@@ -386,13 +387,13 @@ input[type="number"]{
                     image_title: block.settings.image_title,
                     typewiter_animation: block.settings.typewriter_animation,
                 %}
-              {% endif %} 
-          {% when "recommend_products" %}   
+              {% endif %}
+          {% when "recommend_products" %}
             {% render 'recommend-products' ,
               recommend_title: block.settings.recommend_title,
               complementary_title: block.settings.complementary_title %}
-           
-        {% endcase %}  
+
+        {% endcase %}
       {% endfor %}
     </div>
   </main-product-info-other>
@@ -1020,7 +1021,7 @@ input[type="number"]{
           }
         ]
       }
-      
+
     ],
     "settings": [
       {
