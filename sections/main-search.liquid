@@ -333,7 +333,21 @@
                   <li class="result-item gradient">
                     <a href={{ product.url }} class='product-item'> 
                         <div class='product-img-box'>
-                            <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=330 height=300 />
+                            <img 
+  class='product-img' 
+  srcset="
+    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+    {%- if product.featured_image.width >= 660 -%}{{ product.featured_image | image_url: width: 660 }} 660w,{%- endif -%}
+    {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
+  "
+  src="{{ product.featured_image | image_url: width: 330, height: 300 }}"
+  sizes="(min-width: 990px) 330px, (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+  alt="{{ product.title | escape }}"
+  width="{{ product.featured_image.width }}"
+  height="{{ product.featured_image.height }}"
+  loading="lazy"
+/>
                         </div>  
                         <div class='product-params'>
                             <p class='product-title'>{{ product.title }}</p>

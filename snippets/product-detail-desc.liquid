@@ -22,6 +22,7 @@
   position:relative;
   left: 50%;
   width: 90%;
+  height: auto;
   margin-bottom: 1rem;
   border-radius: 1rem;
   transform: translateX(-50%);
@@ -102,7 +103,23 @@
             <p class="product-detail-desc-title">{{ image_title }}</p>
             <div class="product-detail-desc-images-box">
               {% for item in product_metaobjects[field].value %}
-                <img class="product-detail-desc-img" src="{{ item | image_url }}" alt="pro_detail_img" width="auto" height="auto" />
+                <img
+  class="product-detail-desc-img"
+  srcset="
+    {%- if item.width >= 300 -%}{{ item | image_url: width: 300 }} 300w,{%- endif -%}
+    {%- if item.width >= 450 -%}{{ item | image_url: width: 450 }} 450w,{%- endif -%}
+    {%- if item.width >= 600 -%}{{ item | image_url: width: 600 }} 600w,{%- endif -%}
+    {%- if item.width >= 800 -%}{{ item | image_url: width: 800 }} 800w,{%- endif -%}
+    {%- if item.width >= 1000 -%}{{ item | image_url: width: 1000 }} 1000w,{%- endif -%}
+    {{ item | image_url }} {{ item.width }}w
+  "
+  src="{{ item | image_url: width: 800, height: 600 }}"
+  sizes="(min-width: 1200px) calc(0.8 * 0.9 * 100vw), (min-width: 990px) calc(0.8 * 0.9 * 100vw), (min-width: 750px) calc(0.8 * 0.9 * 100vw), calc(0.8 * 0.9 * 100vw)"
+  alt="{{ item.alt | default: 'product detail image' | escape }}"
+  width="{{ item.width }}"
+  height="{{ item.height }}"
+  loading="lazy"
+/>
               {% endfor %}
             </div>
         {% elsif product_metaobjects[field].type == 'multi_line_text_field' or product_metaobjects[field].type == 'single_line_text_field'  %}

@@ -193,7 +193,20 @@
                 {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
                 {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
             {% else %}
-                <img class='header-logo' src={{ 'store_logo.gif' | asset_img_url:'large'  }} alt='logo' width={{ settings.logo_width }} height={{ logo_height }} />
+                <img 
+  class='header-logo' 
+  srcset="
+    {{ 'store_logo.gif' | asset_img_url: width: 150 }} 150w,
+    {{ 'store_logo.gif' | asset_img_url: width: 300 }} 300w,
+    {{ 'store_logo.gif' | asset_img_url: width: 450 }} 450w
+  "
+  src="{{ 'store_logo.gif' | asset_img_url: width: settings.logo_width, height: logo_height }}"
+  sizes="(min-width: 990px) {{ settings.logo_width }}px, (min-width: 750px) calc({{ settings.logo_width }}px * 0.8), calc({{ settings.logo_width }}px * 0.6)"
+  alt="{{ shop.name | escape }}"
+  width="{{ settings.logo_width }}"
+  height="{{ logo_height }}"
+  fetchpriority="high"
+/>
             {% endif %}
             <h4 class='store-name'>{{ shop.name }}</h4>
             {% render 'search', input_id: 'Search-In-Modal' %}

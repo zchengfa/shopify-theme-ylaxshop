@@ -93,7 +93,21 @@
 <div class='holiday-theme-container'>
     {% if section.settings.image  %}
         <div class='holiday-theme-img-box holiday-theme-container-item'>
-            <img class='holiday-theme-img' alt='holiday_theme_img' src={{ section.settings.image | image_url }} width='1000' height="200" />
+            <img 
+  class='holiday-theme-img' 
+  srcset="
+    {%- if section.settings.image.width >= 600 -%}{{ section.settings.image | image_url: width: 600 }} 600w,{%- endif -%}
+    {%- if section.settings.image.width >= 800 -%}{{ section.settings.image | image_url: width: 800 }} 800w,{%- endif -%}
+    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1000 }} 1000w,{%- endif -%}
+    {{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+  "
+  src="{{ section.settings.image | image_url: width: 1000, height: 200 }}"
+  sizes="(min-width: 1200px) 1000px, (min-width: 990px) 800px, (min-width: 750px) 600px, 100vw"
+  alt="{{ section.settings.image.alt | escape }}"
+  width="{{ section.settings.image.width }}"
+  height="{{ section.settings.image.height }}"
+  loading="lazy"
+/>
         </div>
     {% endif %}
     {% if section.blocks.size > 0 %}
@@ -126,7 +140,21 @@
                 >
                 <a href={{ product.url }} class="holiday-product-item ">
                     <div class='holiday-product-img-box'>
-                        <img class='holiday-img transition-img' alt={{ product.title }} src={{ product.featured_image | image_url:width:product.featured_image.width }} width=200 height=200 />
+                        <img 
+  class='holiday-img transition-img' 
+  srcset="
+    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+    {%- if product.featured_image.width >= 400 -%}{{ product.featured_image | image_url: width: 400 }} 400w,{%- endif -%}
+    {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
+  "
+  src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
+  sizes="(min-width: 1200px) 200px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+  alt="{{ product.title | escape }}"
+  width="{{ product.featured_image.width }}"
+  height="{{ product.featured_image.height }}"
+  loading="lazy"
+/>
                     </div>
                     <div class='holiday-product-params'>
                         <div class='holiday-title-desc'>

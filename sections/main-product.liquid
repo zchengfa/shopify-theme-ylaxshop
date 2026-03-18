@@ -239,7 +239,18 @@ input[type="number"]{
            {% comment %} magnifier {% endcomment %}
           {% assign image_zoom_type = section.settings.image_zoom %}
           {% comment %} {% if image_zoom_type == 'none' %}
-          <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
+          <img 
+  class="main-product-img" 
+  srcset="
+    {%- if product.images.first.width >= 533 -%}{{ product.images.first | image_url: width: 533 }} 533w,{%- endif -%}
+    {%- if product.images.first.width >= 1066 -%}{{ product.images.first | image_url: width: 1066 }} 1066w,{%- endif -%}
+    {{ product.images.first | image_url }} {{ product.images.first.width }}w
+  "
+  src="{{ product.images.first | image_url: width: 533, height: 533 }}"
+  alt="{{ product.images.first.alt | default: product.title | escape }}"
+  width="{{ product.images.first.width }}"
+  height="{{ product.images.first.height }}"
+/>
           {% elsif image_zoom_type == 'hover' %}
             <magnifier-image data-show-in-magnifier={{ section.settings.show_in_magnifier }} data-magnifier-times={{ section.settings.magnifier_times }}>
               {% render 'magnifier-image',

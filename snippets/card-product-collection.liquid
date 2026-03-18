@@ -517,7 +517,21 @@
         {% for product in products limit:products_to_show %}
             <a href={{ product.url }} class='product-item' data-margin="24">
               <div class='product-img-box'>
-                <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=200 height=200 />
+                <img 
+  class='product-img' 
+  srcset="
+    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+    {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+    {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
+  "
+  src="{{ product.featured_image | image_url: width: 330, height: 330 }}"
+  sizes="(min-width: 1200px) 330px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+  alt="{{ product.title | escape }}"
+  width="{{ product.featured_image.width }}"
+  height="{{ product.featured_image.height }}"
+  loading="lazy"
+/>
               </div>
               <div class='product-params'>
                 <p class='product-title'>{{ product.title }}</p>
@@ -602,7 +616,20 @@
     {% else %}
         <div class='product-item' data-margin='24'>
             <div class='product-img-box'>
-                <img class='product-img' src={{ 'default.jpg' | asset_img_url:'large' }} alt='defalut_img' width='270' height='290' />
+                <img 
+  class='product-img' 
+  srcset="
+    {{ 'default.jpg' | asset_img_url: width: 165 }} 165w,
+    {{ 'default.jpg' | asset_img_url: width: 270 }} 270w,
+    {{ 'default.jpg' | asset_img_url: width: 540 }} 540w
+  "
+  src="{{ 'default.jpg' | asset_img_url: width: 270, height: 290 }}"
+  sizes="(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+  alt="default image"
+  width="270"
+  height="290"
+  loading="lazy"
+/>
             </div>
             <div class='product-params'>
                 <p class='product-title'>collection default title</p>

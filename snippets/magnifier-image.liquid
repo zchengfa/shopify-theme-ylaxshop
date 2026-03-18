@@ -110,7 +110,19 @@
 <div class="magnifier-img-container">
     <div class="original-img-box">
       {% for images in product.images %}
-        <img class="main-product-img" {% unless forloop.index == 1 %}style="display:none" {% endunless %} src={{ images | image_url }} alt="product_img" width=0 height=0 />
+        <img 
+  class="main-product-img" 
+  {% unless forloop.index == 1 %}style="display:none" {% endunless %} 
+  srcset="
+    {%- if images.width >= 533 -%}{{ images | image_url: width: 533 }} 533w,{%- endif -%}
+    {%- if images.width >= 1066 -%}{{ images | image_url: width: 1066 }} 1066w,{%- endif -%}
+    {{ images | image_url }} {{ images.width }}w
+  "
+  src="{{ images | image_url: width: 533, height: 533 }}"
+  alt="{{ images.alt | default: product.title | escape }}"
+  width="{{ images.width }}"
+  height="{{ images.height }}"
+/>
       {% endfor %}
       {% for media in product.media %}
         {% if media.media_type == 'video' %}

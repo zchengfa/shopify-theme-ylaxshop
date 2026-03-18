@@ -149,12 +149,18 @@ input[type="number"]{
                         <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
                         <div class="cart-item__image-container gradient global-media-settings">
                           <img
-                            src="{{ item.image | image_url: width: 300 }}"
+                            srcset="
+                              {%- if item.image.width >= 150 -%}{{ item.image | image_url: width: 150 }} 150w,{%- endif -%}
+                              {%- if item.image.width >= 300 -%}{{ item.image | image_url: width: 300 }} 300w,{%- endif -%}
+                              {{ item.image | image_url }} {{ item.image.width }}w
+                            "
+                            src="{{ item.image | image_url: width: 150, height: 150 }}"
+                            sizes="150px"
                             class="cart-item__image"
-                            alt="{{ item.image.alt | escape }}"
+                            alt="{{ item.image.alt | default: item.title | escape }}"
                             loading="lazy"
-                            width="150"
-                            height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
+                            width="{{ item.image.width }}"
+                            height="{{ item.image.height }}"
                           >
                         </div>
                       {% endif %}
