@@ -189,7 +189,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .visually-hidden {
@@ -239,9 +239,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   font-size: 1.5rem;
   letter-spacing: 0.06rem;
   line-height: calc(1 + 0.8 / var(--font-body-scale));
-  font-family: var(--font-body-family);
-  font-style: var(--font-body-style);
-  font-weight: var(--font-body-weight);
 }
 
 h1,
@@ -292,7 +289,7 @@ h1,
 @media only screen and (min-width: 750px) {
   h1,
   .h1 {
-    font-size: calc(var(--font-heading-scale) * 4rem);
+    font-size: calc(var(--font-heading-scale) * 3rem);
   }
 }
 
@@ -1545,21 +1542,22 @@ details[open] > .share-button__fallback {
 .customer select {
   -webkit-appearance: none;
   appearance: none;
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
+  background-color: #ffffff;
+  color: #000000;
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
   font-size: 1.6rem;
   width: 100%;
   box-sizing: border-box;
-  transition: box-shadow var(--duration-short) ease;
-  border-radius: var(--inputs-radius);
+  transition: all 0.3s ease;
+  border-radius: 0.8rem;
   height: 4.5rem;
   min-height: calc(var(--inputs-border-width) * 2);
   min-width: calc(7rem + (var(--inputs-border-width) * 2));
   position: relative;
-  border: 0;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 1.2rem 1.5rem;
 }
 
 .field:before,
@@ -1624,9 +1622,10 @@ details[open] > .share-button__fallback {
 .customer .field input:focus-visible,
 .customer select:focus-visible,
 .localization-form__select:focus-visible.localization-form__select:after {
-  box-shadow: 0 0 0 calc(0.1rem + var(--inputs-border-width)) rgba(var(--color-foreground));
-  outline: 0;
-  border-radius: var(--inputs-radius);
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-button), 0.2);
+  outline: 2px solid var(--color-button);
+  outline-offset: 2px;
+  border-radius: 0.8rem;
 }
 
 .field__input:focus,
@@ -1634,9 +1633,10 @@ details[open] > .share-button__fallback {
 .customer .field input:focus,
 .customer select:focus,
 .localization-form__select:focus.localization-form__select:after {
-  box-shadow: 0 0 0 calc(0.1rem + var(--inputs-border-width)) rgba(var(--color-foreground));
-  outline: 0;
-  border-radius: var(--inputs-radius);
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-button), 0.2);
+  outline: 2px solid var(--color-button);
+  outline-offset: 2px;
+  border-radius: 0.8rem;
 }
 
 .localization-form__select:focus {
@@ -1731,8 +1731,10 @@ details[open] > .share-button__fallback {
 .customer .field input:-webkit-autofill {
   padding: 2.2rem 1.5rem 0.8rem 2rem;
   margin: var(--inputs-border-width);
-  border: 3px solid #000;
-  border-radius: .5rem;
+  border: 2px solid var(--color-button);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-button), 0.1);
+  transition: all 0.3s ease;
 }
 
 .field__input::-webkit-search-cancel-button,
@@ -1742,7 +1744,14 @@ details[open] > .share-button__fallback {
 
 .field__input::placeholder,
 .customer .field input::placeholder {
-  opacity: 0;
+  opacity: 0.5;
+  color: #000000;
+  transition: opacity 0.3s ease;
+}
+
+.field__input:focus::placeholder,
+.customer .field input:focus::placeholder {
+  opacity: 0.7;
 }
 
 .field__button {
@@ -2061,9 +2070,9 @@ product-info .loading__spinner:not(.hidden) ~ *,
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
-  top: 35%;
+  top: 25%;
   bottom: 0.8rem;
-  left: 50%;
+  left: 40%;
   line-height: calc(1 + 0.1 / var(--font-body-scale));
   transform: scale(.7);
 }
@@ -2902,12 +2911,6 @@ details-disclosure > details {
   border-color: rgba(var(--color-badge-border), var(--alpha-badge-border));
   color: rgb(var(--color-badge-foreground));
   word-break: break-word;
-}
-
-.gradient {
-  /* background: rgb(var(--color-background)); */
-  background: var(--gradient-background);
-  background-attachment: fixed;
 }
 
 @media screen and (forced-colors: active) {

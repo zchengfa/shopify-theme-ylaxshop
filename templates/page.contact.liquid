@@ -1,0 +1,692 @@
+{% layout 'theme' %}
+
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  :root {
+    --contact-orange: {{ settings.contact_orange | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+    --contact-orange-dark: {{ settings.contact_orange_dark | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+    --contact-white: {{ settings.contact_white | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+  }
+
+  .contact-page {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    font-family: var(--self_font);
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(rgba(var(--contact-orange), 0.3), rgba(var(--contact-white), 1) 79%, rgba(var(--contact-white), 1) 97%);
+  }
+
+  .contact-page::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 50rem;
+    height: 50rem;
+    background: radial-gradient(circle, rgba(var(--contact-orange), 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .contact-page::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -20%;
+    width: 35rem;
+    height: 35rem;
+    background: radial-gradient(circle, rgba(var(--contact-orange), 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .contact-page__title {
+    font-size: calc(var(--font-scale) * 2rem);
+    text-align: center;
+    margin-bottom: 2rem;
+    color: rgb(var(--color-foreground));
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .contact-page__title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4rem;
+    height: 0.15rem;
+    background: linear-gradient(90deg, transparent, rgb(var(--color-button)), transparent);
+  }
+
+  .contact-page__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .contact-page__wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-page__form-wrapper {
+    background: rgba(var(--contact-white), 0.98);
+    backdrop-filter: blur(15px);
+    padding: 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 10px 40px rgba(var(--contact-orange), 0.25);
+    border: 2px solid rgba(var(--contact-orange), 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-page__form-wrapper:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 15px 50px rgba(var(--color-foreground), 0.12);
+  }
+
+  .contact-page__form-title {
+    font-size: calc(var(--font-scale) * 1.5rem);
+    margin-bottom: 1.5rem;
+    color: rgb(var(--color-foreground));
+    position: relative;
+    padding-bottom: 0.6rem;
+  }
+
+  .contact-page__form-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 0.12rem;
+    background: linear-gradient(90deg, rgb(var(--color-button)), transparent);
+  }
+
+  .contact-page__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-page__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-page__label {
+    font-size: 1.4rem;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .contact-page__input,
+  .contact-page__textarea {
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.6rem;
+    border: 0.15rem solid rgba(var(--contact-orange), 0.3);
+    background: rgba(var(--contact-white), 1);
+    color: rgb(var(--color-foreground));
+    font-family: var(--self_font);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(var(--contact-orange), 0.15);
+  }
+
+  .contact-page__input:focus,
+  .contact-page__textarea:focus {
+    outline: none;
+    border-color: rgba(var(--contact-orange), 1);
+    box-shadow: 0 4px 16px rgba(var(--contact-orange), 0.35);
+    transform: translateY(-2px);
+  }
+
+  .contact-page__textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .contact-page__button {
+    padding: 0.8rem 2rem;
+    background: linear-gradient(135deg, rgba(var(--contact-orange), 1) 0%, rgba(var(--contact-orange-dark), 1) 100%);
+    color: rgb(var(--contact-white));
+    border: none;
+    border-radius: 0.6rem;
+    font-family: var(--self_font);
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(var(--contact-orange), 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-page__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .contact-page__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(var(--color-button), 0.4);
+  }
+
+  .contact-page__button:hover::before {
+    left: 100%;
+  }
+
+  .contact-page__button:active {
+    transform: translateY(-1px);
+  }
+
+  .contact-page__info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-page__info-title {
+    font-size: calc(var(--font-scale) * 1.5rem);
+    color: rgb(var(--color-foreground));
+    margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 0.6rem;
+  }
+
+  .contact-page__info-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 0.12rem;
+    background: linear-gradient(90deg, rgb(var(--color-button)), transparent);
+  }
+
+  .contact-page__info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    background: rgba(var(--contact-white), 0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 1rem;
+    border: 2px solid rgba(var(--contact-orange), 0.3);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(var(--contact-orange), 0.2);
+  }
+
+  .contact-page__info-item:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 8px 24px rgba(var(--contact-orange), 0.3);
+    border-color: rgba(var(--contact-orange), 0.5);
+  }
+
+  .contact-page__info-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    color: rgb(var(--contact-orange));
+    background: rgba(var(--contact-orange), 0.2);
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .contact-page__info-item:hover .contact-page__info-icon {
+    background: rgba(var(--contact-orange), 1);
+    color: rgb(var(--contact-white));
+    transform: scale(1.1);
+  }
+
+  .contact-page__info-content {
+    flex: 1;
+  }
+
+  .contact-page__info-label {
+    font-size: 1rem;
+    color: rgba(var(--color-foreground), 0.6);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
+
+  .contact-page__info-value {
+    font-size: 1.2rem;
+    color: rgb(var(--color-foreground));
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .contact-page__info-value a {
+    color: rgb(var(--color-foreground));
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .contact-page__info-value a::after {
+    content: '';
+    position: absolute;
+    bottom: -0.2rem;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background: rgb(var(--color-button));
+    transition: width 0.3s ease;
+  }
+
+  .contact-page__info-value a:hover {
+    color: rgb(var(--color-button));
+  }
+
+  .contact-page__info-value a:hover::after {
+    width: 100%;
+  }
+
+  .contact-page__map {
+    width: 100%;
+    height: 22rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    box-shadow: 0 8px 24px rgba(var(--contact-orange), 0.25);
+    border: 2px solid rgba(var(--contact-orange), 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-page__map:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 12px 32px rgba(var(--contact-orange), 0.35);
+  }
+
+  .contact-page__social {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  .contact-page__social-link {
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(var(--contact-white), 1);
+    backdrop-filter: blur(15px);
+    color: rgb(var(--color-foreground));
+    transition: all 0.3s ease;
+    border: 2px solid rgba(var(--contact-orange), 0.3);
+    box-shadow: 0 4px 12px rgba(var(--contact-orange), 0.2);
+  }
+
+  .contact-page__social-link:hover {
+    background: rgba(var(--contact-orange), 1);
+    color: rgb(var(--contact-white));
+    transform: translateY(-0.2rem) scale(1.1);
+    box-shadow: 0 8px 20px rgba(var(--contact-orange), 0.5);
+    border-color: rgba(var(--contact-orange), 1);
+  }
+
+  .contact-page__social-link svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .contact-page__social-link:hover svg {
+    transform: scale(1.2);
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-page {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .contact-page::before,
+    .contact-page::after {
+      width: 30rem;
+      height: 30rem;
+    }
+
+    .contact-page__title {
+      font-size: calc(var(--font-scale) * 1.8rem);
+      margin-bottom: 2rem;
+    }
+
+    .contact-page__title::after {
+      width: 3rem;
+      bottom: -0.5rem;
+    }
+
+    .contact-page__form-wrapper {
+      padding: 1.5rem;
+      border-radius: 1rem;
+    }
+
+    .contact-page__form-title {
+      font-size: calc(var(--font-scale) * 1.3rem);
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-page__input,
+    .contact-page__textarea {
+      padding: 0.7rem 1rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-page__button {
+      padding: 0.7rem 1.8rem;
+      font-size: 1.2rem;
+    }
+
+    .contact-page__info-item {
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .contact-page__info-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+      padding: 0.4rem;
+    }
+
+    .contact-page__info-label {
+      font-size: 0.9rem;
+    }
+
+    .contact-page__info-value {
+      font-size: 1.1rem;
+    }
+
+    .contact-page__map {
+      height: 18rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-page__social {
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-page__social-link {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+
+    .contact-page__social-link svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+  }
+  .contact-page__map-placeholder{
+    position: relative;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+{%- endstyle -%}
+
+<div class="contact-page">
+  <h1 class="contact-page__title">{{ page.title }}</h1>
+
+  <div class="contact-page__wrapper">
+    <div class="contact-page__form-wrapper">
+      <h2 class="contact-page__form-title">{{ 'templates.contact.form_title' | t }}</h2>
+
+      {% form 'contact', class: 'contact-page__form' %}
+        {%- if form.posted_successfully? -%}
+          <p class="form-message form-message--success">
+            {{ 'templates.contact.success_message' | t }}
+          </p>
+        {%- endif -%}
+
+        <div class="contact-page__field">
+          <label class="contact-page__label" for="ContactName">{{ 'templates.contact.name' | t }}</label>
+          <input
+            type="text"
+            id="ContactName"
+            name="contact[name]"
+            class="contact-page__input"
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            placeholder="{{ 'templates.contact.name_placeholder' | t }}"
+            required
+          >
+        </div>
+
+        <div class="contact-page__field">
+          <label class="contact-page__label" for="ContactEmail">{{ 'templates.contact.email_label' | t }}</label>
+          <input
+            type="email"
+            id="ContactEmail"
+            name="contact[email]"
+            class="contact-page__input"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            placeholder="{{ 'templates.contact.email_placeholder' | t }}"
+            required
+          >
+        </div>
+
+        <div class="contact-page__field">
+          <label class="contact-page__label" for="ContactPhone">{{ 'templates.contact.phone_label' | t }}</label>
+          <input
+            type="tel"
+            id="ContactPhone"
+            name="contact[phone]"
+            class="contact-page__input"
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            placeholder="{{ 'templates.contact.phone_placeholder' | t }}"
+          >
+        </div>
+
+        <div class="contact-page__field">
+          <label class="contact-page__label" for="ContactMessage">{{ 'templates.contact.message' | t }}</label>
+          <textarea
+            id="ContactMessage"
+            name="contact[body]"
+            class="contact-page__textarea"
+            rows="5"
+            placeholder="{{ 'templates.contact.message_placeholder' | t }}"
+            required
+          >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+
+        <button type="submit" class="contact-page__button">
+          {{ 'templates.contact.submit' | t }}
+        </button>
+      {% endform %}
+    </div>
+
+    <div class="contact-page__info-wrapper">
+      <h2 class="contact-page__info-title">{{ 'templates.contact.info_title' | t }}</h2>
+
+      <div class="contact-page__info-item">
+        {% render 'icon-phone' %}
+        <div class="contact-page__info-content">
+          <div class="contact-page__info-label">{{ 'templates.contact.phone' | t }}</div>
+          <div class="contact-page__info-value">
+            {% if shop.phone %}
+              <a href="tel:{{ shop.phone }}">{{ shop.phone }}</a>
+            {% else %}
+              {{ 'templates.contact.no_phone' | t }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="contact-page__info-item">
+        <svg class="contact-page__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <div class="contact-page__info-content">
+          <div class="contact-page__info-label">{{ 'templates.contact.email' | t }}</div>
+          <div class="contact-page__info-value">
+            {% if shop.email %}
+              <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+            {% else %}
+              {{ 'templates.contact.no_email' | t }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-page__info-item">
+        <svg class="contact-page__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <div class="contact-page__info-content">
+          <div class="contact-page__info-label">{{ 'templates.contact.address' | t }}</div>
+          <div class="contact-page__info-value">
+            {% if shop.address %}
+              {{ shop.address.summary }}
+            {% else %}
+              {{ 'templates.contact.no_address' | t }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-page__info-item">
+        <svg class="contact-page__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <div class="contact-page__info-content">
+          <div class="contact-page__info-label">{{ 'templates.contact.hours' | t }}</div>
+          <div class="contact-page__info-value">
+            {% if settings.contact_hours %}
+              {{ settings.contact_hours }}
+            {% else %}
+              {{ 'templates.contact.no_hours' | t }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-page__map">
+        {% if settings.contact_map_embed.size > 1 %}
+          <iframe id="contactMap"
+            data-AMap-link="{{ settings.contact_A_map_embed }}"
+            src="{{ settings.contact_map_embed }}"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+         {% else %}
+          <div class="contact-page__map-placeholder">
+            {{ 'templates.contact.no_map' | t }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="contact-page__social">
+        {% if settings.social_facebook_link != blank %}
+          <a href="{{ settings.social_facebook_link }}" class="contact-page__social-link" aria-label="Facebook">
+            {% render 'icon-facebook' %}
+          </a>
+        {% endif %}
+
+        {% if settings.social_instagram_link != blank %}
+          <a href="{{ settings.social_instagram_link }}" class="contact-page__social-link" aria-label="Instagram">
+            {% render 'icon-instagram' %}
+          </a>
+        {% endif %}
+
+        {% if settings.social_twitter_link != blank %}
+          <a href="{{ settings.social_twitter_link }}" class="contact-page__social-link" aria-label="Twitter">
+            {% render 'icon-twitter' %}
+          </a>
+        {% endif %}
+
+        {% if settings.social_pinterest_link != blank %}
+          <a href="{{ settings.social_pinterest_link }}" class="contact-page__social-link" aria-label="Pinterest">
+            {% render 'icon-pinterest' %}
+          </a>
+        {% endif %}
+
+        {% if settings.social_tiktok_link != blank %}
+          <a href="{{ settings.social_tiktok_link }}" class="contact-page__social-link" aria-label="TikTok">
+            {% render 'icon-tiktok' %}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<script defer>
+  document.addEventListener('DOMContentLoaded', function() {
+    const embedFrame = document.getElementById('contactMap');
+    const AMapLink = embedFrame.dataset.amapLink;
+    const mapWrapper = document.querySelector('.contact-page__map');
+
+    let googleMapLoaded = false;
+    let hasSwitched = false;
+    let googleTimer = null
+    let amapTimer = null
+
+    function hideMap() {
+      if (mapWrapper) {
+        mapWrapper.style.display = 'none';
+        mapWrapper.style.height = '0';
+        mapWrapper.style.margin = '0';
+      }
+      clearTimeout(amapTimer)
+    }
+    googleTimer = setTimeout(function() {
+      if (!googleMapLoaded) {
+        switchToAMap();
+      }
+    }, 3500);
+
+    function switchToAMap() {
+      if (hasSwitched || !AMapLink) return;
+      hasSwitched = true;
+
+      embedFrame.onload = function() {
+
+      };
+      embedFrame.onerror = hideMap;
+
+      embedFrame.src = AMapLink;
+
+      amapTimer = setTimeout(hideMap, 4000);
+
+      clearTimeout(googleTimer)
+    }
+
+    embedFrame.onload = function() {
+      googleMapLoaded = true;
+    };
+
+    embedFrame.onerror = switchToAMap;
+
+  });
+</script>

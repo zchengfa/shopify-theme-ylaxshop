@@ -36,6 +36,11 @@
 .product-price{
   font-family: var(--self_font);
 }
+  .product-price:nth-child(1){
+    color: var(--payment-terms-background-color);
+    font-size: 1.5rem;
+    font-weight: bolder;
+  }
 .product-price:nth-child(2){
   margin-left: .5rem;
   color: rgb(var(--color-secondary-button-text));
@@ -141,26 +146,40 @@ input[type="number"]{
 .product-media{
   display: flex;
   justify-content: space-between;
-  padding: 1rem
+  gap:1rem;
+  padding: 1rem;
+  overflow-x: scroll;
 }
+  .product-media::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+  }
 .product-media .media-item{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 6rem;
-  height: 6rem;
+  border-radius: .5rem;
+  flex: 1;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  min-width: 60px;
 }
 .product-media .media-item img{
-  width: 85%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: .5rem;
   cursor: pointer;
+  aspect-ratio: 1/1;
 }
-.product-media .media-item img.active{
+.product-media .media-item.active{
   border: 3px solid var(--payment-terms-background-color);
 }
 
 /*媒体展示部分*/
 .title-point{
+  font-size: 1.2rem;
+  font-weight: bold;
   color: var(--payment-terms-background-color);
 }
 @media screen and (max-width:  450px){
@@ -184,6 +203,11 @@ input[type="number"]{
     .main-product-img{
       width: 100%;
       height: auto;
+      aspect-ratio: 1/1;
+    }
+    .product-media .media-item{
+      min-width: 50px;
+      max-width: 70px;
     }
     .product-title{
       font-size: calc(var(--font-scale) * 1.5rem);
@@ -232,42 +256,41 @@ input[type="number"]{
     id="MainProduct-{{ section.id }}"
     class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} main-product"
     data-section="{{ section.id }}">
-  <div class="main-product-content">
+  <div class="main-product-content" id="main-product-content" data-id="{{ section.id }}">
     <div class="main-product-img-box content-item">
       <div class="main-media-container">
         <media-display class="media-display">
-           {% comment %} magnifier {% endcomment %}
           {% assign image_zoom_type = section.settings.image_zoom %}
-          {% comment %} {% if image_zoom_type == 'none' %}
-          <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 />
-          {% elsif image_zoom_type == 'hover' %}
-            <magnifier-image data-show-in-magnifier={{ section.settings.show_in_magnifier }} data-magnifier-times={{ section.settings.magnifier_times }}>
+            <magnifier-image
+              data-zoom-type="{{ image_zoom_type }}"
+              data-show-in-magnifier="{{ section.settings.show_in_magnifier }}"
+              data-magnifier-times="{{ section.settings.magnifier_times }}"
+              data-show-delay="{{ section.settings.magnifier_show_delay }}"
+              data-hide-delay="{{ section.settings.magnifier_hide_delay }}"
+              data-transition-duration="{{ section.settings.magnifier_transition_duration }}">
               {% render 'magnifier-image',
-                product,
-                show_in_magnifier:section.settings.show_in_magnifier,
-                magnifier_mask_color:section.settings.magnifier_mask_color,
-                magnifier_or_mask_size:section.settings.magnifier_or_mask_size
+                      selected_variant: product.selected_or_first_available_variant,
+                      variant_metafield_namespace: 'custom',
+                      variant_metafield_media_images_key: 'variant_extra_img',
+                      variant_metafield_video_key: 'variant_video',
+                      show_in_magnifier:section.settings.show_in_magnifier,
+                      magnifier_mask_color:section.settings.magnifier_mask_color,
+                      magnifier_or_mask_size:section.settings.magnifier_or_mask_size
               %}
             </magnifier-image>
             <script src="{{ 'magnifier.js' | asset_url}}" defer></script>
-          {% elsif image_zoom_type == 'lightbox' %}
-
-          {% endif %} {% endcomment %}
-            <magnifier-image data-zoom-type = {{ image_zoom_type }} data-show-in-magnifier={{ section.settings.show_in_magnifier }} data-magnifier-times={{ section.settings.magnifier_times }}>
-              {% render 'magnifier-image',
-                product,
-                show_in_magnifier:section.settings.show_in_magnifier,
-                magnifier_mask_color:section.settings.magnifier_mask_color,
-                magnifier_or_mask_size:section.settings.magnifier_or_mask_size
-              %}
-            </magnifier-image>
-            <script src="{{ 'magnifier.js' | asset_url}}" defer></script>
-          {% if product.media.size > 1 %}
+          {% assign selected_variant_media_images = product.selected_or_first_available_variant.metafields['custom']['variant_extra_img'].value %}
+          {% if selected_variant_media_images.size > 1 %}
             <div class="product-media">
-              {% for media in product.media %}
-                {% if media.media_type == 'image' %}
-                  <div class="media-item">{{ media | media_tag }}</div>
-                {% endif %}
+              {% for media in selected_variant_media_images %}
+                <div class="media-item">
+                  {% assign media_alt = media.alt | default: product.title | escape %}
+                  {% if forloop.index == 1 %}
+                    {{ media | media_tag: loading: 'eager', alt: media_alt }}
+                  {% else %}
+                    {{ media | media_tag: loading: 'lazy', alt: media_alt }}
+                  {% endif %}
+                </div>
               {% endfor %}
             </div>
           {% endif %}
@@ -289,19 +312,28 @@ input[type="number"]{
           <div class="product-info-item">
             {{ product.description }}
           </div>
-          {% when 'options_panel' %}
-            <div class='product-options-box product-info-item'>
-            {% for option in product.options_with_values %}
-              <div class="product-options-item">
-                <label class="product-options-label">{{ option.name | append:'：' }}</label>
-                <span class="product-options-value">{{ option.values }}</span>
-              </div>
-            {% endfor %}
-            </div>
+          {% comment %}产品变体选择{% endcomment %}
+          {% when 'variant_picker' %}
+            {% render 'product-variant',
+              selected_variant: product.selected_or_first_available_variant,
+              variants: product.variants,
+              variant_metafield_namespace: block.settings.variant_metafield_namespace,
+              variant_metafield_title_key: block.settings.variant_metafield_title_key,
+              variant_metafield_description_key: block.settings.variant_metafield_description_key,
+              variant_metafield_media_images_key: block.settings.variant_metafield_images_key,
+              variant_metafield_delivery_key: block.settings.variant_metafield_delivery_key,
+              variant_metafield_material_key: block.settings.variant_metafield_material_key,
+              variant_metafield_package_key: block.settings.variant_metafield_package_key,
+              variant_metafield_detail_images_key: block.settings.variant_metafield_detail_images_key,
+              variant_metafield_video_key: block.settings.variant_metafield_video_key,
+              variant_metafield_design_language_key: block.settings.variant_metafield_design_language_key
+            %}
+
+          {% comment %}产品变体选择{% endcomment %}
           {% when 'price' %}
           <div class="product-info-item">
-            <span class="product-price">{{ product.price | money_with_currency }}</span>
-            <span class="product-price  line-through">{{ product.compare_at_price | money_with_currency }}</span>
+            <span class="product-price sale-price">{{ product.price | money_with_currency }}</span>
+            <span class="product-price compare-price line-through">{{ product.compare_at_price | money_with_currency }}</span>
             {%- if product.selected_or_first_available_variant.available -%}
               <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
                 {{ 'products.product.on_sale' | t }}
@@ -316,7 +348,7 @@ input[type="number"]{
             {%- assign cart_qty = cart
               | item_count_for_variant: product.selected_or_first_available_variant.id
             -%}
-            <label id="quantity-label" data-id={{ section.id }} class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
+            <label for="Quantity-{{ section.id }}" id="quantity-label" data-id={{ section.id }} class="quantity__label form__label product-info-item" for="Quantity-{{ section.id }}">
               <span>{{ 'products.product.quantity.label' | t }}</span>
 
               <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}">
@@ -372,22 +404,18 @@ input[type="number"]{
       {% for block in section.blocks %}
         {% case block.type %}
           {% when "product_detail_desc" %}
-            {% assign product_sku = block.settings.metaobjects_cate_handle-prefix | append:product.variants[0].sku | replace:'-','' %}
-              {% if shop.metaobjects[block.settings.metaobjects_type][product.variants[0].sku] != empty %}
-                {% render 'product-detail-desc',
-                    SKU:  product_sku ,
-                    custom_metafields_namespace: block.settings.metafields_namespace,
-                    custom_metafields_key: block.settings.metafields_key,
-                    metaobjects_type: block.settings.metaobjects_type,
-                    metaobjects_fields: block.settings.metaobjects_fields,
+            {% render 'product-detail-desc',
+                    variant_selected: product.selected_or_first_available_variant,
+                    variant_metafield_namespace: block.settings.variant_metafield_namespace,
+                    variant_metafield_detail_images_key: block.settings.variant_metafield_detail_images_key,
+                    variant_metafield_design_language_key: block.settings.variant_metafield_design_language_key,
                     card_bg: block.settings.card_bg,
                     card_text_margin_bottom: block.settings.card_text_margin_bottom,
                     card_shadow_color: block.settings.card_shadow_color,
                     card_padding: block.settings.card_padding,
                     image_title: block.settings.image_title,
-                    typewiter_animation: block.settings.typewriter_animation,
-                %}
-              {% endif %}
+                    typewiter_animation: block.settings.typewriter_animation
+            %}
           {% when "recommend_products" %}
             {% render 'recommend-products' ,
               recommend_title: block.settings.recommend_title,
@@ -399,7 +427,6 @@ input[type="number"]{
   </main-product-info-other>
 </section>
 
-
 {% schema %}
 {
     "name": "t:sections.main-product.name",
@@ -408,10 +435,6 @@ input[type="number"]{
     "blocks": [
       {
         "type": "@app"
-      },
-      {
-        "type":"options_panel",
-        "name":"t:sections.main-product.blocks.options_panel.name"
       },
       {
         "type": "text",
@@ -571,6 +594,76 @@ input[type="number"]{
               }
             ],
             "default": "circle"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_namespace",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_namespace.label",
+            "default": "custom",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_namespace.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_title_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_title_key.label",
+            "default": "variant_title",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_title_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_description_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_description_key.label",
+            "default": "variant_description",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_description_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_images_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_images_key.label",
+            "default": "variant_extra_img",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_images_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_delivery_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_delivery_key.label",
+            "default": "variant_delivery",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_delivery_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_material_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_material_key.label",
+            "default": "variant_material",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_material_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_package_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_package_key.label",
+            "default": "variant_package",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_package_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_detail_images_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_detail_images_key.label",
+            "default": "variant_detail_imgs",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_detail_images_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_video_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_video_key.label",
+            "default": "variant_video",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_video_key.info"
+          },
+          {
+            "type": "text",
+            "id": "variant_metafield_design_language_key",
+            "label": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_design_language_key.label",
+            "default": "variant_design_language",
+            "info": "t:sections.main-product.blocks.variant_picker.settings.variant_metafield_design_language_key.info"
           }
         ]
       },
@@ -668,38 +761,24 @@ input[type="number"]{
         "settings": [
           {
             "type": "text",
-            "id": "metafields_namespace",
-            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_namespace.label",
+            "id": "variant_metafield_namespace",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_namespace.label",
             "default": "custom",
-            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_namespace.info"
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_namespace.info"
           },
           {
             "type": "text",
-            "id": "metafields_key",
-            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_key.label",
-            "default": "key",
-            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metafields_key.info"
+            "id": "variant_metafield_detail_images_key",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_detail_images_key.label",
+            "default": "variant_detail_imgs",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_detail_images_key.info"
           },
           {
             "type": "text",
-            "id": "metaobjects_type",
-            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_type.label",
-            "default": "metaobjects type",
-            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_type.info"
-          },
-          {
-            "type": "text",
-            "id": "metaobjects_fields",
-            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_fields.label",
-            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_fields.info",
-            "default": "images,detail_text"
-          },
-          {
-            "type": "text",
-            "id":"metaobjects_cate_handle-prefix",
-            "label": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_cate_handle-prefix.label",
-            "info": "t:sections.main-product.blocks.product_detail_desc.settings.metaobjects_cate_handle-prefix.info",
-            "default": "d"
+            "id": "variant_metafield_design_language_key",
+            "label": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_design_language_key.label",
+            "default": "variant_design_language",
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_design_language_key.info"
           },
           {
             "type": "text",
@@ -1180,6 +1259,39 @@ input[type="number"]{
         "unit": "*",
         "label": "t:sections.main-product.settings.magnifier_times.label",
         "default": 2
+      },
+      {
+        "type": "range",
+        "id": "magnifier_show_delay",
+        "min": 0,
+        "max": 1000,
+        "step": 50,
+        "unit": "ms",
+        "label": "Magnifier Show Delay",
+        "default": 200,
+        "info": "Delay in milliseconds before showing the magnifier on hover"
+      },
+      {
+        "type": "range",
+        "id": "magnifier_hide_delay",
+        "min": 0,
+        "max": 300,
+        "step": 50,
+        "unit": "ms",
+        "label": "Magnifier Hide Delay",
+        "default": 100,
+        "info": "Delay in milliseconds before hiding the magnifier on mouse out"
+      },
+      {
+        "type": "range",
+        "id": "magnifier_transition_duration",
+        "min": 100,
+        "max": 500,
+        "step": 50,
+        "unit": "ms",
+        "label": "Magnifier Transition Duration",
+        "default": 200,
+        "info": "Duration of the fade in/out animation in milliseconds"
       },
       {
         "type": "select",

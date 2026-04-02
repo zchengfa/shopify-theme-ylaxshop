@@ -3,10 +3,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title_bXib6e": {
-          "type": "title",
-          "settings": {}
-        },
         "text_rnpJfw": {
           "type": "text",
           "settings": {
@@ -22,9 +18,12 @@
           "type": "price",
           "settings": {}
         },
-        "options_panel_9nr7TQ": {
-          "type": "options_panel",
-          "settings": {}
+        "variant_picker_99rLMd": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
         },
         "quantity_selector_BiE8bP": {
           "type": "quantity_selector",
@@ -47,11 +46,6 @@
         "product_detail_desc_Kt7rCm": {
           "type": "product_detail_desc",
           "settings": {
-            "metafields_namespace": "custom",
-            "metafields_key": "images_and_designer_flower_language",
-            "metaobjects_type": "product_detail_data",
-            "metaobjects_fields": "pro_images,designer_flower_language",
-            "metaobjects_cate_handle-prefix": "d",
             "image_title": "Product image display",
             "typewriter_animation": true,
             "card_bg": "#fff",
@@ -62,11 +56,10 @@
         }
       },
       "block_order": [
-        "title_bXib6e",
         "text_rnpJfw",
         "description_znVpEC",
         "price_8JkA7x",
-        "options_panel_9nr7TQ",
+        "variant_picker_99rLMd",
         "quantity_selector_BiE8bP",
         "buy_buttons",
         "recommend_products_FLTkDY",
@@ -141,7 +134,12 @@
       "blocks": {
         "judge_me_reviews_review_widget_dmnP9W": {
           "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
         }
       },
       "block_order": [

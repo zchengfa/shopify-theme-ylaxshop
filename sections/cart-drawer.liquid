@@ -1,1 +1,30 @@
-{%  render 'cart-drawer' %}
+{%  render 'cart-drawer',
+    variant_meta_title_key: section.settings.variant_meta_title_key,
+    variant_meta_namespace: section.settings.variant_meta_namespace
+%}
+
+{% schema %}
+{
+  "name": "t:sections.cart-drawer.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.cart-drawer.settings.variant_metafields.content"
+    },
+    {
+      "type": "text",
+      "id": "variant_meta_namespace",
+      "label": "t:sections.cart-drawer.settings.variant_meta_namespace.label",
+      "default": "custom",
+      "info": "t:sections.cart-drawer.settings.variant_meta_namespace.info"
+    },
+    {
+      "type": "text",
+      "id": "variant_meta_title_key",
+      "label": "t:sections.cart-drawer.settings.variant_meta_title_key.label",
+      "default": "variant_title",
+      "info": "t:sections.cart-drawer.settings.variant_meta_title_key.info"
+    }
+  ]
+}
+{% endschema %}

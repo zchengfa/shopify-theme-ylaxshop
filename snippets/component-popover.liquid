@@ -1,73 +1,107 @@
-
 {% style %}
-.global-popover-hidden{
-    display: none;
-}
-.global-component-popover{
-    position:absolute;
-    padding: 1rem;
-    border-radius: 1rem;
-    background: var(--white-color);
+    .global-popover-hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    }
+
+    .global-component-popover {
+    position: absolute;
+    padding: 0;
+    border-radius: 16px;
+    background: #ffffff;
     cursor: pointer;
-    z-index: 999;
-}
-.popover-column{
-    width: max-content;
-}
-.popover-row{
-    width: auto;
-}
-.popover-container{
+    z-index: 9999;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.25s ease;
+    overflow: hidden;
+    min-width: 220px;
+    max-width: 300px;
+    }
+
+    .popover-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.container-display-column{
     flex-direction: column;
-}
-.popover-img{
-    width: 10rem;
-    height: 10rem;
-    border-radius: 1rem;
-}
-.popover-other{
-    padding: 1rem;
-    display:flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    }
+
+    .container-display-column {
+    flex-direction: column;
+    }
+
+    .popover-img-box {
+    width: 100%;
+    overflow: hidden;
+    }
+
+    .popover-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    }
+
+    .popover-other {
+    padding: 16px;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     font-family: var(--self_font);
-}
-.popover-other p{
-    max-width: 15rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-.popover-other p,.popover-other span{
-    max-width: 15rem;
-    margin-top:.5rem;
-}
-.popover-price{
-    color: var(--payment-terms-background-color);
-}
+    gap: 6px;
+    }
+
+    .popover-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin: 0;
+    line-height: 1.3;
+    word-break: break-word;
+    }
+
+    .popover-description {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    }
+
+    .popover-vendor {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    }
+
+    .popover-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--payment-terms-background-color, #000);
+    margin-top: 6px;
+    }
+
+    .global-popover-link {
+    text-decoration: none;
+    display: block;
+    }
 {% endstyle %}
 
-
 <div id='{{ shop.name }}-global-component-popover' class='global-popover-hidden global-component-popover'>
-   <a href="/" class='global-popover-link'>
-    <div class='popover-container container-display-column'>
-        <div class='popover-img-box'>
-            <img class='popover-img' src='/' width='0' height='0' />
+    <a href="/" class='global-popover-link'>
+        <div class='popover-container container-display-column'>
+            <div class='popover-img-box'>
+                <img class='popover-img' src='/' width='300' height='300' />
+            </div>
+            <div class='popover-other'>
+                <p class="popover-title">title</p>
+                <span class='popover-description'>description</span>
+                <span class="popover-vendor gradient-text">vendor</span>
+                <span class='popover-price'>price</span>
+            </div>
         </div>
-        <div class='popover-other'>
-            <p class="popover-title">title</p>
-            <span class='popover-description'>description</span>
-            <span class="popover-vendor gradient-text">vendor</span>
-            <span class='popover-price'>price</span>
-        </div>
-    </div>
-   </a>
+    </a>
 </div>
 
 <script>

@@ -1,3 +1,4 @@
+
 class CartRemoveButton extends HTMLElement {
   constructor() {
     super();
@@ -85,6 +86,11 @@ class CartItems extends HTMLElement {
 
   getSectionsToRender() {
     return [
+      {
+        id:"HeaderCenterOther",
+        section: document.getElementById('HeaderCenterOther')?.dataset?.id,
+        selector: '.cart-display-type'
+      },
       {
         id: 'main-cart-items',
         section: document.getElementById('main-cart-items').dataset.id,
@@ -176,8 +182,6 @@ class CartItems extends HTMLElement {
       })
       .catch(() => {
         this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));
-        const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
-        errors.textContent = window.cartStrings.error;
       })
       .finally(() => {
         this.disableLoading(line);
@@ -214,7 +218,10 @@ class CartItems extends HTMLElement {
     [...cartItemElements, ...cartDrawerItemElements].forEach((overlay) => overlay.classList.remove('hidden'));
 
     document.activeElement.blur();
-    this.lineItemStatusElement.setAttribute('aria-hidden', false);
+    if(this.lineItemStatusElement){
+      this.lineItemStatusElement.setAttribute('aria-hidden', false);
+    }
+
   }
 
   disableLoading(line) {

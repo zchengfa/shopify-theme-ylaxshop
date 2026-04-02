@@ -4,6 +4,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   cursor: zoom-in;
 }
 
@@ -11,14 +13,20 @@
     position: relative;
     width:  100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     overflow: hidden;
   }
   .original-img-box img{
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
     background-size: contain;
     background-repeat: no-repeat;
-  }  
+  }
   .magnifier-img-box{
     position: absolute;
     display: none;
@@ -31,12 +39,18 @@
     background-image: url({{ product.images.first | image_url }});
     overflow: hidden;
     z-index:10;
+    opacity: 0;
+    will-change: opacity, background-position;
+    pointer-events: none;
   }
 #MagnifierMask{
   display: none;
   position: absolute;
   width: {{magnifier_or_mask_size | append: '%'}};
   height: {{magnifier_or_mask_size | append: '%'}};
+  opacity: 0;
+  will-change: opacity, background-position;
+  pointer-events: none;
 }
 .show-magnifier-mask{
   background-repeat: no-repeat;
@@ -48,8 +62,12 @@
   opacity: .3;
 }
 .original-img-box .main-product-img{
-  width: 30vw;
-  height: 30vw;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .main-video-box{
   display: none;
@@ -58,6 +76,8 @@
   width: 100%;
   height: 100%;
   background-color: #fff;
+  border-radius: 2rem;
+  overflow: hidden;
 }
 .main-video-box video{
   width: 100%;
@@ -75,7 +95,7 @@
   color: #fff;
   border-radius: 50%;
   border: 3px solid #fff;
-  z-index: 88;
+  z-index: 20;
 }
 .play-media-btn .icon-play{
   width: 1rem;
@@ -95,33 +115,78 @@
 @media screen and (max-width: 750px) {
   .magnifier-img-container{
     margin: 0 auto;
-    width: 50vw;
+    width: 100%;
+    max-width: 100%;
   }
   .original-img-box {
     text-align: center;
-  } 
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
   .original-img-box .main-product-img{
     width: 100%;
-    height: 50vw;
+    height: auto;
+    aspect-ratio: 1/1;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 }
 /* end magnifier */
 {% endstyle %}
+{% assign selected_variant_media_images = selected_variant.metafields[variant_metafield_namespace][variant_metafield_media_images_key].value %}
+{% assign selected_variant_media_video = selected_variant.metafields[variant_metafield_namespace][variant_metafield_video_key].value %}
+
 <div class="magnifier-img-container">
     <div class="original-img-box">
-      {% for images in product.images %}
-        <img class="main-product-img" {% unless forloop.index == 1 %}style="display:none" {% endunless %} src={{ images | image_url }} alt="product_img" width=0 height=0 />
+      {% for images in selected_variant_media_images %}
+        <img
+          class="main-product-img"
+          {% unless forloop.index == 1 %}style="display:none" {% endunless %}
+          srcset="
+            {%- if images.width >= 375 -%}{{ images | image_url: width: 375, height: 375}}&quantity=50 375w,{%- endif -%}
+            {%- if images.width >= 500 -%}{{ images | image_url: width: 500, height: 500}}&quantity=50 550w,{%- endif -%}
+            "
+          sizes="(max-width: 550px) 100vw, (max-width: 750px) 100vw, 750px"
+          src="{{ images | image_url: width: 500 }}"
+          width="500"
+          height="500"
+          alt="{{ images.alt | default: product.title | escape }}"
+          style="object-fit: contain;"
+          {% if forloop.index == 1 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+        />
       {% endfor %}
-      {% for media in product.media %}
-        {% if media.media_type == 'video' %}
-          <div class="main-video-box">
-            {{ media | video_tag: image_size: '500x' , autoplay: true, loop: true, muted: true, controls: true }}
-          </div>
-          <button class="close-media-btn">{% render 'icon-close' %}</button>
-          <button class="play-media-btn">{% render 'icon-play' %}</button>
-        {% endif %}
-      {% endfor %}  
-      {% comment %} <img class="main-product-img" src={{ product.images.first | image_url }} alt="product_img" width=0 height=0 /> {% endcomment %}
+
+      {% if selected_variant_media_video.media_type == 'video' %}
+        {% assign preview_image = selected_variant_media_video.preview_image.src | json | replace: '\/', '/' | prepend: 'https:' | replace: '"','' %}
+        {% assign video_url = '' %}
+        <div class="main-video-box">
+          <video
+                  loop="loop"
+                  muted="muted"
+                  controls="controls"
+                  preload="none"
+                  poster="{{ preview_image }}"
+                  style="width: 100%; height: 100%; object-fit: cover;"
+          >
+
+            {% for source in selected_variant_media_video.sources %}
+              {% if source.format == 'mp4' and source.height == 480  %}
+                {% assign video_url = source.url | prepend: 'https:' %}
+              {% elsif source.format == 'mp4' and source.height == 720  %}
+                {% assign video_url = source.url | prepend: 'https:' %}
+                {% elsif source.format == 'mp4' and source.height == 1080  %}
+                {% assign video_url = source.url | prepend: 'https:' %}
+              {% endif %}
+
+            {% endfor %}
+            <source src="{{ video_url }}" type="video/mp4"/>
+          </video>
+        </div>
+      <button class="close-media-btn">{% render 'icon-close' %}</button>
+      <button class="play-media-btn">{% render 'icon-play' %}</button>
+      {% endif %}
       <div id="MagnifierMask" class="{% if show_in_magnifier %}show-magnifier-mask{% else %}show-magnifier-mask-hide{% endif %}"></div>
     </div>
     <div class="magnifier-img-box"></div>

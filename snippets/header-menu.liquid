@@ -1,4 +1,3 @@
-
 {% style %}
 .header-menu-box{
     display: flex;
@@ -55,11 +54,10 @@
 
 {% endstyle %}
 
-
 <div class='header-menu-box {{ section.settings.menu_position }}-menu-position' >
     {% for link in menu.links %}
         <div class='link-box'>
             {{ link.title | link_to:link.url }}
         </div>
-    {% endfor %} 
-</div>   
+    {% endfor %}
+</div>

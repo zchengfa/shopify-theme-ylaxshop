@@ -1,114 +1,186 @@
-if(!customElements.get('card-popover')){
+if (!customElements.get('card-popover')) {
     customElements.define('card-popover',
-        class CardPopover extends HTMLElement{
-            constructor(){
+        class CardPopover extends HTMLElement {
+            constructor() {
                 super();
-                //如何展示（row | column）
-                this.display_type = this.attributes['data-display-type'].value;
-                //延迟显示时间
-                this.card_popover_delay = this.attributes['data-card-popover-delay'].value;
-                 //全局弹框元素
-                this.globalPopEl = document.getElementById(this.dataset.componentPopoverId);
-                this.titleEl = this.getElementsByClassName('holiday-product-title').item(0);
-                this.titleEl.setAttribute('title',this.titleEl.textContent);
-                this.descriptionEl = this.getElementsByClassName('holiday-product-desc').item(0);
-                this.descriptionEl.setAttribute('title',this.descriptionEl.textContent);
-                this.timer = null;
 
-                this.addEventListener('mouseenter',(e)=>{
-                    
-                    if(document.body.clientWidth > 750){
-                        //鼠标移入时不会马上显示弹框，隔一段时间再显示
-                        this.timer = setTimeout(()=>{
-                            this.setPopoverContent();
-                            this.addContentToGlobalPopover(e);
-                        },this.card_popover_delay);
-                    }
-                });
+                this.displayType = this.dataset.displayType || 'column';
+                this.popoverDelay = Number(this.dataset.cardPopoverDelay) || 300;
+                this.componentPopoverId = this.dataset.componentPopoverId;
 
-                this.addEventListener('mouseleave',(e)=>{
-                    //添加一层判断，防止在鼠标快速移动时，离开当前元素，但进入全局弹框元素，导致全局弹框反复消失隐藏
-                    this.hideGlobalPopover(e);
-                });
+                // 全局弹框 DOM（增加容错判断）
+                this.globalPopEl = this.componentPopoverId
+                    ? document.getElementById(this.componentPopoverId)
+                    : null;
 
-                //给全局弹框绑定离开事件，离开时隐藏弹框
-                this.globalPopEl.addEventListener('mouseleave',(e)=>{
-                    this.hideGlobalPopover(e);
-                })
-            } 
-            
-            hideGlobalPopover(e){
-                //判断是否离开的是当前元素
-                    if (!this.globalPopEl.contains(e.relatedTarget)) {
-                        this.globalPopEl.style.display = 'none';
-                        
-                    }
-                    //离开时清除定时器，若离开时间与移入的间隔时间小于显示延迟时间时，可达成快入快出不显示弹框的效果
-                    if(this.timer){
-                        clearTimeout(this.timer);
-                        this.timer = null;
-                    }
+                this.titleEl = this.querySelector('.holiday-product-title');
+                this.descriptionEl = this.querySelector('.holiday-product-desc');
+
+                // 定时器
+                this.showTimer = null;
+
+                // 给元素设置 title 属性（安全判断）
+                if (this.titleEl) this.titleEl.title = this.titleEl.textContent;
+                if (this.descriptionEl) this.descriptionEl.title = this.descriptionEl.textContent;
+
+                // 绑定事件（确保 this 指向正确）
+                this.handleMouseEnter = this.handleMouseEnter.bind(this);
+                this.handleMouseLeave = this.handleMouseLeave.bind(this);
+                this.handleGlobalPopoverLeave = this.handleGlobalPopoverLeave.bind(this);
+
+                this.addEventListener('mouseenter', this.handleMouseEnter);
+                this.addEventListener('mouseleave', this.handleMouseLeave);
+
+                if (this.globalPopEl) {
+                    this.globalPopEl.addEventListener('mouseleave', this.handleGlobalPopoverLeave);
+                }
             }
 
-            getElementValue(classname,property){
-                return (this.getElementsByClassName(classname).item(0))[property];
+            // 鼠标进入
+            handleMouseEnter(e) {
+                if (window.innerWidth <= 750) return;
+                if (!this.globalPopEl) return;
+
+                this.clearTimer();
+
+                // 延迟显示弹框
+                this.showTimer = setTimeout(() => {
+                    this.setPopoverContent();
+                    this.updatePopoverPosition(e);
+                    this.showPopover();
+                }, this.popoverDelay);
             }
 
-            addContentToGlobalPopover(e){
-                let {pageX,pageY} = e;
-                this.globalPopEl.style.display = 'block';
-                //若鼠标位置与弹框宽度的和大于浏览器窗口，则需要调整鼠标位置，使弹框不会出现在窗口外
-                
-                if(this.globalPopEl.clientWidth + pageX > window.innerWidth){
-                    
-                    pageX = window.innerWidth - this.globalPopEl.clientWidth;
+            // 鼠标离开
+            handleMouseLeave(e) {
+                if (!this.globalPopEl) return;
+                this.hidePopoverIfLeaving(e);
+                this.clearTimer();
+            }
+
+            // 全局弹框离开
+            handleGlobalPopoverLeave(e) {
+                this.hidePopoverIfLeaving(e);
+            }
+
+            // 隐藏弹框（安全判断）
+            hidePopoverIfLeaving(e) {
+                const isLeavingElement = !this.contains(e.relatedTarget) &&
+                    !this.globalPopEl.contains(e.relatedTarget);
+
+                if (isLeavingElement) {
+                    this.hidePopover();
+                    this.clearTimer();
                 }
-                if(this.globalPopEl.clientHeight + pageY > window.innerHeight){
-                    pageY = (window.innerHeight - this.globalPopEl.clientHeight) + this.clientHeight;
-                }
-                
-                this.globalPopEl.style.left = pageX + 'px';
-                this.globalPopEl.style.top = pageY + 'px';
-               
+            }
+
+            // 显示弹框
+            showPopover() {
+                if (!this.globalPopEl) return;
                 this.globalPopEl.classList.remove('global-popover-hidden');
+                this.globalPopEl.style.display = 'block';
             }
 
-            setPopoverContent(){
-                const {img,title,description,price,vendor,url} = this.dataset;
-                //设置产品详情链接
-                this.globalPopEl.getElementsByClassName('global-popover-link').item(0).setAttribute('href',url);
-                //设置其它内容
-                let data = this.getCardPopoverContent([img,title,description,price,vendor]);
+            // 隐藏弹框
+            hidePopover() {
+                if (!this.globalPopEl) return;
+                this.globalPopEl.classList.add('global-popover-hidden');
+                this.globalPopEl.style.display = 'none';
+            }
 
-                this.globalPopEl.getElementsByClassName('popover-img').item(0).setAttribute('src',data[0]);
-                this.globalPopEl.getElementsByClassName('popover-title').item(0).textContent = data[1];
-                this.globalPopEl.getElementsByClassName('popover-description').item(0).textContent = data[2];
-                this.globalPopEl.getElementsByClassName('popover-price').item(0).textContent = data[3];
-                this.globalPopEl.getElementsByClassName('popover-vendor').item(0).textContent = data[4];
+            // 清除定时器
+            clearTimer() {
+                if (this.showTimer) {
+                    clearTimeout(this.showTimer);
+                    this.showTimer = null;
+                }
+            }
 
-                //根据模板设置的排列类型来改变布局
-                if(this.display_type === 'row'){
-                    this.globalPopEl.getElementsByClassName('popover-container').item(0).classList.remove('container-display-column');
+            // 更新弹框位置（防溢出窗口）
+            updatePopoverPosition(e) {
+                if (!this.globalPopEl) return;
+
+                let { pageX, pageY } = e;
+                const popoverWidth = this.globalPopEl.offsetWidth;
+                const popoverHeight = this.globalPopEl.offsetHeight;
+
+                // 右边界限制
+                if (pageX + popoverWidth > window.innerWidth) {
+                    pageX = window.innerWidth - popoverWidth - 10;
+                }
+
+                // 下边界限制
+                if (pageY + popoverHeight > window.innerHeight) {
+                    pageY = pageY - popoverHeight - this.offsetHeight - 10;
+                }
+
+                // 左边界限制
+                if (pageX < 10) pageX = 10;
+                if (pageY < 10) pageY = 10;
+
+                this.globalPopEl.style.left = `${pageX}px`;
+                this.globalPopEl.style.top = `${pageY}px`;
+            }
+
+            // 设置弹框内容
+            setPopoverContent() {
+                if (!this.globalPopEl) return;
+
+                const { img, title, description, price, vendor, url } = this.dataset;
+                const content = this.getPopoverContentData([img, title, description, price, vendor]);
+
+                // 填充数据
+                this.setElementAttr('.global-popover-link', 'href', url);
+                this.setElementAttr('.popover-img', 'src', content[0]);
+                this.setElementText('.popover-title', content[1]);
+                this.setElementText('.popover-description', content[2]);
+                this.setElementText('.popover-price', content[3]);
+                this.setElementText('.popover-vendor', content[4]);
+
+                // 布局切换
+                this.updatePopoverLayout();
+            }
+
+            // 获取内容数据
+            getPopoverContentData(targets) {
+                return targets.map(item => {
+                    const isImage = item?.includes('img');
+                    return this.getElementValue(item, isImage ? 'src' : 'textContent') || '';
+                });
+            }
+
+            // 更新布局
+            updatePopoverLayout() {
+                const container = this.globalPopEl.querySelector('.popover-container');
+                if (!container) return;
+
+                if (this.displayType === 'row') {
+                    container.classList.remove('container-display-column');
                     this.globalPopEl.classList.add('popover-row');
                     this.globalPopEl.classList.remove('popover-column');
-                }
-                else if(this.display_type === 'column'){
-                    this.globalPopEl.getElementsByClassName('popover-container').item(0).classList.add('container-display-column');
+                } else {
+                    container.classList.add('container-display-column');
                     this.globalPopEl.classList.add('popover-column');
                     this.globalPopEl.classList.remove('popover-row');
                 }
             }
 
-            getCardPopoverContent(targets){
-                let property = 'textContent';
-                let contentArr = [];
-                targets.map((item)=>{
-                    property = item.indexOf('img') === -1 ? 'textContent' : 'src' ;
-                    
-                    contentArr.push(this.getElementValue(item,property));
-                });
+            // 获取元素值
+            getElementValue(className, prop) {
+                const el = this.querySelector(`.${className}`);
+                return el ? el[prop] : '';
+            }
 
-                return contentArr;
+            // 设置文本
+            setElementText(selector, text) {
+                const el = this.globalPopEl.querySelector(selector);
+                if (el) el.textContent = text;
+            }
+
+            // 设置属性
+            setElementAttr(selector, attr, value) {
+                const el = this.globalPopEl.querySelector(selector);
+                if (el) el.setAttribute(attr, value);
             }
         }
     )

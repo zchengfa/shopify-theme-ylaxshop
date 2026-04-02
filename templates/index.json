@@ -3,10 +3,46 @@
     "banner": {
       "type": "banner",
       "blocks": {
+        "slide_aFzT87": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner_default_3.webp",
+            "heading": "Image slide",
+            "heading_size": "h1",
+            "subheading": "Tell your brand's story through images",
+            "button_label": "Button label",
+            "link": "",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_J7qtdN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner_default_5.webp",
+            "heading": "Image slide",
+            "heading_size": "h1",
+            "subheading": "Tell your brand's story through images",
+            "button_label": "Button label",
+            "link": "",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_gBcyXF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner_default_4.webp",
+            "heading": "Image slide",
+            "heading_size": "h1",
+            "subheading": "Tell your brand's story through images",
+            "button_label": "Button label",
+            "link": "",
+            "color_scheme": "scheme-1"
+          }
+        },
         "slide_fEg7jU": {
           "type": "slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/p_2cff7c64-0c5e-11f0-97ab-00163e2c7c57_wm.png",
+            "image": "shopify:\/\/shop_images\/banner_default_2.webp",
             "heading": "Romantic Flower",
             "heading_size": "h1",
             "subheading": "Come and experience this romance",
@@ -18,7 +54,7 @@
         "slide_aE3KQN": {
           "type": "slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/p_8ea0ab1e-0c5e-11f0-b057-00163e2c7c57_wm.png",
+            "image": "shopify:\/\/shop_images\/banner_default_1.webp",
             "heading": "Valentine's Day",
             "heading_size": "h1",
             "subheading": "Let love spread in the fragrance of flowers",
@@ -29,6 +65,9 @@
         }
       },
       "block_order": [
+        "slide_aFzT87",
+        "slide_J7qtdN",
+        "slide_gBcyXF",
         "slide_fEg7jU",
         "slide_aE3KQN"
       ],
@@ -42,82 +81,38 @@
     "holiday_theme_UCfffm": {
       "type": "holiday-theme",
       "blocks": {
-        "product_pXaQdV": {
+        "product_wprFWP": {
           "type": "product",
           "settings": {
-            "holiday_product": "一生一世"
-          }
-        },
-        "product_VVDft4": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "四重奏蛋糕约2磅"
-          }
-        },
-        "product_MBeew4": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "星辰大海-11枝"
-          }
-        },
-        "product_pbgC36": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "love-you"
-          }
-        },
-        "product_irGzgN": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "感恩密码"
-          }
-        },
-        "product_NEDAye": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "你是唯一"
-          }
-        },
-        "product_HqU8T9": {
-          "type": "product",
-          "settings": {
-            "holiday_product": "一鹿路有你永生花小夜灯"
+            "holiday_product": "preserved-flowers-flower-full-moon-eternal-flower-table-lamp-send-customized-models-to-elder-teachers"
           }
         }
       },
       "block_order": [
-        "product_pXaQdV",
-        "product_VVDft4",
-        "product_MBeew4",
-        "product_pbgC36",
-        "product_irGzgN",
-        "product_NEDAye",
-        "product_HqU8T9"
+        "product_wprFWP"
       ],
       "custom_css": [],
       "name": "t:sections.holiday_theme.presets.name",
       "settings": {
-        "image": "shopify:\/\/shop_images\/25_mothersday_fu_banner_pc.png",
         "add_countdown_component": true,
-        "countdown_end_date": "2026-12-31+00:00:00",
-        "card_bg_color": "rgb(78 165 44 \/ 50%)",
-        "multi_text_color": "linear-gradient(45deg, rgba(255, 0, 169, 1), rgba(255, 251, 0, 1) 33.33%, rgba(0, 255, 127, 1) 66.67%, rgba(0, 136, 255, 1) 100%)",
+        "countdown_end_date": "2026-05-10+00:00:00",
+        "multi_text_color": "linear-gradient(303deg, rgba(255, 0, 169, 1), rgba(255, 251, 0, 1) 33.33%, rgba(0, 255, 127, 1) 66.67%, rgba(0, 136, 255, 1) 100%)",
         "show_card_popover": true,
         "card_popover_delay": 800,
         "show_type": "column",
-        "holiday_background": "#FFC5A4"
+        "holiday_background": "linear-gradient(325deg,  rgba(255, 169, 169, 1) 44%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 100%)"
       }
     },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
         "title": "Love Flowers",
-        "heading_size": "h1",
+        "heading_size": "h2",
         "description": "<p>Send someone who makes your heart skip a beat<\/p>",
         "description_style": "body",
-        "collection": "爱情鲜花",
-        "products_to_show": 7,
-        "show_wrap": false,
+        "collection": "love-flowers-collection",
+        "products_to_show": 10,
+        "show_wrap": true,
         "color_scheme": ""
       }
     },
@@ -133,10 +128,6 @@
         "show_wrap": false,
         "color_scheme": "scheme-1"
       }
-    },
-    "1727237088913f083b": {
-      "type": "apps",
-      "settings": {}
     },
     "featured_collection_BHXhbj": {
       "type": "featured-collection",
@@ -155,14 +146,14 @@
       "type": "footer",
       "settings": {
         "color_scheme": "",
-        "newsletter_enable": true,
+        "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,
-        "enable_language_selector": false,
+        "enable_language_selector": true,
         "payment_enable": true,
-        "show_policy": false,
+        "show_policy": true,
         "margin_top": 0,
         "padding_top": 36,
         "padding_bottom": 36
@@ -174,7 +165,6 @@
     "holiday_theme_UCfffm",
     "featured-collection",
     "featured_collection_VmFyYh",
-    "1727237088913f083b",
     "featured_collection_BHXhbj",
     "footer"
   ]

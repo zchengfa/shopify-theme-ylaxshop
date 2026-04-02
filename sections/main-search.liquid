@@ -1,251 +1,329 @@
 {% style %}
-  .filter-form{
+    .filter-form{
     font-family: var(--self_font);
-    padding: 0 3rem;
-  }
-  .filter-form,.filter-form .filter-form__sort,.filter-form__sort .sort-box{
+    padding: 0 4rem;
+    margin-bottom: 2rem;
+    }
+
+    .filter-form, .filter-form .filter-form__sort, .filter-form__sort .sort-box{
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .filter-form .filter-form__sort{
+    }
+
+    .filter-form .filter-form__sort{
     position: relative;
-    
-  }
-  .filter-form__sort .sort-box .icon-caret{
+    }
+
+    /* 筛选图标样式 */
+    .filter-form__sort .sort-box .icon-caret{
     margin-left: 1rem;
     width: 1rem;
     height: 1rem;
     transform: scale(.6) rotateX(0deg);
-  }
-  .filter-form__sort .sort-box .icon-caret.rotate-icon-caret{
+    transition: transform .3s ease;
+    }
+
+    .filter-form__sort .sort-box .icon-caret.rotate-icon-caret{
     transform: scale(.6) rotateX(180deg);
-  }
-  .search-result-count,#SortBy{
+    }
+
+    .search-result-count, #SortBy{
     margin-left: 2rem;
-  }
-  #SortBy{
-      padding: .3rem;
-      border: none;
-      background-color: transparent;
-  }
-  .search-result{
-    padding: 2rem;
+    }
+
+    #SortBy{
+    padding: .5rem 1rem;
+    border: 1px solid #f8c8dc;
+    border-radius: 8px;
+    background-color: transparent;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: all .3s ease;
+    }
+
+    #SortBy:hover {
+    background-color: #fff5f9;
+    }
+
+    .search-result{
+    padding: 0 4rem 4rem;
     font-family: var(--self_font);
-  }
-  .search-result .result-ul{
+    }
+
+    .search-result .result-ul{
     display: grid;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    grid-template-columns: repeat(auto-fill,24%);
-    grid-gap: 10px;
-  }
-  
-  .search-result .result-ul .result-item .result-title{
-    padding: 1rem;
-  }
-  .search-result .result-ul .result-item{
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    }
+    .search-result .result-ul .result-item{
     margin-bottom: 1rem;
-    
-    border-radius: 1rem;
+    border-radius: 16px;
     overflow: hidden;
     color: rgb(var(--color-background));
-    
-  }
-  .product-img-box{
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.1); /* 柔和粉色阴影 */
+    transition: all 0.3s ease;
+    }
+
+    .search-result .result-ul .result-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.15);
+    }
+
+    /* 图片容器 */
+    .product-img-box{
     overflow: hidden;
-  }
-  .product-img-box .product-img:hover{
-    transition: transform .5s ease-in-out;
-    transform: scale(1.1);
-  }
-  .product-img-box .product-img{
-    transition: transform .5s ease-in-out;
-    transform: scale(1);
-    width: 100%;
-    height: auto;
-  }
-  .product-params{
-    padding: 1rem;
-    height: 8rem;
-    letter-spacing: 1px;
-  }
-  .product-title{
-    margin: .5rem 0;
-    font-weight: bolder;
-    font-size: 1.2rem;
-  }
-  .product-title:hover{
-    text-decoration: underline;
-   
-  }
-  .origin-price{
-    margin-left: .5rem;
-    font-size: .8rem;
-  }
-  .price-sort-box__dropdown{
+    position: relative;
+    padding-top: 100%;
+    }
+
+    .product-img-box .product-img{
     position: absolute;
-    top: 150%;
-    display: none;
-    border-radius: .5rem;
-    border: 2px solid var(--black-color);
-    background-color: rgb(var(--color-background));
-    z-index: 9;
-  }
-  .sort__dropdown_item{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 1rem;
-  }
-  .sort__dropdown_bottom{
-   border-top: 1px solid rgba(var(--color-foreground),.2);
- }
- .sort-max-price{
-  white-space: nowrap;
- }
- .reset-filter-link{
-    margin-left: 1rem;
-    white-space: nowrap;
-    text-decoration: underline;
- }
- .price-range-item{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  width: 125px;
-  height: 50px;
-  margin-right: 1rem;
- }
- .price-range-item input{
-  width: 6rem;
-  height: 2.6rem;
-  border-radius: 0.5rem;
-  text-indent: .5rem;
-  border: 1px solid var(--black-color);
- }
- .price-range-input:hover{
-  border: 2px solid var(--black-color);
- }
- .price-range-input:focus-visible{
-  outline: none;
-  box-shadow: none;
- }
- .sort-filter-btn{
-    width: max-content;
-    font-family: var(--self_font);
-    padding: .3rem .7rem;
-    background-color: var(--jdgm-star-color);
-    color: var(--white-color);
-    border-radius: 0.5rem;
-    border: 1px solid var(--black-color);
- }
- .filter-icon-box{
-  display: none;
-  width: 1.5rem;
- }
-  /* 移动端筛选样式 */
-  .mobile-filter-container{
-    display: none;
-  }
- @media screen and (max-width: 768px){
-   .search-result .result-ul{
-      grid-template-columns: repeat(auto-fill,30%);
-   }
- }
- @media screen and (max-width: 768px){
-  .filter-form{
-    padding: 1rem 2rem;
-  }
- }
- @media screen and (max-width: 500px){
-  .filter-form,.search-result{
-    padding: 1rem;
-  }
-  .filter-form__sort .sort-box{
-    display: none;
-  }
-   .search-result .result-ul{
-      grid-template-columns: repeat(auto-fill,48%);
-   }
-   .filter-icon-box{
-    display: block;
-   }
-   .product-params{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease-in-out;
+    }
+
+    .product-img-box:hover .product-img{
+    transform: scale(1.08);
+    }
+
+    /* 文字信息区域 */
+    .product-params{
+    padding: 16px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     justify-content: space-between;
-   }
-   .origin-price{
-    margin-left: 0;
-   }
-   .product-title{
+    }
+
+    /* 标题 */
+    .product-title{
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
     display: -webkit-box;
-    width: 10rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 2; /* 最多两行 */
     -webkit-box-orient: vertical;
-   }
-   /* 移动端筛选样式 */
- .mobile-filter-container{
-  position: fixed;
-  display: block;
-  left: 100%;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  transition: left .5s ease-in-out;
-  background: var(--gradient-background);
-  z-index: 101;
- }
- .mobile-filter-container--show{
-  left: 0;
-  transition: left .5s ease-in-out;
-  z-index: 101;
- }
- .mobile-fiter-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
- }
- .mobile-fiter-result__title{
-  flex: 1;
-  text-align: center;
-  text-indent: 2rem;
-  font-size: 1.2rem;
- }
- .mobile-filter-close{
-  width: 2rem;
- }
- .mobile-filter-close .icon-close{
-  transform: scale(1);
- }
- .mobile-filter-content{
-  padding: 1rem;
- }
- .mobile-filter-content .sort-box{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
- }
- .mobile-filter-content .icon-arrow{
-  width: 1rem;
- }
- }
- 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333;
+    }
+
+    .product-title:hover {
+    color: #ff69b4; /*  hover 变粉色 */
+    text-decoration: none;
+    }
+
+    /* 价格 */
+    .price-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    }
+    .product-price{
+      display:flex;
+      justify-content: flex-start;
+      gap: .5rem;
+    }
+    .now-price{
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ff69b4;
+    }
+
+    .origin-price{
+    font-size: .85rem;
+    color: #999;
+    text-decoration: line-through;
+    }
+
+    .price-sort-box__dropdown{
+    position: absolute;
+    top: 150%;
+    left: 0;
+    display: none;
+    border-radius: 12px;
+    border: 1px solid #f8c8dc;
+    background-color: #ffffff;
+    z-index: 99;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    width: 280px;
+    }
+
+    .sort__dropdown_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    }
+
+    .sort__dropdown_bottom{
+    border-top: 1px solid #f0f0f0;
+    }
+
+    .sort-max-price{
+    white-space: nowrap;
+    font-weight: 500;
+    }
+
+    .reset-filter-link{
+    color: #ff69b4;
+    text-decoration: none;
+    font-size: .85rem;
+    }
+
+    /* 价格输入框 */
+    .price-range-item{
+    display: flex;
+    align-items: center;
+    }
+
+    .price-range-item input{
+    width: 80px;
+    height: 2.8rem;
+    border-radius: 8px;
+    text-indent: .5rem;
+    border: 1px solid #f8c8dc;
+    font-size: .9rem;
+    }
+
+    .price-range-input:focus-visible{
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+    }
+
+    .sort-filter-btn{
+    padding: .5rem 1.2rem;
+    background-color: #ff69b4;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background .3s ease;
+    }
+
+    .sort-filter-btn:hover {
+    background-color: #ff4da6;
+    }
+
+    /* 移动端图标 */
+    .filter-icon-box{
+    display: none;
+    width: 1.5rem;
+    }
+
+    /* 移动端筛选 */
+    .mobile-filter-container{
+    display: none;
+    }
+
+    @media screen and (max-width: 1024px) {
+    .filter-form, .search-result {
+    padding: 0 2rem 2rem;
+    }
+    }
+
+    @media screen and (max-width: 768px){
+    .filter-form{
+      margin-bottom: 0;
+    }
+    .filter-form, .search-result {
+    padding: 2rem 1.5rem;
+    }
+    /* 移动端两列，间距15px */
+    .search-result .result-ul{
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+    }
+
+    .product-params {
+    min-height: 100px;
+    }
+    }
+
+    @media screen and (max-width: 500px){
+    .filter-form{
+    padding: 1rem;
+    }
+    .filter-form__sort .sort-box{
+    display: none;
+    }
+
+    .search-result{
+    padding: 0 1rem 2rem;
+    }
+
+    .search-result .result-ul{
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    }
+
+    .filter-icon-box{
+    display: block;
+    }
+
+    /* 移动端筛选样式 */
+    .mobile-filter-container{
+    position: fixed;
+    display: block;
+    left: 100%;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: left .5s ease-in-out;
+    background: var(--gradient-background);
+    z-index: 101;
+    }
+
+    .mobile-filter-container--show{
+    left: 0;
+    }
+
+    .mobile-fiter-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    }
+
+    .mobile-fiter-result__Title{
+    flex: 1;
+    text-align: center;
+    text-indent: 2rem;
+    font-size: 1.2rem;
+    }
+
+    .mobile-filter-close{
+    width: 2rem;
+    }
+
+    .mobile-filter-content{
+    padding: 1rem;
+    }
+
+    .mobile-filter-content .sort-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    }
+    }
 {% endstyle %}
 
-{% if search.performed and search.results.size > 0 %} 
+{% if search.performed and search.results.size > 0 %}
     <filter-form  id="FilterFormSort-{{ section.id }}">
         <form class="filter-form" data-terms={{ search.terms }} data-search-result-id={{ section.id }}>
             <div class="filter-form__sort">
@@ -295,7 +373,7 @@
                     <select id="SortBy" name="sort_by" aria-label="sort by" data-filter-group="sort_by">
                         {% for option in search.sort_options %}
                             <option value="{{ option.value }}" {% if option.value == search.sort_by %}selected{% endif %}>{{ option.name | escape }}</option>
-                        {% endfor %}    
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="search-result-count">
@@ -318,7 +396,7 @@
                   <select id="SortBy" name="sort_by" aria-label="sort by" data-filter-group="sort_by">
                       {% for option in search.sort_options %}
                           <option value="{{ option.value }}" {% if option.value == search.sort_by %}selected{% endif %}>{{ option.name | escape }}</option>
-                      {% endfor %}    
+                      {% endfor %}
                   </select>
                 </div>
               </div>
@@ -331,20 +409,34 @@
                 {% if result.object_type == 'product' %}
                     {% assign product = result %}
                   <li class="result-item gradient">
-                    <a href={{ product.url }} class='product-item'> 
+                    <a href='{{ product.url }}' class='product-item'>
                         <div class='product-img-box'>
-                            <img class='product-img' src={{ product.featured_image | image_url:width:product.featured_image.width }} alt={{ product.title }} width=330 height=300 />
-                        </div>  
+                            <img
+                              class='product-img'
+                              srcset="
+                                {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                                {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+                              "
+                              src="{{ product.featured_image | image_url: width: 330, height: 300 }}"
+                              sizes="(min-width: 990px) 330px, (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                              alt="{{ product.title | escape }}"
+                              width="330"
+                              height="300"
+                              loading="lazy"
+                            />
+                        </div>
                         <div class='product-params'>
                             <p class='product-title'>{{ product.title }}</p>
-                            <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
-                            <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
-                        </div>   
+                            <div class="product-price">
+                                <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
+                                <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
+                            </div>
+                        </div>
                       </a>
                   </li>
                 {% endif %}
               {% endfor %}
         </ul>
     </div>
-    <script defer src={{ 'filter-form.js' | asset_url }}></script> 
-{% endif %}    
+    <script defer src={{ 'filter-form.js' | asset_url }}></script>
+{% endif %}

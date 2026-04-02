@@ -1,3 +1,11 @@
+const ON_CHANGE_DEBOUNCE_TIMER = 300;
+
+const PUB_SUB_EVENTS = {
+  cartUpdate: 'cart-update',
+  quantityUpdate: 'quantity-update',
+  variantChange: 'variant-change',
+  cartError: 'cart-error',
+};
 function fetchConfig(type = 'json') {
     return {
       method: 'POST',
@@ -73,15 +81,13 @@ function throttle (func,delay) {
    * @param {string} selector 要替换的目标
    * @param {string} id 在哪个元素内
    */
-  function replaceWitnNewHtml(html, selector,id){
-
+  function replaceWithNewHtml(html, selector,id){
     if(html){
-
        let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
-
-       let replaceEl = document.getElementById(id).querySelector(selector);
-
-       replaceEl.innerHTML = parseHtml.innerHTML;
+       //console.log(parseHtml,id,selector);
+       if(document.getElementById(id)){
+         document.getElementById(id).querySelector(selector).innerHTML = parseHtml.innerHTML;
+       }
     }
 
   }
@@ -126,6 +132,7 @@ if(!customElements.get('intersection-box')){
     class IntersectionBox extends HTMLElement{
       constructor(){
         super();
+        this.rootMargin = this.dataset['rootMargin'] || '50px 0px';
       }
 
       connectedCallback(){
@@ -136,7 +143,7 @@ if(!customElements.get('intersection-box')){
         }
 
 
-        new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:'0px 0px -50px 0px'}).observe(this);
+        new IntersectionObserver(intersectionObserverHandler.bind(this),{rootMargin:this.rootMargin}).observe(this);
       }
     }
   );
@@ -241,9 +248,11 @@ class QuantityInput extends HTMLElement {
    */
   updateQuantity = (value) => {
     //阻止表单提交跳转
-    document.getElementById('CartDrawer-Form').addEventListener('submit', function (e) {
-      e.preventDefault();
-    })
+    if(document.getElementById('CartDrawer-Form')){
+      document.getElementById('CartDrawer-Form').addEventListener('submit', function (e) {
+        e.preventDefault();
+      })
+    }
     this.loadingEl?.classList.remove('hidden')
     /**
      * @description 定义请求参数
@@ -269,9 +278,11 @@ class QuantityInput extends HTMLElement {
       //数据转换
       let parseData = JSON.parse(data);
       //更新选定section的页面数据
-      this.updateToRender().map((section)=> replaceWitnNewHtml(parseData.sections[section.section],section.selector,section.id));
+      this.updateToRender().map((section)=> replaceWithNewHtml(parseData.sections[section.section],section.selector,section.id));
       //重新监听事件
       hideCartWithDrawer();
+    }).catch((error)=>{
+      showNotification('cart.update.count.error','error')
     })
   }
   /**
@@ -335,7 +346,13 @@ class Typewriter extends HTMLElement {
 
   beginWriter = () => {
     if (this.currentIndex < this.poet.length) {
-      this.poetItem.textContent += this.poet.charAt(this.currentIndex);
+      const char = this.poet.charAt(this.currentIndex);
+      // 处理换行符
+      if (char === '\n') {
+        this.poetItem.innerHTML += '<br>';
+      } else {
+        this.poetItem.textContent += char;
+      }
       this.currentIndex++;
     } else {
       this.stopTyping();
@@ -348,6 +365,7 @@ class Typewriter extends HTMLElement {
     if (this.hasCompleted || this.isTyping) return;
 
     this.isTyping = true;
+    this.poetItem.parentElement.style.display = 'flex';
     this.poetItem.style.display = 'inline-block';
     this.poetItem.style.borderRight = '2px solid #000';
 
@@ -409,6 +427,35 @@ class Typewriter extends HTMLElement {
     this.stopCursor();
     if (this.observer) {
       this.observer.disconnect();
+    }
+  }
+
+  resetTypewriter = () => {
+    // 停止当前的打字和光标动画
+    this.stopTyping();
+    this.stopCursor();
+
+    // 重置所有状态
+    this.currentIndex = 0;
+    this.hasCompleted = false;
+    this.isTyping = false;
+
+    // 清空文本内容
+    this.poetItem.textContent = '';
+
+    // 如果元素在视口中，重新开始打字
+    if (this.observer) {
+      const rect = this.getBoundingClientRect();
+      const isVisible = (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+
+      if (isVisible) {
+        this.startTyping();
+      }
     }
   }
 }
@@ -645,4 +692,163 @@ class Countdown extends HTMLElement {
 // 注册组件
 if (!customElements.get('count-down')) {
   customElements.define('count-down', Countdown);
+}
+
+if(!customElements.get('product-variant')){
+  class ProductVariant extends HTMLElement {
+    constructor(){
+      super();
+      this.variantContentEl = this.querySelector('.product-variant-content');
+      //获取产品的所有变体元素
+      this.variantEls = Array.from(this.querySelectorAll('.variant-item'));
+      //监听点击事件
+      this.variantEls.map((item)=>{
+        item.addEventListener('click', this.handleVariantClick.bind(this))
+      });
+      //获取需要更新数据的元素
+      this.productTitleEl = document.querySelector('.product-title');
+      this.titlePointEl = document.querySelector('.title-point');
+      this.titleDescEl = document.querySelector('.title-desc');
+      this.priceEl = document.querySelector('.product-price.sale-price');
+      this.addToCartBtnEl = document.querySelector('.product-variant-id')
+      this.comparePriceEl = document.querySelector('.product-price.compare-price');
+      this.materialEl = this.querySelector('.variant-material-text-box');
+      this.packageEl = this.querySelector('.variant-package-text-box');
+      this.deliveryEl = this.querySelector('.variant-delivery-text-box');
+
+      //变体媒体展示元素
+      this.variantMediaEl = document.querySelector('.product-media');
+      this.mediaItems = this.variantMediaEl.querySelectorAll('.media-item')
+      this.mainMediaItems = document.querySelectorAll('.main-product-img')
+
+      //type writer元素
+      this.poetContainerEl = document.querySelector('.poet-container');
+      this.typewriterEl = document.querySelector('type-writer');
+      //当前选择的变体存储的数据
+      this.variantData = {};
+      this.init()
+    }
+
+    init = ()=>{
+      const selectedVariantId = this.variantContentEl.dataset['selectedVariantId']
+      this.variantEls.map((item)=>{
+        if(item.dataset['variantId'] === selectedVariantId){
+          const inputElDataset = item.querySelector('input').dataset;
+          this.variantData = {
+            ...inputElDataset
+          }
+        }
+      })
+      this.replaceVariantElContent()
+    }
+
+    handleVariantClick= (e)=>{
+      const parentEl = e.target.parentElement;
+      const inputElDataset = parentEl.querySelector('input').dataset;
+      const variantId = parentEl.dataset['variantId']
+      this.addToCartBtnEl.value = variantId
+      this.variantEls.map((item)=>{
+        if(item.dataset['variantId'] === variantId){
+          item.classList.add('active');
+        }
+        else{
+          item.classList.remove('active');
+        }
+      })
+
+      this.variantData = {
+        ...inputElDataset
+      }
+      this.replaceVariantElContent()
+      this.replaceVariantMediaContent()
+      this.resetTypeWriterContent()
+    }
+
+    resetTypeWriterContent = ()=>{
+      // 更新 Typewriter 的文本内容并重置打字机效果
+      if (this.typewriterEl) {
+        const designLanguage = this.variantData['designLanguage'];
+
+        // 判断文本是否为空
+        if (!designLanguage || designLanguage.trim() === '' || designLanguage === 'null') {
+          // 文本为空，隐藏打字机标签
+          this.typewriterEl.style.display = 'none';
+        } else {
+          // 文本不为空，显示打字机标签并更新内容
+          this.typewriterEl.style.display = '';
+          this.typewriterEl.querySelector('.poet-container').dataset.poet = designLanguage;
+          this.typewriterEl.poet = designLanguage;
+          this.typewriterEl.resetTypewriter();
+        }
+      }
+    }
+
+    replaceVariantElContent = ()=>{
+      if(Object.keys(this.variantData).length > 0) {
+        this.productTitleEl.textContent = this.variantData['title'];
+        this.titlePointEl.textContent = this.variantData['desc'].substring(0, this.variantData['desc'].indexOf(']') + 1);
+        this.titleDescEl.textContent = this.variantData['desc'].substring(this.variantData['desc'].indexOf(']') + 1, this.variantData['desc'].length);
+        this.priceEl.textContent = this.variantData['price'];
+        this.comparePriceEl.textContent = this.variantData['comparePrice'];
+        this.replaceVariantOtherContent()
+      }
+    }
+
+    replaceVariantOtherContent = ()=> {
+      if (Object.keys(this.variantData).length > 0){
+        const {material,packages,delivery} = this.variantData
+        const materialArr = JSON.parse(material);
+        let materialStr = '';
+        materialArr.map((item)=>{
+          const translateItem = item.replace('[','<strong class="material-strong">').replace(']','</strong>')
+          materialStr += `
+            <p class="variant-material-text">${translateItem}</p>
+          `
+        })
+        this.materialEl.innerHTML = materialStr;
+        this.packageEl.textContent = packages;
+        this.deliveryEl.textContent = delivery;
+
+      }
+    }
+
+    replaceVariantMediaContent = ()=>{
+      const mediaImages = JSON.parse(this.variantData['mediaImages']);
+      mediaImages.filter((item)=> item.replace('"',''))
+      mediaImages.map((item,index)=>{
+        const mediaItem = this.mediaItems[index];
+        mediaItem.innerHTML = `
+          <img src="${item}&width=100" alt="variant_media_img">
+        `
+        this.mainMediaItems[index].src = item;
+        //图片srcset属性值拼接替换
+        this.imageSrcsetReplace(this.mainMediaItems[index],item)
+      })
+      const detailImages = JSON.parse(this.variantData['detailImages']);
+      detailImages.filter((item)=> item.replace('"',''));
+      // 使用DocumentFragment批量添加图片元素，减少DOM操作
+      const fragment = document.createDocumentFragment();
+      detailImages.forEach((item)=>{
+        const img = document.createElement('img');
+        img.className = 'product-detail-desc-img';
+        img.src = `${item}&width=550`;
+        img.alt = 'variant_detail_img';
+        img.srcset = `${item}&width=375 375w,${item}&width=550 550w`;
+        img.sizes = '(max-width: 550px) 100vw, (max-width: 750px) 100vw, 550px';
+        img.width = 550;
+        img.height = 550;
+        fragment.appendChild(img);
+      });
+      // 一次性替换所有图片元素，减少重排和重绘
+      const imageBox = document.querySelector('.product-detail-desc-images-box');
+      imageBox.textContent = '';
+      imageBox.appendChild(fragment);
+    }
+    imageSrcsetReplace = (target,src,widthArr = [375,550])=>{
+      target.srcset = widthArr.map((item) => `${src}&width=${item} ${item}w`).join(',')
+      target.alt = this.variantData['title']
+    }
+  }
+
+  customElements.define('product-variant', ProductVariant);
 }

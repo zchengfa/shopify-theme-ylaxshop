@@ -1,6 +1,7 @@
 {% style %}
 .banner-container{
   width: 100%;
+  padding: 0 .5rem;
 }
 .banner-con-imgs{
   display: flex;
@@ -34,15 +35,29 @@
     top: 50%;
     left: 50%;
     transform: translate(-50% , -50%);
-    background: var(--white-color);
     border-radius: 1rem;
+    background: var(--gradient-background);
   }
   .banner-card div:not(first-child){
     margin-top: 2rem;
   }
+  .banner-card .banner__text{
+    margin-top: 1rem;
+  }
   .banner__heading {
     font-family: var(--self_font);
     font-size: calc(var(--font-scale) * 1.6rem);
+  }
+  .banner__subheading{
+      width: 100%;
+      padding: .2rem ;
+      font-size: 1.1rem;
+      color: var(--white-color);
+      font-weight: bolder;
+     text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+     white-space: nowrap;
+     text-overflow: ellipsis;
+     overflow: hidden;
   }
   .banner__buttons .button{
     display: inline-flex;
@@ -50,14 +65,19 @@
     align-items: center;
     padding: 0 3rem;
     height: 3rem;
-    background: var(--black-color);
     color: var(--white-color);
-    border-radius: .5rem;
+    border-radius: 999px;
+    border: 2px solid var(--white-color);
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+    box-shadow: 2px 2px 6px rgba(0,0,0,.5);
+    background: rgb(var(--color-background));
   }
   .animate--ambient img{
     animation: animationAmbient 30s linear infinite;
   }
-
+  .banner-controller{
+    padding: 1rem;
+  }
   .banner-con-controller{
   display: flex;
   justify-content: center;
@@ -90,8 +110,10 @@
   font-size: .8rem;
 }
 /* dots and number style */
-.dot-active{
-  background: var(--black-color);
+.dot.dot-active{
+  width: .8rem;
+  height: .8rem;
+  background: var(--sf-purple-color);
 }
 .number-active{
   transition: transform .2s ease-in-out;
@@ -134,13 +156,19 @@
   }
 }
 @media screen and (max-width: 750px){
+  .banner-container{
+    padding: 1rem;
+  }
+  .banner-items{
+    height: 20rem;
+  }
   .banner-item-img{
     margin: 0 auto;
     width:96%;
     overflow: hidden;
     height: auto;
     border-radius: 1rem;
-    
+
   }
   .banner-con-imgs img{
     height: 16rem;
@@ -148,6 +176,7 @@
   .banner-card{
     position: static;
     transform: none;
+    background: transparent;
   }
   .banner__heading{
     font-size: calc(var(--font-scale)* 2rem);
@@ -156,7 +185,7 @@
     height: 30rem;
   }
 }
-{% endstyle %}  
+{% endstyle %}
 
 <banner-control>
   <div class='banner-container banner-{{ section.id }}'>
@@ -173,11 +202,11 @@
                 assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
                 assign image_format = 'webp'
                 if section.settings.image_behavior == 'ambient'
-                  assign sizes = '120vw'
-                  assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+                  assign sizes = '(max-width: 750px) 100vw, 120vw'
+                  assign widths = '375, 550, 750, 900, 1100, 1320, 1500'
                 else
-                  assign sizes = '100vw'
-                  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                  assign sizes = '(max-width: 750px) 100vw, (max-width: 1100px) 90vw, 100vw'
+                  assign widths = '375, 550, 750, 1100, 1500'
                 endif
                 assign fetch_priority = 'auto'
                 if section.index == 1
@@ -187,21 +216,31 @@
               {%- if forloop.first %}
                 {{
                   block.settings.image
-                  | image_url: width: 3840
-                  | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority,loading: 'eager',format: image_format
+                  | image_url: width: 1200
+                  | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority,loading: 'eager',quantity:80,format: image_format
                 }}
               {%- else -%}
                 {{
                   block.settings.image
-                  | image_url: width: 3840
-                  | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths,format: image_format, fetchpriority: fetch_priority
+                  | image_url: width: 1200
+                  | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths,format: image_format, fetchpriority: fetch_priority,quantity:70
                 }}
               {%- endif -%}
           {% else %}
-          <img src={{ 'banner_default.jpeg'| asset_img_url:'large' }} alt='banner_default' width='1600' height='400' />  
+              <img
+                      src="{{ 'banner_default_1.webp' | asset_url }}?width=480&quality=80"
+                      srcset="
+                        {{ 'banner_default_1.webp' | asset_url }}?width=360&quality=80 360w,
+                        {{ 'banner_default_1.webp' | asset_url }}?width=480&quality=80 480w
+                      "
+                      sizes="(max-width:750px) 100vw, 480px"
+                      width="750"
+                      height="300"
+                      fetchpriority="high"
+               alt="banner image"/>
          {%- endif -%}
           </div>
-         <div class='banner-card color-{{ block.settings.color_scheme }} gradient'>
+         <div class='banner-card'>
           {%- if block.settings.heading != blank -%}
             <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
               {{ block.settings.heading }}
@@ -209,7 +248,7 @@
           {%- endif -%}
           {%- if block.settings.subheading != blank -%}
             <div class="banner__text rte" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.subheading }}</p>
+              <p class="banner__subheading">{{ block.settings.subheading }}</p>
             </div>
           {%- endif -%}
           {%- if block.settings.button_label != blank -%}
@@ -226,7 +265,7 @@
               </a>
             </div>
           {%- endif -%}
-        </div> 
+        </div>
         </div>
       {% endfor %}
     </div>
@@ -253,7 +292,7 @@
                 <span class='charactor'>/</span>
                 <span class='total-page'>{{ section.blocks.size }}</span>
               </div>
-            {% elsif  section.settings.banner_controller_type =='number' %}  
+            {% elsif  section.settings.banner_controller_type =='number' %}
             <div class='banner-con-number'>
               {% for block in section.blocks %}
                 <button class='btn-number' data-index={{ forloop.index }} >
@@ -266,9 +305,9 @@
           <button class='banner-btn btn-next'>
             {% render 'icon-button-previous-next' %}
           </button>
-        </div>  
+        </div>
       </div>
-    {% endif %}  
+    {% endif %}
   </div>
 </banner-control>
 
@@ -406,6 +445,6 @@
       ]
     }
   ]
-}  
+}
 
 {% endschema %}

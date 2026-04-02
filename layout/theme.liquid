@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-49WSPRWZEL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-49WSPRWZEL');
+    </script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="">
+    <meta name="google-site-verification" content="x196co_wDXv2zJslZ90G0gl4umzLYt9nciEonynvYlA">
   <link rel="canonical" href="{{ canonical_url }}">
 
     <title>{{ page_title }}</title>
@@ -22,7 +31,7 @@
     {{ 'reset.css' | asset_url | stylesheet_tag }}
     {{ 'common.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    
+
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
@@ -61,7 +70,7 @@
                     assign background_color_contrast = background_color | color_darken: 25
                 endif
             %}
-            
+
             --badge-corner-radius: {{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
 
             --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
@@ -80,7 +89,8 @@
             --white-color: #fff;
             --black-color: #000;
             --sf-purple-color: #d416cad4;
-            
+            --inputs-border-width: .1rem;
+
             --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
             --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
             --product-card-text-alignment: {{ settings.card_text_alignment }};
@@ -100,27 +110,167 @@
 
           {{ scheme_classes | prepend: 'body' }} {
             color: rgba(var(--color-foreground), 0.75);
-            background-color: rgb(var(--color-background));
           }
         {% endfor %}
 
       :root{
         --font-scale: {{settings.font_scale | times: 1.0 | divided_by: 100.0}};
-        --font-weight: {{ settings.shop_font.weight }}
+        --font-weight: {{ settings.shop_font.weight }};
+        --font-heading-scale: {{settings.font_heading_scale | times: 1.0 | divided_by: 100.0}};
+        --font-body-scale: {{settings.font_body_scale | times: 1.0 | divided_by: 100.0}};
+
+        /* 页面布局 */
+        --page-width: {{ settings.page_width }}rem;
+        --page-width-margin: {{ settings.page_width_margin }}rem;
+
+        /* 按钮样式 */
+        --buttons-radius: {{ settings.buttons_radius | divided_by: 10.0 }}rem;
+        --buttons-radius-outset: {{ settings.buttons_radius_outset | divided_by: 10.0 }}rem;
+
+        /* 主题颜色 */
+        --white-color: {{ settings.white_color | default: '#fff' }};
+        --black-color: {{ settings.black_color | default: '#000' }};
+        --sf-purple-color: {{ settings.sf_purple_color | default: '#d416cad4' }};
+        --color-sale: {{ settings.color_sale }};
+        --color-error: {{ settings.color_error }};
+        --color-success: {{ settings.color_success | default:'#00ff00' }};
+        --color-accent: {{ settings.color_accent | default: '#d416ca' }};
+
+        /* 输入框样式 */
+        --inputs-border-width: {{ settings.inputs_border_width }}rem;
+        --inputs-radius: {{ settings.inputs_radius }}rem;
+        --inputs-radius-outset: {{ settings.inputs_radius_outset }}rem;
+        --inputs-shadow-horizontal-offset: {{ settings.inputs_shadow_horizontal_offset }}rem;
+        --inputs-shadow-vertical-offset: {{ settings.inputs_shadow_vertical_offset }}rem;
+        --inputs-shadow-blur-radius: {{ settings.inputs_shadow_blur_radius }}rem;
+        --inputs-shadow-opacity: {{ settings.inputs_shadow_opacity }};
+
+        /* 弹出框样式 */
+        --popup-border-width: {{ settings.popup_border_width }}rem;
+        --popup-border-opacity: {{ settings.popup_border_opacity }};
+        --popup-corner-radius: {{ settings.popup_corner_radius }}rem;
+        --popup-shadow-horizontal-offset: {{ settings.popup_shadow_horizontal_offset }}rem;
+        --popup-shadow-vertical-offset: {{ settings.popup_shadow_vertical_offset }}rem;
+        --popup-shadow-blur-radius: {{ settings.popup_shadow_blur_radius }}rem;
+        --popup-shadow-opacity: {{ settings.popup_shadow_opacity }};
+
+        /* 动画设置 */
+        --duration-extended: {{ settings.duration_extended }}ms;
+        --ease-out-slow: {{ settings.ease_out_slow }};
+
+        /* 透明度设置 */
+        --alpha-button-background: {{ settings.alpha_button_background }};
+        --alpha-button-border: {{ settings.alpha_button_border }};
+        --alpha-link: {{ settings.alpha_link }};
+        --alpha-badge-border: {{ settings.alpha_badge_border }};
+
+        /* 输入框样式 */
+        --inputs-radius: 0.8rem;
+        --inputs-radius-outset: 0.8rem;
+        --inputs-shadow-horizontal-offset: 0;
+        --inputs-shadow-vertical-offset: 0.2rem;
+        --inputs-shadow-blur-radius: 0.4rem;
+        --inputs-shadow-opacity: 0.05;
+
+        /* 弹出框样式 */
+        --popup-border-width: 0.1rem;
+        --popup-border-opacity: 0.2;
+        --popup-corner-radius: 0.8rem;
+        --popup-shadow-horizontal-offset: 0;
+        --popup-shadow-vertical-offset: 0.4rem;
+        --popup-shadow-blur-radius: 1rem;
+        --popup-shadow-opacity: 0.1;
+
+        /* 按钮样式 */
+        --color-button-hover: #3b50d4;
+
+        /* 动画时长 */
+        --duration-extended: 500ms;
+        --ease-out-slow: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        /* 卡片样式 - 集合 */
+        --collection-card-corner-radius: 0.8rem;
+        --collection-card-border-width: 0.1rem;
+        --collection-card-border-opacity: 0.1;
+        --collection-card-shadow-horizontal-offset: 0;
+        --collection-card-shadow-vertical-offset: 0.4rem;
+        --collection-card-shadow-blur-radius: 1rem;
+        --collection-card-shadow-opacity: 0.05;
+        --collection-card-shadow-visible: 1;
+        --collection-card-image-padding: 0;
+        --collection-card-text-alignment: left;
+
+        /* 卡片样式 - 博客 */
+        --blog-card-corner-radius: 0.8rem;
+        --blog-card-border-width: 0.1rem;
+        --blog-card-border-opacity: 0.1;
+        --blog-card-shadow-horizontal-offset: 0;
+        --blog-card-shadow-vertical-offset: 0.4rem;
+        --blog-card-shadow-blur-radius: 1rem;
+        --blog-card-shadow-opacity: 0.05;
+        --blog-card-shadow-visible: 1;
+        --blog-card-image-padding: 0;
+        --blog-card-text-alignment: left;
+
+        /* 文本框样式 */
+        --text-boxes-radius: 0.8rem;
+        --text-boxes-border-width: 0.1rem;
+        --text-boxes-border-opacity: 0.1;
+        --text-boxes-shadow-horizontal-offset: 0;
+        --text-boxes-shadow-vertical-offset: 0.4rem;
+        --text-boxes-shadow-blur-radius: 1rem;
+        --text-boxes-shadow-opacity: 0.05;
+        --text-boxes-shadow-visible: 1;
+
+        /* 媒体样式 */
+        --media-radius: 0.8rem;
+        --media-border-width: 0.1rem;
+        --media-border-opacity: 0.1;
+        --media-shadow-horizontal-offset: 0;
+        --media-shadow-vertical-offset: 0.4rem;
+        --media-shadow-blur-radius: 1rem;
+        --media-shadow-opacity: 0.05;
+        --media-shadow-visible: 1;
       }
     {% endstyle %}
 </head>
 <body>
-{% sections 'header-group' %}
-<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-  {{ content_for_layout }}
+{% assign show_header_pages = 'contact,about,index' | split: ',' %}
+
+{% assign show_header = false %}
+
+{% if template == 'index' or template == 'product' or template == 'collection' %}
+    {% assign show_header = true %}
+{% endif %}
+
+{% if template.name == 'page' %}
+    {% for handle in show_header_pages %}
+        {% if page.handle == handle %}
+            {% assign show_header = true %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if show_header or template.name == 'cart' or template.name == 'search' %}
+    {% sections 'header-group' %}
+{% endif %}
+
+<main id="MainContent" style="width: 100%;min-height: calc(100vh - 4rem);" class="content-for-layout focus-none" role="main" tabindex="-1">
+    {{ content_for_layout }}
 </main>
-{% sections 'footer' %}
+
+{% if show_header %}
+    {% sections 'footer' %}
+{% endif %}
+
 {% render 'component-popover' %}
 
 {% if settings.cart_type == 'drawer' %}
   {% section 'cart-drawer' %}
 {% endif %}
+
+{% render 'universal-notification' %}
 
 <script>
     window.shopUrl = '{{ request.origin }}';
@@ -136,6 +286,6 @@
   {%- if settings.predictive_search_enabled -%}
     <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
-  
+
 </body>
 </html>

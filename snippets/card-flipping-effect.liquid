@@ -17,6 +17,18 @@
     --card-minute-gradient: {{ section.settings.card_minute_gradient | default: 'linear-gradient(135deg, #5c6bc0, #9fa8da)' }};
     --card-second-gradient: {{ section.settings.card_second_gradient | default: 'linear-gradient(135deg, #26a69a, #80cbc4)' }};
 
+    /* 卡片翻转动画渐变变量 */
+    --card-day-flip-gradient: {{ section.settings.card_day_flip_gradient | default: 'linear-gradient(135deg, #f06292, #f8bbd9)' }};
+    --card-hour-flip-gradient: {{ section.settings.card_hour_flip_gradient | default: 'linear-gradient(135deg, #ce93d8, #e1bee7)' }};
+    --card-minute-flip-gradient: {{ section.settings.card_minute_flip_gradient | default: 'linear-gradient(135deg, #9fa8da, #c5cae9)' }};
+    --card-second-flip-gradient: {{ section.settings.card_second_flip_gradient | default: 'linear-gradient(135deg, #80cbc4, #b2dfdb)' }};
+
+    /* 背景装饰渐变变量 */
+    --container-decoration-gradient: {{ section.settings.container_decoration_gradient | default: 'linear-gradient(90deg, rgba(233, 30, 99, 0.3), rgba(171, 71, 188, 0.3), rgba(92, 107, 192, 0.3), rgba(38, 166, 154, 0.3))' }};
+
+    /* 卡片背景颜色 */
+    --card-bg-color: {{ section.settings.card_bg_color | default: 'rgba(255, 255, 255, 0.95)' }};
+
     }
     /* 容器样式*/
     .flipping-container {
@@ -43,13 +55,7 @@
     letter-spacing: 2px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(90deg,
-    #e91e63 0%,
-    #d81b60 25%,
-    #c2185b 50%,
-    #ad1457 75%,
-    #880e4f 100%
-    );
+    background: var(--multi-text-gradient);
     background-size: 300%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -59,13 +65,12 @@
 
     /* 卡片容器布局 */
     .card-flipping-effect-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.8rem;
-    flex-wrap: wrap;
     margin: 0 auto;
     max-width: 480px;
+    justify-items: center;
     }
 
     /* 卡片盒子 */
@@ -84,7 +89,7 @@
     height: var(--flip-card-size);
     border-radius: 8px;
     overflow: hidden;
-    background: var(--page-bg-color);
+    background: var(--card-bg-color);
     box-shadow:
     0 3px 10px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
@@ -158,7 +163,7 @@
 
     .card-flipping-day .card_2,
     .card-flipping-day .card_3 {
-    background: linear-gradient(135deg, #f06292, #f8bbd9);
+    background: var(--card-day-flip-gradient);
     }
 
     /* HOUR 卡片 - 紫色系 */
@@ -168,7 +173,7 @@
 
     .card-flipping-hour .card_2,
     .card-flipping-hour .card_3 {
-    background: linear-gradient(135deg, #ce93d8, #e1bee7);
+    background: var(--card-hour-flip-gradient);
     }
 
     /* MINUTE 卡片 - 蓝色系 */
@@ -178,7 +183,7 @@
 
     .card-flipping-minute .card_2,
     .card-flipping-minute .card_3 {
-    background: linear-gradient(135deg, #9fa8da, #c5cae9);
+    background: var(--card-minute-flip-gradient);
     }
 
     /* SECOND 卡片 - 青色系 */
@@ -188,7 +193,7 @@
 
     .card-flipping-second .card_2,
     .card-flipping-second .card_3 {
-    background: linear-gradient(135deg, #80cbc4, #b2dfdb);
+    background: var(--card-second-flip-gradient);
     }
 
     /* 翻转动画类 */
@@ -211,7 +216,7 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 600;
-    color: #ad1457; /* 商品标签的颜色 */
+    color: var(--time-label-color);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     opacity: 0.9;
     }
@@ -240,18 +245,23 @@
     }
 
     @keyframes gradient-move {
-    0% { background-position: 300% 0; }
-    100% { background-position: -300% 0; }
+    0% {
+    background-position: left 300% top 0;
+    }
+    100% {
+    background-position: left -300% top 0;
+    }
     }
 
     /* 响应式设计 */
     @media (max-width: 768px) {
     .card-flipping-effect-box {
-    gap: 0.7rem;
+    gap: 0.6rem;
+    grid-template-columns: repeat(4, 1fr);
     }
 
     .flipping-card__box {
-    min-width: 60px;
+    min-width: 55px;
     }
 
     .card-flipping-item-box {
@@ -268,16 +278,17 @@
 
     @media (max-width: 500px) {
     .card-flipping-effect-box {
-    gap: 0.5rem;
+    gap: 0.4rem;
+    grid-template-columns: repeat(4, 1fr);
     }
 
     .flipping-card__box {
-    min-width: 55px;
+    min-width: 50px;
     }
 
     .card-flipping-item-box {
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     }
 
     .activity-title {
@@ -293,6 +304,39 @@
     .card-item {
     font-size: 1rem;
     }
+
+    .card_1,.card_3{
+        line-height: 38px;
+    }
+    }
+
+    @media (max-width: 380px) {
+    .card-flipping-effect-box {
+    gap: 0.3rem;
+    grid-template-columns: repeat(4, 1fr);
+    }
+
+    .flipping-card__box {
+    min-width: 45px;
+    }
+
+    .card-flipping-item-box {
+    width: 38px;
+    height: 38px;
+    }
+
+    .time-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
+    }
+
+    .card-item {
+    font-size: 0.9rem;
+    }
+
+    .card_1,.card_3{
+        line-height: 34px;
+    }
     }
     /* 添加微妙的背景装饰 */
     .flipping-container::before {
@@ -302,12 +346,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg,
-    rgba(233, 30, 99, 0.3),
-    rgba(171, 71, 188, 0.3),
-    rgba(92, 107, 192, 0.3),
-    rgba(38, 166, 154, 0.3)
-    );
+    background: var(--container-decoration-gradient);
     border-radius: 16px 16px 0 0;
     z-index: 1;
     }

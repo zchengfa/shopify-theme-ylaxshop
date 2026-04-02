@@ -90,13 +90,13 @@ if (!customElements.get('localization-form')) {
 
         switch (event.code.toUpperCase()) {
           case 'ESCAPE':
-            if (this.elements.button.getAttribute('aria-expanded') == 'false') return;
+            if (this.elements.button.getAttribute('aria-expanded') === 'false') return;
             this.hidePanel();
             event.stopPropagation();
             this.elements.button.focus();
             break;
           case 'SPACE':
-            if (this.elements.button.getAttribute('aria-expanded') == 'true') return;
+            if (this.elements.button.getAttribute('aria-expanded') === 'true') return;
             this.openSelector();
             break;
         }

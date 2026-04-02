@@ -22,12 +22,14 @@
   position:relative;
   left: 50%;
   width: 90%;
+  height: auto;
   margin-bottom: 1rem;
   border-radius: 1rem;
   transform: translateX(-50%);
+  object-fit: contain;
 }
 .poet-container{
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -83,37 +85,37 @@
   }
 }
 {% endstyle %}
-    {% comment %}
-      通过商店后台设置的自定义元字段命名空间与键来获取产品引用的元对象
-      例：product.metafields.namespace.key.value
-    {% endcomment %}
-    {% assign product_metaobjects = product.metafields[custom_metafields_namespace][custom_metafields_key].value %}
-{% if product_metaobjects != blank %}
-  <div class="product-detail-desc-content">
-    {% comment %}
-      获取模板后台设置的元对象字段名
-      1.例：metaobjects_fields = "field1,field2,field3"
-      2.使用过滤转换成数组
-      3.遍历数组，查看字段对应的数据是何类型，根据类型进行不同的渲染
-    {% endcomment %}
-    {% assign metaobjects_fields_array = metaobjects_fields | split:',' %}
-    {% for field in metaobjects_fields_array %}
-        {% if product_metaobjects[field].type == 'list.file_reference' %}
-            <p class="product-detail-desc-title">{{ image_title }}</p>
-            <div class="product-detail-desc-images-box">
-              {% for item in product_metaobjects[field].value %}
-                <img class="product-detail-desc-img" src="{{ item | image_url }}" alt="pro_detail_img" width="auto" height="auto" />
+    {% assign variant = variant_selected %}
+    {% assign variant_detail_images = variant.metafields[variant_metafield_namespace][variant_metafield_detail_images_key].value %}
+    {% assign variant_design_language = variant.metafields[variant_metafield_namespace][variant_metafield_design_language_key].value %}
+    {% if variant_detail_images != blank %}
+      <div class="product-detail-desc-content">
+          <p class="product-detail-desc-title">{{ image_title }}</p>
+          <div class="product-detail-desc-images-box">
+              {% for item in variant_detail_images %}
+                    <intersection-box class="intersection-el" data-root-margin="500px 0px">
+                      <img
+                              class="product-detail-desc-img"
+                              srcset="
+                              {%- if item.width >= 375 -%}{{ item | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if item.width >= 550 -%}{{ item | image_url: width: 550 }} 550w,{%- endif -%}
+                              "
+                              src="{{ item | image_url: width: 550 }}"
+                              sizes="(max-width: 550px) 100vw, (max-width: 750px) 100vw, 550px"
+                              alt="{{ item.alt | default: 'product detail image' | escape }}"
+                              width="550"
+                              height="550"
+                              {% if forloop.index == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
+                      />
+                  </intersection-box>
               {% endfor %}
-            </div>
-        {% elsif product_metaobjects[field].type == 'multi_line_text_field' or product_metaobjects[field].type == 'single_line_text_field'  %}
-          {% if product_metaobjects[field] != blank %}
+          </div>
+          {% if variant_design_language != blank %}
               <type-writer  animation={{ typewiter_animation }}>
-                  <div class="poet-container" data-poet="{{ product_metaobjects[field] }}">
+                  <div class="poet-container" data-poet="{{ variant_design_language }}">
                       <span class="poet-item"></span>
                   </div>
               </type-writer>
           {% endif %}
-        {% endif %}
-    {% endfor %}
-</div>
-{% endif %}
+    </div>
+    {% endif %}

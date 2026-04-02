@@ -225,7 +225,8 @@
     "content": {
       "placeholder": "search",
       "search_button": "search"
-    }
+    },
+    "empty": "No results found"
   },
   "onboarding": {
     "collection_title": "Your collection's name",
@@ -290,6 +291,9 @@
         "sale_price": "Sale price",
         "unit_price": "Unit price"
       },
+      "material": "Material",
+      "package": "Package",
+      "delivery": "Delivery",
       "quantity": {
         "label": "Quantity",
         "input_label": "Quantity for {{ product }}",
@@ -364,7 +368,35 @@
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "send": "Send",
         "title": "Contact form"
-      }
+      },
+      "form_title": "Contact Us",
+      "success_message": "Thank you for your message. We will get back to you as soon as possible!",
+      "name": "Name",
+      "name_placeholder": "Enter your name",
+      "email_label": "Email",
+      "email_placeholder": "Enter your email",
+      "phone_label": "Phone",
+      "phone_placeholder": "Enter your phone number",
+      "message": "Message",
+      "message_placeholder": "Enter your message",
+      "submit": "Send Message",
+      "info_title": "Contact Information",
+      "phone": "Phone",
+      "no_phone": "No phone available",
+      "email": "Email",
+      "no_email": "No email available",
+      "address": "Address",
+      "no_address": "No address available",
+      "hours": "Business Hours",
+      "no_hours": "No business hours available",
+      "no_map": "No map available"
+    },
+    "catalog": {
+      "all": "All",
+      "sold_out": "Sold Out",
+      "sale": "Sale",
+      "view_product": "View Product",
+      "no_products": "No products available"
     },
     "search": {
       "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
@@ -439,6 +471,23 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "notification": {
+    "cart": {
+      "add": {
+        "success": "add to cart successfully",
+        "error": "add to cart failed"
+      },
+      "remove": {
+        "success": "remove from cart successfully",
+        "error": "remove from cart failed"
+      },
+      "update": {
+        "count": {
+          "error": "cart update quantity failed"
+        }
+      }
     }
   }
 }
