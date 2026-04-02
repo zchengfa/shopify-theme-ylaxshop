@@ -9,10 +9,9 @@ if(!customElements.get("media-display")){
         //默认选择第一张图片
         this.mediaItems = this.mediaContainer?.querySelectorAll('.media-item');
         if(this.mediaItems){
-          this.mediaItems[0].querySelector('img').classList.add('active');
+          this.mediaItems[0].classList.add('active');
           this.mediaItems.forEach((item,index)=>{
-              let img = item.querySelector('img');
-              img.addEventListener('mouseenter',(e)=>{
+              item.addEventListener('mouseenter',(e)=>{
                   this.changeImage(e);
                   //获取大图展示中的所有图片，并控制显示对应图片
                   let mainProductImgs = this.querySelectorAll('.main-product-img');
@@ -20,9 +19,9 @@ if(!customElements.get("media-display")){
                       if(index === i){
                           img.style.display = 'block';
                           if(this.magnifier.dataset['zoomType'] === 'hover'){
-                              let magnifierimgbox = this.magnifier.querySelector('.magnifier-img-box');
+                              let magnifierImgBox = this.magnifier.querySelector('.magnifier-img-box');
                               let showMagnifierMask = this.magnifier.querySelector('.show-magnifier-mask');
-                              magnifierimgbox.style.backgroundImage = `url(${img.src})`;
+                              magnifierImgBox.style.backgroundImage = `url(${img.src})`;
                               if(this.magnifier.dataset['showInMagnifier']){
                                   showMagnifierMask.style.backgroundImage = `url(${img.src})`;
                               }
@@ -32,9 +31,9 @@ if(!customElements.get("media-display")){
                           img.style.display = 'none';
                       }
                   });
-                
+
               })
-              img.addEventListener('mouseleave',(e)=>{
+              item.addEventListener('mouseleave',(e)=>{
                   this.changeImage(e);
               })
           })
@@ -43,11 +42,11 @@ if(!customElements.get("media-display")){
 
       changeImage(e) {
         this.mediaItems.forEach((item) => {
-          item.querySelector('img').classList.remove('active');
+          item.classList.remove('active');
         });
         e.target.classList.add('active');
-        
+
       }
-      
+
     });
   }

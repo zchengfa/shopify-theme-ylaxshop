@@ -457,5 +457,296 @@
         "default": 0
       }
     ]
+  },
+  {
+    "name": "t:settings_schema.contact.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.contact.settings.header__colors.content"
+      },
+      {
+        "type": "color",
+        "id": "contact_orange",
+        "label": "t:settings_schema.contact.settings.contact_orange.label",
+        "default": "#FFC5A4"
+      },
+      {
+        "type": "color",
+        "id": "contact_orange_dark",
+        "label": "t:settings_schema.contact.settings.contact_orange_dark.label",
+        "default": "#FFAA82"
+      },
+      {
+        "type": "color",
+        "id": "contact_white",
+        "label": "t:settings_schema.contact.settings.contact_white.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.contact.settings.header__hours.content"
+      },
+      {
+        "type": "text",
+        "id": "contact_hours",
+        "label": "t:settings_schema.contact.settings.hours.label",
+        "default": "周一至周日 9:00 - 21:00"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.contact.settings.header__map.content"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_map_embed",
+        "default": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d6512752.750451123!2d-124.60400379532257!3d37.151390419168536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2z576O5Zu95Yqg5Yip56aP5bC85Lqa!5e0!3m2!1szh-CN!2s!4v1774501218708!5m2!1szh-CN!2s",
+        "label": "t:settings_schema.contact.settings.map_embed.label",
+        "info": "t:settings_schema.contact.settings.map_embed.info"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_A_map_embed",
+        "default": "https:\/\/surl.amap.com\/89wEjVoKdBn",
+        "label": "t:settings_schema.contact.settings.A_map_embed.label",
+        "info": "t:settings_schema.contact.settings.A_map_embed.info"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.catalog.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.catalog.settings.header__colors.content"
+      },
+      {
+        "type": "color",
+        "id": "catalog_primary",
+        "label": "t:settings_schema.catalog.settings.catalog_primary.label",
+        "default": "#FFC5A4"
+      },
+      {
+        "type": "color",
+        "id": "catalog_secondary",
+        "label": "t:settings_schema.catalog.settings.catalog_secondary.label",
+        "default": "#FFAA82"
+      },
+      {
+        "type": "color",
+        "id": "catalog_accent",
+        "label": "t:settings_schema.catalog.settings.catalog_accent.label",
+        "default": "#FF6B6B"
+      },
+      {
+        "type": "color",
+        "id": "catalog_white",
+        "label": "t:settings_schema.catalog.settings.catalog_white.label",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font Scale Settings"
+      },
+      {
+        "type": "range",
+        "id": "font_heading_scale",
+        "min": 50,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Heading Font Scale"
+      },
+      {
+        "type": "range",
+        "id": "font_body_scale",
+        "min": 50,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Body Font Scale"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.buttons.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button Styles"
+      },
+      {
+        "type": "range",
+        "id": "buttons_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Button Border Radius",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "buttons_radius_outset",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Button Outset Border Radius",
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Status Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sale and Error Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "Sale Color",
+        "default": "#EB001B"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "Error Color",
+        "default": "#EB001B"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.notification.group_title.label",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.notification.position_group.content"
+      },
+      {
+        "type": "select",
+        "id": "notification_pc_position",
+        "label": "t:settings_schema.notification.desktop_position.label",
+        "options": [
+          { "value": "right", "label": "t:settings_schema.notification.desktop_position.right.label" },
+          { "value": "left", "label": "t:settings_schema.notification.desktop_position.left.label" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "notification_mobile_position",
+        "label": "t:settings_schema.notification.mobile_position.label",
+        "options": [
+          { "value": "bottom", "label": "t:settings_schema.notification.mobile_position.bottom.label" },
+          { "value": "top", "label": "t:settings_schema.notification.mobile_position.top.label" }
+        ]
+      },
+      {
+        "type": "number",
+        "id": "notification_mobile_top_offset",
+        "label": "t:settings_schema.notification.mobile_top_offset.label",
+        "default": 78,
+        "info": "t:settings_schema.notification.mobile_top_offset.info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.notification.size_appearance_group.content"
+      },
+      {
+        "type": "number",
+        "id": "notification_min_width",
+        "label": "t:settings_schema.notification.min_width.label"
+      },
+      {
+        "type": "number",
+        "id": "notification_max_width",
+        "label": "t:settings_schema.notification.max_width.label"
+      },
+      {
+        "type": "number",
+        "id": "notification_border_radius",
+        "label": "t:settings_schema.notification.border_radius.label"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.notification.timing_animation_group.content"
+      },
+      {
+        "type": "number",
+        "id": "notification_display_time",
+        "label": "t:settings_schema.notification.display_duration.label",
+        "info": "t:settings_schema.notification.display_duration.info"
+      },
+      {
+        "type": "number",
+        "id": "notification_animate_speed",
+        "label": "t:settings_schema.notification.animation_speed.label",
+        "info": "t:settings_schema.notification.animation_speed.info"
+      },
+      {
+        "type": "checkbox",
+        "id": "notification_auto_close",
+        "label": "t:settings_schema.notification.auto_close.label"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.notification.colors_group.content"
+      },
+      {
+        "type": "color",
+        "id": "notification_color_success",
+        "label": "t:settings_schema.notification.color_success.label"
+      },
+      {
+        "type": "color",
+        "id": "notification_color_error",
+        "label": "t:settings_schema.notification.color_error.label"
+      },
+      {
+        "type": "color",
+        "id": "notification_color_info",
+        "label": "t:settings_schema.notification.color_info.label"
+      },
+      {
+        "type": "color",
+        "id": "notification_color_bg",
+        "label": "t:settings_schema.notification.color_bg.label"
+      },
+      {
+        "type": "color",
+        "id": "notification_color_text",
+        "label": "t:settings_schema.notification.color_text.label"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.notification.icon_group.content"
+      },
+      {
+        "type": "checkbox",
+        "id": "notification_show_icon",
+        "label": "t:settings_schema.notification.show_icon.label",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "notification_icon_style",
+        "label": "t:settings_schema.notification.icon_style.label",
+        "default": "floral",
+        "options": [
+          { "value": "floral", "label": "t:settings_schema.notification.icon_style_floral.label" },
+          { "value": "minimal", "label": "t:settings_schema.notification.icon_style_minimal.label" },
+          { "value": "soft", "label": "t:settings_schema.notification.icon_style_soft.label" }
+        ]
+      }
+    ]
   }
 ]

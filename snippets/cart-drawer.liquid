@@ -86,8 +86,10 @@
     justify-content: flex-start;
     align-items: center;
     padding: 1rem 0;
-    
 }
+    .cart-drawer-item img{
+     border-radius: .5rem;
+    }
 .cart-item-info{
     padding-left: 1rem;
     display: flex;
@@ -119,12 +121,12 @@
 }
 .remove-product-cart{
     margin-left: 1rem;
-    width:1.6rem;
+    width:2rem;
     height: auto;
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
     -webkit-appearance:none;
-}    
+}
 input[type="number"]{
     -moz-appearance:textfield;
 }
@@ -132,7 +134,6 @@ input[type="number"]{
     width: 2rem;
     height: auto;
     border: none;
-    text-indent: .5rem;
     outline:none;
     background: transparent;
 }
@@ -203,11 +204,8 @@ input[type="number"]{
                 <h2 class="cart-empty-title">{{ 'sections.cart.empty' | t }} </h2>
                 <a href={{ routes.all_products_collection_url }} class='continue-shopping'>
                     {{ 'general.continue_shopping' | t }}
-                </a>    
+                </a>
             </div>
-            {% comment %} <div class='cart-drawer-collection'>
-            
-            </div> {% endcomment %}
         {% else %}
             <div class='cart-header'>
                 <span class="cart-title">{{ 'sections.cart.title' | t }}</span>
@@ -225,25 +223,25 @@ input[type="number"]{
                     {% for item in cart.items %}
                         <div class='cart-drawer-item'>
                             <a href={{ item.url }}>
-                                <img 
-  srcset="
-    {%- if item.image.width >= 100 -%}{{ item.image | image_url: width: 100 }} 100w,{%- endif -%}
-    {%- if item.image.width >= 200 -%}{{ item.image | image_url: width: 200 }} 200w,{%- endif -%}
-    {{ item.image | image_url }} {{ item.image.width }}w
-  "
-  src="{{ item.image | image_url: width: 100, height: 100 }}"
-  sizes="100px"
-  alt="{{ item.title | escape }}"
-  width="{{ item.image.width }}"
-  height="{{ item.image.height }}"
-  loading="lazy"
-/>
+                                <img
+                                  srcset="
+                                    {%- if item.image.width >= 100 -%}{{ item.image | image_url: width: 100 }} 100w,{%- endif -%}
+                                    {%- if item.image.width >= 200 -%}{{ item.image | image_url: width: 200 }} 200w,{%- endif -%}
+                                    {{ item.image | image_url }} {{ item.image.width }}w
+                                  "
+                                  src="{{ item.image | image_url: width: 100, height: 100 }}"
+                                  sizes="100px"
+                                  alt="{{ item.variant.metafields[variant_meta_namespace][variant_meta_title_key].value | escape }}"
+                                  width="100"
+                                  height="100"
+                                  loading="lazy"
+                                />
                             </a>
                             <div class='cart-item-info'>
-                                <a href="{{ item.url }}" class="cart-item__name h4 break">
-                                    {{- item.product.title | escape -}}
+                                <a href="{{ item.variant.url }}" class="cart-item__name h4 break">
+                                    {{- item.variant.metafields[variant_meta_namespace][variant_meta_title_key].value | escape -}}
                                   </a>
-        
+
                                   {%- if item.original_price != item.final_price -%}
                                     <div class="cart-item__discounted-prices">
                                       <span class="visually-hidden">
@@ -293,21 +291,21 @@ input[type="number"]{
                                       </div>
                                   </quantity-input>
                             </div>
-                        </div>    
-                    {% endfor %}    
+                        </div>
+                    {% endfor %}
                 </form>
-                
+
             </div>
             <div class='cart-footer'>
                 {% for discount in cart.discount_applications %}
                     <div class="discount-box">
-                        
+
                         <div class="discount-title discount-item"><span class="discount-item-icon">{% render 'icon-discount' %}</span>{{ 'products.product.discount' | t }}{{ discount.title }} </div>
                         <span class="discount-savings discount-item">{{ 'products.product.savings' | t }}{{discount.total_allocated_amount | money_with_currency }}</span>
                     </div>
-                  {%endfor %}  
+                  {%endfor %}
                 <div class="price-total-box">
-                    <label>{{ 'sections.cart.sum_total' | t }}</label>
+                    <span>{{ 'sections.cart.sum_total' | t }}</span>
                     <span class="total-price">{{ cart.total_price | money_with_currency }}</span>
                 </div>
                 <div class="cart__ctas" {{ block.shopify_attributes }}>
@@ -324,8 +322,8 @@ input[type="number"]{
                       {{ 'sections.cart.checkout' | t }}
                     </button>
                 </div>
-            </div>    
-        {% endif %}    
+            </div>
+        {% endif %}
     </div>
 </div>
 

@@ -1,0 +1,231 @@
+{% assign pc_pos          = settings.notification_pc_position | default: 'right' %}
+{% assign mb_pos          = settings.notification_mobile_position | default: 'bottom' %}
+{% assign mb_top_offset    = settings.notification_mobile_top_offset | default: 56 %}
+
+{% assign min_w           = settings.notification_min_width | default: 280 %}
+{% assign max_w           = settings.notification_max_width | default: 380 %}
+{% assign radius          = settings.notification_border_radius | default: 12 %}
+{% assign display_time     = settings.notification_display_time | default: 3600 %}
+{% assign animate_speed    = settings.notification_animate_speed | default: 300 %}
+{% assign auto_close       = settings.notification_auto_close | default: true %}
+{% assign show_icon        = settings.notification_show_icon | default: true %}
+{% assign icon_style       = settings.notification_icon_style | default: 'floral' %}
+
+{% assign c_success        = settings.notification_color_success | default: 'var(--color-success)' %}
+{% assign c_error          = settings.notification_color_error | default: 'var(--color-error)' %}
+{% assign c_info           = settings.notification_color_info | default: 'var(--color-accent)' %}
+{% assign c_bg             = settings.notification_color_bg | default: 'var(--gradient-background)' %}
+{% assign c_text           = settings.notification_color_text | default: 'var(--black-color)' %}
+
+<div class="notification-container" data-notification-container></div>
+
+<style>
+    .notification-container {
+        position: fixed;
+        z-index: 98;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+        pointer-events: none;
+    }
+    .notification-item {
+        pointer-events: auto;
+        padding: 1rem 1.5rem;
+        background: {{ c_bg }};
+        color: {{ c_text }};
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-width: {{ min_w }}px;
+        max-width: {{ max_w }}px;
+        border-radius: .5rem;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.2rem;
+    }
+
+
+    .notification-icon {
+        width: 2rem;
+        height: 2rem;
+        flex-shrink: 0;
+    }
+
+    .notification-close {
+        margin-left: 12px;
+        cursor: pointer;
+        opacity: 0.6;
+        font-size: 1.5rem;
+    }
+    .notification-close:hover { opacity: 1; }
+
+    .notification-success { border-left: 4px solid {{ c_success }}; }
+    .notification-error   { border-left: 4px solid {{ c_error }}; }
+    .notification-info    { border-left: 4px solid {{ c_info }}; }
+
+    @media (min-width: 769px) {
+        .notification-container {
+            top: 20px;
+            width: auto;
+        {% if pc_pos == 'right' %}
+            right: 0;
+            transform: translateX(100%);
+        {% else %}
+            left: 0;
+            transform: translateX(-100%);
+        {% endif %}
+            transition: transform {{ animate_speed }}ms ease;
+        }
+
+        .notification-container.active {
+
+        {% if pc_pos == 'right' %}
+            transform: translateX(-1rem);
+            {% else %}
+            transform: translateX(1rem);
+        {% endif %}
+        }
+    }
+
+    @media (max-width: 768px) {
+        .notification-container {
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            transition: transform {{ animate_speed }}ms ease;
+        }
+        .notification-success, .notification-error, .notification-info{
+            border: none;
+        }
+
+        /* 底部抽屉 */
+    {% if mb_pos == 'bottom' %}
+        .notification-container {
+            bottom: 0;
+            transform: translateY(100%);
+        }
+        .notification-container.active {
+            transform: translateY(0);
+        }
+    {% endif %}
+
+    {% if mb_pos == 'top' %}
+        .notification-container {
+            top: 0;
+            transform: translateY(-100%);
+        }
+        .notification-container.active {
+            transform: translateY({{ mb_top_offset }}px);
+        }
+    {% endif %}
+
+        /* 自动区分圆角 */
+        .notification-item {
+            min-width: 100%;
+            max-width: 100%;
+            margin: 0;
+        {% if mb_pos == 'bottom' %}
+            border-radius: {{ radius }}px {{ radius }}px 0 0;
+        {% else %}
+            border-radius: 0 0 {{ radius }}px {{ radius }}px;
+        {% endif %}
+        }
+    }
+
+
+</style>
+
+<script>
+    const notificationTexts = {
+        cart: {
+            add: {
+                success: "{{ 'notification.cart.add.success' | t }}",
+                error: "{{ 'notification.cart.add.error' | t }}"
+            },
+            remove: {
+                success: "{{ 'notification.cart.remove.success' | t }}",
+                error: "{{ 'notification.cart.remove.error' | t }}"
+            },
+            update: {
+                count:{
+                    error: "{{ 'notification.cart.update.count.error' | t }}"
+                }
+            }
+        }
+    };
+    function getNestedText(obj, key) {
+        return key.split('.').reduce((o, k) => (o || {})[k], obj) || key;
+    }
+
+    window.showNotification = function(messageKey, type = 'success') {
+        const container = document.querySelector('[data-notification-container]');
+        if (!container) return;
+
+        container.innerHTML = '';
+        const n = document.createElement('div');
+        n.className = `notification-item notification-${type}`;
+
+        // 🌸 自动解析多语言 key
+        const message = getNestedText(notificationTexts, messageKey);
+
+        let icon = '';
+        {% if show_icon %}
+        const style = '{{ icon_style }}';
+        if (style === 'floral') {
+            if (type === 'success') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`;
+            else if (type === 'error') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+            else icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+        } else if (style === 'minimal') {
+            if (type === 'success') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+            else if (type === 'error') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+            else icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+        } else {
+            if (type === 'success') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`;
+            else if (type === 'error') icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+            else icon = `<svg class="notification-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+        }
+        {% endif %}
+
+        n.innerHTML = `
+            <div class="notification-content">
+                ${icon}
+                <span>${message}</span>
+            </div>
+            <span class="notification-close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </span>
+        `;
+
+        container.appendChild(n);
+
+        setTimeout(() => {
+            container.classList.add('active');
+        }, 50);
+
+        function close() {
+            container.classList.remove('active');
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, {{ animate_speed }});
+        }
+
+        n.querySelector('.notification-close').addEventListener('click', close);
+        {% if auto_close %}
+        setTimeout(close, {{ display_time }});
+        {% endif %}
+    };
+</script>

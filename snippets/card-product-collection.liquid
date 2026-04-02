@@ -11,7 +11,7 @@
 
     .product-box.show-wrap {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1.25rem 1.5%;
     }
 
@@ -108,7 +108,6 @@
 
     .product-vendor-tags-box {
     display: flex;
-    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
@@ -116,54 +115,120 @@
     gap: 0.5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     margin-bottom: 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+
+    .product-vendor-tags-box::-webkit-scrollbar {
+    display: none;
     }
 
     .product-vendor {
+    flex-shrink: 0;
     font-size: 0.8rem;
-    color: var(--color-primary, #e91e63);
     font-weight: 600;
-    background: linear-gradient(135deg, rgba(var(--color-primary, 233, 30, 99), 0.08), rgba(var(--color-primary, 233, 30, 99), 0.12));
     padding: 0.25rem 0.75rem;
     border-radius: 0.75rem;
+    text-transform: uppercase;
     border: 1px solid rgba(var(--color-primary, 233, 30, 99), 0.15);
     backdrop-filter: blur(4px);
     }
 
     .product-tag {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: #fff;
-    padding: 0.2rem 0.6rem;
-    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2d3748;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
-    transform: scale(0.95);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+    background: #f7fafc;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+    white-space: nowrap;
+    }
+
+    .product-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+    transition: left 0.5s ease;
+    }
+
+    .product-tag:hover::before {
+    left: 100%;
     }
 
     .product-tag:hover {
-    transform: scale(1);
-    opacity: 0.9;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .product-tag[data-tag="New"] {
-    background: linear-gradient(135deg, #48bb78, #38a169);
+    background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+    color: #22543d;
+    border-color: rgba(72, 187, 120, 0.3);
+    box-shadow: 0 2px 8px rgba(72, 187, 120, 0.15);
+    }
+
+    .product-tag[data-tag="New"]:hover {
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.25);
     }
 
     .product-tag[data-tag="BestSelling"] {
-    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    background: linear-gradient(135deg, #fffaf0, #feebc8);
+    color: #7b341e;
+    border-color: rgba(237, 137, 54, 0.3);
+    box-shadow: 0 2px 8px rgba(237, 137, 54, 0.15);
+    }
+
+    .product-tag[data-tag="BestSelling"]:hover {
+    box-shadow: 0 4px 12px rgba(237, 137, 54, 0.25);
     }
 
     .product-tag[data-tag="Popular"],
     .product-tag[data-tag="Hot"] {
-    background: linear-gradient(135deg, #f56565, #e53e3e);
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    color: #742a2a;
+    border-color: rgba(245, 101, 101, 0.3);
+    box-shadow: 0 2px 8px rgba(245, 101, 101, 0.15);
+    }
+
+    .product-tag[data-tag="Popular"]:hover,
+    .product-tag[data-tag="Hot"]:hover {
+    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.25);
     }
 
     .product-tag[data-tag="Plus"],
     .product-tag[data-tag="Classic style"] {
-    background: linear-gradient(135deg, #4299e1, #3182ce);
+    background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+    color: #2a4365;
+    border-color: rgba(66, 153, 225, 0.3);
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.15);
     }
+
+    .product-tag[data-tag="Plus"]:hover,
+    .product-tag[data-tag="Classic style"]:hover {
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.25);
+    }
+
+    /* 下拉菜单样式已移除，改用横向滚动显示所有标签 */
 
     .price-container {
     display: flex;
@@ -174,7 +239,7 @@
     }
 
     .now-price {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-primary, #e91e63);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -182,7 +247,7 @@
     }
 
     .origin-price {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #718096;
     text-decoration: line-through;
     font-weight: 500;
@@ -190,19 +255,29 @@
     }
 
     .add-loading-box {
-    margin: 0 auto;
-    position: relative;
-    width: 80%;
-    height: 2.75rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: none;
-    text-align: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        position: relative;
+        align-items: center;
+        width: 100%;
+        height: 2.75rem;
+        overflow: hidden;
+        border: none;
+        text-align: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.9);
     }
-
+    .add-loading-box .form{
+        margin: 0 auto;
+        width: 80%;
+        height: 70%;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .add-loading-box .form .loading__spinner{
+        left: 50%;
+        transform: translateX(-50%);
+    }
     .add-loading-box.disabled-add {
     background: linear-gradient(135deg, #a0aec0, #718096);
     cursor: not-allowed;
@@ -253,7 +328,12 @@
     gap: 0.375rem;
     transition: all 0.3s ease;
     }
-
+    .product-params-price{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
     .sold-out {
     opacity: 0.85;
     }
@@ -376,13 +456,7 @@
     -webkit-line-clamp: 2;
     }
 
-    .now-price {
-    font-size: 1.1rem;
-    }
 
-    .origin-price {
-    font-size: 0.85rem;
-    }
 
     .banner-btn {
     width: 2.5rem;
@@ -397,8 +471,10 @@
 
     @media screen and (max-width: 450px) {
     .product-box {
+    margin: 0 auto;
     padding: 0.5rem 0.25rem;
     gap: 0.75rem;
+    width: 90vw;
     }
 
     .product-item {
@@ -415,11 +491,6 @@
     .product-params {
     padding: 0.875rem 0.75rem 0.5rem;
     }
-
-    .product-form {
-    padding: 0 0.75rem 0.75rem;
-    }
-
     .product-img-box {
     height: 180px;
     border-radius: 0.75rem 0.75rem 0 0;
@@ -510,32 +581,76 @@
     border-bottom-color: rgba(255, 255, 255, 0.1);
     }
     }
+
+    /* 平板设备 */
+    @media screen and (max-width: 1024px) {
+        .product-item {
+            width: calc(33.333% - 1.25rem);
+            min-width: 250px;
+        }
+
+        .product-box.show-wrap .product-item {
+            width: calc(33.333% - 1.25rem);
+        }
+    }
+
+    /* 小型平板设备 */
+    @media screen and (max-width: 768px) and (min-width: 501px) {
+        .product-item {
+            width: calc(50% - 1rem);
+            min-width: 200px;
+        }
+
+        .product-box.show-wrap .product-item {
+            width: calc(50% - 1rem);
+        }
+
+        .product-box.show-wrap {
+            justify-content: flex-start;
+            margin: 0;
+            width: 100%;
+        }
+    }
+
+    /* 手机设备 */
+    @media screen and (max-width: 500px) {
+        .product-item {
+            width: calc(100% - 1rem);
+            min-width: 160px;
+        }
+        .product-box.show-wrap{
+            margin: 0 auto;
+            width: 90vw;
+        }
+        .product-box.show-wrap .product-item {
+            width: calc(100% - 1rem);
+        }
+    }
 {% endstyle %}
 <collection-banner-control>
 <div class='product-box  {% if products_to_show <= 3 %}flex-start{% endif %} {% if show_wrap %}show-wrap {% else %}hidden-overflow{% endif %}'>
     {% if products.size >= 1 %}
         {% for product in products limit:products_to_show %}
-            <a href={{ product.url }} class='product-item' data-margin="24">
+            <a href="{{ product.url }}" class='product-item' data-margin="24">
               <div class='product-img-box'>
-                <img 
-  class='product-img' 
-  srcset="
-    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
-    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
-    {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
-    {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
-  "
-  src="{{ product.featured_image | image_url: width: 330, height: 330 }}"
-  sizes="(min-width: 1200px) 330px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-  alt="{{ product.title | escape }}"
-  width="{{ product.featured_image.width }}"
-  height="{{ product.featured_image.height }}"
-  loading="lazy"
-/>
+                <img
+                  class='product-img'
+                  srcset="
+                    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+                    {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+                  "
+                  src="{{ product.featured_image | image_url: width: 330, height: 330 }}"
+                  sizes="(min-width: 1200px) 330px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                  alt="{{ product.title | escape }}"
+                  width="500"
+                  height="400"
+                  loading="lazy"
+                />
               </div>
               <div class='product-params'>
                 <p class='product-title'>{{ product.title }}</p>
-               <div class="product-vendor-tags-box">
+                  <div class="product-vendor-tags-box">
                 {% if product.vendor != empty %}
                     <span class="product-vendor gradient-text">{{  product.vendor }}</span>
 
@@ -562,11 +677,15 @@
                 {% endif %}
                </div>
                 {% if currency_code_enabled %}
-                    <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
-                    <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
+                    <div class="product-params-price">
+                        <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
+                        <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
+                    </div>
                 {% else %}
-                    <span class='now-price'>{{ product.price_max | money }}</span>
-                    <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>
+                   <div class="product-params-price">
+                       <span class='now-price'>{{ product.price_max | money }}</span>
+                       <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>
+                   </div>
                 {% endif %}
 
               </div>
@@ -598,7 +717,7 @@
                         disabled
                     {% endif %}
                     >
-                        <span data-product-id={{ product.id }} class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
+                        <span data-product-id="{{ product.id }}" class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
                             {%- if product.selected_or_first_available_variant.available -%}
                             {{ 'products.product.add_to_cart' | t }}
                             {%- else -%}
@@ -616,20 +735,15 @@
     {% else %}
         <div class='product-item' data-margin='24'>
             <div class='product-img-box'>
-                <img 
-  class='product-img' 
-  srcset="
-    {{ 'default.jpg' | asset_img_url: width: 165 }} 165w,
-    {{ 'default.jpg' | asset_img_url: width: 270 }} 270w,
-    {{ 'default.jpg' | asset_img_url: width: 540 }} 540w
-  "
-  src="{{ 'default.jpg' | asset_img_url: width: 270, height: 290 }}"
-  sizes="(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-  alt="default image"
-  width="270"
-  height="290"
-  loading="lazy"
-/>
+                <img
+                  class='product-img'
+                  src="{{ 'default.webp' | asset_url}}"
+                  sizes="(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                  alt="default image"
+                  width="270"
+                  height="290"
+                  loading="lazy"
+                />
             </div>
             <div class='product-params'>
                 <p class='product-title'>collection default title</p>
@@ -659,6 +773,28 @@
 {% endif %}
 </collection-banner-control>
 
-<script src={{ 'collection-banner-control.js' | asset_url }} defer='defer'></script>
-<script src={{ 'product-form.js' | asset_url }} defer='defer'></script>
+<script src="{{ 'collection-banner-control.js' | asset_url }}" defer='defer'></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer='defer'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 防止标签盒子滚动时触发页面滚动
+    const tagsBoxes = document.querySelectorAll('.product-vendor-tags-box');
 
+    tagsBoxes.forEach(box => {
+        box.addEventListener('wheel', function(e) {
+            // 如果有横向滚动空间，阻止默认的页面滚动行为
+            if (this.scrollWidth > this.clientWidth) {
+                const delta = e.deltaY;
+                const maxScrollLeft = this.scrollWidth - this.clientWidth;
+
+                // 向右滚动且未到达右边界，或向左滚动且未到达左边界
+                if ((delta > 0 && this.scrollLeft < maxScrollLeft) ||
+                    (delta < 0 && this.scrollLeft > 0)) {
+                    e.preventDefault();
+                    this.scrollLeft += delta;
+                }
+            }
+        }, { passive: false });
+    });
+});
+</script>

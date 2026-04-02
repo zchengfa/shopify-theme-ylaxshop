@@ -183,6 +183,152 @@
         }
       }
     },
+    "contact": {
+      "name": "联系页面",
+      "settings": {
+        "header__colors": {
+          "content": "颜色设置"
+        },
+        "contact_orange": {
+          "label": "主题橙色"
+        },
+        "contact_orange_dark": {
+          "label": "深橙色"
+        },
+        "contact_white": {
+          "label": "白色"
+        },
+        "header__hours": {
+          "content": "营业时间"
+        },
+        "hours": {
+          "label": "营业时间"
+        },
+        "header__map": {
+          "content": "地图设置"
+        },
+        "map_embed": {
+          "label": "Google地图嵌入代码",
+          "info": "粘贴Google地图的嵌入代码（iframe src属性中的URL）"
+        },
+        "A_map_embed": {
+          "label": "高德地图嵌入代码",
+          "info": "粘贴高德地图的嵌入代码（iframe src属性中的URL）注：谷歌地图不可用时会自动使用高德地图"
+        }
+      }
+    },
+    "catalog": {
+      "name": "产品目录",
+      "settings": {
+        "header__colors": {
+          "content": "颜色设置"
+        },
+        "catalog_primary": {
+          "label": "主色调"
+        },
+        "catalog_secondary": {
+          "label": "次色调"
+        },
+        "catalog_accent": {
+          "label": "强调色"
+        },
+        "catalog_white": {
+          "label": "白色"
+        }
+      }
+    },
+    "notification": {
+      "group_title": {
+        "label": "全局通知"
+      },
+      "position_group": {
+        "content": "位置设置"
+      },
+      "desktop_position": {
+        "label": "PC端通知位置",
+        "right": {
+          "label": "右侧"
+        },
+        "left": {
+          "label": "左侧"
+        }
+      },
+      "mobile_position": {
+        "label": "移动端通知位置",
+        "bottom": {
+          "label": "底部"
+        },
+        "top": {
+          "label": "顶部"
+        }
+      },
+      "mobile_top_offset": {
+        "label": "顶部偏移距离（px）",
+        "info": "避开顶部固定导航栏的高度"
+      },
+      "size_appearance_group": {
+        "content": "尺寸与外观"
+      },
+      "min_width": {
+        "label": "最小宽度（px）"
+      },
+      "max_width": {
+        "label": "最大宽度（px）"
+      },
+      "border_radius": {
+        "label": "圆角（px）"
+      },
+      "timing_animation_group": {
+        "content": "显示时间与动画"
+      },
+      "display_duration": {
+        "label": "通知显示时长",
+        "info": "自动关闭前显示时间（毫秒）"
+      },
+      "animation_speed": {
+        "label": "动画执行速度",
+        "info": "入场退场动画时长（毫秒）"
+      },
+      "auto_close": {
+        "label": "自动关闭通知"
+      },
+      "colors_group": {
+        "content": "颜色设置"
+      },
+      "color_success": {
+        "label": "成功状态颜色"
+      },
+      "color_error": {
+        "label": "错误状态颜色"
+      },
+      "color_info": {
+        "label": "提示状态颜色"
+      },
+      "color_bg": {
+        "label": "通知背景色"
+      },
+      "color_text": {
+        "label": "通知文字颜色"
+      },
+      "icon_group": {
+        "content": "图标设置"
+      },
+      "show_icon": {
+        "label": "显示通知图标"
+      },
+      "icon_style": {
+        "label": "图标风格"
+      },
+      "icon_style_floral": {
+        "label": "花艺风（小花）"
+      },
+      "icon_style_minimal": {
+        "label": "极简线条"
+      },
+      "icon_style_soft": {
+        "label": "柔和圆润"
+      }
+    },
     "global": {
       "settings": {
         "header__border": {
@@ -223,6 +369,153 @@
             "label": "右"
           },
           "label": "文本对齐方式"
+        }
+      }
+    },
+    "typography": {
+      "name": "排版",
+      "settings": {
+        "font_heading_scale": {
+          "label": "标题字体比例"
+        },
+        "font_body_scale": {
+          "label": "正文字体比例"
+        }
+      }
+    },
+    "buttons": {
+      "name": "按钮",
+      "settings": {
+        "buttons_radius": {
+          "label": "按钮圆角半径"
+        },
+        "buttons_radius_outset": {
+          "label": "按钮外凸圆角半径"
+        }
+      }
+    },
+    "theme_colors": {
+      "name": "主题颜色",
+      "settings": {
+        "white_color": {
+          "label": "白色"
+        },
+        "black_color": {
+          "label": "黑色"
+        },
+        "sf_purple_color": {
+          "label": "紫色"
+        },
+        "color_sale": {
+          "label": "促销颜色"
+        },
+        "color_error": {
+          "label": "错误颜色"
+        }
+      }
+    },
+    "page_layout": {
+      "name": "页面布局",
+      "settings": {
+        "page_width": {
+          "label": "页面宽度"
+        },
+        "page_width_margin": {
+          "label": "页面边距"
+        }
+      }
+    },
+    "input_styles": {
+      "name": "输入框样式",
+      "settings": {
+        "inputs_border_width": {
+          "label": "输入框边框宽度"
+        },
+        "inputs_radius": {
+          "label": "输入框圆角"
+        },
+        "inputs_radius_outset": {
+          "label": "输入框外凸圆角"
+        },
+        "inputs_shadow_horizontal_offset": {
+          "label": "输入框阴影水平偏移"
+        },
+        "inputs_shadow_vertical_offset": {
+          "label": "输入框阴影垂直偏移"
+        },
+        "inputs_shadow_blur_radius": {
+          "label": "输入框阴影模糊半径"
+        },
+        "inputs_shadow_opacity": {
+          "label": "输入框阴影透明度"
+        }
+      }
+    },
+    "popup_styles": {
+      "name": "弹出框样式",
+      "settings": {
+        "popup_border_width": {
+          "label": "弹出框边框宽度"
+        },
+        "popup_border_opacity": {
+          "label": "弹出框边框透明度"
+        },
+        "popup_corner_radius": {
+          "label": "弹出框圆角"
+        },
+        "popup_shadow_horizontal_offset": {
+          "label": "弹出框阴影水平偏移"
+        },
+        "popup_shadow_vertical_offset": {
+          "label": "弹出框阴影垂直偏移"
+        },
+        "popup_shadow_blur_radius": {
+          "label": "弹出框阴影模糊半径"
+        },
+        "popup_shadow_opacity": {
+          "label": "弹出框阴影透明度"
+        }
+      }
+    },
+    "animation_settings": {
+      "name": "动画设置",
+      "settings": {
+        "duration_extended": {
+          "label": "扩展动画时长"
+        },
+        "ease_out_slow": {
+          "label": "动画缓动函数",
+          "options": {
+            "ease_out": {
+              "label": "缓出"
+            },
+            "ease_out_slow": {
+              "label": "慢速缓出"
+            },
+            "ease_in_out": {
+              "label": "缓入缓出"
+            },
+            "linear": {
+              "label": "线性"
+            }
+          }
+        }
+      }
+    },
+    "opacity_settings": {
+      "name": "透明度设置",
+      "settings": {
+        "alpha_button_background": {
+          "label": "按钮背景透明度"
+        },
+        "alpha_button_border": {
+          "label": "按钮边框透明度"
+        },
+        "alpha_link": {
+          "label": "链接透明度"
+        },
+        "alpha_badge_border": {
+          "label": "徽章边框透明度"
         }
       }
     }
@@ -550,6 +843,46 @@
               "options__3": {
                 "label": "无"
               }
+            },
+            "variant_metafield_namespace": {
+              "label": "变体元字段命名空间",
+              "info": "设置变体元字段的命名空间，默认为custom"
+            },
+            "variant_metafield_title_key": {
+              "label": "标题键名",
+              "info": "设置标题元字段的键名，默认为variant_title"
+            },
+            "variant_metafield_description_key": {
+              "label": "描述键名",
+              "info": "设置描述元字段的键名，默认为variant_description"
+            },
+            "variant_metafield_images_key": {
+              "label": "图片键名",
+              "info": "设置图片元字段的键名，默认为variant_extra_img"
+            },
+            "variant_metafield_delivery_key": {
+              "label": "配送键名",
+              "info": "设置配送元字段的键名，默认为variant_delivery"
+            },
+            "variant_metafield_material_key": {
+              "label": "材质键名",
+              "info": "设置材质元字段的键名，默认为variant_material"
+            },
+            "variant_metafield_package_key": {
+              "label": "包装键名",
+              "info": "设置包装元字段的键名，默认为variant_package"
+            },
+            "variant_metafield_detail_images_key": {
+              "label": "详情图片键名",
+              "info": "设置详情图片元字段的键名，默认为variant_detail_imgs"
+            },
+            "variant_metafield_video_key": {
+              "label": "视频键名",
+              "info": "设置视频元字段的键名，默认为variant_video"
+            },
+            "variant_metafield_design_language_key": {
+              "label": "设计语言键名",
+              "info": "设置设计语言元字段的键名，默认为variant_design_language"
             }
           }
         },
@@ -1219,6 +1552,22 @@
             "option_2": "标准",
             "option_3": "批量"
           }
+        }
+      }
+    },
+    "cart-drawer": {
+      "name": "购物车抽屉",
+      "settings": {
+        "variant_metafields": {
+          "content": "产品变体元字段"
+        },
+        "variant_meta_namespace": {
+          "label": "变体元字段命名空间",
+          "info": "输入产品变体元字段的命名空间"
+        },
+        "variant_meta_title_key": {
+          "label": "变体标题键名",
+          "info": "输入变体标题元字段的键名"
         }
       }
     }

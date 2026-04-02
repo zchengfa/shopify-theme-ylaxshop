@@ -69,7 +69,7 @@ if(!customElements.get('filter-form')){
                 const value = Number(input.value);
                 const min = Number(input.getAttribute('data-min'));
                 const max = Number(input.getAttribute('data-max'));
-            
+
                 if (value < min) input.value = min;
                 if (value > max) input.value = max;
               }
@@ -87,7 +87,7 @@ if(!customElements.get('filter-form')){
                         console.log(err);
                     }
                 }
-                
+
             }
             filterResults(){
                 const filterUrl = this.getSortFetchUrl();
@@ -95,7 +95,7 @@ if(!customElements.get('filter-form')){
                     return response.text();
                 }).then(data=>{
                     this.updateToRender().forEach(render=>{
-                        replaceWitnNewHtml(data,render.selector,render.id);
+                        replaceWithNewHtml(data,render.selector,render.id);
                     })
                     //隐藏价格区间盒
                     this.priceBoxStatus ? this.changeBoxStatus() : null;
@@ -116,7 +116,7 @@ if(!customElements.get('filter-form')){
             getSortFetchUrl(){
                 //https://******/.myshopify.com/search?section_id=***&q=fa&filter.v.price.gte=*&filter.v.price.lte=*&sort_by=relevance*
                 return `${window.shopUrl}${this.url}?section_id=${this.MainSearchId}&q=${this.terms}&${this.priceRangeInput[0].getAttribute("name")}=${this.priceRangeInput[0].value}&${this.priceRangeInput[1].getAttribute("name")}=${this.priceRangeInput[1].value}&sort_by=${this.sortBy.value}`;
-             
+
             }
         }
     );

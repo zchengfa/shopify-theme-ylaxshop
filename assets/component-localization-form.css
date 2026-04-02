@@ -110,6 +110,7 @@
 
 .disclosure {
   position: relative;
+  display: flex;
 }
 
 .disclosure__button {
@@ -440,4 +441,21 @@
 
 .menu-drawer__localization + .list-social {
   margin-top: 1rem;
+}
+@media screen and (max-width: 500px) {
+  .disclosure__list-wrapper.country-selector{
+    bottom: 0;
+    height: 100%;
+  }
+  .country-selector__close-button.link{
+    height: 2rem;
+    width: 2rem;
+    padding: .2rem;
+  }
+  .country-filter{
+    padding: 0;
+  }
+  .country-selector__list--with-multiple-currencies{
+    width: 100%;
+  }
 }

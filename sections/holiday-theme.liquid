@@ -2,90 +2,183 @@
 .holiday-theme-container{
     width: 92%;
     margin: 0 auto;
-    padding: 1rem ;
+    padding: 1rem;
+    position: relative;
 }
 
 .holiday-product-box{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background: {{section.settings.holiday_background}};
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    background: {{ section.settings.holiday_background }};
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.18), 0 2px 8px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.12);
 }
+
+/* 平板设备 - 3列 */
+@media (max-width: 1024px) {
+    .holiday-product-box {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        padding: 1.2rem;
+    }
+}
+
+/* 小平板设备 - 2列 */
+@media (max-width: 768px) {
+    .holiday-product-box {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+/* 手机设备 - 1列 */
+@media (max-width: 480px) {
+    .custom-card-popover,.count-down-box{
+        margin: 0 auto;
+    }
+    .holiday-product-box {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        padding: 0.8rem;
+    }
+}
+
 .holiday-product-item{
-    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 1rem;
-    width: 80%;
+    width: 100%;
+    max-width: 400px;
     border-radius: 1rem;
-    background-color: var(--white-color);
+    background: radial-gradient(circle at center, rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.25) 0%, rgba(255, 255, 255, 0.96) 100%);
+    border: 0.12rem solid rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.25);
+    box-shadow: 0 4px 12px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
+
+.holiday-product-item:hover {
+    transform: translateY(-0.15rem);
+    border-color: rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.45);
+    box-shadow: 0 8px 20px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.25);
+}
+
 .holiday-theme-img{
     width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.18);
 }
+
 .holiday-product-img-box{
-    width: 100px;
+    width: fit-content;
     height: 100px;
     overflow: hidden;
-    border-radius: .5rem;
+    border-radius: .8rem;
+    box-shadow: 0 2px 8px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.12);
 }
+
 .holiday-img{
-    width: 100px;
+    width: fit-content;
     height: 100px;
+    transition: transform 0.3s ease;
 }
+
+.holiday-product-item:hover .holiday-img {
+    transform: scale(1.05);
+}
+
 .custom-card-popover{
-    border-radius: .5rem;
+    border-radius: .8rem;
     margin: 1rem auto;
+    box-shadow: 0 4px 12px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.15);
 }
+
 .count-down-box{
-    box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 8px 32px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.25), 0 4px 12px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.15);
     overflow: hidden;
     border-bottom-right-radius: 3rem;
+    background: radial-gradient(circle at center, rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.25) 0%, rgba(255, 255, 255, 0.96) 100%);
+    border: 0.15rem solid rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.35);
+    transition: all 0.3s ease;
+    gap: 0.5rem;
 }
-.custom-card-popover ,.count-down-box{
+
+.count-down-box:hover {
+    box-shadow: 0 12px 40px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.3), 0 6px 16px rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.2);
+    border-color: rgba({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}}, 0.45);
+}
+
+.custom-card-popover, .count-down-box{
     width: 25%;
     min-width: 270px;
 }
+
 .holiday-product-params{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 0 1rem;
     height: 100px;
     max-width: 200px;
+    padding-left: 0.8rem;
+    flex: 1;
 }
+
 .holiday-product-name{
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: .5rem;
 }
+
 .holiday-product-price{
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: rgb({{section.settings.holiday_background | color_to_rgb | remove: 'rgb(' | remove: ')'}});
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
+    mix-blend-mode: difference;
 }
+
 .holiday-product-title{
     margin-bottom: .5rem;
     max-width: 100px;
-    color: var(--payment-terms-background-color);
+    color: rgb(var(--color-foreground));
+    font-weight: 500;
 }
+
 .holiday-product-desc{
-    max-width: 100px;
+    max-width: 140px;
     font-size: .9rem;
     font-family: var(--self_font);
     line-height: 1.2rem;
     -webkit-line-clamp: 2;
+    color: rgba(var(--color-foreground), 0.8);
 }
+
 .holiday-product-vendor {
-    font-size: .8rem;
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 0.2rem 0;
 }
+
+
 @media (max-width: 450px) {
     .holiday-theme-img{
         display: none;
     }
-}
 
+    .holiday-product-item {
+        width: 95%;
+        padding: 0.8rem;
+    }
+
+}
 
 {% endstyle %}
 
@@ -93,8 +186,8 @@
 <div class='holiday-theme-container'>
     {% if section.settings.image  %}
         <div class='holiday-theme-img-box holiday-theme-container-item'>
-            <img 
-  class='holiday-theme-img' 
+            <img
+  class='holiday-theme-img'
   srcset="
     {%- if section.settings.image.width >= 600 -%}{{ section.settings.image | image_url: width: 600 }} 600w,{%- endif -%}
     {%- if section.settings.image.width >= 800 -%}{{ section.settings.image | image_url: width: 800 }} 800w,{%- endif -%}
@@ -104,8 +197,8 @@
   src="{{ section.settings.image | image_url: width: 1000, height: 200 }}"
   sizes="(min-width: 1200px) 1000px, (min-width: 990px) 800px, (min-width: 750px) 600px, 100vw"
   alt="{{ section.settings.image.alt | escape }}"
-  width="{{ section.settings.image.width }}"
-  height="{{ section.settings.image.height }}"
+  width="1000"
+  height="200"
   loading="lazy"
 />
         </div>
@@ -119,7 +212,7 @@
                     {% render 'card-flipping-effect',
                         card_bg_color: section.settings.card_bg_color,
                         multi_text_color: section.settings.multi_text_color,
-                        container_bg_color: {{section.settings.holiday_background}};
+                        container_bg_color: section.settings.holiday_background
                     %}
                 </count-down>
             {% endif %}
@@ -134,27 +227,24 @@
                  data-img="holiday-img"
                  data-vendor='holiday-product-vendor'
                  data-component-popover-id='{{ shop.name }}-global-component-popover'
-                 data-url={{ product.url }}
-                 data-display-type={{ section.settings.show_type }}
+                 data-url='{{ product.url }}'
+                 data-display-type='{{ section.settings.show_type }}'
                  data-card-popover-delay={{ section.settings.card_popover_delay }}
                 >
-                <a href={{ product.url }} class="holiday-product-item ">
+                <a href="{{ product.url }}" class="holiday-product-item">
                     <div class='holiday-product-img-box'>
-                        <img 
-  class='holiday-img transition-img' 
-  srcset="
-    {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
-    {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
-    {%- if product.featured_image.width >= 400 -%}{{ product.featured_image | image_url: width: 400 }} 400w,{%- endif -%}
-    {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
-  "
-  src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
-  sizes="(min-width: 1200px) 200px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-  alt="{{ product.title | escape }}"
-  width="{{ product.featured_image.width }}"
-  height="{{ product.featured_image.height }}"
-  loading="lazy"
-/>
+                        <img
+                          class='holiday-img transition-img'
+                          srcset="
+                            {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                            "
+                          src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
+                          sizes="(min-width: 1200px) 200px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                          alt="{{ product.title | escape }}"
+                          width="200"
+                          height="200"
+                          loading="lazy"
+                        />
                     </div>
                     <div class='holiday-product-params'>
                         <div class='holiday-title-desc'>

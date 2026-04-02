@@ -1,0 +1,240 @@
+{% style %}
+    .product-variant-content{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0.5rem 0;
+    }
+
+    .variant-box {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin: 1.25rem 0;
+    }
+
+    .variant-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--white-color);
+        border: 2px solid var(--border-color, #e5e5e5);
+        border-radius: 12px;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 100px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .variant-item:hover {
+        border-color: var(--primary-color, #000);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .variant-item.active {
+        border-color: var(--primary-color, #000);
+        background: linear-gradient(135deg, var(--primary-light, rgba(0, 0, 0, 0.05)), rgba(0, 0, 0, 0.02));
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .variant-item.active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-color, #000) 0%, rgba(0, 0, 0, 0) 100%);
+        opacity: 0.03;
+        pointer-events: none;
+    }
+
+    .variant-item.active::after {
+        content: '✓';
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 18px;
+        height: 18px;
+        background: var(--primary-color, #000);
+        color: var(--white-color, #fff);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .variant-image {
+        width: 2.5rem;
+        height: 2.5rem;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 0.5rem;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .variant-item:hover .variant-image {
+        transform: scale(1.05);
+    }
+
+    .variant-title {
+        height: 100%;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: var(--text-color, #333);
+        text-align: center;
+        line-height: 1.5;
+        word-break: break-word;
+        transition: color 0.3s ease;
+    }
+
+    .variant-item:hover .variant-title {
+        color: var(--primary-color, #000);
+    }
+
+    .variant-item.active .variant-title {
+        font-weight: 600;
+    }
+
+    .variant-other-box {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-color, #e5e5e5);
+    }
+
+    .variant-other-box:last-child {
+        border-bottom: none;
+    }
+
+    .variant-title-span {
+        width: fit-content;
+        font-size: 1rem;
+        font-weight: 600;
+        color: rgb(var(--color-secondary-button-text));
+        min-width: 80px;
+        padding-top: 0.125rem;
+    }
+
+    .variant-other-text-box {
+        flex: 1;
+    }
+
+    .variant-material-text {
+        margin-bottom: 0.75rem;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        color: var(--text-color, #333);
+        text-align: left;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .variant-material-text:last-child {
+        margin-bottom: 0;
+    }
+
+    .material-strong {
+        font-weight: 500;
+        color: var(--text-color, #333);
+    }
+
+    .material-strong::after {
+        content: '•';
+        margin: 0 0.5rem;
+        color: var(--border-color, #e5e5e5);
+    }
+
+    .material-strong:last-child::after {
+        content: '';
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .variant-box {
+            gap: 0.75rem;
+        }
+
+        .variant-item {
+            min-width: 85px;
+            padding: 0.4rem 0.6rem;
+        }
+
+        .variant-title-span {
+            font-size: 0.9375rem;
+            min-width: 70px;
+        }
+
+        .variant-material-text {
+            font-size: 0.875rem;
+        }
+    }
+{% endstyle %}
+
+<product-variant>
+    <div class="product-variant-content" data-selected-variant-id="{{ selected_variant.id }}">
+        {% comment %}变体其它数据展示区域{% endcomment %}
+        <div class="variant-material-box variant-other-box">
+            <span class="variant-title-span">{{ 'products.product.material' | t | append:' : ' }}</span>
+            <div class="variant-material-text-box variant-other-text-box"></div>
+        </div>
+        <div class="variant-package-box variant-other-box">
+            <span class="variant-title-span">{{ 'products.product.package' | t | append:' : ' }}</span>
+            <div class="variant-package-text-box variant-other-text-box"></div>
+        </div>
+        <div class="variant-delivery-box variant-other-box">
+            <span class="variant-title-span">{{ 'products.product.delivery' | t | append:' : ' }}</span>
+            <div class="variant-delivery-text-box variant-other-text-box"></div>
+        </div>
+        {% comment %}变体切换区域{% endcomment %}
+        <div class="variant-box {% unless variants.size > 1  %} hidden {% endunless %}">
+            {% for variant in variants %}
+                <div class="variant-item {% if selected_variant.id == variant.id and variant.available == true %}active{% endif %}"
+                     data-variant-id="{{ variant.id }}"
+                     disabled="{% if variant.available == false %}disabled{%endif%}"
+                >
+                    {% assign namespace = variant_metafield_namespace %}
+                    {% assign variant_metafield = variant.metafields[namespace] %}
+                    {% assign variant_title = variant_metafield[variant_metafield_title_key].value %}
+                    {% assign variant_description = variant_metafield[variant_metafield_description_key].value %}
+                    {% assign variant_media_images = variant_metafield[variant_metafield_media_images_key].value %}
+                    {% assign variant_detail_images = variant_metafield[variant_metafield_detail_images_key].value %}
+                    {% assign variant_video = variant_metafield[variant_metafield_video_key].value %}
+                    {% assign variant_design_language = variant_metafield[variant_metafield_design_language_key].value %}
+                    {% assign variant_delivery = variant_metafield[variant_metafield_delivery_key].value %}
+                    {% assign variant_materail = variant_metafield[variant_metafield_material_key].value %}
+                    {% assign variant_package = variant_metafield[variant_metafield_package_key].value %}
+
+                    <input type="hidden" name="{{ variant.id }}"
+                           data-title="{{ variant_title }}"
+                           data-price="{{ variant.price | money_with_currency }}"
+                           data-compare-price="{{ variant.compare_at_price | money_with_currency }}"
+                           data-desc="{{ variant_description }}"
+                           data-sku="{{ variant.sku }}"
+                           data-media-images="{{ variant_media_images | json | escape }}"
+                           data-detail-images="{{ variant_detail_images | json | escape }}"
+                           data-video="{{ variant_video | json | escape }}"
+                           data-design-language="{{ variant_design_language | json | escape }}"
+                           data-delivery="{{ variant_delivery }}"
+                           data-material="{{ variant_materail | json | escape }}"
+                           data-packages="{{ variant_package }}"
+                           data-available="{{ variant.available }}"
+                    >
+                    {% if variants.size > 1 %}
+                        <img class="variant-image" src="{{ variant.featured_image | img_url:width: 120,height:120 }}" alt="{{ variant.title }}" />
+                        <span class="variant-title">{{ variant.title }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</product-variant>

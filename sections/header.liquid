@@ -28,6 +28,9 @@
     font-family: var(--self_font);
     width: fit-content;
 }
+    .cart-display-type{
+       position: relative;
+    }
     .header-container{
     padding: 2rem;
     width: 100vw;
@@ -64,8 +67,6 @@
     }
     .icon-cart{
         display: inline-block;
-        width: 44px;
-        height: 44px;
         cursor: pointer;
         color: var(--color-foreground);
     }
@@ -73,10 +74,16 @@
         display:flex;
         justify-content:center;
         align-items:center;
+        gap: .5rem;
     }
     .icon-summary-box{
         display: none;
         font-size: 2rem;
+    }
+    .header-center-other-box .phone-icon,
+    .header-center-other-box .search-icon-box,
+    .header-center-other-box .icon-cart{
+       font-size: 1.8rem;
     }
     .phone-icon{
         font-size: 1.5rem;
@@ -92,7 +99,7 @@
     }
     .search-icon-box{
         display: none;
-        width: 1.5rem;
+
     }
     @media screen and (max-width: 500px){
         .phone-box{
@@ -110,10 +117,11 @@
         }
         .phone-search{
             display: flex;
+            gap: .5rem;
         }
-        .search-icon-box{
-            margin-left: 1rem;
-        }
+        .phone-box,.search-icon-box{
+            flex: 1;
+         }
         .icon-summary-box,.search-icon-box{
             display: block;
         }
@@ -124,6 +132,8 @@
         .header-container{
             width: 100%;
             padding: 1rem;
+            background: var(--gradient-background);
+            box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
         }
         .summary-box-item{
             width: 2rem;
@@ -132,35 +142,69 @@
         .menu-drawer{
             position: fixed;
             display: block;
-            top: 78px;
+            top: 64px;
             left: -100%;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 64px);
             z-index: 99;
-            transition: left ease-in-out .5s;
+            transition: left ease-in-out .3s;
             background: var(--gradient-background);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .menu-drawer-show{
             position: fixed;
             display: block;
             left: 0;
-            top: 78px;
+            top: 64px;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 64px);
             z-index: 99;
-            transition: left ease-in-out .5s;
+            transition: left ease-in-out .3s;
             background: var(--gradient-background);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .menu-drawer-show ul{
-            overflow-y: scroll;
+            overflow-y: auto;
             overflow-x: hidden;
+            padding: 0;
+            margin: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* 自定义滚动条样式 */
+        .menu-drawer-show ul::-webkit-scrollbar{
+            width: 6px;
+        }
+        .menu-drawer-show ul::-webkit-scrollbar-track{
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .menu-drawer-show ul::-webkit-scrollbar-thumb{
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
         }
         .menu-drawer-item{
-            padding: 1rem;
             width: 100%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+        .menu-drawer-item:last-child{
+            border-bottom: none;
         }
         .menu-drawer-item:hover{
-            background-color: var(--white-color);
+            background-color: rgba(0, 0, 0, 0.03);
+            padding-left: 2rem;
+            transition: all .3s ease;
+        }
+        .menu-drawer-item a{
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            color: var(--color-foreground);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .menu-drawer-item a:hover{
+            color: var(--color-button);
         }
     }
 {% endstyle %}
@@ -193,20 +237,20 @@
                 {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
                 {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
             {% else %}
-                <img 
-  class='header-logo' 
-  srcset="
-    {{ 'store_logo.gif' | asset_img_url: width: 150 }} 150w,
-    {{ 'store_logo.gif' | asset_img_url: width: 300 }} 300w,
-    {{ 'store_logo.gif' | asset_img_url: width: 450 }} 450w
-  "
-  src="{{ 'store_logo.gif' | asset_img_url: width: settings.logo_width, height: logo_height }}"
-  sizes="(min-width: 990px) {{ settings.logo_width }}px, (min-width: 750px) calc({{ settings.logo_width }}px * 0.8), calc({{ settings.logo_width }}px * 0.6)"
-  alt="{{ shop.name | escape }}"
-  width="{{ settings.logo_width }}"
-  height="{{ logo_height }}"
-  fetchpriority="high"
-/>
+                <img
+              class='header-logo'
+              srcset="
+                {{ 'store_logo.webp' | asset_url: width: 150 }} 150w,
+                {{ 'store_logo.webp' | asset_url: width: 300 }} 300w,
+                {{ 'store_logo.webp' | asset_url: width: 450 }} 450w
+              "
+              src="{{ 'store_logo.webp' | asset_url }}"
+              sizes="(min-width: 990px) {{ settings.logo_width }}px, (min-width: 750px) calc({{ settings.logo_width }}px * 0.8), calc({{ settings.logo_width }}px * 0.6)"
+              alt="{{ shop.name | escape }}"
+              width="{{ settings.logo_width }}"
+              height="{{ logo_height }}"
+              fetchpriority="high"
+            />
             {% endif %}
             <h4 class='store-name'>{{ shop.name }}</h4>
             {% render 'search', input_id: 'Search-In-Modal' %}
@@ -238,7 +282,7 @@
                             {%- if cart != empty -%}
                                 <div class="cart-count-bubble">
                                   {%- if cart.item_count < 100 -%}
-                                    <span aria-hidden="true">{{ cart.item_count }}</span>
+                                    <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
                                   {%- endif -%}
                                   <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                                 </div>
@@ -250,7 +294,7 @@
                         {%- if cart != empty -%}
                             <div class="cart-count-bubble">
                               {%- if cart.item_count < 100 -%}
-                                <span aria-hidden="true">{{ cart.item_count }}</span>
+                                <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
                               {%- endif -%}
                               <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                             </div>
@@ -261,13 +305,11 @@
                 </div>
             </div>
         </div>
-        {% if section.settings.header_menu != blank %}
-            <div class='header-bottom'>
-            {% render 'header-menu',
-                    menu:section.settings.header_menu
-            %}
-            </div>
-        {% endif %}
+        {% comment %}{% if section.settings.header_menu != blank %}{% endcomment %}
+            {% comment %}<div class='header-bottom'>{% endcomment %}
+            {% comment %}{% render 'header-menu', menu:section.settings.header_menu %}{% endcomment %}
+            {% comment %}</div>{% endcomment %}
+        {% comment %}{% endif %}{% endcomment %}
     </header>
     <div class="menu-drawer">
         <ul style="width:100%;height:100%;">
@@ -321,6 +363,8 @@
                 }
 
                 connectedCallback(){
+                    // 初始化时调用stickyStatus
+                    this.stickyStatus();
                     window.addEventListener('resize',()=>{
                         this.stickyStatus();
                     });
@@ -329,19 +373,22 @@
                     })
                 }
                 stickyStatus(){
-                   window.requestAnimationFrame(()=>{
-                    const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
-                        if(el.clientWidth < 750){
-                            el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
-                            if(!el.classList.contains('sticky')){
+                   if(document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0)){
+                        window.requestAnimationFrame(()=>{
+                            const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
+                            if(el.clientWidth < 750){
+                                el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
+                                if(!el.classList.contains('sticky')){
                                 el.classList.add('sticky');
                                 el.classList.add('gradient');
                             }
-                        }
-                        else{
-                            el.classList = 'shopify-section shopify-section-group-header-group'
-                        }
-                   })
+                            }
+                            else{
+                                el.classList = 'shopify-section shopify-section-group-header-group'
+                            }
+                        })
+                   }
+
                 }
                 summaryCloseBtnHandle(){
                     const bodyEl = document.querySelector('body');
@@ -422,7 +469,7 @@
         "default": true,
         "label": "t:sections.header.settings.enable_language_selector.label",
         "info": "t:sections.header.settings.enable_language_selector.info"
-      },
+      }
   ]
 }
 {% endschema %}
