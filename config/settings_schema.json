@@ -491,7 +491,7 @@
         "type": "text",
         "id": "contact_hours",
         "label": "t:settings_schema.contact.settings.hours.label",
-        "default": "周一至周日 9:00 - 21:00"
+        "default": "everyday 9:00 - 21:00"
       },
       {
         "type": "header",
@@ -543,6 +543,33 @@
         "id": "catalog_white",
         "label": "t:settings_schema.catalog.settings.catalog_white.label",
         "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.catalog.settings.header__products_per_page.content"
+      },
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "min": 2,
+        "max": 24,
+        "step": 2,
+        "default": 12,
+        "label": "t:settings_schema.catalog.settings.products_per_page.label"
+      },
+
+      {
+        "type": "header",
+        "content": "t:settings_schema.catalog.settings.header__categories.content"
+      },
+      {
+        "type": "range",
+        "id": "categories_show_more_limit",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "default": 6,
+        "label": "t:settings_schema.catalog.settings.categories_show_more_limit.label"
       }
     ]
   },
@@ -637,8 +664,14 @@
         "id": "notification_pc_position",
         "label": "t:settings_schema.notification.desktop_position.label",
         "options": [
-          { "value": "right", "label": "t:settings_schema.notification.desktop_position.right.label" },
-          { "value": "left", "label": "t:settings_schema.notification.desktop_position.left.label" }
+          {
+            "value": "right",
+            "label": "t:settings_schema.notification.desktop_position.right.label"
+          },
+          {
+            "value": "left",
+            "label": "t:settings_schema.notification.desktop_position.left.label"
+          }
         ]
       },
       {
@@ -646,8 +679,14 @@
         "id": "notification_mobile_position",
         "label": "t:settings_schema.notification.mobile_position.label",
         "options": [
-          { "value": "bottom", "label": "t:settings_schema.notification.mobile_position.bottom.label" },
-          { "value": "top", "label": "t:settings_schema.notification.mobile_position.top.label" }
+          {
+            "value": "bottom",
+            "label": "t:settings_schema.notification.mobile_position.bottom.label"
+          },
+          {
+            "value": "top",
+            "label": "t:settings_schema.notification.mobile_position.top.label"
+          }
         ]
       },
       {
@@ -742,9 +781,18 @@
         "label": "t:settings_schema.notification.icon_style.label",
         "default": "floral",
         "options": [
-          { "value": "floral", "label": "t:settings_schema.notification.icon_style_floral.label" },
-          { "value": "minimal", "label": "t:settings_schema.notification.icon_style_minimal.label" },
-          { "value": "soft", "label": "t:settings_schema.notification.icon_style_soft.label" }
+          {
+            "value": "floral",
+            "label": "t:settings_schema.notification.icon_style_floral.label"
+          },
+          {
+            "value": "minimal",
+            "label": "t:settings_schema.notification.icon_style_minimal.label"
+          },
+          {
+            "value": "soft",
+            "label": "t:settings_schema.notification.icon_style_soft.label"
+          }
         ]
       }
     ]

@@ -30,11 +30,11 @@
   margin-bottom: 1rem;
 }
 .product-title{
-  font-family: var(--self_font);
+  font-family: var(--self_font), serif;
   font-size: calc(var(--font-scale) * 1.6rem);
 }
 .product-price{
-  font-family: var(--self_font);
+  font-family: var(--self_font), serif;
 }
   .product-price:nth-child(1){
     color: var(--payment-terms-background-color);
@@ -112,7 +112,7 @@ input[type="number"]{
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 1rem;
-  font-family: var(--self_font);
+  font-family: var(--self_font), serif;
 }
 .product-options-label{
   width: 8rem;
@@ -219,6 +219,9 @@ input[type="number"]{
     .product-options-item{
       display: block;
     }
+  .product-media{
+    gap: .5rem;
+  }
 
 }
 @media screen and (max-width:  750px){
@@ -228,7 +231,7 @@ input[type="number"]{
   }
   .main-product-img-box.content-item,
   .main-product-info.content-item{
-    width: 80%;
+    width: 92%;
   }
   .main-product-img-box.content-item{
     margin-right: 0;
@@ -395,6 +398,10 @@ input[type="number"]{
                 input_id : input_id
               -%}
               <script src={{ 'product-form.js' | asset_url }} defer></script>
+          {% when 'batch-add-cart' %}
+            {% if block.settings.enable_batch_add and product.variants.size > 1 %}
+              {% render 'batch-add-cart'%}
+            {% endif %}
         {% endcase %}
      {% endfor %}
     </div>
@@ -1096,6 +1103,18 @@ input[type="number"]{
             "type": "checkbox",
             "id": "enable_quick_add",
             "label": "t:sections.main-product.blocks.complementary_products.settings.enable_quick_add.label",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "batch-add-cart",
+        "name": "t:sections.main-product.blocks.batch_add_cart.name",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_batch_add",
+            "label": "t:sections.main-product.blocks.batch_add_cart.settings.enable_batch_add.label",
             "default": false
           }
         ]

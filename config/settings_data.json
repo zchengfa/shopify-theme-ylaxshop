@@ -11,6 +11,10 @@
     "show_cart_note": true,
     "contact_map_embed": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3669.019295023559!2d113.32006971117309!3d23.13296997900935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3402ff02d9fddedb%3A0xd80735e6c6761682!2z5Lit5Zu95bm_5Lic55yB5bm_5bee5biC5aSp5rKz5Yy65aSp5rKz6LevMjA45Y-35aSp5rKz5Z-OIOmCruaUv-e8lueggTogNTEwNjIw!5e0!3m2!1szh-CN!2s!4v1774500927837!5m2!1szh-CN!2s",
     "contact_A_map_embed": "https:\/\/surl.amap.com\/89wEjVoKdBn",
+    "products_per_page": 2,
+    "notification_pc_position": "left",
+    "notification_mobile_position": "top",
+    "notification_icon_style": "soft",
     "sections": {
       "header": {
         "type": "header",
@@ -162,10 +166,9 @@
         "type": "shopify:\/\/apps\/zora\/blocks\/Zora\/019abe95-89b0-7171-ade5-85165eb9229f",
         "disabled": false,
         "settings": {
-          "zora_bg_color": "#f8a399",
+          "zora_error_color": "#e64048",
           "zora_success_color": "#6fde6b",
           "zora_info_color": "#eaeef1",
-          "zora_error_color": "#e64048",
           "zora_warning_color": "#e9cb67",
           "zora_size_position_x": 1,
           "zora_size_position_y": 10
@@ -185,7 +188,7 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#f8bebe",
+          "background": "#ffffff",
           "background_gradient": "linear-gradient(281deg, rgba(255, 197, 164, 1) 18%, rgba(255, 169, 169, 1) 44%, rgba(255, 255, 255, 1) 79%, rgba(255, 255, 255, 1) 97%)",
           "text": "#000000",
           "button": "#000000",

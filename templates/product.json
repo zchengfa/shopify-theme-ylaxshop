@@ -22,7 +22,17 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "circle"
+            "swatch_shape": "circle",
+            "variant_metafield_namespace": "custom",
+            "variant_metafield_title_key": "variant_title",
+            "variant_metafield_description_key": "variant_description",
+            "variant_metafield_images_key": "variant_extra_img",
+            "variant_metafield_delivery_key": "variant_delivery",
+            "variant_metafield_material_key": "variant_material",
+            "variant_metafield_package_key": "variant_package",
+            "variant_metafield_detail_images_key": "variant_detail_imgs",
+            "variant_metafield_video_key": "variant_video",
+            "variant_metafield_design_language_key": "variant_design_language"
           }
         },
         "quantity_selector_BiE8bP": {
@@ -46,6 +56,9 @@
         "product_detail_desc_Kt7rCm": {
           "type": "product_detail_desc",
           "settings": {
+            "variant_metafield_namespace": "custom",
+            "variant_metafield_detail_images_key": "variant_detail_imgs",
+            "variant_metafield_design_language_key": "variant_design_language",
             "image_title": "Product image display",
             "typewriter_animation": true,
             "card_bg": "#fff",
@@ -78,6 +91,9 @@
         "magnifier_mask_color": "#4db5e5",
         "magnifier_or_mask_size": 30,
         "magnifier_times": 2,
+        "magnifier_show_delay": 1000,
+        "magnifier_hide_delay": 100,
+        "magnifier_transition_duration": 200,
         "mobile_thumbnails": "hide",
         "hide_variants": false,
         "enable_video_looping": false,

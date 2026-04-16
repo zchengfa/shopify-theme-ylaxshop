@@ -6,10 +6,11 @@ if(!customElements.get('collection-banner-control')){
 
                 this.preEl = this.getElementsByClassName('collection-btn-previous').item(0);
                 this.nexEl = this.getElementsByClassName('collection-btn-next').item(0);
-                this.itemEls = this.getElementsByClassName('product-item');
+                this.itemEls = this.getElementsByClassName('product-intersection-box');
                 this.currentEl = this.getElementsByClassName('collection-current-page').item(0);
                 this.totalEl = this.getElementsByClassName('collection-total-page')?.item(0);
                 this.totalPage = this.totalEl?.attributes['data-pages'].value * 1;
+                this.controller = this.getElementsByClassName('collection-banner-controller banner-con-controller').item(0);
 
                 this.preEl?.addEventListener('click',()=>{
                     this.listeningCoEvent();
@@ -21,7 +22,6 @@ if(!customElements.get('collection-banner-control')){
 
                 this.createResizeObserver(".product-box");
             }
-
             // 监听product-box的宽，根据宽变化来变化页数
             createResizeObserver(selector) {
                 const wrapper = this.querySelector(selector);
@@ -31,9 +31,11 @@ if(!customElements.get('collection-banner-control')){
                     if(this.totalPage){
                         let itemWidth = this.itemEls[0].clientWidth;
                         let page = this.totalWidth/itemWidth;
-                        let totalCount = this.totalEl.attributes['data-show-count'].value * 1;
+                        let totalCount = this.itemEls.length;
                         let count = (totalCount - Math.round(page)) + 1;
                         this.totalPage = count;
+                        count > 1 ? this.controller.style.display = 'flex' : this.controller.style.display = 'none';
+
                         this.getElementsByClassName('collection-total-page').item(0).textContent = count;
                     }
                 });

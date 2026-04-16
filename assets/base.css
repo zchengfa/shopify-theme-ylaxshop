@@ -252,7 +252,7 @@ h5,
 .h3,
 .h4,
 .h5 {
-  font-family: var(--font-heading-family);
+  font-family: var(--font-heading-family), serif;
   font-style: var(--font-heading-style);
   font-weight: var(--font-heading-weight);
   letter-spacing: calc(var(--font-heading-scale) * 0.06rem);
@@ -319,7 +319,7 @@ h3,
 
 h4,
 .h4 {
-  font-family: var(--font-heading-family);
+  font-family: var(--font-heading-family), serif;
   font-style: var(--font-heading-style);
   font-size: calc(var(--font-heading-scale) * 1.5rem);
 }
@@ -1158,7 +1158,6 @@ deferred-media {
 .button,
 .shopify-challenge__button,
 .customer button,
-button.shopify-payment-button__button--unbranded,
 .shopify-payment-button [role='button'],
 .cart__dynamic-checkout-buttons [role='button'],
 .cart__dynamic-checkout-buttons iframe {
@@ -1544,7 +1543,7 @@ details[open] > .share-button__fallback {
   appearance: none;
   background-color: #ffffff;
   color: #000000;
-  font-family: var(--font-body-family);
+  font-family: var(--font-body-family), serif;
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
   font-size: 1.6rem;
@@ -1598,7 +1597,7 @@ details[open] > .share-button__fallback {
 }
 
 .select__select {
-  font-family: var(--font-body-family);
+  font-family: var(--font-body-family), serif;
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
   font-size: 1.2rem;
@@ -1785,7 +1784,7 @@ details[open] > .share-button__fallback {
 /* Text area */
 
 .text-area {
-  font-family: var(--font-body-family);
+  font-family: var(--font-body-family), serif;
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
   min-height: 10rem;
@@ -1863,10 +1862,10 @@ input[type='checkbox'] {
 .quantity {
   color: rgba(var(--color-foreground));
   position: relative;
-  width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
+  width: fit-content;
   display: flex;
   border-radius: var(--inputs-radius);
-  min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  min-height: calc((var(--inputs-border-width) * 2));
 }
 
 .quantity:after {
@@ -1901,7 +1900,7 @@ input[type='checkbox'] {
 
 .quantity__input {
   color: currentColor;
-  font-family: var(--font-body-family);
+  font-family: var(--font-body-family), serif;
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
   font-size: 1.1rem;

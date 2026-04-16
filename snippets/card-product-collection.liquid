@@ -1,6 +1,6 @@
 {% style %}
     .product-box {
-    font-family: var(--self_font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--self_font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif), serif;
     padding: 1.25rem;
     display: flex;
     justify-content: flex-start;
@@ -23,12 +23,27 @@
     justify-content: flex-start;
     }
 
-    .product-item {
+    /* 🔥 布局全部交给 intersection-box 继承 */
+    intersection-box {
     margin-top: 0;
     width: calc(20% - 1.25rem);
     min-width: 280px;
+    flex-shrink: 0;
+    }
+    .product-box.show-wrap intersection-box {
+    width: calc(25% - 1.25rem);
+    margin-bottom: 1.25rem;
+    flex-shrink: 1;
+    }
+
+    .product-item {
+    width: 100% !important;
+    min-width: unset !important;
+    margin: 0 !important;
+    flex-shrink: 1 !important;
     display: flex;
     flex-direction: column;
+    height: 100%;
     border-radius: 0.875rem;
     cursor: pointer;
     background: var(--gradient-background, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%));
@@ -36,17 +51,10 @@
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     text-decoration: none;
     color: inherit;
-    flex-shrink: 0;
     border: 1px solid rgba(255, 255, 255, 0.9);
     overflow: hidden;
     position: relative;
     backdrop-filter: blur(8px);
-    }
-
-    .product-box.show-wrap .product-item {
-    width: calc(25% - 1.25rem);
-    margin-bottom: 1.25rem;
-    flex-shrink: 1;
     }
 
     .product-item:hover {
@@ -96,13 +104,12 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-family: var(--self_font, -apple-system, sans-serif);
+    font-family: var(--self_font, -apple-system, sans-serif), serif;
     font-size: 1.1rem;
     font-weight: 600;
     line-height: 1.4;
     color: #2d3748;
     margin-bottom: 0.75rem;
-    min-height: 2.8em;
     letter-spacing: -0.01em;
     }
 
@@ -228,8 +235,6 @@
     box-shadow: 0 4px 12px rgba(66, 153, 225, 0.25);
     }
 
-    /* 下拉菜单样式已移除，改用横向滚动显示所有标签 */
-
     .price-container {
     display: flex;
     align-items: center;
@@ -242,7 +247,7 @@
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-primary, #e91e63);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif, serif;
     letter-spacing: -0.02em;
     }
 
@@ -255,28 +260,28 @@
     }
 
     .add-loading-box {
-        display: flex;
-        position: relative;
-        align-items: center;
-        width: 100%;
-        height: 2.75rem;
-        overflow: hidden;
-        border: none;
-        text-align: center;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(8px);
-        background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    height: 2.75rem;
+    overflow: hidden;
+    border: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.9);
     }
     .add-loading-box .form{
-        margin: 0 auto;
-        width: 80%;
-        height: 70%;
-        border-radius: 20px;
-        overflow: hidden;
+    margin: 0 auto;
+    width: 80%;
+    height: 70%;
+    border-radius: 20px;
+    overflow: hidden;
     }
     .add-loading-box .form .loading__spinner{
-        left: 50%;
-        transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
     }
     .add-loading-box.disabled-add {
     background: linear-gradient(135deg, #a0aec0, #718096);
@@ -290,7 +295,7 @@
     border: none;
     background: linear-gradient(135deg, var(--color-primary, #e91e63), var(--color-secondary, #d81b60));
     color: white;
-    font-family: var(--self_font, -apple-system, sans-serif);
+    font-family: var(--self_font, -apple-system, sans-serif), serif;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
@@ -329,10 +334,10 @@
     transition: all 0.3s ease;
     }
     .product-params-price{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
     }
     .sold-out {
     opacity: 0.85;
@@ -405,26 +410,23 @@
 
     /* 响应式设计优化 */
     @media screen and (max-width: 1200px) {
-    .product-item {
+    intersection-box {
     width: calc(25% - 1rem);
     min-width: 240px;
     }
-
-    .product-box.show-wrap .product-item {
+    .product-box.show-wrap intersection-box {
     width: calc(33.333% - 1rem);
     }
     }
 
     @media screen and (max-width: 900px) {
-    .product-item {
+    intersection-box {
     width: calc(33.333% - 1rem);
     min-width: 220px;
     }
-
-    .product-box.show-wrap .product-item {
+    .product-box.show-wrap intersection-box {
     width: calc(50% - 1rem);
     }
-
     .product-img-box {
     height: 220px;
     }
@@ -435,34 +437,26 @@
     padding: 0.875rem 0.5rem;
     gap: 1rem;
     }
-
-    .product-item {
+    intersection-box {
     width: calc(50% - 0.5rem);
     min-width: calc(50vw - 1.25rem);
     margin: 0.875rem auto;
     }
-
-    .product-box.show-wrap .product-item {
+    .product-box.show-wrap intersection-box {
     width: calc(50% - 0.5rem);
     margin-bottom: 0.875rem;
     }
-
     .product-img-box {
     height: 200px;
     }
-
     .product-title {
     font-size: 1rem;
     -webkit-line-clamp: 2;
     }
-
-
-
     .banner-btn {
     width: 2.5rem;
     height: 2.5rem;
     }
-
     .banner-con-counter {
     font-size: 0.9rem;
     padding: 0.3rem 1rem;
@@ -476,18 +470,15 @@
     gap: 0.75rem;
     width: 90vw;
     }
-
-    .product-item {
+    intersection-box {
     width: calc(100% - 0.5rem);
     min-width: calc(100vw - 1.5rem);
     margin: 0.75rem auto;
     border-radius: 0.75rem;
     }
-
-    .product-box.show-wrap .product-item {
+    .product-box.show-wrap intersection-box {
     width: 100%;
     }
-
     .product-params {
     padding: 0.875rem 0.75rem 0.5rem;
     }
@@ -495,19 +486,58 @@
     height: 180px;
     border-radius: 0.75rem 0.75rem 0 0;
     }
-
     .add-btn {
     font-size: 0.9rem;
     }
-
     .banner-con-counter {
     font-size: 0.85rem;
     padding: 0.25rem 0.875rem;
     }
-
     .banner-btn {
     width: 2.25rem;
     height: 2.25rem;
+    }
+    }
+
+    /* 平板设备 */
+    @media screen and (max-width: 1024px) {
+    intersection-box {
+    width: calc(33.333% - 1.25rem);
+    min-width: 250px;
+    }
+    .product-box.show-wrap intersection-box {
+    width: calc(33.333% - 1.25rem);
+    }
+    }
+
+    /* 小型平板设备 */
+    @media screen and (max-width: 768px) and (min-width: 501px) {
+    intersection-box {
+    width: calc(50% - 1rem);
+    min-width: 200px;
+    }
+    .product-box.show-wrap intersection-box {
+    width: calc(50% - 1rem);
+    }
+    .product-box.show-wrap {
+    justify-content: flex-start;
+    margin: 0;
+    width: 100%;
+    }
+    }
+
+    /* 手机设备 */
+    @media screen and (max-width: 500px) {
+    intersection-box {
+    width: calc(100% - 1rem);
+    min-width: 160px;
+    }
+    .product-box.show-wrap{
+    margin: 0 auto;
+    width: 90vw;
+    }
+    .product-box.show-wrap intersection-box {
+    width: calc(100% - 1rem);
     }
     }
 
@@ -581,220 +611,174 @@
     border-bottom-color: rgba(255, 255, 255, 0.1);
     }
     }
-
-    /* 平板设备 */
-    @media screen and (max-width: 1024px) {
-        .product-item {
-            width: calc(33.333% - 1.25rem);
-            min-width: 250px;
-        }
-
-        .product-box.show-wrap .product-item {
-            width: calc(33.333% - 1.25rem);
-        }
-    }
-
-    /* 小型平板设备 */
-    @media screen and (max-width: 768px) and (min-width: 501px) {
-        .product-item {
-            width: calc(50% - 1rem);
-            min-width: 200px;
-        }
-
-        .product-box.show-wrap .product-item {
-            width: calc(50% - 1rem);
-        }
-
-        .product-box.show-wrap {
-            justify-content: flex-start;
-            margin: 0;
-            width: 100%;
-        }
-    }
-
-    /* 手机设备 */
-    @media screen and (max-width: 500px) {
-        .product-item {
-            width: calc(100% - 1rem);
-            min-width: 160px;
-        }
-        .product-box.show-wrap{
-            margin: 0 auto;
-            width: 90vw;
-        }
-        .product-box.show-wrap .product-item {
-            width: calc(100% - 1rem);
-        }
-    }
 {% endstyle %}
+
 <collection-banner-control>
-<div class='product-box  {% if products_to_show <= 3 %}flex-start{% endif %} {% if show_wrap %}show-wrap {% else %}hidden-overflow{% endif %}'>
-    {% if products.size >= 1 %}
-        {% for product in products limit:products_to_show %}
-            <a href="{{ product.url }}" class='product-item' data-margin="24">
-              <div class='product-img-box'>
-                <img
-                  class='product-img'
-                  srcset="
+    <div class='product-box  {% if products_to_show <= 3 %}flex-start{% endif %} {% if show_wrap %}show-wrap {% else %}hidden-overflow{% endif %}'>
+        {% if products.size >= 1 %}
+            {% for product in products limit:products_to_show %}
+                <intersection-box class="product-intersection-box" data-margin="24" data-root-margin="0px 10px 0px 10px">
+                    <a href="{{ product.url }}" class='product-item'>
+                        <div class='product-img-box'>
+                            <img
+                                    class='product-img'
+                                    srcset="
                     {%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
                     {%- if product.featured_image.width >= 330 -%}{{ product.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
                     {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
                   "
-                  src="{{ product.featured_image | image_url: width: 330, height: 330 }}"
-                  sizes="(min-width: 1200px) 330px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                  alt="{{ product.title | escape }}"
-                  width="500"
-                  height="400"
-                  loading="lazy"
-                />
-              </div>
-              <div class='product-params'>
-                <p class='product-title'>{{ product.title }}</p>
-                  <div class="product-vendor-tags-box">
-                {% if product.vendor != empty %}
-                    <span class="product-vendor gradient-text">{{  product.vendor }}</span>
+                                    src="{{ product.featured_image | image_url: width: 330, height: 330 }}"
+                                    sizes="(min-width: 1200px) 330px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                                    alt="{{ product.title | escape }}"
+                                    width="500"
+                                    height="400"
+                                    loading="lazy"
+                            />
+                        </div>
+                        <div class='product-params'>
+                            <p class='product-title'>{{ product.title }}</p>
+                            <div class="product-vendor-tags-box">
+                                {% if product.vendor != empty %}
+                                    <span class="product-vendor gradient-text">{{  product.vendor }}</span>
 
-                {% endif %}
-                {% if product.tags.size > 0 %}
-                    {% for tag in product.tags %}
-                        {% case tag %}
-                            {% when 'New' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.new' | t }}</span>
-                            {% when 'BestSelling' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.best_selling' | t }}</span>
-                            {% when 'Plus' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.plus' | t }}</span>
-                            {% when 'Popular' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.popular' | t }}</span>
-                            {% when 'Hot' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.hot' | t }}</span>
-                            {% when 'Classic style' %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.classic_style' | t }}</span>
+                                {% endif %}
+                                {% if product.tags.size > 0 %}
+                                    {% for tag in product.tags %}
+                                        {% case tag %}
+                                            {% when 'New' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.new' | t }}</span>
+                                            {% when 'BestSelling' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.best_selling' | t }}</span>
+                                            {% when 'Plus' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.plus' | t }}</span>
+                                            {% when 'Popular' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.popular' | t }}</span>
+                                            {% when 'Hot' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.hot' | t }}</span>
+                                            {% when 'Classic style' %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ 'products.product.tags.classic_style' | t }}</span>
+                                            {% else %}
+                                                <span class="product-tag" data-tag="{{ tag }}">{{ tag }}</span>
+                                        {% endcase %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            {% if currency_code_enabled %}
+                                <div class="product-params-price">
+                                    <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
+                                    <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
+                                </div>
                             {% else %}
-                                <span class="product-tag" data-tag="{{ tag }}">{{ tag }}</span>
-                        {% endcase %}
-                    {% endfor %}
-                {% endif %}
-               </div>
-                {% if currency_code_enabled %}
-                    <div class="product-params-price">
-                        <span class='now-price'>{{ product.price_max | money_with_currency}}</span>
-                        <span class='origin-price line-through'>{{ product.compare_at_price | money_with_currency }}</span>
-                    </div>
-                {% else %}
-                   <div class="product-params-price">
-                       <span class='now-price'>{{ product.price_max | money }}</span>
-                       <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>
-                   </div>
-                {% endif %}
+                                <div class="product-params-price">
+                                    <span class='now-price'>{{ product.price_max | money }}</span>
+                                    <span class='origin-price line-through'>{{ product.compare_at_price | money}}</span>
+                                </div>
+                            {% endif %}
 
-              </div>
-              <product-form class="product-form">
-                <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
+                        </div>
+                        <product-form class="product-form">
+                            <div class='add-loading-box {% if product.selected_or_first_available_variant.available == false %}
                     disabled-add
                 {% endif %}'>
-                    {% assign product_form_id = 'quick-add-' | append: section_id | append: product.id  %}
-                {% form 'product',
-                        product,
-                        id: product_form_id,
-                        class: 'form',
-                        novalidate: 'novalidate',
-                        data-type: 'add-to-cart-form'
-                    %}
-                    <input
-                        type="hidden"
-                        name="id"
-                        value="{{ product.selected_or_first_available_variant.id }}"
-                        class="product-variant-id"
-                        {% if product.selected_or_first_available_variant.available == false %}
-                            disabled
-                        {% endif %}
-                    >
-                    <button type='submit' name='add' class="add-btn {% if product.selected_or_first_available_variant.available == false %}
+                                {% assign product_form_id = 'quick-add-' | append: section_id | append: product.id  %}
+                                {% form 'product',
+                                        product,
+                                        id: product_form_id,
+                                        class: 'form',
+                                        novalidate: 'novalidate',
+                                        data-type: 'add-to-cart-form'
+                                %}
+                                    <input
+                                            type="hidden"
+                                            name="id"
+                                            value="{{ product.selected_or_first_available_variant.id }}"
+                                            class="product-variant-id"
+                                            {% if product.selected_or_first_available_variant.available == false %}
+                                                disabled
+                                            {% endif %}
+                                    >
+                                    <button type='submit' name='add' class="add-btn {% if product.selected_or_first_available_variant.available == false %}
                         disabled-add
                     {% endif %}"
-                    {% if product.selected_or_first_available_variant.available == false %}
-                        disabled
-                    {% endif %}
-                    >
+                                            {% if product.selected_or_first_available_variant.available == false %}
+                                                disabled
+                                            {% endif %}
+                                    >
                         <span data-product-id="{{ product.id }}" class='add-or-sold {% if product.selected_or_first_available_variant.available %}add-to-cart{% else %}sold-out{% endif %}'>
                             {%- if product.selected_or_first_available_variant.available -%}
-                            {{ 'products.product.add_to_cart' | t }}
+                                {{ 'products.product.add_to_cart' | t }}
                             {%- else -%}
-                            {{ 'products.product.sold_out' | t }}
+                                {{ 'products.product.sold_out' | t }}
                             {%- endif -%}
 
                         </span>
-                    </button>
-                    {% render 'loading' %}
-                {% endform %}
+                                    </button>
+                                    {% render 'loading' %}
+                                {% endform %}
+                            </div>
+                        </product-form>
+                    </a>
+                </intersection-box>
+            {% endfor %}
+        {% else %}
+            <intersection-box>
+                <div class='product-item'>
+                    <div class='product-img-box'>
+                        <img
+                                class='product-img'
+                                src="{{ 'default.webp' | asset_url}}"
+                                sizes="(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                                alt="default image"
+                                width="270"
+                                height="290"
+                                loading="lazy"
+                        />
+                    </div>
+                    <div class='product-params'>
+                        <p class='product-title'>collection default title</p>
+                        <span class='now-price'>{{ 399 | money_with_currency}}</span>
+                        <span class='origin-price'>{{ 699 | money_with_currency }}</span>
+                    </div>
                 </div>
-            </product-form>
-            </a>
-        {% endfor %}
-    {% else %}
-        <div class='product-item' data-margin='24'>
-            <div class='product-img-box'>
-                <img
-                  class='product-img'
-                  src="{{ 'default.webp' | asset_url}}"
-                  sizes="(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                  alt="default image"
-                  width="270"
-                  height="290"
-                  loading="lazy"
-                />
-            </div>
-            <div class='product-params'>
-                <p class='product-title'>collection default title</p>
-                <span class='now-price'>{{ 399 | money_with_currency}}</span>
-                <span class='origin-price'>{{ 699 | money_with_currency }}</span>
-            </div>
-        </div>
-    {% endif %}
+            </intersection-box>
+        {% endif %}
         {% if show_wrap %}
             <div class='product-item placeholder-box'></div>
         {% endif %}
-</div>
-{% if show_wrap == false and products.size > 5 and products_to_show > 5 %}
-    <div class='collection-banner-controller banner-con-controller'>
-        <button class='banner-btn collection-btn-previous'>
-            {% render 'icon-button-previous-next' %}
-          </button>
-          <div class='banner-con-counter'>
-            <span class='collection-current-page'>1</span>
-            <span class='charactor'>/</span>
-            <span class='collection-total-page' data-show-count={{ products_to_show }} data-pages={{ products_to_show | minus:4 }}>{{ products_to_show | minus:4 }}</span>
-          </div>
-          <button class='banner-btn collection-btn-next'>
-            {% render 'icon-button-previous-next' %}
-          </button>
     </div>
-{% endif %}
+    {% unless show_wrap == true%}
+        <div class='collection-banner-controller banner-con-controller'>
+            <button class='banner-btn collection-btn-previous'>
+                {% render 'icon-button-previous-next' %}
+            </button>
+            <div class='banner-con-counter'>
+                <span class='collection-current-page'>1</span>
+                <span class='charactor'>/</span>
+                <span class='collection-total-page' data-show-count={{ products_to_show }} data-pages={{ products_to_show | minus:4 }}>{{ products_to_show | minus:4 }}</span>
+            </div>
+            <button class='banner-btn collection-btn-next'>
+                {% render 'icon-button-previous-next' %}
+            </button>
+        </div>
+    {% endunless %}
 </collection-banner-control>
 
 <script src="{{ 'collection-banner-control.js' | asset_url }}" defer='defer'></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer='defer'></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 防止标签盒子滚动时触发页面滚动
-    const tagsBoxes = document.querySelectorAll('.product-vendor-tags-box');
-
-    tagsBoxes.forEach(box => {
-        box.addEventListener('wheel', function(e) {
-            // 如果有横向滚动空间，阻止默认的页面滚动行为
-            if (this.scrollWidth > this.clientWidth) {
-                const delta = e.deltaY;
-                const maxScrollLeft = this.scrollWidth - this.clientWidth;
-
-                // 向右滚动且未到达右边界，或向左滚动且未到达左边界
-                if ((delta > 0 && this.scrollLeft < maxScrollLeft) ||
-                    (delta < 0 && this.scrollLeft > 0)) {
-                    e.preventDefault();
-                    this.scrollLeft += delta;
+    document.addEventListener('DOMContentLoaded', function() {
+        const tagsBoxes = document.querySelectorAll('.product-vendor-tags-box');
+        tagsBoxes.forEach(box => {
+            box.addEventListener('wheel', function(e) {
+                if (this.scrollWidth > this.clientWidth) {
+                    const delta = e.deltaY;
+                    const maxScrollLeft = this.scrollWidth - this.clientWidth;
+                    if ((delta > 0 && this.scrollLeft < maxScrollLeft) || (delta < 0 && this.scrollLeft > 0)) {
+                        e.preventDefault();
+                        this.scrollLeft += delta;
+                    }
                 }
-            }
-        }, { passive: false });
+            }, { passive: false });
+        });
     });
-});
 </script>

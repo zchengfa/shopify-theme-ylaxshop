@@ -1,0 +1,67 @@
+<style>
+    /* 分页容器 */
+    universal-pagination .universal-pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin: 40px 0;
+        flex-wrap: wrap;
+    }
+
+    /* 分页按钮 */
+    universal-pagination .universal-pagination__item {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgb(var(--catalog-secondary));
+        border-radius: 4px;
+        font-size: 14px;
+        color: rgb(var(--catalog-primary));
+        cursor: pointer;
+        background: rgb(var(--catalog-white));
+        transition: all 0.2s ease;
+    }
+
+    /* 上一页 / 下一页 */
+    universal-pagination .universal-pagination__prev,
+    universal-pagination .universal-pagination__next {
+        width: auto;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    /* 当前页高亮 */
+    universal-pagination .universal-pagination__item.active {
+        background: rgb(var(--catalog-accent));
+        color: rgb(var(--catalog-white));
+        border-color: rgb(var(--catalog-accent));
+    }
+
+    /* 禁用状态 */
+    universal-pagination .universal-pagination__item.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    /* hover 效果 */
+    universal-pagination .universal-pagination__item:not(.active):not(.disabled):hover {
+        border-color: rgb(var(--catalog-primary));
+        background: rgba(var(--catalog-secondary), 0.1);
+    }
+</style>
+
+<!-- 引入分页自定义元素脚本 -->
+<script src="{{ 'pagination.js' | asset_url }}" defer></script>
+
+<!-- 分页自定义元素 -->
+<universal-pagination
+    total-pages="{{ totalPages | default: 1 }}"
+    current-page="{{ currentPage | default: 1 }}"
+    visible-count="{{ visibleCount | default: 5 }}"
+    prev-text="{{ prevText | default: 'pagination.previous' | t }}"
+    next-text="{{ nextText | default: 'pagination.next' | t }}"
+    id="{{ id | default: 'pagination' }}"
+></universal-pagination>

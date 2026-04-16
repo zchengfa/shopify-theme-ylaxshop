@@ -1,0 +1,321 @@
+{% style %}
+
+    .batch-add-cart {
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 10;
+    background-color: rgb(var(--color-background));
+    box-shadow: 0 2px 12px rgba(var(--color-shadow), 0.06);
+    }
+    .batch-add-cart h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground));
+    text-align: left;
+    letter-spacing: 0;
+    }
+
+    /* 展开按钮 */
+    .batch-toggle-button {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    }
+    .batch-toggle-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    }
+
+    /* 变体列表容器 */
+    .batch-variants-list {
+    position: relative;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(var(--color-foreground), 0.06);
+    border-radius: 12px;
+    background-color: rgb(var(--color-background));
+    z-index: 10;
+    max-height: 380px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    }
+    .batch-variants-list::-webkit-scrollbar {
+    width: 4px;
+    }
+    .batch-variants-list::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--color-foreground), 0.2);
+    border-radius: 4px;
+    }
+    .batch-variants-list.hidden {
+    display: none;
+    }
+
+    /* 单个变体项 */
+    .batch-variant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+    transition: all 0.2s ease;
+    background-color: rgba(var(--color-foreground), 0.02);
+    border: 1px solid transparent;
+    }
+    .batch-variant-item:hover {
+    background-color: rgba(var(--color-button), 0.04);
+    border-color: rgba(var(--color-button), 0.15);
+    }
+    .batch-variant-item:last-child {
+    margin-bottom: 0;
+    }
+
+    /* 变体信息 */
+    .variant-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    }
+    .variant-info .variant-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: rgb(var(--color-button));
+    flex-shrink: 0;
+    }
+    .variant-details {
+    flex: 1;
+    }
+
+    .variant-title {
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: rgb(var(--color-foreground));
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    }
+
+    .variant-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+    }
+    .variant-price {
+    color: var(--white-color);
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1;
+    }
+
+    .variant-inventory {
+    color: rgb(var(--color-secondary-button-text));
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.85;
+    }
+
+    /* 数量输入框 */
+    .batch-quantity-box {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 8px;
+    padding: 0.2rem;
+    background-color: #fff;
+    }
+    .quantity__input.batch-quantity{
+    width: 2.5rem !important;
+    height: 2.2rem;
+    font-size: 1rem;
+    }
+    .quantity__button {
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    }
+    .quantity__button:hover {
+    background-color: rgba(var(--color-button), 0.1);
+    }
+    .quantity__button svg {
+    width: 16px;
+    height: 16px;
+    fill: rgba(var(--color-foreground), 0.7);
+    }
+
+    /* 底部操作按钮 */
+    .batch-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.06);
+    }
+    .batch-actions.hidden {
+    display: none;
+    }
+
+    /* 通用按钮 */
+    .btn {
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .btn-primary {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    border: none;
+    }
+    .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    }
+    .btn-secondary {
+    background-color: transparent;
+    color: rgb(var(--color-foreground));
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    }
+    .btn-secondary:hover {
+    background-color: rgba(var(--color-foreground), 0.04);
+    border-color: rgba(var(--color-foreground), 0.25);
+    }
+
+    @media (max-width: 768px) {
+    .batch-add-cart {
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    }
+    .batch-add-cart h3 {
+    font-size: 1.3rem;
+    text-align: left;
+    }
+    .batch-toggle-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    }
+    .batch-variants-list {
+    padding: 1rem;
+    max-height: 320px;
+    }
+    .batch-variant-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    }
+    .variant-info {
+    width: 100%;
+    gap: 0.8rem;
+    }
+    .variant-title {
+    font-size: 1.05rem;
+    }
+    .variant-price {
+    font-size: 1.15rem;
+    }
+    .batch-quantity-box {
+    align-self: flex-end;
+    }
+    .batch-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    }
+    .btn {
+    width: 100%;
+    padding: 0.9rem;
+    min-width: unset;
+    }
+    }
+{% endstyle %}
+<batch-add-cart data-init-btn="{{ 'sections.main-product.blocks.batch_add_cart.add_to_cart' | t }}">
+    <div class="batch-add-cart product-info-item">
+        <h3>{{ 'sections.main-product.blocks.batch_add_cart.title' | t }}</h3>
+        <button class="btn btn-primary batch-toggle-button" data-section="{{ section.id }}">
+            {{ 'sections.main-product.blocks.batch_add_cart.toggle_button' | t }}
+        </button>
+        <div class="batch-variants-list hidden">
+            {% for variant in product.variants %}
+                {% if variant.available %}
+                    <div class="batch-variant-item">
+                        <div class="variant-info">
+                            <input type="checkbox" class="variant-checkbox" data-variant-id="{{ variant.id }}">
+                            <div class="variant-details">
+                                <div class="variant-title">{{ variant.title }}</div>
+                                <div class="variant-meta">
+                                    <span class="variant-price">{{ variant.price | money_with_currency }}</span>
+                                    <span class="variant-inventory">
+                                {% if variant.inventory_quantity > 0 %}
+                                    {{ variant.inventory_quantity }} in stock
+                                {% else %}
+                                    Out of stock
+                                {% endif %}
+                              </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="batch-quantity-box">
+                            <button class="quantity__button" name="minus" type="button">
+                                {% render 'icon-minus' %}
+                            </button>
+                            <input
+                                    class="quantity__input batch-quantity"
+                                    type="number"
+                                    name="quantity"
+                                    data-variant-id="{{ variant.id }}"
+                                    min="0"
+                                    value="0"
+                            >
+                            <button class="quantity__button" name="plus" type="button">
+                                {% render 'icon-plus' %}
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="batch-actions hidden">
+            <button class="btn btn-secondary batch-cancel-button">
+                {{ 'sections.main-product.blocks.batch_add_cart.cancel_button' | t }}
+            </button>
+            <button class="btn btn-primary batch-add-button" data-section="{{ section.id }}">
+                {{ 'sections.main-product.blocks.batch_add_cart.add_to_cart' | t }}
+            </button>
+        </div>
+    </div>
+</batch-add-cart>
+<script defer src="{{ 'batch-add-cart.js' | asset_url }}"></script>

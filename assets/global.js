@@ -6,10 +6,14 @@ const PUB_SUB_EVENTS = {
   variantChange: 'variant-change',
   cartError: 'cart-error',
 };
-function fetchConfig(type = 'json') {
+function fetchConfig(type = 'json',headers = {}) {
     return {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: `application/${type}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: `application/${type}` ,
+        ...headers
+      },
     };
   }
 
@@ -84,7 +88,6 @@ function throttle (func,delay) {
   function replaceWithNewHtml(html, selector,id){
     if(html){
        let parseHtml = new DOMParser().parseFromString(html,'text/html').querySelector(selector);
-       //console.log(parseHtml,id,selector);
        if(document.getElementById(id)){
          document.getElementById(id).querySelector(selector).innerHTML = parseHtml.innerHTML;
        }

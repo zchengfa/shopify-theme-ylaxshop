@@ -13,7 +13,7 @@
 
   /* 全局重置与基础布局 */
   cart-items {
-  font-family: var(--self_font);
+  font-family: var(--self_font), serif;
   padding: 2rem;
   background-color: transparent;
   }
@@ -174,6 +174,7 @@
   font-weight: 600;
   margin: 0.5rem 0;
   color: rgb(var(--color-foreground));
+  -webkit-line-clamp: 2;
   }
 
   .product-option {
@@ -219,9 +220,7 @@
   }
 
   .cart-item__totals.right {
-  grid-column: 2;
-  justify-self: end;
-  margin-top: .5rem;
+     display: none;
   }
 
   .cart-item__quantity {
@@ -300,7 +299,7 @@
                   <p class="product-option">{{ item.product.vendor }}</p>
                 {%- endif -%}
 
-                <a href="{{ item.url }}" class="cart-item__name">{{ item.product.title | escape }}</a>
+                <a href="{{ item.url }}" class="cart-item__name text-ellipsis-multiline">{{ item.product.title | escape }}</a>
 
                 {%- if item.original_price != item.final_price -%}
                   <div class="cart-item__discounted-prices">
@@ -312,23 +311,15 @@
                 {%- endif -%}
 
                 {%- if item.product.has_only_default_variant == false or item.properties.size != 0 -%}
-                  <dl class="product-options">
+                  <div class="product-options">
                     {%- for option in item.options_with_values -%}
-                      <div class="product-option">
-                        <dt>{{ option.name }}:</dt>
-                        <dd>{{ option.value }}</dd>
-                      </div>
-                    {%- endfor -%}
-                    {%- for property in item.properties -%}
-                      {%- assign property_first_char = property.first | slice: 0 -%}
-                      {%- if property.last != blank and property_first_char != '_' -%}
+                      {% unless option.name == 'Title' %}
                         <div class="product-option">
-                          <dt>{{ property.first }}:</dt>
-                          <dd>{{ property.last }}</dd>
+                          <p class="text-ellipsis-multiline">{{ option.value }}</p>
                         </div>
-                      {%- endif -%}
+                      {%endunless%}
                     {%- endfor -%}
-                  </dl>
+                  </div>
                 {%- endif -%}
 
                 {%- for discount in item.line_level_discount_allocations -%}
