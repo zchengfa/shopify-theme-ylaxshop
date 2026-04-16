@@ -234,6 +234,20 @@
         },
         "catalog_white": {
           "label": "White"
+        },
+        "header__products_per_page": {
+          "content": "Products per page"
+        },
+        "products_per_page": {
+          "label": "Products per page"
+        },
+
+
+        "header__categories": {
+          "content": "Categories Settings"
+        },
+        "categories_show_more_limit": {
+          "label": "Categories Show More Button Limit"
         }
       }
     },
@@ -933,6 +947,14 @@
             },
             "show_inventory_quantity": {
               "label": "Show Inventory Count"
+            }
+          }
+        },
+        "batch_add_cart": {
+          "name": "Batch Add to Cart",
+          "settings": {
+            "enable_batch_add": {
+              "label": "Enable Batch Add to Cart"
             }
           }
         }

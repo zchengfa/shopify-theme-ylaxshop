@@ -156,9 +156,9 @@
       "empty": "您的购物车是空的",
       "cart_error": "更新购物车时出错。请重试。",
       "cart_quantity_error_html": "您只能将{{ quantity }}个此商品添加到您的购物车。",
-      "taxes_and_shipping_policy_at_checkout_html": "税费、折扣和<a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">运费<\/a>在结账时计算",
+      "taxes_and_shipping_policy_at_checkout_html": "税费、折扣和<a href=\"{{ link }}\">运费<\/a>在结账时计算",
       "taxes_included_but_shipping_at_checkout": "含税，运费和折扣在结账时计算",
-      "taxes_included_and_shipping_policy_html": "含税。 <a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\">运费<\/a>和折扣在结账时计算。",
+      "taxes_included_and_shipping_policy_html": "含税。 <a href=\"{{ link }}\">运费<\/a>和折扣在结账时计算。",
       "taxes_and_shipping_at_checkout": "税费、折扣和运费在结账时计算",
       "headings": {
         "product": "产品",
@@ -170,7 +170,7 @@
       "update": "更新",
       "login": {
         "title": "有帳戶嗎？",
-        "paragraph_html": "<a href=\"&lt;span%20class='notranslate'&gt;{{%20link%20}}&lt;\/span&gt;\" class=\"link underlined-link\">登录<\/a>以便更快地结账。"
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登录<\/a>以便更快地结账。"
       }
     },
     "quick_order_list": {
@@ -196,7 +196,23 @@
       "cancel": "取消",
       "min_error": "此商品最低为{{ min }}",
       "max_error": "此商品最多有{{ max }}",
-      "step_error": "您只能以{{ step }}的增量添加此项目"
+      "step_error": "您只能以{{ step }}的增量添加此项目"},
+    "main-product": {
+      "blocks": {
+        "batch_add_cart": {
+          "name": "批量加购",
+          "title": "批量加购",
+          "description": "启用此功能以允许客户一次添加多个数量。",
+          "toggle_button": "批量加购",
+          "cancel_button": "取消",
+          "add_to_cart": "批量加入购物车",
+          "settings": {
+            "enable_batch_add": {
+              "label": "启用批量加购"
+            }
+          }
+        }
+      }
     }
   },
   "general": {
@@ -279,7 +295,9 @@
       "sold_out": "售罄",
       "sale": "促销",
       "view_product": "查看产品",
-      "no_products": "暂无产品"
+      "no_products": "暂无产品",
+      "show_more": "显示更多",
+      "show_less": "显示更少"
     }
   },
   "pagefly": {
@@ -329,6 +347,9 @@
   },
   "notification": {
     "cart": {
+      "validate": {
+        "error": "请选择要添加到购物车的商品并且数量必须大于0"
+      },
       "add": {
         "success": "添加购物车成功",
         "error": "添加购物车失败"
@@ -343,5 +364,9 @@
         }
       }
     }
+  },
+  "pagination": {
+    "previous": "上一页",
+    "next": "下一页"
   }
 }

@@ -234,6 +234,20 @@
         },
         "catalog_white": {
           "label": "白色"
+        },
+        "header__products_per_page": {
+          "content": "每页商品数量"
+        },
+        "products_per_page": {
+          "label": "每页商品数量"
+        },
+
+
+        "header__categories": {
+          "content": "类目设置"
+        },
+        "categories_show_more_limit": {
+          "label": "类目显示更多按钮上限"
         }
       }
     },
@@ -1066,6 +1080,14 @@
             },
             "show_inventory_quantity": {
               "label": "显示库存计数"
+            }
+          }
+        },
+        "batch_add_cart": {
+          "name": "批量加购",
+          "settings": {
+            "enable_batch_add": {
+              "label": "启用批量加购"
             }
           }
         }
