@@ -90,7 +90,9 @@
     {% assign variant_design_language = variant.metafields[variant_metafield_namespace][variant_metafield_design_language_key].value %}
     {% if variant_detail_images != blank %}
       <div class="product-detail-desc-content">
-          <p class="product-detail-desc-title">{{ image_title }}</p>
+          <multi-lang data-lang="{{ request.locale.iso_code }}" data-target-class="product-detail-desc-title" data-json="{{ image_title | escape }}">
+              <p class="product-detail-desc-title"></p>
+          </multi-lang>
           <div class="product-detail-desc-images-box">
               {% for item in variant_detail_images %}
                     <intersection-box class="intersection-el" data-root-margin="500px 0px">

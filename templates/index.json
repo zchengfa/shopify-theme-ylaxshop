@@ -7,11 +7,11 @@
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_3.webp",
-            "heading": "Image slide",
+            "heading": "{\"en\":\"Roses & Flowers For Love\",\"zh-CN\":\"以花传情，玫瑰为证\"}",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "button_label": "Button label",
-            "link": "",
+            "subheading": "{\n    \"en\":\"Romantic red roses and flower gifts to express your love and heart. Perfect for confession, dating, and anniversaries.\",\n   \"zh-CN\":\"浪漫红玫瑰与鲜花礼品，传递你的爱意与心意。\"\n}",
+            "button_label": "{\n    \"en\":\"shop now\",\n  \" zh-CN\":\"立即购买\"\n}",
+            "link": "shopify:\/\/collections\/lover",
             "color_scheme": "scheme-1"
           }
         },
@@ -19,11 +19,11 @@
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_5.webp",
-            "heading": "Image slide",
+            "heading": "{  \"en\": \"Preserved Flowers\",  \"zh-CN\": \"永生花\"}",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "button_label": "Button label",
-            "link": "",
+            "subheading": "{\n  \"en\": \"Long-lasting preserved flowers that stay beautiful for years. No watering needed, a timeless gift for her.\",\n  \"zh-CN\": \"可长久保存的永生花，美丽绽放数年。无需浇水，送给她的永恒礼物。\"\n}",
+            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
+            "link": "shopify:\/\/collections\/forever",
             "color_scheme": "scheme-1"
           }
         },
@@ -31,10 +31,10 @@
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_4.webp",
-            "heading": "Image slide",
+            "heading": "{  \"en\": \"Birthday Flowers & Gifts\",  \"zh-CN\": \"生日鲜花与礼品\"}",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "button_label": "Button label",
+            "subheading": "{\n  \"en\": \"Beautiful birthday flower arrangements to surprise your loved ones. Make their day unforgettable with fresh blooms.\",\n  \"zh-CN\": \"精美的生日花艺布置，为你珍视的人制造惊喜。用新鲜鲜花，让他们的这天格外难忘。\"\n}",
+            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
             "link": "",
             "color_scheme": "scheme-1"
           }
@@ -43,11 +43,11 @@
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_2.webp",
-            "heading": "Romantic Flower",
+            "heading": "{\"en\": \"Romantic Flower\",  \"zh-CN\": \"浪漫鲜花\"}",
             "heading_size": "h1",
-            "subheading": "Come and experience this romance",
-            "button_label": "Shop now",
-            "link": "",
+            "subheading": "{\n  \"en\": \"Come and experience this romance\",\n  \"zh-CN\": \"来感受这份浪漫\"\n}",
+            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
+            "link": "shopify:\/\/products\/beautiful-and-warm-flower-hug-bucket",
             "color_scheme": "scheme-1"
           }
         },
@@ -55,11 +55,11 @@
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_1.webp",
-            "heading": "Valentine's Day",
+            "heading": "{\"en\": \"Valentine's Day\",  \"zh-CN\": \"情人节\"}",
             "heading_size": "h1",
-            "subheading": "Let love spread in the fragrance of flowers",
-            "button_label": "Shop now",
-            "link": "",
+            "subheading": "{\n  \"en\": \"Let love spread in the fragrance of flowers\",\n  \"zh-CN\": \"让爱在花香中蔓延\"\n}",
+            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
+            "link": "shopify:\/\/products\/korean-series-gentle-waiting",
             "color_scheme": "scheme-1"
           }
         }

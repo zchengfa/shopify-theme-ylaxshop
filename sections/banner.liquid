@@ -6,7 +6,7 @@
   .banner-con-imgs{
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   overflow: hidden;
   }
@@ -273,14 +273,17 @@
           </div>
           <div class='banner-card'>
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
-                {{ block.settings.heading }}
-              </h2>
+              <multi-lang data-target-class="banner__heading" data-lang="{{ request.locale.iso_code }}" data-json="{{ block.settings.heading | escape }}">
+                <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}"></h2>
+              </multi-lang>
             {%- endif -%}
             {%- if block.settings.subheading != blank -%}
               <div class="banner__text rte" {{ block.shopify_attributes }}>
-                <p class="banner__subheading">{{ block.settings.subheading }}</p>
+                <multi-lang data-target-class="banner__subheading" data-lang="{{ request.locale.iso_code }}" data-json="{{ block.settings.subheading | escape }}">
+                  <p class="banner__subheading"></p>
+                </multi-lang>
               </div>
+
             {%- endif -%}
             {%- if block.settings.button_label != blank -%}
               <div class="banner__buttons">
@@ -292,7 +295,9 @@
                         {% endif %}
                         class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
                 >
-                  {{- block.settings.button_label | escape | upcase -}}
+                  <multi-lang data-target-class="banner__button-text" data-lang="{{ request.locale.iso_code }}" data-json="{{ block.settings.button_label | escape }}">
+                    <span class="banner__button-text"></span>
+                  </multi-lang>
                 </a>
               </div>
             {%- endif -%}
@@ -308,7 +313,6 @@
           </button>
           <div class="banner-controller-type-box">
             {% if section.settings.banner_controller_type =='dots' %}
-              {% comment %} dots component {% endcomment %}
               <div class='banner-con-dots'>
                 {% for block in section.blocks %}
                   <button class='btn-dot' data-index={{ forloop.index }} >
@@ -317,7 +321,6 @@
                 {% endfor %}
               </div>
             {% elsif section.settings.banner_controller_type =='counter' %}
-              {% comment %} counter component {% endcomment %}
               <div class='banner-con-counter'>
                 <span class='current-page'>1</span>
                 <span class='charactor'>/</span>
@@ -343,7 +346,7 @@
 </banner-control>
 
 {% if section.blocks.size > 1 %}
-  <script src={{ 'banner-control.js' | asset_url }} defer='defer'></script>
+  <script src={{ 'banner-control.js' | asset_url }} defer></script>
 {% endif %}
 {% schema %}
 {
@@ -414,10 +417,11 @@
           "label": "t:sections.banner.blocks.slide.settings.image.label"
         },
         {
-          "type": "inline_richtext",
+          "type": "textarea",
           "id": "heading",
-          "default": "Image slide",
-          "label": "t:sections.banner.blocks.slide.settings.heading.label"
+          "default": "{ 'en': 'Image slide','zh-CN': '轮播图标题' }",
+          "label": "t:sections.banner.blocks.slide.settings.heading.label",
+          "info": "t:sections.banner.blocks.slide.settings.heading.info"
         },
         {
           "type": "select",
@@ -440,15 +444,16 @@
           "label": "t:sections.all.heading_size.label"
         },
         {
-          "type": "inline_richtext",
+          "type": "textarea",
           "id": "subheading",
-          "default": "Tell your brand's story through images",
-          "label": "t:sections.banner.blocks.slide.settings.subheading.label"
+          "default": "{ 'en': 'Tell your brand's story through images','zh-CN': '通过图片展示您的品牌故事' }",
+          "label": "t:sections.banner.blocks.slide.settings.subheading.label",
+          "info": "t:sections.banner.blocks.slide.settings.subheading.info"
         },
         {
-          "type": "text",
+          "type": "textarea",
           "id": "button_label",
-          "default": "Button label",
+          "default": "{ 'en': 'Button Label','zh-CN': '按钮标签' }",
           "label": "t:sections.banner.blocks.slide.settings.button_label.label",
           "info": "t:sections.banner.blocks.slide.settings.button_label.info"
         },

@@ -557,7 +557,6 @@
         "default": 12,
         "label": "t:settings_schema.catalog.settings.products_per_page.label"
       },
-
       {
         "type": "header",
         "content": "t:settings_schema.catalog.settings.header__categories.content"
