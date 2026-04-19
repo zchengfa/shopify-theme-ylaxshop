@@ -855,3 +855,29 @@ if(!customElements.get('product-variant')){
 
   customElements.define('product-variant', ProductVariant);
 }
+
+if(!customElements.get('multi-lang')){
+  class MultiLang extends HTMLElement {
+    connectedCallback() {
+      try {
+        const targetClass = this.dataset.targetClass;
+        const currentLang = this.dataset.lang;
+        let jsonString = this.dataset.json?.trim();
+
+        if (!targetClass || !currentLang || !jsonString) return;
+        const langData = JSON.parse(jsonString);
+
+        const text = langData[currentLang] ?? langData.en ?? '';
+
+        const targetEl = this.querySelector(`.${targetClass}`);
+        if (targetEl) {
+          targetEl.textContent = text.replace(/\\n/g, '\n');
+        }
+      } catch (err) {
+        console.warn('MultiLang 错误：', err);
+      }
+    }
+  }
+
+  customElements.define('multi-lang', MultiLang);
+}

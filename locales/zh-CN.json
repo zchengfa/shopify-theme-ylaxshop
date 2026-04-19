@@ -196,7 +196,8 @@
       "cancel": "取消",
       "min_error": "此商品最低为{{ min }}",
       "max_error": "此商品最多有{{ max }}",
-      "step_error": "您只能以{{ step }}的增量添加此项目"},
+      "step_error": "您只能以{{ step }}的增量添加此项目"
+    },
     "main-product": {
       "blocks": {
         "batch_add_cart": {

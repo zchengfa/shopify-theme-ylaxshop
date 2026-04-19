@@ -241,8 +241,6 @@
         "products_per_page": {
           "label": "每页商品数量"
         },
-
-
         "header__categories": {
           "content": "类目设置"
         },
@@ -809,7 +807,8 @@
               "label": "文本卡片padding"
             },
             "image_title": {
-              "label": "图片展示标题"
+              "label": "图片展示标题",
+              "info": "设置图片展示标题多语言，例如使用双引号：{'en':'Product image display','zh-CN':'商品图片展示'}"
             }
           }
         },
@@ -1226,7 +1225,9 @@
       "settings": {
         "header": {
           "recommend_title": "产品推荐标题",
-          "complementary_title": "互补产品标题"
+          "recommend_info": "设置多语言，例如使用双引号：{'en':'Recommend products','zh-CN':'推荐商品'}",
+          "complementary_title": "互补产品标题",
+          "complementary_info": "设置多语言，例如使用双引号：{'en':'Complementary products','zh-CN':'互补商品'}"
         }
       }
     },
@@ -1394,14 +1395,16 @@
               "label": "图片"
             },
             "heading": {
-              "label": "标题"
+              "label": "标题",
+              "info": "设置轮播图标题，支持多语言。示例，需要双引号：{ 'en': 'Image slide','zh-CN': '轮播图标题' }"
             },
             "subheading": {
-              "label": "副标题"
+              "label": "副标题",
+              "info": "设置轮播图的副标题，支持多语言。示例需要双引号：{ 'en': 'Tell your brand's story through images','zh-CN': '通过图片展示您的品牌故事' }"
             },
             "button_label": {
               "label": "按钮标签",
-              "info": "标签内容为空的话可以隐藏按钮哦！"
+              "info": "设置轮播图的按钮标签，支持多语言。示例，需要双引号：{ 'en': 'Button Label','zh-CN': '按钮标签' }"
             },
             "link": {
               "label": "按钮链接"

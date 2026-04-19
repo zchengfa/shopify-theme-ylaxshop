@@ -1,35 +1,35 @@
 {% style %}
-#HeaderLanguageForm{
+    #HeaderLanguageForm{
     padding: 0;
-}
-#HeaderLanguageForm .disclosure__button{
+    }
+    #HeaderLanguageForm .disclosure__button{
     height: 2rem;
     padding: 0 1rem;
     background-color: transparent;
-}
-#HeaderLanguageForm .disclosure__button .icon-caret{
+    }
+    #HeaderLanguageForm .disclosure__button .icon-caret{
     height: .4rem;
-}
-#HeaderLanguageForm .disclosure__list-wrapper{
-    top: 3rem;
+    }
+    #HeaderLanguageForm .disclosure__list-wrapper{
+    top: 110%;
     bottom: 0;
     right:0;
     height: fit-content;
     border-radius: .5rem;
-}
-#HeaderLanguageForm .disclosure__list-wrapper .disclosure__list{
+    }
+    #HeaderLanguageForm .disclosure__list-wrapper .disclosure__list{
     min-width: unset;
-}
-.disclosure__list-wrapper .disclosure__item .disclosure__link{
+    }
+    .disclosure__list-wrapper .disclosure__item .disclosure__link{
     padding: .8rem 1.3rem;
     font-size: 1rem;
-}
-.disclosure__list-wrapper .disclosure__item .language-text{
+    }
+    .disclosure__list-wrapper .disclosure__item .language-text{
     font-family: var(--self_font), serif;
     width: fit-content;
-}
+    }
     .cart-display-type{
-       position: relative;
+    position: relative;
     }
     .header-container{
     padding: 2rem;
@@ -37,23 +37,26 @@
     box-sizing: border-box;
     }
     .header-top{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
     }
     .sticky{
-        position: sticky;
-        top: 0;
-        z-index: 99;
+    position: sticky;
+    top: 0;
+    z-index: 99;
     }
     .header-menu-box .menu-link:not(:last-child){
     margin-right: 1rem;
     }
     .header-center{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     padding: 2rem;
+    position: relative;
     }
     .store-name{
     font-weight: bold;
@@ -66,194 +69,243 @@
     align-items: center;
     }
     .icon-cart{
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        color: var(--color-foreground);
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: var(--color-foreground);
     }
     .header-center-other-box{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        gap: .5rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap: .5rem;
     }
     .icon-summary-box{
-        display: none;
-        font-size: 2rem;
+    display: none;
+    font-size: 2rem;
     }
     .header-center-other-box .phone-icon,
     .header-center-other-box .search-icon-box,
     .header-center-other-box .icon-cart{
-       font-size: 1.8rem;
+    font-size: 1.8rem;
     }
     .phone-icon{
-        font-size: 1.5rem;
+    font-size: 1.5rem;
     }
     .icon-close{
-        transform: scale(.6);
+    transform: scale(.6);
     }
     .menu-drawer{
-        display: none;
+    display: none;
     }
     .icon-cart-btn{
-        position: relative;
+    position: relative;
     }
     .search-icon-box{
-        display: none;
-
+    display: none;
     }
-    @media screen and (max-width: 500px){
-        .phone-box{
-            display: none;
-        }
 
+    .desktop-hide {
+    display: none !important;
+    }
+    @media (max-width: 749px) {
+    #HeaderLanguageFormMobile{
+      padding: 0;
+    }
+    #HeaderLanguageFormMobile .icon.icon-caret{
+       display: none;
+    }
+    .localization-form:only-child .button, .localization-form:only-child .localization-form__select{
+      margin: 0;
+    }
+    .field:after, .select:after, .customer .field:after, .customer select:after, .localization-form__select:after{
+       display: none;
+    }
+    .mobile-hide {
+    display: none !important;
+    }
+    .desktop-hide {
+    display: flex !important;
+    }
+    }
+
+    .mobile-header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    }
+    .header-center-localization {
+    display: flex;
+    align-items: center;
+    }
+
+    @media screen and (max-width: 500px){
+    .phone-box{
+    display: none;
+    }
     }
     @media screen and (max-width: 750px){
-        .store-name{
-            position: relative;
-            left: 1rem;
-        }
-        .phone,.header-logo{
-            display:none;
-        }
-        .phone-search{
-            display: flex;
-            gap: .5rem;
-        }
-        .phone-box,.search-icon-box{
-            flex: 1;
-         }
-        .icon-summary-box,.search-icon-box{
-            display: block;
-        }
-        .header-center{
-            padding: 0;
-            justify-content: space-between;
-        }
-        .header-container{
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient-background);
-            box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
-        }
-        .summary-box-item{
-            width: 2rem;
-            height: 2rem;
-        }
-        .menu-drawer{
-            position: fixed;
-            display: block;
-            top: 64px;
-            left: -100%;
-            width: 100%;
-            height: calc(100% - 64px);
-            z-index: 99;
-            transition: left ease-in-out .3s;
-            background: var(--gradient-background);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .menu-drawer-show{
-            position: fixed;
-            display: block;
-            left: 0;
-            top: 64px;
-            width: 100%;
-            height: calc(100% - 64px);
-            z-index: 99;
-            transition: left ease-in-out .3s;
-            background: var(--gradient-background);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .menu-drawer-show ul{
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 0;
-            margin: 0;
-            -webkit-overflow-scrolling: touch;
-        }
-        /* 自定义滚动条样式 */
-        .menu-drawer-show ul::-webkit-scrollbar{
-            width: 6px;
-        }
-        .menu-drawer-show ul::-webkit-scrollbar-track{
-            background: rgba(0, 0, 0, 0.05);
-        }
-        .menu-drawer-show ul::-webkit-scrollbar-thumb{
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 3px;
-        }
-        .menu-drawer-item{
-            width: 100%;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
-        }
-        .menu-drawer-item:last-child{
-            border-bottom: none;
-        }
-        .menu-drawer-item:hover{
-            background-color: rgba(0, 0, 0, 0.03);
-            padding-left: 2rem;
-            transition: all .3s ease;
-        }
-        .menu-drawer-item a{
-            display: block;
-            width: 100%;
-            padding: 1.2rem;
-            color: var(--color-foreground);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        .menu-drawer-item a:hover{
-            color: var(--color-button);
-        }
+    .store-name{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    }
+    .phone,.header-logo{
+    display:none;
+    }
+    .phone-search{
+    display: flex;
+    gap: .5rem;
+    }
+    .phone-box,.search-icon-box{
+    flex: 1;
+    }
+    .icon-summary-box,.search-icon-box{
+    display: block;
+    }
+    .header-center{
+    padding: 0;
+    justify-content: space-between;
+    }
+    .header-container{
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient-background);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
+    }
+    .summary-box-item{
+    width: 2rem;
+    height: 2rem;
+    }
+    .menu-drawer{
+    position: fixed;
+    display: block;
+    top: 64px;
+    left: -100%;
+    width: 100%;
+    height: calc(100% - 64px);
+    z-index: 99;
+    transition: left ease-in-out .3s;
+    background: var(--gradient-background);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .menu-drawer-show{
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 64px;
+    width: 100%;
+    height: calc(100% - 64px);
+    z-index: 99;
+    transition: left ease-in-out .3s;
+    background: var(--gradient-background);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .menu-drawer-show ul{
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    }
+    /* 自定义滚动条样式 */
+    .menu-drawer-show ul::-webkit-scrollbar{
+    width: 6px;
+    }
+    .menu-drawer-show ul::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.05);
+    }
+    .menu-drawer-show ul::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    }
+    .menu-drawer-item{
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    }
+    .menu-drawer-item:last-child{
+    border-bottom: none;
+    }
+    .menu-drawer-item:hover{
+    background-color: rgba(0, 0, 0, 0.03);
+    padding-left: 2rem;
+    transition: all .3s ease;
+    }
+    .menu-drawer-item a{
+    display: block;
+    width: 100%;
+    padding: 1.2rem;
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    }
+    .menu-drawer-item a:hover{
+    color: var(--color-button);
+    }
     }
 {% endstyle %}
+
 <sticky-header class="header-wrapper">
     <header class='header-container'>
         {% if section.settings.header_top_menu != blank %}
             <div class='header-top'>
-            {% render 'header-menu',
-                       menu:section.settings.header_top_menu
-            %}
-            {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-                <localization-form class="small-hide medium-hide" data-prevent-hide>
-                  {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-                    <div>
-                      <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
-                      {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
-                    </div>
-                  {%- endform -%}
-                </localization-form>
-              {%- endif -%}
+                {% render 'header-menu', menu:section.settings.header_top_menu %}
+                {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+                    <localization-form class="mobile-hide" data-prevent-hide>
+                        {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+                            <div>
+                                <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                                {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
+                            </div>
+                        {%- endform -%}
+                    </localization-form>
+                {%- endif -%}
             </div>
         {% endif %}
 
         <div class='header-center'>
-            <div class="icon-summary-box">
-                <div class="icon-summary-box-show summary-box-item">{% render 'icon-summary' %}</div>
-                <div class="icon-close-box-show summary-box-item hidden">{% render 'icon-close' %}</div>
+            <div class="mobile-header-left-group desktop-hide">
+                <div class="icon-summary-box">
+                    <div class="icon-summary-box-show summary-box-item">{% render 'icon-summary' %}</div>
+                    <div class="icon-close-box-show summary-box-item hidden">{% render 'icon-close' %}</div>
+                </div>
+
+                {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+                    <localization-form class="header-center-localization" data-prevent-hide>
+                        {%- form 'localization', id: 'HeaderLanguageFormMobile', class: 'localization-form' -%}
+                            <div>
+                                <h2 class="visually-hidden" id="HeaderLanguageLabelMobile">{{ 'localization.language_label' | t }}</h2>
+                                {%- render 'language-localization', localPosition: 'HeaderLanguageMobile' -%}
+                            </div>
+                        {%- endform -%}
+                    </localization-form>
+                {%- endif -%}
             </div>
+
             {% if settings.logo != blank %}
                 {% assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio %}
                 {{ settings.logo | image_url:width:600 | image_tag: class:'header-logo', width:settings.logo_width, height: logo_height }}
             {% else %}
                 <img
-              class='header-logo'
-              srcset="
+                        class='header-logo'
+                        srcset="
                 {{ 'store_logo.webp' | asset_url: width: 150 }} 150w,
                 {{ 'store_logo.webp' | asset_url: width: 300 }} 300w,
                 {{ 'store_logo.webp' | asset_url: width: 450 }} 450w
               "
-              src="{{ 'store_logo.webp' | asset_url }}"
-              sizes="(min-width: 990px) {{ settings.logo_width }}px, (min-width: 750px) calc({{ settings.logo_width }}px * 0.8), calc({{ settings.logo_width }}px * 0.6)"
-              alt="{{ shop.name | escape }}"
-              width="{{ settings.logo_width }}"
-              height="{{ logo_height }}"
-              fetchpriority="high"
-            />
+                        src="{{ 'store_logo.webp' | asset_url }}"
+                        sizes="(min-width: 990px) {{ settings.logo_width }}px, (min-width: 750px) calc({{ settings.logo_width }}px * 0.8), calc({{ settings.logo_width }}px * 0.6)"
+                        alt="{{ shop.name | escape }}"
+                        width="{{ settings.logo_width }}"
+                        height="{{ logo_height }}"
+                        fetchpriority="high"
+                />
             {% endif %}
+
             <h4 class='store-name'>{{ shop.name }}</h4>
+
             {% render 'search', input_id: 'Search-In-Modal' %}
             <div class='header-center-other-box' id="HeaderCenterOther" data-id="{{ section.id }}">
                 <div class="phone-search">
@@ -282,35 +334,29 @@
                             {% render 'icon-cart' %}
                             {%- if cart != empty -%}
                                 <div class="cart-count-bubble">
-                                  {%- if cart.item_count < 100 -%}
-                                    <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
-                                  {%- endif -%}
-                                  <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                                    {%- if cart.item_count < 100 -%}
+                                        <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
+                                    {%- endif -%}
+                                    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                                 </div>
-                              {%- endif -%}
+                            {%- endif -%}
                         </a>
                     {% elsif settings.cart_type == 'drawer' %}
-                    <button class='icon-cart icon-cart-btn'>
-                        {% render 'icon-cart' %}
-                        {%- if cart != empty -%}
-                            <div class="cart-count-bubble">
-                              {%- if cart.item_count < 100 -%}
-                                <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
-                              {%- endif -%}
-                              <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-                            </div>
-                          {%- endif -%}
-                    </button>
-
+                        <button class='icon-cart icon-cart-btn'>
+                            {% render 'icon-cart' %}
+                            {%- if cart != empty -%}
+                                <div class="cart-count-bubble">
+                                    {%- if cart.item_count < 100 -%}
+                                        <span  class="cart-count-span" aria-hidden="true">{{ cart.item_count }}</span>
+                                    {%- endif -%}
+                                    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                                </div>
+                            {%- endif -%}
+                        </button>
                     {% endif %}
                 </div>
             </div>
         </div>
-        {% comment %}{% if section.settings.header_menu != blank %}{% endcomment %}
-            {% comment %}<div class='header-bottom'>{% endcomment %}
-            {% comment %}{% render 'header-menu', menu:section.settings.header_menu %}{% endcomment %}
-            {% comment %}</div>{% endcomment %}
-        {% comment %}{% endif %}{% endcomment %}
     </header>
     <div class="menu-drawer">
         <ul style="width:100%;height:100%;">
@@ -320,6 +366,7 @@
         </ul>
     </div>
 </sticky-header>
+
 <script defer>
     let cartBtnEl = document.querySelector('.icon-cart-btn');
     cartBtnEl?.addEventListener('click',()=>{
@@ -336,92 +383,88 @@
     //搜索框中关闭按钮点击事件
     let searchCloseChildren = document.querySelector('.search-close');
     searchCloseChildren?.addEventListener('click',()=>{
-        //隐藏搜索框
         let searchBox = document.querySelector('.search-box');
         searchBox.classList.remove('search-box-show');
-        //关闭预搜索结果元素
         let searchResultEl = document.querySelector('#predictive-search-results-box');
         searchResultEl.style.display = 'none';
     })
 </script>
+
 {% javascript %}
-    if(!customElements.get('sticky-header')){
-        customElements.define('sticky-header',
-            class StickyHeader extends HTMLElement {
-                constructor(){
-                    super()
-                    this.closeBtnShow = false;
-                    this.summaryBtn = this.getElementsByClassName('icon-summary-box-show').item(0);
-                    this.closeBtn = this.getElementsByClassName('icon-close-box-show').item(0);
-                    this.menuDrawer = this.getElementsByClassName('menu-drawer').item(0);
-                    this.summaryBtn.addEventListener('click',()=>{
-                        this.summaryCloseBtnHandle();
-                    });
+if(!customElements.get('sticky-header')){
+customElements.define('sticky-header',
+class StickyHeader extends HTMLElement {
+constructor(){
+super()
+this.closeBtnShow = false;
+this.summaryBtn = this.getElementsByClassName('icon-summary-box-show').item(0);
+this.closeBtn = this.getElementsByClassName('icon-close-box-show').item(0);
+this.menuDrawer = this.getElementsByClassName('menu-drawer').item(0);
+this.summaryBtn.addEventListener('click',()=>{
+this.summaryCloseBtnHandle();
+});
+this.closeBtn.addEventListener('click',()=>{
+this.summaryCloseBtnHandle();
+});
+}
 
-                    this.closeBtn.addEventListener('click',()=>{
-                        this.summaryCloseBtnHandle();
-                    });
-                }
-
-                connectedCallback(){
-                    // 初始化时调用stickyStatus
-                    this.stickyStatus();
-                    window.addEventListener('resize',()=>{
-                        this.stickyStatus();
-                    });
-                    window.addEventListener('scroll',(e)=>{
-                        this.stickyStatus();
-                    })
-                }
-                stickyStatus(){
-                   if(document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0)){
-                        window.requestAnimationFrame(()=>{
-                            const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
-                            if(el.clientWidth < 750){
-                                el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
-                                if(!el.classList.contains('sticky')){
-                                el.classList.add('sticky');
-                                el.classList.add('gradient');
-                            }
-                            }
-                            else{
-                                el.classList = 'shopify-section shopify-section-group-header-group'
-                            }
-                        })
-                   }
-
-                }
-                summaryCloseBtnHandle(){
-                    const bodyEl = document.querySelector('body');
-                    this.closeBtnShow = !this.closeBtnShow;
-                    if(this.closeBtnShow){
-                        bodyEl.style.overflow = 'hidden';
-                        this.closeBtn.classList = 'icon-close-box-show summary-box-item';
-                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item hidden';
-                        this.menuDrawer.classList = 'menu-drawer menu-drawer-show'
-                    }
-                    else{
-                        bodyEl.style.overflow = 'scroll';
-                        this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';
-                        this.summaryBtn.classList = 'icon-summary-box-show summary-box-item';
-                        this.menuDrawer.classList = 'menu-drawer '
-                    }
-
-                }
-            }
-        )
-    }
+connectedCallback(){
+this.stickyStatus();
+window.addEventListener('resize',()=>{
+this.stickyStatus();
+});
+window.addEventListener('scroll',(e)=>{
+this.stickyStatus();
+})
+}
+stickyStatus(){
+if(document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0)){
+window.requestAnimationFrame(()=>{
+const el = document.getElementsByClassName('shopify-section shopify-section-group-header-group').item(0);
+if(el.clientWidth < 750){
+el.classList = 'shopify-section shopify-section-group-header-group sticky gradient'
+if(!el.classList.contains('sticky')){
+el.classList.add('sticky');
+el.classList.add('gradient');
+}
+}
+else{
+el.classList = 'shopify-section shopify-section-group-header-group'
+}
+})
+}
+}
+summaryCloseBtnHandle(){
+const bodyEl = document.querySelector('body');
+this.closeBtnShow = !this.closeBtnShow;
+if(this.closeBtnShow){
+bodyEl.style.overflow = 'hidden';
+this.closeBtn.classList = 'icon-close-box-show summary-box-item';
+this.summaryBtn.classList = 'icon-summary-box-show summary-box-item hidden';
+this.menuDrawer.classList = 'menu-drawer menu-drawer-show'
+}
+else{
+bodyEl.style.overflow = 'scroll';
+this.closeBtn.classList = 'icon-close-box-show summary-box-item hidden';
+this.summaryBtn.classList = 'icon-summary-box-show summary-box-item';
+this.menuDrawer.classList = 'menu-drawer '
+}
+}
+}
+)
+}
 {% endjavascript %}
+
 {% schema %}
 {
   "name": "t:sections.header.name",
   "settings": [
     {
-        "type": "link_list",
-        "id": "header_top_menu",
-        "default": "main-menu",
-        "label": "t:sections.header.settings.header_menu.label",
-        "info": "t:sections.header.settings.header_menu.info"
+      "type": "link_list",
+      "id": "header_top_menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.header_menu.label",
+      "info": "t:sections.header.settings.header_menu.info"
     },
     {
       "type":"checkbox",
@@ -431,46 +474,46 @@
       "default": false
     },
     {
-        "type": "link_list",
-        "id": "header_menu",
-        "default": "main-menu",
-        "label": "t:sections.header.settings.header_menu.label",
-        "info": "t:sections.header.settings.header_menu.info"
+      "type": "link_list",
+      "id": "header_menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.header_menu.label",
+      "info": "t:sections.header.settings.header_menu.info"
     },
     {
-        "type": "color",
-        "id": "color_underline",
-        "label": "t:sections.header.settings.menu_underline.label",
-        "info": "t:sections.header.settings.menu_underline.info",
-        "default": "#fff"
+      "type": "color",
+      "id": "color_underline",
+      "label": "t:sections.header.settings.menu_underline.label",
+      "info": "t:sections.header.settings.menu_underline.info",
+      "default": "#fff"
     },
     {
-        "type": "select",
-        "default":"left",
-        "id": "menu_position",
-        "label": "t:sections.header.settings.menu_position.label",
-        "options": [
-            {
-               "label": "t:sections.header.settings.menu_position.options__1.label",
-               "value": "left"
-            },
-            {
-                "label": "t:sections.header.settings.menu_position.options__2.label",
-                "value": "center"
-            },
-            {
-                "label": "t:sections.header.settings.menu_position.options__3.label",
-                "value": "right"
-            }
-        ]
+      "type": "select",
+      "default":"left",
+      "id": "menu_position",
+      "label": "t:sections.header.settings.menu_position.label",
+      "options": [
+        {
+          "label": "t:sections.header.settings.menu_position.options__1.label",
+          "value": "left"
+        },
+        {
+          "label": "t:sections.header.settings.menu_position.options__2.label",
+          "value": "center"
+        },
+        {
+          "label": "t:sections.header.settings.menu_position.options__3.label",
+          "value": "right"
+        }
+      ]
     },
     {
-        "type": "checkbox",
-        "id": "enable_language_selector",
-        "default": true,
-        "label": "t:sections.header.settings.enable_language_selector.label",
-        "info": "t:sections.header.settings.enable_language_selector.info"
-      }
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "default": true,
+      "label": "t:sections.header.settings.enable_language_selector.label",
+      "info": "t:sections.header.settings.enable_language_selector.info"
+    }
   ]
 }
 {% endschema %}

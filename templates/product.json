@@ -35,6 +35,12 @@
             "variant_metafield_design_language_key": "variant_design_language"
           }
         },
+        "batch_add_cart_HA8qUG": {
+          "type": "batch-add-cart",
+          "settings": {
+            "enable_batch_add": true
+          }
+        },
         "quantity_selector_BiE8bP": {
           "type": "quantity_selector",
           "settings": {}
@@ -73,6 +79,7 @@
         "description_znVpEC",
         "price_8JkA7x",
         "variant_picker_99rLMd",
+        "batch_add_cart_HA8qUG",
         "quantity_selector_BiE8bP",
         "buy_buttons",
         "recommend_products_FLTkDY",

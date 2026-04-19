@@ -173,11 +173,11 @@
 
             {% for source in selected_variant_media_video.sources %}
               {% if source.format == 'mp4' and source.height == 480  %}
-                {% assign video_url = source.url | prepend: 'https:' %}
+                {% assign video_url = source.url %}
               {% elsif source.format == 'mp4' and source.height == 720  %}
-                {% assign video_url = source.url | prepend: 'https:' %}
+                {% assign video_url = source.url %}
                 {% elsif source.format == 'mp4' and source.height == 1080  %}
-                {% assign video_url = source.url | prepend: 'https:' %}
+                {% assign video_url = source.url %}
               {% endif %}
 
             {% endfor %}

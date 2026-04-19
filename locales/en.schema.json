@@ -241,8 +241,6 @@
         "products_per_page": {
           "label": "Products per page"
         },
-
-
         "header__categories": {
           "content": "Categories Settings"
         },
@@ -567,10 +565,12 @@
       "name": "Featured Collection",
       "settings": {
         "title": {
-          "label": "Title"
+          "label": "Title",
+          "info": "The title of the featured collection, example use double quotes: {'en':'Featured Collection','zh-CN':'特色商品'}"
         },
         "description": {
-          "label": "Description"
+          "label": "Description",
+          "info": "The description of the featured collection, example use double quotes: {'en':'Featured Collection description','zh-CN':'特色商品说明'}"
         },
         "description_style": {
           "label": "How to display description content",
@@ -676,7 +676,8 @@
               "label": "Text Card Padding"
             },
             "image_title": {
-              "label": "Image Display Title"
+              "label": "Image Display Title",
+              "info": "The title of the product display image, example use double quotes: {'en':'Product image display','zh-CN':'商品图片展示'}"
             }
           }
         },
@@ -1093,7 +1094,9 @@
       "settings": {
         "header": {
           "recommend_title": "Product Recommendations Title",
-          "complementary_title": "Complementary Products Title"
+          "recommend_info": "set multiple languages,example use double quotes:'{'en':'Recommend products','zh-CN':'推荐商品'}'",
+          "complementary_title": "Complementary Products Title",
+          "complementary_info": "set multiple languages,example use double quotes:'{'en':'Complementary products','zh-CN':'互补商品'}'"
         }
       }
     },
@@ -1261,14 +1264,16 @@
               "label": "Image"
             },
             "heading": {
-              "label": "Heading"
+              "label": "Heading",
+              "info": "Set the multilingual text for banner cards using JSON-structured data. example, need double quotes: { 'en': 'Image slide','zh-CN': '轮播图标题' }"
             },
             "subheading": {
-              "label": "Subheading"
+              "label": "Subheading",
+              "info": "Set the multilingual text for banner cards using JSON-structured data. example, need double quotes: { 'en': 'Tell your brand's story through images','zh-CN': '通过图片展示您的品牌故事' }"
             },
             "button_label": {
               "label": "Button Label",
-              "info": "Button can be hidden if the label is empty!"
+              "info": "Set the multilingual text for banner cards using JSON-structured data. example, need double quotes: { 'en': 'Button Label','zh-CN': '按钮标签' }"
             },
             "link": {
               "label": "Button Link"

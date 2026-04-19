@@ -749,16 +749,18 @@ input[type="number"]{
         "name":"t:sections.recommend_products.name",
         "settings": [
           {
-            "type": "text",
+            "type": "textarea",
             "id": "recommend_title",
             "label": "t:sections.recommend_products.settings.header.recommend_title",
-            "default":"recommend products"
+            "info": "t:sections.recommend_products.settings.header.recommend_info",
+            "default":"{'en':'Recommend products','zh-CN':'推荐商品'}"
           },
           {
-            "type": "text",
+            "type": "textarea",
             "id": "complementary_title",
             "label": "t:sections.recommend_products.settings.header.complementary_title",
-            "default":"complementary products"
+            "info": "t:sections.recommend_products.settings.header.complementary_info",
+            "default":"{'en':'Complementary products','zh-CN':'互补商品'}"
           }
         ]
       },
@@ -788,10 +790,11 @@ input[type="number"]{
             "info": "t:sections.main-product.blocks.product_detail_desc.settings.variant_metafield_design_language_key.info"
           },
           {
-            "type": "text",
+            "type": "textarea",
             "id": "image_title",
             "label": "t:sections.main-product.blocks.product_detail_desc.settings.image_title.label",
-            "default": "Product image display"
+            "info": "t:sections.main-product.blocks.product_detail_desc.settings.image_title.info",
+            "default": "{'en':'Product image display','zh-CN':'商品图片展示'}"
           },
           {
             "type": "checkbox",
