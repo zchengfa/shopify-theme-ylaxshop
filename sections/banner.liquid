@@ -217,7 +217,6 @@
   }
   }
 {% endstyle %}
-
 <banner-control>
   <div class='banner-container banner-{{ section.id }}'>
     <div class='banner-con-imgs animate--{{ section.settings.image_behavior }}'
@@ -230,45 +229,66 @@
           <div class='banner-item-img'>
             {%- if block.settings.image -%}
               {%- liquid
-                assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
                 assign image_format = 'webp'
+
                 if section.settings.image_behavior == 'ambient'
-                  assign sizes = '(max-width: 750px) 100vw, 120vw'
-                  assign widths = '375, 550, 750, 900, 1100, 1320, 1500'
+                  assign sizes = '(max-width: 750px) 100vw, 100vw'
+                  assign widths = '375, 550, 750, 900, 1100'
                 else
                   assign sizes = '(max-width: 750px) 100vw, (max-width: 1100px) 90vw, 100vw'
-                  assign widths = '375, 550, 750, 900, 1100, 1500'
+                  assign widths = '375, 550, 750, 900, 1100'
                 endif
+
                 assign fetch_priority = 'auto'
                 if section.index == 1
                   assign fetch_priority = 'high'
                 endif
               -%}
+
               {%- if forloop.first %}
                 {{
                 block.settings.image
-                | image_url: width: 1200
-                | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority,loading: 'eager',quantity:80,format: image_format
+                | image_url: width: 1100
+                | image_tag:
+                sizes: sizes,
+                widths: widths,
+                fetchpriority: fetch_priority,
+                loading: 'eager',
+                quality: 80,
+                format: image_format
                 }}
               {%- else -%}
                 {{
                 block.settings.image
-                | image_url: width: 1200
-                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths,format: image_format, fetchpriority: fetch_priority,quantity:70
+                | image_url: width: 1100
+                | image_tag:
+                    loading: 'lazy',
+                    sizes: sizes,
+                    widths: widths,
+                    format: image_format,
+                    fetchpriority: fetch_priority,
+                    quality: 70
                 }}
               {%- endif -%}
+
             {% else %}
+              {% assign default_img = 'banner_default_1.webp' | asset_url %}
+              {% assign default_widths = '360, 480, 750' %}
+              {% assign default_quality = 75 %}
+
               <img
-                      src="{{ 'banner_default_1.webp' | asset_url }}?width=480&quality=80"
+                      src="{{ default_img | image_url: width: 480, quality: default_quality }}"
                       srcset="
-                        {{ 'banner_default_1.webp' | asset_url }}?width=360&quality=80 360w,
-                        {{ 'banner_default_1.webp' | asset_url }}?width=480&quality=80 480w
+                      {{ default_img | image_url: width: 360, quality: default_quality }} 360w,
+                      {{ default_img | image_url: width: 480, quality: default_quality }} 480w,
+                      {{ default_img | image_url: width: 750, quality: default_quality }} 750w
                       "
                       sizes="(max-width:750px) 100vw, 480px"
-                      width="750"
-                      height="300"
+                      width="480"
+                      height="320"
                       fetchpriority="high"
-                      alt="banner image"/>
+                      loading="eager"
+                      alt="banner image">
             {%- endif -%}
           </div>
           <div class='banner-card'>

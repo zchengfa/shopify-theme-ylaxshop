@@ -2,10 +2,13 @@
 class CartRemoveButton extends HTMLElement {
   constructor() {
     super();
-
+    this.loadingEl = this.querySelector('.loading__spinner');
+    this.removeEl = this.querySelector('.icon-remove');
     this.addEventListener('click', (event) => {
       event.preventDefault();
       const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items');
+      this.loadingEl.classList.remove('hidden');
+      this.removeEl.classList.add('hidden');
       cartItems.updateQuantity(this.dataset.index, 0);
     });
   }

@@ -1107,10 +1107,12 @@
           "name": "Question",
           "settings": {
             "FAQ_q": {
-              "label": "Question"
+              "label": "Question",
+              "info": "Set multiple languages,example use double quotes:'{'en':'question','zh-CN':'问题'}'"
             },
             "FAQ_a": {
-              "label": "Answer"
+              "label": "Answer",
+              "info": "Set multiple languages,example use double quotes:'{'en':'answer','zh-CN':'回答'}'"
             }
           }
         }

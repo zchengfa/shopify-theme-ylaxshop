@@ -226,25 +226,26 @@ class QuantityInput extends HTMLElement {
     this.removeBtn?.addEventListener('click', this.removeBtnClick);
     this.variantId = this.input.getAttribute('data-quantity-variant-id');
     this.loadingEl = document.getElementById(this.dataset['loadingParent'])?.querySelector('.loading__spinner');
+    this.loadingParentEl = this.querySelector('.quantity-loading-box')
   };
 
-  addBtnClick = () => {
+  addBtnClick = debounce(() => {
     this.input.value = this.input.value*1 + 1
     if(this.dataset['fetchAllowed'] !== 'false'){
       this.updateQuantity(this.input.value)
     }
-  }
-  minusBtnClick = () => {
+  },300)
+  minusBtnClick = debounce(() => {
     if (this.input.value > this.min) {
       this.input.value -= 1
       if(this.dataset['fetchAllowed'] !== 'false'){
         this.updateQuantity(this.input.value)
       }
     }
-  }
-  removeBtnClick = () => {
+  },300)
+  removeBtnClick = debounce(() => {
     this.updateQuantity(0);
-  }
+  },300)
   /**
    * @description 修改购物车中对应产品的数量，并触发页面部分更新
    * @param {string | number} value 对应产品操作后的数量
@@ -256,6 +257,7 @@ class QuantityInput extends HTMLElement {
         e.preventDefault();
       })
     }
+    this.loadingParentEl?.classList.remove('hidden')
     this.loadingEl?.classList.remove('hidden')
     /**
      * @description 定义请求参数
@@ -286,6 +288,9 @@ class QuantityInput extends HTMLElement {
       hideCartWithDrawer();
     }).catch((error)=>{
       showNotification('cart.update.count.error','error')
+    }).finally(() => {
+      this.loadingParentEl?.classList.add('hidden')
+      this.loadingEl?.classList.add('hidden')
     })
   }
   /**
