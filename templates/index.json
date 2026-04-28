@@ -3,73 +3,73 @@
     "banner": {
       "type": "banner",
       "blocks": {
-        "slide_aFzT87": {
+        "slide_pHnVzN": {
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_3.webp",
-            "heading": "{\"en\":\"Roses & Flowers For Love\",\"zh-CN\":\"以花传情，玫瑰为证\"}",
+            "heading": "{\"en\":\"Romantic Flowers\",\"zh-CN\":\"浪漫鲜花\"}",
             "heading_size": "h1",
-            "subheading": "{\n    \"en\":\"Romantic red roses and flower gifts to express your love and heart. Perfect for confession, dating, and anniversaries.\",\n   \"zh-CN\":\"浪漫红玫瑰与鲜花礼品，传递你的爱意与心意。\"\n}",
-            "button_label": "{\n    \"en\":\"shop now\",\n  \" zh-CN\":\"立即购买\"\n}",
+            "subheading": "{\"en\":\"Fresh blooms for every sweet moment\",\"zh-CN\":\"新鲜花束，点缀每一刻甜蜜\"}",
+            "button_label": "{\"en\":\"Shop Now\",\"zh-CN\":\"立即选购\"}",
             "link": "shopify:\/\/collections\/lover",
             "color_scheme": "scheme-1"
           }
         },
-        "slide_J7qtdN": {
+        "slide_dBYwWe": {
           "type": "slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/banner_default_5.webp",
-            "heading": "{  \"en\": \"Preserved Flowers\",  \"zh-CN\": \"永生花\"}",
+            "image": "shopify:\/\/shop_images\/banner_default_1.webp",
+            "heading": "{\"en\":\"Bloom With Love\",\"zh-CN\":\"为爱绽放\"}",
             "heading_size": "h1",
-            "subheading": "{\n  \"en\": \"Long-lasting preserved flowers that stay beautiful for years. No watering needed, a timeless gift for her.\",\n  \"zh-CN\": \"可长久保存的永生花，美丽绽放数年。无需浇水，送给她的永恒礼物。\"\n}",
-            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
+            "subheading": "{\"en\":\"Let love spread in fragrance\",\"zh-CN\":\"让爱在花香中蔓延\"}",
+            "button_label": "{\"en\":\"View More\",\"zh-CN\":\"查看更多\"}",
             "link": "shopify:\/\/collections\/forever",
             "color_scheme": "scheme-1"
           }
         },
-        "slide_gBcyXF": {
+        "slide_fwPndz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner_default_5.webp",
+            "heading": "{\"en\":\"Fresh Bouquets\",\"zh-CN\":\"新鲜花束\"}",
+            "heading_size": "h1",
+            "subheading": "{\"en\":\"Handpicked & beautifully arranged\",\"zh-CN\":\"精心挑选，匠心包装\"}",
+            "button_label": "{\"en\":\"Order Now\",\"zh-CN\":\"马上预订\"}",
+            "link": "shopify:\/\/products\/garden-of-happiness",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_CH6BRD": {
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_4.webp",
-            "heading": "{  \"en\": \"Birthday Flowers & Gifts\",  \"zh-CN\": \"生日鲜花与礼品\"}",
+            "heading": "{\"en\":\"Feel The Romance\",\"zh-CN\":\"感受浪漫\"}",
             "heading_size": "h1",
-            "subheading": "{\n  \"en\": \"Beautiful birthday flower arrangements to surprise your loved ones. Make their day unforgettable with fresh blooms.\",\n  \"zh-CN\": \"精美的生日花艺布置，为你珍视的人制造惊喜。用新鲜鲜花，让他们的这天格外难忘。\"\n}",
-            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
-            "link": "",
+            "subheading": "{\"en\":\"Best gift for the one you love\",\"zh-CN\":\"送给心爱之人最好的礼物\"}",
+            "button_label": "{\"en\":\"Buy Now\",\"zh-CN\":\"立即购买\"}",
+            "link": "shopify:\/\/products\/pepsi-pink-rose-perfume-lily-plus",
             "color_scheme": "scheme-1"
           }
         },
-        "slide_fEg7jU": {
+        "slide_fJQyJ8": {
           "type": "slide",
           "settings": {
             "image": "shopify:\/\/shop_images\/banner_default_2.webp",
-            "heading": "{\"en\": \"Romantic Flower\",  \"zh-CN\": \"浪漫鲜花\"}",
+            "heading": "{\"en\":\"Flowers For You\",\"zh-CN\":\"鲜花予你\"}",
             "heading_size": "h1",
-            "subheading": "{\n  \"en\": \"Come and experience this romance\",\n  \"zh-CN\": \"来感受这份浪漫\"\n}",
-            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
-            "link": "shopify:\/\/products\/beautiful-and-warm-flower-hug-bucket",
-            "color_scheme": "scheme-1"
-          }
-        },
-        "slide_aE3KQN": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/banner_default_1.webp",
-            "heading": "{\"en\": \"Valentine's Day\",  \"zh-CN\": \"情人节\"}",
-            "heading_size": "h1",
-            "subheading": "{\n  \"en\": \"Let love spread in the fragrance of flowers\",\n  \"zh-CN\": \"让爱在花香中蔓延\"\n}",
-            "button_label": "{\n  \"en\": \"Shop Now\",\n  \"zh-CN\": \"立即购买\"\n}",
-            "link": "shopify:\/\/products\/korean-series-gentle-waiting",
+            "subheading": "{\"en\":\"Blooms that speak your heart\",\"zh-CN\":\"用花朵诉说你的心意\"}",
+            "button_label": "{\"en\":\"Explore\",\"zh-CN\":\"开始挑选\"}",
+            "link": "shopify:\/\/collections\/love-flowers-collection",
             "color_scheme": "scheme-1"
           }
         }
       },
       "block_order": [
-        "slide_aFzT87",
-        "slide_J7qtdN",
-        "slide_gBcyXF",
-        "slide_fEg7jU",
-        "slide_aE3KQN"
+        "slide_pHnVzN",
+        "slide_dBYwWe",
+        "slide_fwPndz",
+        "slide_CH6BRD",
+        "slide_fJQyJ8"
       ],
       "settings": {
         "image_behavior": "ambient",
@@ -103,41 +103,44 @@
         "holiday_background": "linear-gradient(325deg, rgba(255, 169, 169, 1) 44%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 100%)"
       }
     },
-    "featured-collection": {
+    "featured_collection_JewAEH": {
       "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.collection.name",
       "settings": {
-        "title": "Love Flowers",
-        "heading_size": "h2",
-        "description": "<p>Send someone who makes your heart skip a beat<\/p>",
+        "title": "{\"en\":\"Our Bestsellers\",\"zh-CN\":\"人气爆款\"}",
+        "heading_size": "h1",
+        "description": "{\"en\":\"Most loved by our customers\",\"zh-CN\":\"顾客最爱的热销款式\"}",
         "description_style": "body",
-        "collection": "love-flowers-collection",
-        "products_to_show": 10,
+        "collection": "forever",
+        "products_to_show": 4,
         "show_wrap": true,
         "color_scheme": ""
       }
     },
-    "featured_collection_VmFyYh": {
+    "featured_collection_xjqtFj": {
       "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.collection.name",
       "settings": {
-        "title": "Forever Flower",
+        "title": "{\"en\":\"Fresh Arrangements\",\"zh-CN\":\"新鲜花艺\"}",
         "heading_size": "h1",
-        "description": "<p>Promise her a lifetime<\/p>",
+        "description": "{\"en\":\"Beautiful designs for every occasion\",\"zh-CN\":\"适用于各种浪漫场合\"}",
         "description_style": "body",
-        "collection": "forever",
+        "collection": "love-flowers-collection",
         "products_to_show": 8,
         "show_wrap": false,
-        "color_scheme": "scheme-1"
+        "color_scheme": ""
       }
     },
-    "featured_collection_BHXhbj": {
+    "featured_collection_mbTPMi": {
       "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.collection.name",
       "settings": {
-        "title": "lover",
+        "title": "{\"en\":\"Romantic Bouquets\",\"zh-CN\":\"浪漫花礼\"}",
         "heading_size": "h1",
-        "description": "<p>lover flower<\/p>",
+        "description": "{\"en\":\"Perfect for love and surprises\",\"zh-CN\":\"传递爱意与惊喜\"}",
         "description_style": "body",
         "collection": "lover",
-        "products_to_show": 8,
+        "products_to_show": 10,
         "show_wrap": false,
         "color_scheme": ""
       }
@@ -151,7 +154,7 @@
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,
-        "enable_language_selector": true,
+        "enable_language_selector": false,
         "payment_enable": true,
         "show_policy": true,
         "margin_top": 0,
@@ -163,9 +166,9 @@
   "order": [
     "banner",
     "holiday_theme_UCfffm",
-    "featured-collection",
-    "featured_collection_VmFyYh",
-    "featured_collection_BHXhbj",
+    "featured_collection_JewAEH",
+    "featured_collection_xjqtFj",
+    "featured_collection_mbTPMi",
     "footer"
   ]
 }

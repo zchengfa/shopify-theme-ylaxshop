@@ -1,101 +1,195 @@
 {% style %}
-.FAQ-content{
+    .FAQ-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     padding: {{ section.settings.padding | append:'rem' }};
     font-family: var(--self_font), serif;
-}
-.FAQ-item{
-    margin-bottom: 1rem;
-    padding-right: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1.2rem;
+    }
+
+    .FAQ-item {
     width: {{ section.settings.FAQ_item_width | append:'%' }};
-}
-.FAQ-question{
-    margin-bottom: .5rem;
-    font-weight: bolder;
-    font-size: 1.2rem;
-}
-.FAQ-answer{
-    line-height: 1.5rem;
-}
-@media screen and (max-width: 500px) {
-    .FAQ-item{
-        padding-right: 0;
-        width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(216, 133, 155, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     }
-}
-@media screen and (max-width: 750px) {
-    .FAQ-item{
-        padding-right: 0;
-        width: 80%;
+
+    .FAQ-item:hover {
+    box-shadow: 0 12px 32px rgba(216, 133, 155, 0.13);
+    transform: translateY(-3px);
     }
-}
+
+    .FAQ-question {
+    margin: 0;
+    padding: 1.5rem 1.8rem;
+    font-weight: 600;
+    font-size: 1.12rem;
+    cursor: pointer;
+    position: relative;
+    color: #3d3d3d;
+    user-select: none;
+    transition: color 0.2s ease;
+    }
+
+    .FAQ-question:hover {
+    color: #d8859b;
+    }
+
+    .FAQ-question::after {
+    content: "+";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #d8859b;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .FAQ-question.active::after {
+    content: "−";
+    transform: translateY(-50%) rotate(180deg);
+    }
+
+    .FAQ-answer {
+    padding: 0 1.8rem;
+    line-height: 1.75rem;
+    color: #666;
+    height: 0;
+    overflow: hidden;
+    font-size: 1rem;
+    transition: height 0.4s ease; /* 更自然的动画时长 */
+    }
+
+    @media screen and (max-width: 750px) {
+    .FAQ-item {
+    width: 92% !important;
+    }
+    }
+
+    @media screen and (max-width: 500px) {
+    .FAQ-item {
+    width: 100% !important;
+    }
+    .FAQ-question,
+    .FAQ-answer {
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    }
+    }
 {% endstyle %}
 
 {% if section.blocks.size > 0 %}
     <div class="FAQ-content">
         {% for block in section.blocks %}
             <div class="FAQ-item">
-                <h5 class="FAQ-question">{{ block.settings.question }}</h5>
-                <span class="FAQ-answer">{{ block.settings.answer }}</span>
-            </div>
-        {% endfor %}    
-    </div>
-{% endif %}    
+                <multi-lang
+                        data-lang="{{ request.locale.iso_code }}"
+                        data-target-class="FAQ-question"
+                        data-json="{{ block.settings.question | escape }}">
+                    <h5 class="FAQ-question"></h5>
+                </multi-lang>
 
+                <multi-lang
+                        data-lang="{{ request.locale.iso_code }}"
+                        data-target-class="FAQ-answer"
+                        data-json="{{ block.settings.answer | escape }}">
+                    <div class="FAQ-answer"></div>
+                </multi-lang>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(() => {
+                const faqQuestions = document.querySelectorAll('.FAQ-question');
+                const paddingBottom = parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.6;
+
+                faqQuestions.forEach(q => {
+                    const ans = q.closest('.FAQ-item').querySelector('.FAQ-answer');
+                    ans.style.height = 'auto';
+                    const answerHeight = ans.scrollHeight + paddingBottom + 'px';
+                    ans.style.height = '0';
+
+                    q.addEventListener('click', function () {
+                        this.classList.toggle('active');
+                        const isShow = ans.classList.toggle('show');
+
+                        // JS 控制高度，实现流畅过渡
+                        if (isShow) {
+                            ans.style.height = answerHeight;
+                        } else {
+                            ans.style.height = '0';
+                        }
+                    });
+                });
+            }, 300);
+        });
+    </script>
+{% endif %}
 
 {% schema %}
 {
-    "name":"t:sections.FAQ.name",
-    "blocks": [
+  "name":"t:sections.FAQ.name",
+  "blocks": [
+    {
+      "type": "faq",
+      "name":"t:sections.FAQ.blocks.question.name",
+      "settings": [
         {
-            "type": "text",
-            "name":"t:sections.FAQ.blocks.question.name",
-            "settings": [
-                {
-                    "type": "text",
-                    "id": "question",
-                    "label": "t:sections.FAQ.blocks.question.settings.FAQ_q.label",
-                    "default": "question"
-                },
-                {
-                    "type": "text",
-                    "id": "answer",
-                    "label": "t:sections.FAQ.blocks.question.settings.FAQ_a.label",
-                    "default": "answer"
-                }
-            ]
-        }
-    ],
-    "settings": [
-        {
-            "type": "range",
-            "id": "padding",
-            "default": 1,
-            "step": 1,
-            "min": 1,
-            "max": 10,
-            "label": "t:sections.FAQ.settings.padding.label",
-            "unit": "rem"
+          "type": "textarea",
+          "id": "question",
+          "label": "t:sections.FAQ.blocks.question.settings.FAQ_q.label",
+          "info": "t:sections.FAQ.blocks.question.settings.FAQ_q.info",
+          "default": "{'en':'question','zh':'问题'}"
         },
         {
-            "type": "range",
-            "id": "FAQ_item_width",
-            "default": 60,
-            "step": 10,
-            "min": 10,
-            "max": 100,
-            "label": "t:sections.FAQ.settings.FAQ_item_width.label",
-            "unit": "%"
+          "type": "textarea",
+          "id": "answer",
+          "label": "t:sections.FAQ.blocks.question.settings.FAQ_a.label",
+          "info": "t:sections.FAQ.blocks.question.settings.FAQ_a.info",
+          "default": "{'en':'answer','zh':'回答'}"
         }
-    ]
-
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding",
+      "default": 2,
+      "step": 1,
+      "min": 1,
+      "max": 10,
+      "label": "t:sections.FAQ.settings.padding.label",
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "FAQ_item_width",
+      "default": 75,
+      "step": 5,
+      "min": 10,
+      "max": 100,
+      "label": "t:sections.FAQ.settings.FAQ_item_width.label",
+      "unit": "%"
+    }
+  ]
 }
-
 {% endschema %}
-
-
-
-

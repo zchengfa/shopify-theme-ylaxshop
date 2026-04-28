@@ -1238,10 +1238,12 @@
           "name": "问题",
           "settings": {
             "FAQ_q": {
-              "label": "问题"
+              "label": "问题",
+              "info": "Set多语言，例如使用双引号：{'en':'question','zh-CN':'问题'}'"
             },
             "FAQ_a": {
-              "label": "回答"
+              "label": "回答",
+              "info": "Set多语言，例如使用双引号：{'en':'answer','zh-CN':'回答'}'"
             }
           }
         }
